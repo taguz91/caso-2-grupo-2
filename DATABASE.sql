@@ -197,8 +197,3 @@ ALTER TABLE
   ticket
 ADD
   CONSTRAINT "impacto_fk_ticket" FOREIGN KEY ("impacto_id") REFERENCES parametros(parametros_id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-ALTER TABLE
-  ticket
-ADD
-  CONSTRAINT "catalogo_fk_ticket" FOREIGN KEY ("catalogo_id") REFERENCES parametros(parametros_id) ON UPDATE CASCADE ON DELETE CASCADE;
