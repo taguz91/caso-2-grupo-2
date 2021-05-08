@@ -6,8 +6,6 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
@@ -25,7 +23,6 @@ public class Parametros extends Globals implements Serializable {
 	private static final long serialVersionUID = 1825526025210400550L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "parametros_id", nullable = false)
 	private Long parametros_id;
 
@@ -34,6 +31,9 @@ public class Parametros extends Globals implements Serializable {
 
 	@Column(name = "nombre", nullable = false, length = 255)
 	private String nombre;
+
+	@Column(name = "descripcion", nullable = false, columnDefinition = "TEXT", length = 1024)
+	private String descripcion;
 
 	@JsonManagedReference(value = "rf_estado_parametro")
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "estado")
@@ -65,6 +65,14 @@ public class Parametros extends Globals implements Serializable {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
 	}
 
 	public static long getSerialversionuid() {
