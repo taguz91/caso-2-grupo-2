@@ -1,5 +1,5 @@
 package com.tecazuay.example.restapi.models;
 
-public class Ticket {
+public class Ticket extends Globals {
 
 }
