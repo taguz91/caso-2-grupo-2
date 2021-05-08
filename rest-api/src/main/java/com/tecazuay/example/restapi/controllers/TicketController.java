@@ -36,7 +36,7 @@ public class TicketController {
 	}
 
 	@PostMapping("/save")
-	public Ticket save(@Valid @RequestBody RegisterTicketParam registerTicket) throws Exception {
+	public Ticket save(@Valid @RequestBody RegisterTicketParam registerTicket) {
 		return ticketService.createTicket(registerTicket);
 	}
 
