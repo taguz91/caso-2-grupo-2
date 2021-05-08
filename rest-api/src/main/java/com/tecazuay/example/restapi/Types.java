@@ -11,4 +11,6 @@ public abstract class Types {
 	public final static int PARAMETROS_TIPO_SERVICIOS = 4;
 
 	public final static int PARAMETROS_MEDIOS_COMUNICACION = 5;
+
+	public final static long PARAMETROS_ESTADO_ABIERTO = 9;
 }
