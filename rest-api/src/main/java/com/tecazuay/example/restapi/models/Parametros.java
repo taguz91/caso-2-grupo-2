@@ -1,14 +1,19 @@
 package com.tecazuay.example.restapi.models;
 
 import java.io.Serializable;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.Where;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Where(clause = "is_deleted = false")
 @Entity(name = "parametros")
@@ -29,6 +34,14 @@ public class Parametros extends Globals implements Serializable {
 
 	@Column(name = "nombre", nullable = false, length = 255)
 	private String nombre;
+
+	@JsonManagedReference(value = "rf_estado_parametro")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "estado")
+	private List<Ticket> ticketsEstado;
+
+	@JsonManagedReference(value = "rf_impacto_parametro")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "impacto")
+	private List<Ticket> ticketsImpacto;
 
 	public Long getParametros_id() {
 		return parametros_id;
@@ -56,6 +69,22 @@ public class Parametros extends Globals implements Serializable {
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+
+	public List<Ticket> getTicketsEstado() {
+		return ticketsEstado;
+	}
+
+	public void setTicketsEstado(List<Ticket> ticketsEstado) {
+		this.ticketsEstado = ticketsEstado;
+	}
+
+	public List<Ticket> getTicketsImpacto() {
+		return ticketsImpacto;
+	}
+
+	public void setTicketsImpacto(List<Ticket> ticketsImpacto) {
+		this.ticketsImpacto = ticketsImpacto;
 	}
 
 }

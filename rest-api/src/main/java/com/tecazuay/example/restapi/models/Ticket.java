@@ -4,11 +4,16 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.Where;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Where(clause = "is_deleted = false")
 @Entity(name = "ticket")
@@ -32,6 +37,16 @@ public class Ticket extends Globals implements Serializable {
 
 	@Column(name = "solucion", nullable = false)
 	private String solucion;
+
+	@JsonBackReference(value = "rf_estado_parametro")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "estado_id", nullable = false)
+	private Parametros estado;
+
+	@JsonBackReference(value = "rf_impacto_parametro")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "impacto_id", nullable = false)
+	private Parametros impacto;
 
 	public Long getTicket_id() {
 		return ticket_id;
@@ -67,6 +82,22 @@ public class Ticket extends Globals implements Serializable {
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+
+	public Parametros getEstado() {
+		return estado;
+	}
+
+	public void setEstado(Parametros estado) {
+		this.estado = estado;
+	}
+
+	public Parametros getImpacto() {
+		return impacto;
+	}
+
+	public void setImpacto(Parametros impacto) {
+		this.impacto = impacto;
 	}
 
 }
