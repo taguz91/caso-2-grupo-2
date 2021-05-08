@@ -23,7 +23,7 @@ public class Globals {
 	@Column(name = "updated_by", nullable = true)
 	private Long updatedBy;
 
-	@Column(name = "prod_activo", columnDefinition = "BOOLEAN DEFAULT  'false' ")
+	@Column(name = "is_deleted", columnDefinition = "BOOLEAN DEFAULT  'false' ")
 	private boolean isDeleted;
 
 	public LocalDateTime getCreatedAt() {
