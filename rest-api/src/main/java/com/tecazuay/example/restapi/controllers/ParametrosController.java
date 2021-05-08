@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.tecazuay.example.restapi.Types;
 import com.tecazuay.example.restapi.definitions.ParametrosResponse;
 import com.tecazuay.example.restapi.models.Parametros;
 import com.tecazuay.example.restapi.repositories.ParametrosRepository;
@@ -19,7 +20,7 @@ public class ParametrosController {
 	@Autowired
 	private ParametrosRepository parametrosRepository;
 
-	@GetMapping({"/", "", "/all"})
+	@GetMapping({ "/", "", "/all" })
 	public List<Parametros> getAll() {
 		return parametrosRepository.findAll();
 	}
@@ -28,9 +29,24 @@ public class ParametrosController {
 	public List<Parametros> getByType(@PathVariable int type) {
 		return parametrosRepository.findAllByType(type);
 	}
-	
+
 	@GetMapping("/impacto")
 	public List<ParametrosResponse> getImpactos() {
-		return parametrosRepository.findParametrosByType(1);
+		return parametrosRepository.findParametrosByType(Types.PARAMETROS_IMPACTO);
+	}
+
+	@GetMapping("/nivel-prioridad")
+	public List<ParametrosResponse> getNivelPrioridad() {
+		return parametrosRepository.findParametrosByType(Types.PARAMETROS_NIVEL_PRIORIDAD);
+	}
+
+	@GetMapping("/estados")
+	public List<ParametrosResponse> getEstados() {
+		return parametrosRepository.findParametrosByType(Types.PARAMETROS_ESTADOS);
+	}
+
+	@GetMapping("/tipo-servicios")
+	public List<ParametrosResponse> getTiposServicios() {
+		return parametrosRepository.findParametrosByType(Types.PARAMETROS_TIPO_SERVICIOS);
 	}
 }
