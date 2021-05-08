@@ -35,7 +35,7 @@ public class Ticket extends Globals implements Serializable {
 	@Column(name = "descripcion", nullable = false)
 	private String descripcion;
 
-	@Column(name = "solucion", nullable = false)
+	@Column(name = "solucion", nullable = true)
 	private String solucion;
 
 	@JsonBackReference(value = "rf_estado_parametro")
