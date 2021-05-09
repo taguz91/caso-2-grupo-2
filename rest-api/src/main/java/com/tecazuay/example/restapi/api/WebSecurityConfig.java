@@ -40,6 +40,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.authorizeRequests()
 			.antMatchers(HttpMethod.POST, "/user/login")
 			.permitAll()
+			.antMatchers(HttpMethod.POST, "/usuarios/login/admin")
+			.permitAll()
 			.antMatchers("/api/v1/parametros/**")
 			.permitAll()
 			.antMatchers("/api/v1/ticket/**")

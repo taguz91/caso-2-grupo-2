@@ -555,6 +555,28 @@ WHERE
 UPDATE
   roles
 SET
+  nombre = 'Usuario'
+WHERE
+  rol_id = 3;
+
+INSERT INTO
+  roles (rol_id, nombre)
+SELECT
+  3,
+  'Usuario'
+WHERE
+  NOT EXISTS (
+    SELECT
+      1
+    FROM
+      roles
+    WHERE
+      rol_id = 3
+  );
+
+UPDATE
+  roles
+SET
   nombre = 'Coordinador'
 WHERE
   rol_id = 4;
@@ -616,4 +638,46 @@ WHERE
       roles
     WHERE
       rol_id = 6
+  );
+
+-- Insert the developers 
+UPDATE
+  public.usuarios
+SET
+  usuario_id = 1,
+  apellidos = 'Johnny',
+  correo = 'jhonny.garcia.est@tecazuay.edu.ec',
+  nombres = 'Johnny',
+  password = '1234',
+  telefono = '0968696010',
+  rol_id = 1
+WHERE
+  correo = 'jhonny.garcia.est@tecazuay.edu.ec';
+
+INSERT INTO
+  public.usuarios(
+    usuario_id,
+    apellidos,
+    correo,
+    nombres,
+    password,
+    telefono,
+    rol_id
+  )
+SELECT
+  1,
+  'Garcia',
+  'jhonny.garcia.est@tecazuay.edu.ec',
+  'Johnny',
+  '1234',
+  '0968796010',
+  1
+WHERE
+  NOT EXISTS (
+    SELECT
+      1
+    FROM
+      public.usuarios
+    WHERE
+      correo = 'jhonny.garcia.est@tecazuay.edu.ec'
   );
