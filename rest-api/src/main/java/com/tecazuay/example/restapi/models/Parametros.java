@@ -11,7 +11,7 @@ import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.Where;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Where(clause = "is_deleted = false")
 @Entity(name = "parametros")
@@ -35,11 +35,11 @@ public class Parametros extends Globals implements Serializable {
 	@Column(name = "descripcion", nullable = false, columnDefinition = "TEXT", length = 1024)
 	private String descripcion;
 
-	@JsonManagedReference(value = "rf_estado_parametro")
+	@JsonBackReference(value = "rf_estado_parametro")
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "estado")
 	private List<Ticket> ticketsEstado;
 
-	@JsonManagedReference(value = "rf_impacto_parametro")
+	@JsonBackReference(value = "rf_impacto_parametro")
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "impacto")
 	private List<Ticket> ticketsImpacto;
 
