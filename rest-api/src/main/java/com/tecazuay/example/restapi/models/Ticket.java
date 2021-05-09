@@ -53,7 +53,7 @@ public class Ticket extends Globals implements Serializable {
 	private Parametros impacto;
 	
 	@JsonManagedReference(value = "rf_historial_ticket")
-	@OneToMany (cascade = CascadeType.ALL, mappedBy = "historial")
+	@OneToMany (cascade = CascadeType.ALL, mappedBy = "ticket")
 	private List<Historial> listaHistorial; 
 
 	@JsonManagedReference(value = "rf_ticket_encuesta_satisfaccion")

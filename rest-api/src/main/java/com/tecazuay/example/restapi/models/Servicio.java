@@ -37,7 +37,7 @@ public class Servicio extends Globals implements Serializable {
 	private Categoria categoria;
 
 	@JsonManagedReference(value = "rf_catalogo_servicio")
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "ticket")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "servicio")
 	private List<Catalogo> listaCatalogos;
 
 	public Long getServicio_id() {
