@@ -51,6 +51,10 @@ public class Ticket extends Globals implements Serializable {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "impacto_id", nullable = false)
 	private Parametros impacto;
+	
+	@JsonManagedReference(value = "rf_historial_ticket")
+	@OneToMany (cascade = CascadeType.ALL, mappedBy = "historial")
+	private List<Historial> listaHistorial; 
 
 	@JsonManagedReference(value = "rf_ticket_encuesta_satisfaccion")
 	@OneToOne(cascade = CascadeType.ALL, mappedBy = "ticket")
@@ -112,6 +116,15 @@ public class Ticket extends Globals implements Serializable {
 		this.impacto = impacto;
 	}
 
+
+	public List<Historial> getListaHistorial() {
+		return this.listaHistorial;
+	}
+
+	public void setListaHistorial(List<Historial> listaHistorial) {
+		this.listaHistorial = listaHistorial;
+	}
+	
 	public EncuestaSatisfacion getEncuesta() {
 		return encuesta;
 	}

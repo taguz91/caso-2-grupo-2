@@ -43,6 +43,7 @@ public class Parametros extends Globals implements Serializable {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "impacto")
 	private List<Ticket> ticketsImpacto;
 
+	
 	@JsonBackReference(value = "rf_medio_comunicacion_parametro")
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "medio")
 	private List<MedioComunicacion> mediosComunicacion;

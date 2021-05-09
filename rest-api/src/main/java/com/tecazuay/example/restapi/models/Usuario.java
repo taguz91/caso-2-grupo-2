@@ -40,10 +40,10 @@ public class Usuario extends Globals implements Serializable {
 	@Column(nullable = false, length = 20)
 	private String password;
 
-	@Column(nullable = false, length = 100)
+	@Column(nullable = true, length = 100)
 	private String token;
 
-	@Column(nullable = false, length = 15)
+	@Column(nullable = true, length = 15)
 	private String telefono;
 
 	@JsonManagedReference(value = "rf_usuario_rol")
@@ -52,6 +52,14 @@ public class Usuario extends Globals implements Serializable {
 	private Rol rol;
 
 	public Usuario() {
+	}
+
+	public Usuario(int personaId, String nombres, String apellidos, String correo, String password) {
+		this.personaId = personaId;
+		this.nombres = nombres;
+		this.apellidos = apellidos;
+		this.correo = correo;
+		this.password = password;
 	}
 
 	public Usuario(int personaId, String nombres, String apellidos, String correo, String password, String token,
