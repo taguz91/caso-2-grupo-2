@@ -12,7 +12,7 @@ import org.hibernate.annotations.Where;
 
 @Where(clause = "is_deleted = false")
 @Entity(name = "medioComunicacion")
-public class medioComunicacion extends Globals implements Serializable {
+public class MedioComunicacion extends Globals implements Serializable {
 
 	/**
 	 * 
