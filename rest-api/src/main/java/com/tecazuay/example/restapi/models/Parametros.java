@@ -43,6 +43,8 @@ public class Parametros extends Globals implements Serializable {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "impacto")
 	private List<Ticket> ticketsImpacto;
 
+	
+
 	public Long getParametros_id() {
 		return parametros_id;
 	}

@@ -26,7 +26,8 @@ public class Servicio extends Globals implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "categoria_id", nullable = false)
     private Categoria categoria;
-
+    //relacion con catalogo
+    private List<Catalogo> listaCatalogos; 
     public Long getServicio_id() {
         return servicio_id;
     }
@@ -50,5 +51,15 @@ public class Servicio extends Globals implements Serializable {
     public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
     }
+
+
+    public List<Catalogo> getListaCatalogos() {
+        return this.listaCatalogos;
+    }
+
+    public void setListaCatalogos(List<Catalogo> listaCatalogos) {
+        this.listaCatalogos = listaCatalogos;
+    }
+   
 
 }
