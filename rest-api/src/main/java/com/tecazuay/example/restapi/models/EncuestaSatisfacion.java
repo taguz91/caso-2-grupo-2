@@ -1,70 +1,73 @@
 package com.tecazuay.example.restapi.models;
 
 import java.io.Serializable;
-import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import org.hibernate.annotations.Where;
 
-@Where(clause="is_deleted = false")
-@Entity(name = "encuestasatisfaccion")
-public class EncuestaSatisfacion extends Globals implements Serializable{
-    
-    private static final long serialVersionUID = 1825526025210400550L;
+@Where(clause = "is_deleted = false")
+@Entity(name = "encuesta_satisfaccion")
+public class EncuestaSatisfacion extends Globals implements Serializable {
 
+	private static final long serialVersionUID = 1825526025210400550L;
 
-    @Id
-    @Column(name = "encuesta_id",nullable = false)
-    private Long encuesta_id;
-    
-    @Column(name = "calificacion", nullable = false, length = 10)
-    private String calificacion;
+	@Id
+	@Column(name = "encuesta_id", nullable = false)
+	private Long encuesta_id;
 
-    @Column(name = "comentario", nullable = false, length = 255)
-    private String comentario;
+	@Column(name = "calificacion", nullable = false)
+	private int calificacion;
 
-    @JsonManagedReference(value = "rf_ticket_id")
-    @OneToMany(cascade = CascadeType.ALL, mappedBy ="ticket")
-    private List<Ticket> ticketencuesta;
+	@Column(name = "comentario", nullable = false, length = 255)
+	private String comentario;
 
+	@JsonBackReference(value = "rf_ticket_encuesta_satisfaccion")
+	@JoinColumn(name = "ticket_id", nullable = false)
+	@OneToOne(cascade = CascadeType.ALL)
+	private Ticket ticket;
 
-    public Long getEncuesta_id() {
-        return this.encuesta_id;
-    }
+	public Long getEncuesta_id() {
+		return this.encuesta_id;
+	}
 
-    public void setEncuesta_id(Long encuesta_id) {
-        this.encuesta_id = encuesta_id;
-    }
+	public void setEncuesta_id(Long encuesta_id) {
+		this.encuesta_id = encuesta_id;
+	}
 
-    public String getCalificacion() {
-        return this.calificacion;
-    }
+	public String getComentario() {
+		return this.comentario;
+	}
 
-    public void setCalificacion(String calificacion) {
-        this.calificacion = calificacion;
-    }
+	public void setComentario(String comentario) {
+		this.comentario = comentario;
+	}
 
-    public String getComentario() {
-        return this.comentario;
-    }
+	public int getCalificacion() {
+		return calificacion;
+	}
 
-    public void setComentario(String comentario) {
-        this.comentario = comentario;
-    }
+	public void setCalificacion(int calificacion) {
+		this.calificacion = calificacion;
+	}
 
-    public List<Ticket> getTicketencuesta() {
-        return this.ticketencuesta;
-    }
+	public Ticket getTicket() {
+		return ticket;
+	}
 
-    public void setTicketencuesta(List<Ticket> ticketencuesta) {
-        this.ticketencuesta = ticketencuesta;
-    }
+	public void setTicket(Ticket ticket) {
+		this.ticket = ticket;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 
 }

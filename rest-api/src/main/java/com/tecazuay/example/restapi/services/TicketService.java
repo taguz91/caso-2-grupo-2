@@ -7,7 +7,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import com.tecazuay.example.restapi.Types;
+import com.tecazuay.example.restapi.api.exception.ResourceNotFoundException;
 import com.tecazuay.example.restapi.api.params.RegisterTicketParam;
+import com.tecazuay.example.restapi.models.Parametros;
 import com.tecazuay.example.restapi.models.Ticket;
 import com.tecazuay.example.restapi.repositories.ParametrosRepository;
 import com.tecazuay.example.restapi.repositories.TicketRepository;
@@ -25,14 +27,15 @@ public class TicketService {
 		this.parametrosRepository = parametrosRepository;
 	}
 
-	public Ticket createTicket(@Valid RegisterTicketParam registerTicket) throws Exception {
-		if (registerTicket == null) {
-			throw new Exception("Send the correct data for register the user.");
-		}
+	public Ticket createTicket(@Valid RegisterTicketParam registerTicket) {
+		Parametros impacto = parametrosRepository.findById(registerTicket.getImpactoId())
+//					.orElseThrow(ResourceNotFoundException::new);
+				.orElseThrow(() -> new ResourceNotFoundException("The impacto not found, provide a correct id."));
+		
 		Ticket ticket = new Ticket();
 		ticket.setTitulo(registerTicket.getTitulo());
 		ticket.setDescripcion(registerTicket.getDescripcion());
-		ticket.setImpacto(parametrosRepository.findById(registerTicket.getImpactoId()).get());
+		ticket.setImpacto(impacto);
 		ticket.setEstado(parametrosRepository.findById(Types.PARAMETROS_ESTADO_ABIERTO).get());
 		return ticketRepository.save(ticket);
 	}
