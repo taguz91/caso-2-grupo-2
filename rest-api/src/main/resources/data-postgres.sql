@@ -507,4 +507,113 @@ WHERE
       parametros_id = 19
   );
 
+-- Insert the roles 
+UPDATE
+  roles
+SET
+  nombre = 'Developer'
+WHERE
+  rol_id = 1;
 
+INSERT INTO
+  roles (rol_id, nombre)
+SELECT
+  1,
+  'Developer'
+WHERE
+  NOT EXISTS (
+    SELECT
+      1
+    FROM
+      roles
+    WHERE
+      rol_id = 1
+  );
+
+UPDATE
+  roles
+SET
+  nombre = 'Admin'
+WHERE
+  rol_id = 2;
+
+INSERT INTO
+  roles (rol_id, nombre)
+SELECT
+  2,
+  'Admin'
+WHERE
+  NOT EXISTS (
+    SELECT
+      1
+    FROM
+      roles
+    WHERE
+      rol_id = 2
+  );
+
+UPDATE
+  roles
+SET
+  nombre = 'Coordinador'
+WHERE
+  rol_id = 4;
+
+INSERT INTO
+  roles (rol_id, nombre)
+SELECT
+  4,
+  'Coordinador'
+WHERE
+  NOT EXISTS (
+    SELECT
+      1
+    FROM
+      roles
+    WHERE
+      rol_id = 4
+  );
+
+UPDATE
+  roles
+SET
+  nombre = 'Soporte N1'
+WHERE
+  rol_id = 5;
+
+INSERT INTO
+  roles (rol_id, nombre)
+SELECT
+  5,
+  'Soporte N1'
+WHERE
+  NOT EXISTS (
+    SELECT
+      1
+    FROM
+      roles
+    WHERE
+      rol_id = 5
+  );
+
+UPDATE
+  roles
+SET
+  nombre = 'Soporte N2'
+WHERE
+  rol_id = 6;
+
+INSERT INTO
+  roles (rol_id, nombre)
+SELECT
+  6,
+  'Soporte N2'
+WHERE
+  NOT EXISTS (
+    SELECT
+      1
+    FROM
+      roles
+    WHERE
+      rol_id = 6
+  );

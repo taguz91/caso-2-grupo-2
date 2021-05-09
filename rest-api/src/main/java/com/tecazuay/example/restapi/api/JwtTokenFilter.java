@@ -1,6 +1,7 @@
 package com.tecazuay.example.restapi.api;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.Optional;
 
 import javax.servlet.FilterChain;
@@ -9,9 +10,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import com.tecazuay.example.restapi.repositories.UsuarioRepository;
 import com.tecazuay.example.restapi.services.JwtService;
 
 public class JwtTokenFilter extends OncePerRequestFilter {
@@ -21,6 +25,9 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 	@Autowired
 	private JwtService jwtService;
 
+	@Autowired
+	private UsuarioRepository userRepository;
+
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
@@ -28,13 +35,15 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 		getTokenString(request.getHeader(header)).ifPresent(token -> {
 			jwtService.getSubFromToken(token).ifPresent(id -> {
 				if (SecurityContextHolder.getContext().getAuthentication() == null) {
-//					TODO: Implement methods with person
-//					userRepository.findById(id).ifPresent(user -> {
-//						UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
-//								user, null, Collections.emptyList());
-//						authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-//						SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-//					});
+					userRepository.findById(Integer.parseInt(id)).ifPresent(user -> {
+						UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
+								user, null, Collections.emptyList());
+						authenticationToken.setDetails(
+								new WebAuthenticationDetailsSource()
+								.buildDetails(request)
+						);
+						SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+					});
 				}
 			});
 		});
