@@ -17,28 +17,32 @@ public class Usuario extends Globals {
     @Column(name = "usuario_id")
     private int personaId;
 
+    @Column(nullable = false, length = 50)
     private String nombres;
-    private String apellidos;
+
+    @Column(nullable = false, length = 100)
     private String correo;
+
+    @Column(nullable = false, length = 30)
     private String password;
+
+    @Column(nullable = true, length = 30)
     private String token;
+
+    @Column(nullable = true, length = 15)
     private String telefono;
 
     @ManyToOne
-    @Column(name = "rol_id")
     private Rol rol;
 
     public Usuario() {
     }
 
-    public Usuario(int personaId, String nombres, String apellidos, String correo, String password, String token,
-            String telefono) {
+    public Usuario(int personaId, String nombres, String correo, String password, String telefono) {
         this.personaId = personaId;
         this.nombres = nombres;
-        this.apellidos = apellidos;
         this.correo = correo;
         this.password = password;
-        this.token = token;
         this.telefono = telefono;
     }
 
@@ -56,14 +60,6 @@ public class Usuario extends Globals {
 
     public void setNombres(String nombres) {
         this.nombres = nombres;
-    }
-
-    public String getApellidos() {
-        return apellidos;
-    }
-
-    public void setApellidos(String apellidos) {
-        this.apellidos = apellidos;
     }
 
     public String getCorreo() {
