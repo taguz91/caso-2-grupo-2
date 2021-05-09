@@ -10,52 +10,56 @@ import org.hibernate.annotations.Where;
 
 @Where(clause = "is_deleted = false")
 @Entity(name = "criticidad")
-public class Criticidad extends Globals implements Serializable{
-    
-    @Id
-    @Column(name = "criticidad_id", nullable = false)
-    private Long criticidad_id;
+public class Criticidad extends Globals implements Serializable {
 
-    @Column(name = "nombre", nullable = false, length = 25)
-    private String nombre;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1151690800275500962L;
 
-    @Column(name = "valor", nullable = false, length = 25)
-    private String valor;
+	@Id
+	@Column(name = "criticidad_id", nullable = false)
+	private Long criticidad_id;
 
-    @Column(name = "descripcion", nullable = false, length = 255)
-    private String descripcion;
+	@Column(name = "nombre", nullable = false, length = 25)
+	private String nombre;
 
+	@Column(name = "valor", nullable = false)
+	private double valor;
 
-    public Long getCriticidad_id() {
-        return this.criticidad_id;
-    }
+	@Column(name = "descripcion", nullable = false, length = 255)
+	private String descripcion;
 
-    public void setCriticidad_id(Long criticidad_id) {
-        this.criticidad_id = criticidad_id;
-    }
+	public Long getCriticidad_id() {
+		return this.criticidad_id;
+	}
 
-    public String getNombre() {
-        return this.nombre;
-    }
+	public void setCriticidad_id(Long criticidad_id) {
+		this.criticidad_id = criticidad_id;
+	}
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
+	public String getNombre() {
+		return this.nombre;
+	}
 
-    public String getValor() {
-        return this.valor;
-    }
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
 
-    public void setValor(String valor) {
-        this.valor = valor;
-    }
+	public double getValor() {
+		return valor;
+	}
 
-    public String getDescripcion() {
-        return this.descripcion;
-    }
+	public void setValor(double valor) {
+		this.valor = valor;
+	}
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
+	public String getDescripcion() {
+		return this.descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
 
 }

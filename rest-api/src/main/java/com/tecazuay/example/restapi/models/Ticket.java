@@ -1,7 +1,9 @@
 package com.tecazuay.example.restapi.models;
 
 import java.io.Serializable;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,6 +12,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import org.hibernate.annotations.Where;
 
@@ -22,8 +26,8 @@ public class Ticket extends Globals implements Serializable {
 	/**
 	 * 
 	 */
-	
 	private static final long serialVersionUID = 4356546281793282780L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ticket_id", nullable = false)
@@ -47,6 +51,14 @@ public class Ticket extends Globals implements Serializable {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "impacto_id", nullable = false)
 	private Parametros impacto;
+
+	@JsonManagedReference(value = "rf_ticket_encuesta_satisfaccion")
+	@OneToOne(cascade = CascadeType.ALL, mappedBy = "ticket")
+	private EncuestaSatisfacion encuesta;
+
+	@JsonManagedReference(value = "rf_adjunto_ticket")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "ticket")
+	private List<Adjunto> adjuntos;
 
 	public Long getTicket_id() {
 		return ticket_id;
@@ -98,6 +110,14 @@ public class Ticket extends Globals implements Serializable {
 
 	public void setImpacto(Parametros impacto) {
 		this.impacto = impacto;
+	}
+
+	public EncuestaSatisfacion getEncuesta() {
+		return encuesta;
+	}
+
+	public void setEncuesta(EncuestaSatisfacion encuesta) {
+		this.encuesta = encuesta;
 	}
 
 }

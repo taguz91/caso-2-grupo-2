@@ -49,4 +49,9 @@ public class ParametrosController {
 	public List<ParametrosResponse> getTiposServicios() {
 		return parametrosRepository.findParametrosByType(Types.PARAMETROS_TIPO_SERVICIOS);
 	}
+	
+	@GetMapping("/medios-comunicacion")
+	public List<ParametrosResponse> getMediosComunicacion() {
+		return parametrosRepository.findParametrosByType(Types.PARAMETROS_MEDIOS_COMUNICACION);
+	}
 }

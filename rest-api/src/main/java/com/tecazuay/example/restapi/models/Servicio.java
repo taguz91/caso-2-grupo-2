@@ -14,8 +14,12 @@ import javax.persistence.ManyToOne;
 @Entity(name = "servicio")
 public class Servicio extends Globals implements Serializable {
     
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -3052880119732342924L;
 
-    @Id
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "servicio_id", nullable = false)
     private Long servicio_id;
