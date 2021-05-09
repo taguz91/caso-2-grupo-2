@@ -11,7 +11,7 @@ import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.Where;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Where(clause = "is_deleted = false")
 @Entity(name = "parametros")
@@ -35,15 +35,26 @@ public class Parametros extends Globals implements Serializable {
 	@Column(name = "descripcion", nullable = false, columnDefinition = "TEXT", length = 1024)
 	private String descripcion;
 
-	@JsonManagedReference(value = "rf_estado_parametro")
+	@JsonBackReference(value = "rf_estado_parametro")
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "estado")
 	private List<Ticket> ticketsEstado;
 
-	@JsonManagedReference(value = "rf_impacto_parametro")
+	@JsonBackReference(value = "rf_impacto_parametro")
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "impacto")
 	private List<Ticket> ticketsImpacto;
 
 	
+	@JsonBackReference(value = "rf_medio_comunicacion_parametro")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "medio")
+	private List<MedioComunicacion> mediosComunicacion;
+
+	@JsonBackReference(value = "rf_sla_impacto_parametros")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "impacto")
+	private List<SLA> slaImpactos;
+
+	@JsonBackReference(value = "rf_sla_nivel_prioridad_parametros")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "nivelPrioridad")
+	private List<SLA> slaNivelPrioridad;
 
 	public Long getParametros_id() {
 		return parametros_id;
@@ -95,6 +106,30 @@ public class Parametros extends Globals implements Serializable {
 
 	public void setTicketsImpacto(List<Ticket> ticketsImpacto) {
 		this.ticketsImpacto = ticketsImpacto;
+	}
+
+	public List<MedioComunicacion> getMediosComunicacion() {
+		return mediosComunicacion;
+	}
+
+	public List<SLA> getSlaImpactos() {
+		return slaImpactos;
+	}
+
+	public void setSlaImpactos(List<SLA> slaImpactos) {
+		this.slaImpactos = slaImpactos;
+	}
+
+	public List<SLA> getSlaNivelPrioridad() {
+		return slaNivelPrioridad;
+	}
+
+	public void setSlaNivelPrioridad(List<SLA> slaNivelPrioridad) {
+		this.slaNivelPrioridad = slaNivelPrioridad;
+	}
+
+	public void setMediosComunicacion(List<MedioComunicacion> mediosComunicacion) {
+		this.mediosComunicacion = mediosComunicacion;
 	}
 
 }

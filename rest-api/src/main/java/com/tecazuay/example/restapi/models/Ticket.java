@@ -1,7 +1,9 @@
 package com.tecazuay.example.restapi.models;
 
 import java.io.Serializable;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,10 +12,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import org.hibernate.annotations.Where;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Where(clause = "is_deleted = false")
 @Entity(name = "ticket")
@@ -38,12 +42,12 @@ public class Ticket extends Globals implements Serializable {
 	@Column(name = "solucion", nullable = true)
 	private String solucion;
 
-	@JsonBackReference(value = "rf_estado_parametro")
+	@JsonManagedReference(value = "rf_estado_parametro")
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "estado_id", nullable = false)
 	private Parametros estado;
 
-	@JsonBackReference(value = "rf_impacto_parametro")
+	@JsonManagedReference(value = "rf_impacto_parametro")
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "impacto_id", nullable = false)
 	private Parametros impacto;
@@ -51,6 +55,14 @@ public class Ticket extends Globals implements Serializable {
 	@JsonBackReference(value = "rf_historial_ticket")
 	@OneToMany (cascade = CascadeType.ALL, mappedBy = "historial")
 	private List<Historial> listaHistorial; 
+
+	@JsonManagedReference(value = "rf_ticket_encuesta_satisfaccion")
+	@OneToOne(cascade = CascadeType.ALL, mappedBy = "ticket")
+	private EncuestaSatisfacion encuesta;
+
+	@JsonManagedReference(value = "rf_adjunto_ticket")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "ticket")
+	private List<Adjunto> adjuntos;
 
 	public Long getTicket_id() {
 		return ticket_id;
@@ -113,5 +125,12 @@ public class Ticket extends Globals implements Serializable {
 		this.listaHistorial = listaHistorial;
 	}
 	
+	public EncuestaSatisfacion getEncuesta() {
+		return encuesta;
+	}
+
+	public void setEncuesta(EncuestaSatisfacion encuesta) {
+		this.encuesta = encuesta;
+	}
 
 }
