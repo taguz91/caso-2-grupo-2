@@ -73,6 +73,11 @@ public class Ticket extends Globals implements Serializable {
 	@JoinColumn(name = "responsable_id", nullable = true)
 	private Usuario responsable;
 
+	@JsonManagedReference(value = "rf_ticket_usuario")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "usuario_id", nullable = false)
+	private Usuario usuario;
+
 	public Long getTicket_id() {
 		return ticket_id;
 	}
@@ -139,6 +144,38 @@ public class Ticket extends Globals implements Serializable {
 
 	public void setEncuesta(EncuestaSatisfacion encuesta) {
 		this.encuesta = encuesta;
+	}
+
+	public LocalDateTime getFechaSolucion() {
+		return fechaSolucion;
+	}
+
+	public void setFechaSolucion(LocalDateTime fechaSolucion) {
+		this.fechaSolucion = fechaSolucion;
+	}
+
+	public List<Adjunto> getAdjuntos() {
+		return adjuntos;
+	}
+
+	public void setAdjuntos(List<Adjunto> adjuntos) {
+		this.adjuntos = adjuntos;
+	}
+
+	public Usuario getResponsable() {
+		return responsable;
+	}
+
+	public void setResponsable(Usuario responsable) {
+		this.responsable = responsable;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 }

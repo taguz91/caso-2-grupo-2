@@ -1,5 +1,6 @@
 package com.tecazuay.example.restapi.models;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -7,13 +8,19 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
+
+import org.hibernate.annotations.Where;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
-@Entity
-@Table(name = "roles")
-public class Rol extends Globals {
+@Where(clause = "is_deleted = false")
+@Entity(name = "roles")
+public class Rol extends Globals implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 772546290575724873L;
 
 	@Id
 	@Column(name = "rol_id", nullable = false)
@@ -25,14 +32,6 @@ public class Rol extends Globals {
 	@JsonBackReference(value = "rf_usuario_rol")
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "rol")
 	private List<Usuario> usuarios;
-
-	public Rol() {
-	}
-
-	public Rol(int rolId, String nombre) {
-		this.rolId = rolId;
-		this.nombre = nombre;
-	}
 
 	public int getRolId() {
 		return rolId;
@@ -48,6 +47,18 @@ public class Rol extends Globals {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+
+	public List<Usuario> getUsuarios() {
+		return usuarios;
+	}
+
+	public void setUsuarios(List<Usuario> usuarios) {
+		this.usuarios = usuarios;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
 }

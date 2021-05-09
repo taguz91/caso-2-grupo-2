@@ -1,7 +1,9 @@
 package com.tecazuay.example.restapi.models;
 
 import java.io.Serializable;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,12 +12,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.OneToMany;
 
+import org.hibernate.annotations.Where;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-@Entity
-@Table(name = "usuarios")
+@Entity(name = "usuarios")
+@Where(clause = "is_deleted = false")
 public class Usuario extends Globals implements Serializable {
 
 	/**
@@ -26,7 +31,7 @@ public class Usuario extends Globals implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "usuario_id")
-	private int personaId;
+	private Long personaId;
 
 	@Column(nullable = false, length = 100)
 	private String nombres;
@@ -47,22 +52,25 @@ public class Usuario extends Globals implements Serializable {
 	private String telefono;
 
 	@JsonManagedReference(value = "rf_usuario_rol")
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "rol_id", nullable = false)
 	private Rol rol;
+
+	@JsonBackReference(value = "rf_ticket_usuario")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
+	private List<Ticket> tickets;
 
 	public Usuario() {
 	}
 
-	public Usuario(int personaId, String nombres, String apellidos, String correo, String password) {
-		this.personaId = personaId;
+	public Usuario(String nombres, String apellidos, String correo, String password) {
 		this.nombres = nombres;
 		this.apellidos = apellidos;
 		this.correo = correo;
 		this.password = password;
 	}
 
-	public Usuario(int personaId, String nombres, String apellidos, String correo, String password, String token,
+	public Usuario(Long personaId, String nombres, String apellidos, String correo, String password, String token,
 			String telefono) {
 		this.personaId = personaId;
 		this.nombres = nombres;
@@ -73,11 +81,11 @@ public class Usuario extends Globals implements Serializable {
 		this.telefono = telefono;
 	}
 
-	public int getPersonaId() {
+	public Long getPersonaId() {
 		return personaId;
 	}
 
-	public void setPersonaId(int personaId) {
+	public void setPersonaId(Long personaId) {
 		this.personaId = personaId;
 	}
 
@@ -135,5 +143,17 @@ public class Usuario extends Globals implements Serializable {
 
 	public void setRol(Rol rol) {
 		this.rol = rol;
+	}
+
+	public List<Ticket> getTickets() {
+		return tickets;
+	}
+
+	public void setTickets(List<Ticket> tickets) {
+		this.tickets = tickets;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 }

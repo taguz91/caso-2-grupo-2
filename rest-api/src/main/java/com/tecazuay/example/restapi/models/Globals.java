@@ -6,6 +6,13 @@ import javax.persistence.Column;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
+
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @MappedSuperclass
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -58,12 +65,32 @@ public class Globals {
 		this.updatedBy = updatedBy;
 	}
 
+	@JsonIgnore
 	public boolean isDeleted() {
 		return isDeleted;
 	}
 
 	public void setDeleted(boolean isDeleted) {
 		this.isDeleted = isDeleted;
+	}
+
+	@PrePersist
+	public void logAddUserCreate() {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		Object auth = authentication.getPrincipal();
+		if (auth instanceof Usuario) {
+			setCreatedBy(((Usuario) auth).getPersonaId());
+		}
+	}
+
+	@PreUpdate
+	public void logAddUserUpdate() {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		Object auth = authentication.getPrincipal();
+		if (auth instanceof Usuario) {
+			setUpdatedBy(((Usuario) auth).getPersonaId());
+		}
+		setUpdatedAt(LocalDateTime.now());
 	}
 
 }

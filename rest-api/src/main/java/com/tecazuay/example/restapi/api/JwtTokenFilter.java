@@ -35,13 +35,11 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 		getTokenString(request.getHeader(header)).ifPresent(token -> {
 			jwtService.getSubFromToken(token).ifPresent(id -> {
 				if (SecurityContextHolder.getContext().getAuthentication() == null) {
-					userRepository.findById(Integer.parseInt(id)).ifPresent(user -> {
+					userRepository.findById(Long.parseLong(id)).ifPresent(user -> {
+						System.out.println("Encontramos al usuario desde el token: " + user.getPersonaId());
 						UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
 								user, null, Collections.emptyList());
-						authenticationToken.setDetails(
-								new WebAuthenticationDetailsSource()
-								.buildDetails(request)
-						);
+						authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 						SecurityContextHolder.getContext().setAuthentication(authenticationToken);
 					});
 				}

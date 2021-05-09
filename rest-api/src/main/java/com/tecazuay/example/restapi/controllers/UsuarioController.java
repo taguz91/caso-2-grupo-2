@@ -1,5 +1,6 @@
 package com.tecazuay.example.restapi.controllers;
 
+import com.tecazuay.example.restapi.Types;
 import com.tecazuay.example.restapi.api.exception.ResourceNotFoundException;
 import com.tecazuay.example.restapi.api.params.LoginParam;
 import com.tecazuay.example.restapi.definitions.UsuarioToken;
@@ -36,9 +37,8 @@ public class UsuarioController {
 	@GetMapping(value = "/test")
 	public Object test() {
 
-		Rol rol = new Rol(1, "Coordinador");
-		rolRepository.save(rol);
-		Usuario usuario = new Usuario(1, "Andrés Sapatanga", "example", "example", "123123123");
+		Rol rol = rolRepository.findById(Types.ROL_DEVELOPER).orElseThrow(ResourceNotFoundException::new);
+		Usuario usuario = new Usuario("Andrés Sapatanga", "example", "example", "123123123");
 		usuario.setRol(rol);
 		usuarioRepository.save(usuario);
 

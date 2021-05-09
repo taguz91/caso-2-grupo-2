@@ -11,6 +11,7 @@ import com.tecazuay.example.restapi.api.exception.ResourceNotFoundException;
 import com.tecazuay.example.restapi.api.params.RegisterTicketParam;
 import com.tecazuay.example.restapi.models.Parametros;
 import com.tecazuay.example.restapi.models.Ticket;
+import com.tecazuay.example.restapi.models.Usuario;
 import com.tecazuay.example.restapi.repositories.ParametrosRepository;
 import com.tecazuay.example.restapi.repositories.TicketRepository;
 
@@ -27,12 +28,16 @@ public class TicketService {
 		this.parametrosRepository = parametrosRepository;
 	}
 
-	public Ticket createTicket(@Valid RegisterTicketParam registerTicket) {
+	public Ticket createTicket(
+			@Valid RegisterTicketParam registerTicket,
+			Usuario user
+	) {
 		Parametros impacto = parametrosRepository.findById(registerTicket.getImpactoId())
 //					.orElseThrow(ResourceNotFoundException::new);
 				.orElseThrow(() -> new ResourceNotFoundException("The impacto not found, provide a correct id."));
 		
 		Ticket ticket = new Ticket();
+		ticket.setUsuario(user);
 		ticket.setTitulo(registerTicket.getTitulo());
 		ticket.setDescripcion(registerTicket.getDescripcion());
 		ticket.setImpacto(impacto);
