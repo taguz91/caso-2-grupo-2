@@ -22,8 +22,8 @@ public class Ticket extends Globals implements Serializable {
 	/**
 	 * 
 	 */
+	
 	private static final long serialVersionUID = 4356546281793282780L;
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ticket_id", nullable = false)
