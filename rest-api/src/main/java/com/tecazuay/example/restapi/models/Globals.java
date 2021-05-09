@@ -2,12 +2,28 @@ package com.tecazuay.example.restapi.models;
 
 import java.time.LocalDateTime;
 
-public abstract class Globals {
+import javax.persistence.Column;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.MappedSuperclass;
 
-	private LocalDateTime createdAt;
-	private LocalDateTime updatedAt;
+@MappedSuperclass
+@Inheritance(strategy = InheritanceType.JOINED)
+public class Globals {
+
+	@Column(name = "created_at", columnDefinition = "TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP", nullable = false)
+	private LocalDateTime createdAt = LocalDateTime.now();
+
+	@Column(name = "updated_at", columnDefinition = "TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP", nullable = false)
+	private LocalDateTime updatedAt = LocalDateTime.now();
+
+	@Column(name = "created_by", nullable = true)
 	private Long createdBy;
+
+	@Column(name = "updated_by", nullable = true)
 	private Long updatedBy;
+
+	@Column(name = "is_deleted", columnDefinition = "BOOLEAN DEFAULT  'false' ")
 	private boolean isDeleted;
 
 	public LocalDateTime getCreatedAt() {
