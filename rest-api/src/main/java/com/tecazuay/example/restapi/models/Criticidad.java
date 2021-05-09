@@ -1,5 +1,7 @@
 package com.tecazuay.example.restapi.models;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -8,7 +10,7 @@ import org.hibernate.annotations.Where;
 
 @Where(clause = "is_deleted = false")
 @Entity(name = "criticidad")
-public class Criticidad {
+public class Criticidad extends Globals implements Serializable{
     
     @Id
     @Column(name = "criticidad_id", nullable = false)
