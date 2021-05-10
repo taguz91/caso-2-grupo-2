@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 @RestController
 @RequestMapping("/catalogo")
-public class CatalogoRest {
+public class CatalogoController {
 
     @Autowired
    CatalogoRepository catalogoRepository;

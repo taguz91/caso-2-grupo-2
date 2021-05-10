@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @RestController
 @RequestMapping("/medioComunicacion")
-public class MedioComunicacionRest {
+public class MedioComunicacionController {
 
     @Autowired
    MedioComunicacionRepository medioComunicacionRepository;
