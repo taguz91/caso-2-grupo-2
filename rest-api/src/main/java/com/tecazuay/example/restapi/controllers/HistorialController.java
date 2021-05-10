@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @RestController
 @RequestMapping("/historial")
-public class HistorialRest {
+public class HistorialController {
 
     @Autowired
    HistorialRepository historialRepository;
