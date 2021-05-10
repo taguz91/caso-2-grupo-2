@@ -507,4 +507,177 @@ WHERE
       parametros_id = 19
   );
 
+-- Insert the roles 
+UPDATE
+  roles
+SET
+  nombre = 'Developer'
+WHERE
+  rol_id = 1;
 
+INSERT INTO
+  roles (rol_id, nombre)
+SELECT
+  1,
+  'Developer'
+WHERE
+  NOT EXISTS (
+    SELECT
+      1
+    FROM
+      roles
+    WHERE
+      rol_id = 1
+  );
+
+UPDATE
+  roles
+SET
+  nombre = 'Admin'
+WHERE
+  rol_id = 2;
+
+INSERT INTO
+  roles (rol_id, nombre)
+SELECT
+  2,
+  'Admin'
+WHERE
+  NOT EXISTS (
+    SELECT
+      1
+    FROM
+      roles
+    WHERE
+      rol_id = 2
+  );
+
+UPDATE
+  roles
+SET
+  nombre = 'Usuario'
+WHERE
+  rol_id = 3;
+
+INSERT INTO
+  roles (rol_id, nombre)
+SELECT
+  3,
+  'Usuario'
+WHERE
+  NOT EXISTS (
+    SELECT
+      1
+    FROM
+      roles
+    WHERE
+      rol_id = 3
+  );
+
+UPDATE
+  roles
+SET
+  nombre = 'Coordinador'
+WHERE
+  rol_id = 4;
+
+INSERT INTO
+  roles (rol_id, nombre)
+SELECT
+  4,
+  'Coordinador'
+WHERE
+  NOT EXISTS (
+    SELECT
+      1
+    FROM
+      roles
+    WHERE
+      rol_id = 4
+  );
+
+UPDATE
+  roles
+SET
+  nombre = 'Soporte N1'
+WHERE
+  rol_id = 5;
+
+INSERT INTO
+  roles (rol_id, nombre)
+SELECT
+  5,
+  'Soporte N1'
+WHERE
+  NOT EXISTS (
+    SELECT
+      1
+    FROM
+      roles
+    WHERE
+      rol_id = 5
+  );
+
+UPDATE
+  roles
+SET
+  nombre = 'Soporte N2'
+WHERE
+  rol_id = 6;
+
+INSERT INTO
+  roles (rol_id, nombre)
+SELECT
+  6,
+  'Soporte N2'
+WHERE
+  NOT EXISTS (
+    SELECT
+      1
+    FROM
+      roles
+    WHERE
+      rol_id = 6
+  );
+
+-- Insert the developers 
+UPDATE
+  public.usuarios
+SET
+  usuario_id = 1,
+  apellidos = 'Johnny',
+  correo = 'jhonny.garcia.est@tecazuay.edu.ec',
+  nombres = 'Johnny',
+  password = '1234',
+  telefono = '0968696010',
+  rol_id = 1
+WHERE
+  correo = 'jhonny.garcia.est@tecazuay.edu.ec';
+
+INSERT INTO
+  public.usuarios(
+    usuario_id,
+    apellidos,
+    correo,
+    nombres,
+    password,
+    telefono,
+    rol_id
+  )
+SELECT
+  1,
+  'Garcia',
+  'jhonny.garcia.est@tecazuay.edu.ec',
+  'Johnny',
+  '1234',
+  '0968796010',
+  1
+WHERE
+  NOT EXISTS (
+    SELECT
+      1
+    FROM
+      public.usuarios
+    WHERE
+      correo = 'jhonny.garcia.est@tecazuay.edu.ec'
+  );

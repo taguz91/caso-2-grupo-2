@@ -6,6 +6,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import com.tecazuay.example.restapi.models.Usuario;
+
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
@@ -23,8 +25,9 @@ public class JwtServiceImp implements JwtService {
 	}
 
 	@Override
-	public String toToken() {
-		return Jwts.builder().setSubject("1").setExpiration(expireTimeFromNow())
+	public String toToken(Usuario user) {
+		return Jwts.builder().setSubject(String.valueOf(user.getPersonaId()))
+				.setExpiration(expireTimeFromNow())
 				.signWith(SignatureAlgorithm.HS512, secret).compact();
 	}
 

@@ -1,6 +1,7 @@
 package com.tecazuay.example.restapi.models;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -43,6 +44,9 @@ public class Ticket extends Globals implements Serializable {
 	@Column(name = "solucion", nullable = true)
 	private String solucion;
 
+	@Column(name = "fecha_solucion", nullable = true)
+	private LocalDateTime fechaSolucion;
+
 	@JsonManagedReference(value = "rf_estado_parametro")
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "estado_id", nullable = false)
@@ -52,10 +56,10 @@ public class Ticket extends Globals implements Serializable {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "impacto_id", nullable = false)
 	private Parametros impacto;
-    ///relacion con Historial
-	@JsonBackReference(value = "rf_historial_ticket")
-	@OneToMany (cascade = CascadeType.ALL, mappedBy = "historial")
-	private List<Historial> listaHistorial; 
+
+	@JsonManagedReference(value = "rf_historial_ticket")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "ticket")
+	private List<Historial> listaHistorial;
 
 	@JsonManagedReference(value = "rf_ticket_encuesta_satisfaccion")
 	@OneToOne(cascade = CascadeType.ALL, mappedBy = "ticket")
@@ -64,6 +68,16 @@ public class Ticket extends Globals implements Serializable {
 	@JsonManagedReference(value = "rf_adjunto_ticket")
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "ticket")
 	private List<Adjunto> adjuntos;
+
+	@JsonManagedReference(value = "rf_ticket_responsable")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "responsable_id", nullable = true)
+	private Usuario responsable;
+
+	@JsonManagedReference(value = "rf_ticket_usuario")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "usuario_id", nullable = false)
+	private Usuario usuario;
 
 	public Long getTicket_id() {
 		return ticket_id;
@@ -117,7 +131,6 @@ public class Ticket extends Globals implements Serializable {
 		this.impacto = impacto;
 	}
 
-
 	public List<Historial> getListaHistorial() {
 		return this.listaHistorial;
 	}
@@ -125,13 +138,45 @@ public class Ticket extends Globals implements Serializable {
 	public void setListaHistorial(List<Historial> listaHistorial) {
 		this.listaHistorial = listaHistorial;
 	}
-	
+
 	public EncuestaSatisfacion getEncuesta() {
 		return encuesta;
 	}
 
 	public void setEncuesta(EncuestaSatisfacion encuesta) {
 		this.encuesta = encuesta;
+	}
+
+	public LocalDateTime getFechaSolucion() {
+		return fechaSolucion;
+	}
+
+	public void setFechaSolucion(LocalDateTime fechaSolucion) {
+		this.fechaSolucion = fechaSolucion;
+	}
+
+	public List<Adjunto> getAdjuntos() {
+		return adjuntos;
+	}
+
+	public void setAdjuntos(List<Adjunto> adjuntos) {
+		this.adjuntos = adjuntos;
+	}
+
+	public Usuario getResponsable() {
+		return responsable;
+	}
+
+	public void setResponsable(Usuario responsable) {
+		this.responsable = responsable;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 }

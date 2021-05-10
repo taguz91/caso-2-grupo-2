@@ -1,104 +1,159 @@
 package com.tecazuay.example.restapi.models;
 
+import java.io.Serializable;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.OneToMany;
 
-@Entity
-@Table(name = "usuarios")
-public class Usuario extends Globals {
+import org.hibernate.annotations.Where;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "usuario_id")
-    private int personaId;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-    @Column(nullable = false, length = 50)
-    private String nombres;
+@Entity(name = "usuarios")
+@Where(clause = "is_deleted = false")
+public class Usuario extends Globals implements Serializable {
 
-    @Column(nullable = false, length = 100)
-    private String correo;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4115808525376597079L;
 
-    @Column(nullable = false, length = 30)
-    private String password;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "usuario_id")
+	private Long personaId;
 
-    @Column(nullable = true, length = 30)
-    private String token;
+	@Column(nullable = false, length = 100)
+	private String nombres;
 
-    @Column(nullable = true, length = 15)
-    private String telefono;
+	@Column(nullable = false, length = 100)
+	private String apellidos;
 
-    @ManyToOne
-    private Rol rol;
+	@Column(nullable = false, length = 50)
+	private String correo;
 
-    public Usuario() {
-    }
+	@Column(nullable = false, length = 20)
+	private String password;
 
-    public Usuario(int personaId, String nombres, String correo, String password, String telefono) {
-        this.personaId = personaId;
-        this.nombres = nombres;
-        this.correo = correo;
-        this.password = password;
-        this.telefono = telefono;
-    }
+	@Column(nullable = true, length = 100)
+	private String token;
 
-    public int getPersonaId() {
-        return personaId;
-    }
+	@Column(nullable = true, length = 15)
+	private String telefono;
 
-    public void setPersonaId(int personaId) {
-        this.personaId = personaId;
-    }
+	@JsonManagedReference(value = "rf_usuario_rol")
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name = "rol_id", nullable = false)
+	private Rol rol;
 
-    public String getNombres() {
-        return nombres;
-    }
+	@JsonBackReference(value = "rf_ticket_usuario")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
+	private List<Ticket> tickets;
 
-    public void setNombres(String nombres) {
-        this.nombres = nombres;
-    }
+	public Usuario() {
+	}
 
-    public String getCorreo() {
-        return correo;
-    }
+	public Usuario(String nombres, String apellidos, String correo, String password) {
+		this.nombres = nombres;
+		this.apellidos = apellidos;
+		this.correo = correo;
+		this.password = password;
+	}
 
-    public void setCorreo(String correo) {
-        this.correo = correo;
-    }
+	public Usuario(Long personaId, String nombres, String apellidos, String correo, String password, String token,
+			String telefono) {
+		this.personaId = personaId;
+		this.nombres = nombres;
+		this.apellidos = apellidos;
+		this.correo = correo;
+		this.password = password;
+		this.token = token;
+		this.telefono = telefono;
+	}
 
-    public String getPassword() {
-        return password;
-    }
+	public Long getPersonaId() {
+		return personaId;
+	}
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+	public void setPersonaId(Long personaId) {
+		this.personaId = personaId;
+	}
 
-    public String getToken() {
-        return token;
-    }
+	public String getNombres() {
+		return nombres;
+	}
 
-    public void setToken(String token) {
-        this.token = token;
-    }
+	public void setNombres(String nombres) {
+		this.nombres = nombres;
+	}
 
-    public String getTelefono() {
-        return telefono;
-    }
+	public String getApellidos() {
+		return apellidos;
+	}
 
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
-    }
+	public void setApellidos(String apellidos) {
+		this.apellidos = apellidos;
+	}
 
-    public Rol getRol() {
-        return rol;
-    }
+	public String getCorreo() {
+		return correo;
+	}
 
-    public void setRol(Rol rol) {
-        this.rol = rol;
-    }
+	public void setCorreo(String correo) {
+		this.correo = correo;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
+	}
+
+	public String getTelefono() {
+		return telefono;
+	}
+
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
+	}
+
+	public Rol getRol() {
+		return rol;
+	}
+
+	public void setRol(Rol rol) {
+		this.rol = rol;
+	}
+
+	public List<Ticket> getTickets() {
+		return tickets;
+	}
+
+	public void setTickets(List<Ticket> tickets) {
+		this.tickets = tickets;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 }

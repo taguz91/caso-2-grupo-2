@@ -1,0 +1,22 @@
+@mixin pStyle {
+  text-align: center;
+  font-size: 5rem;
+}
+
+.container_login {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  min-height: 100vh;
+  .login_svc {
+    p {
+      color: white;
+      @include pStyle();
+    }
+  }
+  .login_form {
+    background-color: white;
+    p {
+      @include pStyle();
+    }
+  }
+}

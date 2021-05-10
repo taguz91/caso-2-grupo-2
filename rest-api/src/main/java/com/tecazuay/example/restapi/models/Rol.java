@@ -1,45 +1,64 @@
 package com.tecazuay.example.restapi.models;
 
+import java.io.Serializable;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.OneToMany;
 
-@Entity
-@Table(name = "roles")
-public class Rol extends Globals {
-    
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "rol_id")
-    private int rolId;    
-    private String nombre;
+import org.hibernate.annotations.Where;
 
-    public Rol() {
-    }
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
-    public Rol(int rolId, String nombre) {
-        this.rolId = rolId;
-        this.nombre = nombre;
-    }
+@Where(clause = "is_deleted = false")
+@Entity(name = "roles")
+public class Rol extends Globals implements Serializable {
 
-    public int getRolId() {
-        return rolId;
-    }
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 772546290575724873L;
 
-    public void setRolId(int rolId) {
-        this.rolId = rolId;
-    }
+	@Id
+	@Column(name = "rol_id", nullable = false)
+	private int rolId;
 
-    public String getNombre() {
-        return nombre;
-    }
+	@Column(nullable = false, length = 25)
+	private String nombre;
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
+	@JsonBackReference(value = "rf_usuario_rol")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "rol")
+	private List<Usuario> usuarios;
 
-    
+	public int getRolId() {
+		return rolId;
+	}
+
+	public void setRolId(int rolId) {
+		this.rolId = rolId;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public List<Usuario> getUsuarios() {
+		return usuarios;
+	}
+
+	public void setUsuarios(List<Usuario> usuarios) {
+		this.usuarios = usuarios;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
 }
