@@ -16,31 +16,33 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/medioComunicacion")
 public class MedioComunicacionController {
 
-    @Autowired
-   MedioComunicacionRepository medioComunicacionRepository;
+	@Autowired
+	MedioComunicacionRepository medioComunicacionRepository;
 
-    @RequestMapping(value = "", method = RequestMethod.GET)
-    @ResponseBody
-    @CrossOrigin
-    public List<MedioComunicacion> listar() {
-        return medioComunicacionRepository.findAll();
-    }
+	@RequestMapping(value = "", method = RequestMethod.GET)
+	@ResponseBody
+	@CrossOrigin
+	public List<MedioComunicacion> listar() {
+		return medioComunicacionRepository.findAll();
+	}
 
-    @RequestMapping(value = "/", method = RequestMethod.POST)
-    @ResponseBody
-    @CrossOrigin
-    public MedioComunicacion guardar(@RequestBody MedioComunicacion p) {
-        return medioComunicacionRepository.save(p);
-    }
-    @RequestMapping(value = "/{medio_id}", method = RequestMethod.GET)
-    @ResponseBody
-    public MedioComunicacion leer(@PathVariable Long medio_id) {
-        return medioComunicacionRepository.getOne(medio_id);
-    }
-    @RequestMapping(value = "/{medio_id}", method = RequestMethod.DELETE)
-    @ResponseBody
-    @CrossOrigin
-    public void borrar(@PathVariable Long medio_id) {
-        medioComunicacionRepository.deleteById(medio_id);
-    }
+	@RequestMapping(value = "/", method = RequestMethod.POST)
+	@ResponseBody
+	@CrossOrigin
+	public MedioComunicacion guardar(@RequestBody MedioComunicacion p) {
+		return medioComunicacionRepository.save(p);
+	}
+
+	@RequestMapping(value = "/{medio_id}", method = RequestMethod.GET)
+	@ResponseBody
+	public MedioComunicacion leer(@PathVariable Long medio_id) {
+		return medioComunicacionRepository.getOne(medio_id);
+	}
+
+	@RequestMapping(value = "/{medio_id}", method = RequestMethod.DELETE)
+	@ResponseBody
+	@CrossOrigin
+	public void borrar(@PathVariable Long medio_id) {
+		medioComunicacionRepository.deleteById(medio_id);
+	}
 }

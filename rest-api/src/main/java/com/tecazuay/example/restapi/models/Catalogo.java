@@ -1,7 +1,6 @@
 package com.tecazuay.example.restapi.models;
 
 import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,15 +9,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity(name = "catalogo")
 public class Catalogo extends Globals implements Serializable {
-
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 3053573538845879877L;
 
 	@Id
