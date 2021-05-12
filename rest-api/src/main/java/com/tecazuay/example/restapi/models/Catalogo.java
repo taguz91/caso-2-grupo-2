@@ -20,10 +20,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity(name = "catalogo")
 public class Catalogo extends Globals implements Serializable {
-
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 3053573538845879877L;
 
 	@Id

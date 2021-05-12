@@ -2,29 +2,23 @@ package com.tecazuay.example.restapi.models;
 
 import java.io.Serializable;
 import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-
 import org.hibernate.annotations.Where;
-
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Where(clause = "is_deleted = false")
 @Entity(name = "roles")
 public class Rol extends Globals implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 772546290575724873L;
 
 	@Id
 	@Column(name = "rol_id", nullable = false)
-	private int rolId;
+	private long rolId;
 
 	@Column(nullable = false, length = 25)
 	private String nombre;
@@ -33,11 +27,11 @@ public class Rol extends Globals implements Serializable {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "rol")
 	private List<Usuario> usuarios;
 
-	public int getRolId() {
+	public long getRolId() {
 		return rolId;
 	}
 
-	public void setRolId(int rolId) {
+	public void setRolId(long rolId) {
 		this.rolId = rolId;
 	}
 
