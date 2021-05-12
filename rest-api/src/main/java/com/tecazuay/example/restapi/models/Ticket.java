@@ -18,7 +18,6 @@ import javax.persistence.OneToOne;
 
 import org.hibernate.annotations.Where;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Where(clause = "is_deleted = false")
