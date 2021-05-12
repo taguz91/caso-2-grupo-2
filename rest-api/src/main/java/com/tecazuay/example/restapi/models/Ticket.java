@@ -78,6 +78,16 @@ public class Ticket extends Globals implements Serializable {
 	@JoinColumn(name = "usuario_id", nullable = false)
 	private Usuario usuario;
 
+	@JsonManagedReference(value = "rf_ticket_responsable_solucion")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "responsable_solucion_id", nullable = true)
+	private Usuario responsableSolucion;
+	
+	@JsonManagedReference(value = "rf_ticket_catalogo")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "catalogo_id", nullable = false)
+	private Catalogo catalogo;
+
 	public Long getTicket_id() {
 		return ticket_id;
 	}
@@ -176,6 +186,22 @@ public class Ticket extends Globals implements Serializable {
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+	}
+
+	public Usuario getResponsableSolucion() {
+		return responsableSolucion;
+	}
+
+	public void setResponsableSolucion(Usuario responsableSolucion) {
+		this.responsableSolucion = responsableSolucion;
+	}
+
+	public Catalogo getCatalogo() {
+		return catalogo;
+	}
+
+	public void setCatalogo(Catalogo catalogo) {
+		this.catalogo = catalogo;
 	}
 
 }
