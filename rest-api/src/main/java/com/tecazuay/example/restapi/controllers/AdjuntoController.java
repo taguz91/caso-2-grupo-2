@@ -20,14 +20,14 @@ public class AdjuntoController {
     private AdjuntoRepository adjuntoRepository;
 
     public List<Adjunto> getAdjuntos() {
-        return new adjuntoRepository.findAll();
+        return adjuntoRepository.findAll();
     }
 
 	@RequestMapping(value = "/crear", method = RequestMethod.POST)
 	@ResponseBody
 	@CrossOrigin
 	public Adjunto createAdjunto(@RequestBody Adjunto ad) {
-		return adjuntoRepositoryAdjuntoRepository.guardar(ad);
+		return adjuntoRepository.save(ad);
 	}
 
 	@RequestMapping(value = "/{adjunto_id}", method = RequestMethod.DELETE)
@@ -40,7 +40,7 @@ public class AdjuntoController {
     @RequestMapping(value = "{adjunto_id}", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin
-    public void updateAdjunto(@PathVariable Long adjunto_id) {
-            return new adjuntoRepository.getAdjuntos(adjunto_id);
+    public Adjunto updateAdjunto(@PathVariable Long adjunto_id) {
+            return adjuntoRepository.findById(adjunto_id).get();
     }
 }
