@@ -20,14 +20,14 @@ public class SLAController {
     private SLARepository slaRepository;
 
     public List<SLA> getSlas() {
-        return new slaRepository.findAll();
+        return slaRepository.findAll();
     }
 
 	@RequestMapping(value = "/crear", method = RequestMethod.POST)
 	@ResponseBody
 	@CrossOrigin
-	public Adjunto createSLA(@RequestBody SLA s) {
-		return adjuntoRepositoryAdjuntoRepository.save(s);
+	public SLA createSLA(@RequestBody SLA s) {
+		return slaRepository.save(s);
 	}
 
 	@RequestMapping(value = "/{sla_id}", method = RequestMethod.DELETE)
@@ -40,7 +40,7 @@ public class SLAController {
     @RequestMapping(value = "{sla_id}", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin
-    public void updateSLA(@PathVariable Long sla_id) {
-            return new slaRepository.getSlas(sla_id);
+    public SLA updateSLA(@PathVariable Long sla_id) {
+            return slaRepository.getOne(sla_id);
     }
 }
