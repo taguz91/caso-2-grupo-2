@@ -13,13 +13,13 @@ import com.tecazuay.example.restapi.models.Ticket;
 @Repository
 public interface TicketRepository extends JpaRepository<Ticket, Long> {
 
-	@Query(value = "SELECT t FROM ticket t WHERE t.usuario_id = :userId")
+	@Query(value = "SELECT t FROM ticket t WHERE t.usuario.personaId = :userId")
 	List<Ticket> findAllByUser(@Param("userId") Long userId);
 
-	@Query(value = "SELECT t FROM ticket t WHERE t.responsable_id = :responsableId")
+	@Query(value = "SELECT t FROM ticket t WHERE t.responsable.personaId = :responsableId")
 	List<Ticket> findAllByResponsable(@Param("responsableId") Long responsableId);
 
-	@Query(value = "SELECT t FROM ticket t WHERE t.estado_id = :estado_id")
+	@Query(value = "SELECT t FROM ticket t WHERE t.estado.parametros_id = :estado_id")
 	List<Ticket> findAllByEstado(@Param("estado_id") Long estadoId);
 
 	@Query(value = "SELECT " + "t.ticket_id, " + "t.titulo, " + "pe.nombre AS estado, " + "pt.nombre AS tipo "
