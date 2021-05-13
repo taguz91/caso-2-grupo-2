@@ -10,12 +10,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-<<<<<<< HEAD
 import javax.persistence.OneToMany;
-=======
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
->>>>>>> 35fefc854402fec62b860103ccf83cc03029d8a4
 
 @Entity(name = "historial")
 public class Historial extends Globals implements Serializable {
