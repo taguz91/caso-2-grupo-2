@@ -1,7 +1,9 @@
 package com.tecazuay.example.restapi.controllers;
 
 import java.util.List;
+
 import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,18 +33,11 @@ public class TicketController {
 		this.ticketRepository = ticketRepository;
 	}
 
-	@GetMapping("/all")
-	public List<Ticket> getAll() {
-		return ticketRepository.findAll();
-	}
-
 	@PostMapping("/save")
 	public ResponseEntity<Ticket> save(
 			@Valid @RequestBody RegisterTicketParam registerTicket, 
 			@AuthenticationPrincipal Usuario user
 	) {
-		System.out.println("Usuario authentificado: " + user.getClass());
-		
 		return ResponseEntity.status(HttpStatus.CREATED).body(
 				ticketService.createTicket(registerTicket, user)
 		);

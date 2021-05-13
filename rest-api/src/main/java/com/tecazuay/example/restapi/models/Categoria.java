@@ -20,7 +20,7 @@ public class Categoria extends Globals implements Serializable {
 	private static final long serialVersionUID = -1457365226476276547L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "categoria_id", nullable = false)
 	private Long categoria_id;
 

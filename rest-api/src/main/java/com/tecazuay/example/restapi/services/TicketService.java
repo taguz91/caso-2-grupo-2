@@ -33,7 +33,6 @@ public class TicketService {
 			Usuario user
 	) {
 		Parametros impacto = parametrosRepository.findById(registerTicket.getImpactoId())
-//					.orElseThrow(ResourceNotFoundException::new);
 				.orElseThrow(() -> new ResourceNotFoundException("The impacto not found, provide a correct id."));
 		
 		Ticket ticket = new Ticket();

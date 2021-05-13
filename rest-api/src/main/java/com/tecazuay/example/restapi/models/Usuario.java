@@ -13,6 +13,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
 
 import org.hibernate.annotations.Where;
 
@@ -23,9 +28,6 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 @Where(clause = "is_deleted = false")
 public class Usuario extends Globals implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -4115808525376597079L;
 
 	@Id
@@ -33,21 +35,36 @@ public class Usuario extends Globals implements Serializable {
 	@Column(name = "usuario_id")
 	private Long personaId;
 
-	@Column(nullable = false, length = 100)
+	@NotEmpty
+	@Max(50)
+	@Pattern(regexp = "[a-zA-Z]")
+	@Column(nullable = false, length = 50)
 	private String nombres;
 
-	@Column(nullable = false, length = 100)
+	@Max(50)
+	@Pattern(regexp = "[0-9]")
+	@Column(nullable = false, length = 50)
 	private String apellidos;
 
-	@Column(nullable = false, length = 50)
+	@NotEmpty
+	@Email
+	@Max(100)
+	@Column(nullable = false, length = 100)
 	private String correo;
 
-	@Column(nullable = false, length = 20)
+	@NotEmpty
+	@Min(8)
+	@Max(30)
+	@Column(nullable = false, length = 30)
 	private String password;
 
-	@Column(nullable = true, length = 100)
+	@Column(nullable = true, length = 255)
 	private String token;
 
+	@NotEmpty
+	@Max(15)
+	@Min(10)
+	@Pattern(regexp = "[0-9]")
 	@Column(nullable = true, length = 15)
 	private String telefono;
 
