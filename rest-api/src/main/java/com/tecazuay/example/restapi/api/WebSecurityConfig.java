@@ -38,27 +38,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 			.and()
 			.authorizeRequests()
-<<<<<<< HEAD
-			.antMatchers(HttpMethod.POST, "/user/login")
-			.permitAll()
-			.antMatchers(HttpMethod.POST, "/usuarios/login/admin")
-			.permitAll()
-			.antMatchers("/api/v1/parametros/**")
-			.permitAll()
-			.antMatchers("/api/v1/categorias/**")
-			.permitAll()
-			.antMatchers("/api/v1/servicios/**")
-			.permitAll()
-			.anyRequest()
-			.authenticated();
-=======
 			.antMatchers(HttpMethod.POST, "/user/login").permitAll()
 			.antMatchers(HttpMethod.POST, "/usuario/login/admin").permitAll()
 			.antMatchers("/api/v1/parametros/**").permitAll()
 			.antMatchers("/api/v1/usuario/**").permitAll()
 			.antMatchers("/api/v1/rol/**").permitAll()
+			.antMatchers("/api/v1/categorias/**").permitAll()
+			.antMatchers("/api/v1/servicios/**").permitAll()
 			.anyRequest().authenticated();
->>>>>>> 42850b59fe834c432bba2ee42a915141dec3661d
 
 		http.addFilterBefore(jwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
 	}

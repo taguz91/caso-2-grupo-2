@@ -16,10 +16,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping( value = "/api/v1/servicios", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping( value = "/api/v1/servicios", consumes = MediaType.APPLICATION_JSON_VALUE)
 public class ServicioController {
     
     @Autowired
@@ -35,7 +36,8 @@ public class ServicioController {
         return servicioRepository.findByCategoriaId(categoria_id);
     }
 
-    @PostMapping("/")
+    @PostMapping(value = "/")
+    @ResponseBody
     public Servicio saveServicio(@RequestBody @Valid ServicioParam servicioParam){
         Servicio servicio = new Servicio();
         servicio.setNombre_servicio(servicioParam.getNombre_servicio());
