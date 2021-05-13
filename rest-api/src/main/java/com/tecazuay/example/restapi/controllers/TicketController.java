@@ -1,9 +1,7 @@
 package com.tecazuay.example.restapi.controllers;
 
 import java.util.List;
-
 import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.tecazuay.example.restapi.api.params.RegisterTicketParam;
 import com.tecazuay.example.restapi.models.Ticket;
 import com.tecazuay.example.restapi.models.Usuario;

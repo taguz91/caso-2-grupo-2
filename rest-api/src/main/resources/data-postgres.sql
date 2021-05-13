@@ -681,3 +681,139 @@ WHERE
     WHERE
       correo = 'jhonny.garcia.est@tecazuay.edu.ec'
   );
+
+-- Insert criticidad
+UPDATE
+  public.criticidad
+SET
+  criticidad_id = 1,
+  descripcion = ' ',
+  nombre = 'Inferior',
+  valor = 0.10
+WHERE
+  criticidad_id = 1;
+
+INSERT INTO
+  public.criticidad(criticidad_id, descripcion, nombre, valor)
+SELECT
+  1,
+  'Sistemas no críticos, como estaciones de trabajo de usuarios con funciones no críticas.',
+  'Inferior',
+  0.10
+WHERE
+  NOT EXISTS (
+    SELECT
+      1
+    FROM
+      public.criticidad
+    WHERE
+      criticidad_id = 1
+  );
+
+UPDATE
+  public.criticidad
+SET
+  criticidad_id = 2,
+  descripcion = 'Sistemas que apoyan a una sola dependencia o proceso de una entidad.',
+  nombre = 'Bajo',
+  valor = 0.25
+WHERE
+  criticidad_id = 2;
+
+INSERT INTO
+  public.criticidad(criticidad_id, descripcion, nombre, valor)
+SELECT
+  2,
+  'Sistemas que apoyan a una sola dependencia o proceso de una entidad.',
+  'Bajo',
+  0.25
+WHERE
+  NOT EXISTS (
+    SELECT
+      1
+    FROM
+      public.criticidad
+    WHERE
+      criticidad_id = 2
+  );
+
+UPDATE
+  public.criticidad
+SET
+  criticidad_id = 3,
+  descripcion = 'Sistemas que apoyan más de una dependencias o proceso de la entidad.',
+  nombre = 'Medio',
+  valor = 0.50
+WHERE
+  criticidad_id = 3;
+
+INSERT INTO
+  public.criticidad(criticidad_id, descripcion, nombre, valor)
+SELECT
+  3,
+  'Sistemas que apoyan más de una dependencias o proceso de la entidad.',
+  'Medio',
+  0.50
+WHERE
+  NOT EXISTS (
+    SELECT
+      1
+    FROM
+      public.criticidad
+    WHERE
+      criticidad_id = 3
+  );
+
+UPDATE
+  public.criticidad
+SET
+  criticidad_id = 4,
+  descripcion = 'Sistemas pertenecientes al área de Tecnología y estaciones de trabajo de usuarios con funciones críticas.',
+  nombre = 'Alto',
+  valor = 0.75
+WHERE
+  criticidad_id = 4;
+
+INSERT INTO
+  public.criticidad(criticidad_id, descripcion, nombre, valor)
+SELECT
+  4,
+  'Sistemas pertenecientes al área de Tecnología y estaciones de trabajo de usuarios con funciones críticas.',
+  'Alto',
+  0.75
+WHERE
+  NOT EXISTS (
+    SELECT
+      1
+    FROM
+      public.criticidad
+    WHERE
+      criticidad_id = 4
+  );
+
+UPDATE
+  public.criticidad
+SET
+  criticidad_id = 5,
+  descripcion = 'Sistemas Críticos',
+  nombre = 'Superior',
+  valor = 1.00
+WHERE
+  criticidad_id = 5;
+
+INSERT INTO
+  public.criticidad(criticidad_id, descripcion, nombre, valor)
+SELECT
+  5,
+  'Sistemas Críticos.',
+  'Superior',
+  1.00
+WHERE
+  NOT EXISTS (
+    SELECT
+      1
+    FROM
+      public.criticidad
+    WHERE
+      criticidad_id = 5
+  );

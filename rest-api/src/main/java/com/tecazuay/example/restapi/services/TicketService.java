@@ -44,5 +44,4 @@ public class TicketService {
 		ticket.setEstado(parametrosRepository.findById(Types.PARAMETROS_ESTADO_ABIERTO).get());
 		return ticketRepository.save(ticket);
 	}
-
 }

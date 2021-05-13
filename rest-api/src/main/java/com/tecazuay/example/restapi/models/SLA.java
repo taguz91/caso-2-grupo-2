@@ -2,6 +2,7 @@ package com.tecazuay.example.restapi.models;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,9 +11,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 import org.hibernate.annotations.Where;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Where(clause = "is_deleted = false")
@@ -23,7 +26,7 @@ public class SLA extends Globals implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -9029612685137758093L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "sla_id", nullable = false)
@@ -45,13 +48,18 @@ public class SLA extends Globals implements Serializable {
 
 	@JsonManagedReference(value = "rf_sla_impacto_parametros")
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "impacto_id")
+	@JoinColumn(name = "impacto_id", nullable = false)
 	private Parametros impacto;
 
 	@JsonManagedReference(value = "rf_sla_nivel_prioridad_parametros")
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "nivel_prioridad_id")
+	@JoinColumn(name = "nivel_prioridad_id", nullable = false)
 	private Parametros nivelPrioridad;
+
+	@JsonBackReference(value = "rf_sla_catalogo")
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "catalogo_id", nullable = false)
+	private Catalogo catalogo;
 
 	public Long getSla_id() {
 		return sla_id;
@@ -111,5 +119,13 @@ public class SLA extends Globals implements Serializable {
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+
+	public Catalogo getCatalogo() {
+		return catalogo;
+	}
+
+	public void setCatalogo(Catalogo catalogo) {
+		this.catalogo = catalogo;
 	}
 }
