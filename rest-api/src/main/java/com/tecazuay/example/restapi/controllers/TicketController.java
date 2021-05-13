@@ -59,13 +59,17 @@ public class TicketController {
 	}
 
 	@GetMapping("/estado/{estado}")
-	public ResponseEntity<?> ticksCoordinadorHome(@PathVariable Long estado, @AuthenticationPrincipal Usuario user,
-			@RequestParam(value = "offset", defaultValue = "0") int offset,
-			@RequestParam(value = "limit", defaultValue = "20") int limit) {
+	public ResponseEntity<?> ticksCoordinadorHome(@Valid @PathVariable Long estado,
+			@AuthenticationPrincipal Usuario user, @RequestParam(value = "page", defaultValue = "0") int page,
+			@RequestParam(value = "size", defaultValue = "20") int size) {
 		if (!AuthorizationService.canReadTicketsByEstado(user)) {
 			throw new NoAuthorizationException();
 		}
-		return ResponseEntity.status(HttpStatus.ACCEPTED).body(ticketRepository.findAllByEstadoHome(estado));
+
+		Pageable pageable = PageRequest.of(page, size);
+
+		Page<TicketsList> ticketsPage = ticketRepository.findAllByEstadoHome(user.getPersonaId(), pageable);
+		return ResponseEntity.status(HttpStatus.ACCEPTED).body(new PageResponse(ticketsPage));
 	}
 
 }
