@@ -28,4 +28,6 @@ public abstract class Types {
 	public final static int MEDIO_COMUNICACION_CORREO = 17;
 	public final static int MEDIO_COMUNICACION_CELULAR = 18;
 	public final static int MEDIO_COMUNICACION_TELEFONO = 19;
+
+
 }

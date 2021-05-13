@@ -31,24 +31,27 @@ public class Usuario extends Globals implements Serializable {
 	private static final long serialVersionUID = -4115808525376597079L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "usuario_id")
 	private Long personaId;
 
 	@NotEmpty
-	@Max(50)
+	@Max(100)
+	@Min(1)
 	@Pattern(regexp = "[a-zA-Z]")
-	@Column(nullable = false, length = 50)
+	@Column(nullable = false, length = 100)
 	private String nombres;
 
-	@Max(50)
+	@Max(100)
+	@Min(1)
 	@Pattern(regexp = "[0-9]")
-	@Column(nullable = false, length = 50)
+	@Column(nullable = false, length = 100)
 	private String apellidos;
 
 	@NotEmpty
 	@Email
 	@Max(100)
+	@Min(5)
 	@Column(nullable = false, length = 100)
 	private String correo;
 
@@ -87,14 +90,12 @@ public class Usuario extends Globals implements Serializable {
 		this.password = password;
 	}
 
-	public Usuario(Long personaId, String nombres, String apellidos, String correo, String password, String token,
-			String telefono) {
+	public Usuario(Long personaId, String nombres, String apellidos, String correo, String password, String telefono) {
 		this.personaId = personaId;
 		this.nombres = nombres;
 		this.apellidos = apellidos;
 		this.correo = correo;
 		this.password = password;
-		this.token = token;
 		this.telefono = telefono;
 	}
 
