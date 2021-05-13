@@ -7,6 +7,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.NotEmpty;
+
 import org.hibernate.annotations.Where;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
@@ -20,6 +23,8 @@ public class Rol extends Globals implements Serializable {
 	@Column(name = "rol_id", nullable = false)
 	private long rolId;
 
+	@NotEmpty
+	@Max(25)
 	@Column(nullable = false, length = 25)
 	private String nombre;
 

@@ -9,6 +9,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+<<<<<<< HEAD
+import javax.persistence.OneToMany;
+
+=======
+>>>>>>> 42850b59fe834c432bba2ee42a915141dec3661d
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity(name = "historial")
