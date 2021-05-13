@@ -45,7 +45,7 @@ public class Usuario extends Globals implements Serializable {
 	@Column(nullable = false, length = 20)
 	private String password;
 
-	@Column(nullable = true, length = 100)
+	@Column(nullable = true, length = 255)
 	private String token;
 
 	@Column(nullable = true, length = 15)
