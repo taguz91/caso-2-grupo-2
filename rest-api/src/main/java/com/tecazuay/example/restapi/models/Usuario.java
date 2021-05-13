@@ -36,19 +36,22 @@ public class Usuario extends Globals implements Serializable {
 	private Long personaId;
 
 	@NotEmpty
-	@Max(50)
+	@Max(100)
+	@Min(1)
 	@Pattern(regexp = "[a-zA-Z]")
-	@Column(nullable = false, length = 50)
+	@Column(nullable = false, length = 100)
 	private String nombres;
 
-	@Max(50)
+	@Max(100)
+	@Min(1)
 	@Pattern(regexp = "[0-9]")
-	@Column(nullable = false, length = 50)
+	@Column(nullable = false, length = 100)
 	private String apellidos;
 
 	@NotEmpty
 	@Email
 	@Max(100)
+	@Min(5)
 	@Column(nullable = false, length = 100)
 	private String correo;
 
