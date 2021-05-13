@@ -31,7 +31,7 @@ public class Usuario extends Globals implements Serializable {
 	private static final long serialVersionUID = -4115808525376597079L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "usuario_id")
 	private Long personaId;
 
@@ -87,14 +87,12 @@ public class Usuario extends Globals implements Serializable {
 		this.password = password;
 	}
 
-	public Usuario(Long personaId, String nombres, String apellidos, String correo, String password, String token,
-			String telefono) {
+	public Usuario(Long personaId, String nombres, String apellidos, String correo, String password, String telefono) {
 		this.personaId = personaId;
 		this.nombres = nombres;
 		this.apellidos = apellidos;
 		this.correo = correo;
 		this.password = password;
-		this.token = token;
 		this.telefono = telefono;
 	}
 
