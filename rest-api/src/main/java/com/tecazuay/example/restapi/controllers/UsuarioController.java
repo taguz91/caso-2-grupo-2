@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -37,9 +38,11 @@ public class UsuarioController {
 	@Autowired
 	private JwtService jwtService;
 
-	@PostMapping(value = "/{rolId}")
-	public ResponseEntity<Usuario> createUser(@Validated @RequestBody Usuario usuario, @PathVariable Long rolId) {
-		return ResponseEntity.status(HttpStatus.OK).body(this.usuarioService.save(usuario, rolId));
+	@PostMapping(value = "/")
+	@ResponseBody
+	public ResponseEntity<Usuario> createUser(@Validated @RequestBody Usuario usuario) {
+		Long id = 1L;
+		return ResponseEntity.status(HttpStatus.OK).body(this.usuarioService.save(usuario, id));
 	}
 
 	@GetMapping(value = "/")
