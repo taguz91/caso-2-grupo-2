@@ -12,6 +12,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,7 +38,7 @@ public class UsuarioController {
 	private JwtService jwtService;
 
 	@PostMapping(value = "/{rolId}")
-	public ResponseEntity<Usuario> createUser(@RequestBody Usuario usuario, @PathVariable Long rolId) {
+	public ResponseEntity<Usuario> createUser(@Validated @RequestBody Usuario usuario, @PathVariable Long rolId) {
 		return ResponseEntity.status(HttpStatus.OK).body(this.usuarioService.save(usuario, rolId));
 	}
 
@@ -52,7 +53,7 @@ public class UsuarioController {
 	}
 
 	@PutMapping(value = "/")
-	public ResponseEntity<Usuario> updateUser(@RequestBody Usuario usuario) {
+	public ResponseEntity<Usuario> updateUser(@Validated @RequestBody Usuario usuario) {
 		return ResponseEntity.status(HttpStatus.OK).body(this.usuarioService.update(usuario));
 	}
 
