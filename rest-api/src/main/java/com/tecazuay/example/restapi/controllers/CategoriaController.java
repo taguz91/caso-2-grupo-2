@@ -3,6 +3,9 @@ package com.tecazuay.example.restapi.controllers;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
+import com.tecazuay.example.restapi.api.params.CategoriaParam;
 import com.tecazuay.example.restapi.models.Categoria;
 import com.tecazuay.example.restapi.repositories.CategoriaRepository;
 
@@ -23,22 +26,24 @@ public class CategoriaController {
     @Autowired
     CategoriaRepository categoriaRepository;
 
-    @GetMapping("/")
+    @GetMapping(value = "/")
     public List<Categoria> getAll(){
         return categoriaRepository.findAll();
     }
 
-    @GetMapping("/categorias/{id}")
+    @GetMapping("/{id}")
     public Optional<Categoria> getCategoria(@PathVariable("id") Long categoria_id){
         return categoriaRepository.findById(categoria_id);
     }
 
-    @PostMapping("/categorias")
-    public Categoria saveCategoria(@RequestBody Categoria categoria){
+    @PostMapping(value = "/")
+    public Categoria saveCategoria(@RequestBody @Valid CategoriaParam categoriaParam){
+        Categoria categoria = new Categoria();
+        categoria.setNombre_categoria(categoriaParam.getNombre_categoria());
         return categoriaRepository.save(categoria);
     }
     
-    @PutMapping("/categorias/{id}")
+    @PutMapping("/{id}")
     public Categoria updateCategoria(@PathVariable("id") Long categoria_id, @RequestBody Categoria newCategoria){
         return categoriaRepository.findById(categoria_id)
         .map(categoria -> {
@@ -51,7 +56,7 @@ public class CategoriaController {
         });
     }
 
-    @DeleteMapping("/categorias/{id}")
+    @DeleteMapping("/{id}")
     public void deleteCategoria(@PathVariable("id") Long categoria_id){
         categoriaRepository.deleteById(categoria_id);
     }

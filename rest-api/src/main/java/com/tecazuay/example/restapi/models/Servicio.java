@@ -25,7 +25,7 @@ public class Servicio extends Globals implements Serializable {
 	private static final long serialVersionUID = -3052880119732342924L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "servicio_id", nullable = false)
 	private Long servicio_id;
 
