@@ -21,10 +21,10 @@ public interface TicketRepository extends JpaRepository<Ticket, Long> {
 			+ "JOIN public.parametros pt ON pt.parametros_id = c.tipo_servicio_id " + "WHERE t.usuario_id = :userId ";
 
 	@Query(value = "SELECT t FROM ticket t WHERE t.usuario.personaId = :userId")
-	List<Ticket> findAllByUser(@Param("userId") Long userId);
+	Page<Ticket> findAllByUser(@Param("userId") Long userId, Pageable pageable);
 
 	@Query(value = "SELECT t FROM ticket t WHERE t.responsable.personaId = :responsableId")
-	List<Ticket> findAllByResponsable(@Param("responsableId") Long responsableId);
+	Page<Ticket> findAllByResponsable(@Param("responsableId") Long responsableId, Pageable pageable);
 
 	@Query(value = "SELECT t FROM ticket t WHERE t.estado.parametros_id = :estado_id")
 	List<Ticket> findAllByEstado(@Param("estado_id") Long estadoId);

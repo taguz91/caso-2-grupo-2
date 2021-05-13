@@ -11,3 +11,5 @@ rest-api/src/main/resources/application.properties
 rest-api/src/main/resources/application.properties
 
 application.properties
+
+application.prod.properties
