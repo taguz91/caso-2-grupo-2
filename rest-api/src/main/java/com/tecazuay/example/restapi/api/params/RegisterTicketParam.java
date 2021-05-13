@@ -1,6 +1,10 @@
 package com.tecazuay.example.restapi.api.params;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
+import com.tecazuay.example.restapi.validations.CatalogoExistConstrait;
+import com.tecazuay.example.restapi.validations.ImpactoExistConstrait;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -9,13 +13,18 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class RegisterTicketParam {
 
-	@NotBlank
+	@NotNull(message = "Impacto es requerido.")
+	@ImpactoExistConstrait
 	private Long impactoId;
 
-	@NotBlank
+	@NotNull(message = "Servicio es requerido.")
+	@CatalogoExistConstrait
+	private Long catalogoId;
+
+	@NotBlank(message = "Titulo es obligatorio")
 	private String titulo;
 
-	@NotBlank
+	@NotBlank(message = "Descripción es obligatoria")
 	private String descripcion;
 
 	public Long getImpactoId() {
@@ -40,6 +49,14 @@ public class RegisterTicketParam {
 
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
+	}
+
+	public Long getCatalogoId() {
+		return catalogoId;
+	}
+
+	public void setCatalogoId(Long catalogoId) {
+		this.catalogoId = catalogoId;
 	}
 
 }
