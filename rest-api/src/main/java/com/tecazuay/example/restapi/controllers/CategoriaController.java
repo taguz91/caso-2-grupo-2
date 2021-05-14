@@ -3,6 +3,11 @@ package com.tecazuay.example.restapi.controllers;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
+import com.tecazuay.example.restapi.api.exception.ResourceNotFoundException;
+import com.tecazuay.example.restapi.api.params.CategoriaParam;
+import com.tecazuay.example.restapi.definitions.CategoriaResponse;
 import com.tecazuay.example.restapi.models.Categoria;
 import com.tecazuay.example.restapi.repositories.CategoriaRepository;
 
@@ -23,36 +28,48 @@ public class CategoriaController {
     @Autowired
     CategoriaRepository categoriaRepository;
 
-    @GetMapping("/")
-    public List<Categoria> getAll(){
-        return categoriaRepository.findAll();
+    @GetMapping(value = "/")
+    public Optional <List<CategoriaResponse>> getAll(){
+        return categoriaRepository.findAllCategoria();
     }
 
-    @GetMapping("/categorias/{id}")
-    public Optional<Categoria> getCategoria(@PathVariable("id") Long categoria_id){
-        return categoriaRepository.findById(categoria_id);
+    @GetMapping("/{id}")
+    public CategoriaResponse getCategoria(@PathVariable("id") Long categoria_id){
+        CategoriaResponse categoria = categoriaRepository.findByCategoriaId(categoria_id)
+            .orElseThrow(() -> new ResourceNotFoundException("No se encontro la categoria"));
+        return categoria;
     }
 
-    @PostMapping("/categorias")
-    public Categoria saveCategoria(@RequestBody Categoria categoria){
+    @PostMapping(value = "/")
+    public Categoria saveCategoria(@RequestBody @Valid CategoriaParam categoriaParam){
+        Categoria categoria = new Categoria();
+        categoria.setNombre_categoria(categoriaParam.getNombre_categoria());
         return categoriaRepository.save(categoria);
     }
     
-    @PutMapping("/categorias/{id}")
-    public Categoria updateCategoria(@PathVariable("id") Long categoria_id, @RequestBody Categoria newCategoria){
-        return categoriaRepository.findById(categoria_id)
-        .map(categoria -> {
-            categoria.setNombre_categoria(newCategoria.getNombre_categoria());
-            return categoriaRepository.save(newCategoria);
-        })
-        .orElseGet(() -> {
-            newCategoria.setCategoria_id(categoria_id);
-            return categoriaRepository.save(newCategoria);
-        });
+    @PutMapping("/{id}")
+    public Categoria updateCategoria(@PathVariable("id") Long categoria_id, @Valid @RequestBody CategoriaParam newCategoria){
+        Categoria categoria = categoriaRepository.findById(categoria_id)
+            .orElseThrow(() -> new ResourceNotFoundException("No se encontro la categoria"));
+
+        categoria.setNombre_categoria(newCategoria.getNombre_categoria());
+        return categoriaRepository.save(categoria);
+        // .map(categoria -> {
+        //     categoria.setNombre_categoria(newCategoria.getNombre_categoria());
+        //     return categoriaRepository.save(newCategoria);
+        // })
+        // .orElseGet(()-> {
+        //     newCategoria.setCategoria_id(categoria_id);
+        //     return categoriaRepository.save(newCategoria);
+        // });
+        //.orElseThrow(() -> new ResourceNotFoundException("No se encontro la categoria"));
     }
 
-    @DeleteMapping("/categorias/{id}")
-    public void deleteCategoria(@PathVariable("id") Long categoria_id){
-        categoriaRepository.deleteById(categoria_id);
+    @DeleteMapping("/{id}")
+    public boolean deleteCategoria(@PathVariable("id") Long categoria_id){
+        Categoria categoria = categoriaRepository.findById(categoria_id)
+            .orElseThrow(() -> new ResourceNotFoundException("No se encontro la categoria con id:" + categoria_id));
+        categoriaRepository.deleteById(categoria.getCategoria_id());
+        return true;
     }
 }

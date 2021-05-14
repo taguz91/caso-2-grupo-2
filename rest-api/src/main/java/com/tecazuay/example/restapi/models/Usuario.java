@@ -1,3 +1,4 @@
+  
 package com.tecazuay.example.restapi.models;
 
 import java.io.Serializable;
@@ -13,6 +14,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
 
 import org.hibernate.annotations.Where;
 
@@ -23,31 +29,46 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 @Where(clause = "is_deleted = false")
 public class Usuario extends Globals implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -4115808525376597079L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "usuario_id")
 	private Long personaId;
 
+	@NotEmpty
+	@Max(100)
+	@Min(1)
+	@Pattern(regexp = "[a-zA-Z]")
 	@Column(nullable = false, length = 100)
 	private String nombres;
 
+	@Max(100)
+	@Min(1)
+	@Pattern(regexp = "[0-9]")
 	@Column(nullable = false, length = 100)
 	private String apellidos;
 
-	@Column(nullable = false, length = 50)
+	@NotEmpty
+	@Email
+	@Max(100)
+	@Min(5)
+	@Column(nullable = false, length = 100)
 	private String correo;
 
-	@Column(nullable = false, length = 20)
+	@NotEmpty
+	@Min(8)
+	@Max(30)
+	@Column(nullable = false, length = 30)
 	private String password;
 
 	@Column(nullable = true, length = 100)
 	private String token;
 
+	@NotEmpty
+	@Max(15)
+	@Min(10)
+	@Pattern(regexp = "[0-9]")
 	@Column(nullable = true, length = 15)
 	private String telefono;
 
@@ -70,14 +91,12 @@ public class Usuario extends Globals implements Serializable {
 		this.password = password;
 	}
 
-	public Usuario(Long personaId, String nombres, String apellidos, String correo, String password, String token,
-			String telefono) {
+	public Usuario(Long personaId, String nombres, String apellidos, String correo, String password, String telefono) {
 		this.personaId = personaId;
 		this.nombres = nombres;
 		this.apellidos = apellidos;
 		this.correo = correo;
 		this.password = password;
-		this.token = token;
 		this.telefono = telefono;
 	}
 

@@ -14,7 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity(name = "servicio")
 public class Servicio extends Globals implements Serializable {
@@ -25,18 +25,19 @@ public class Servicio extends Globals implements Serializable {
 	private static final long serialVersionUID = -3052880119732342924L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "servicio_id", nullable = false)
 	private Long servicio_id;
 
 	@Column(name = "nombre_servicio", nullable = false, length = 100)
 	private String nombre_servicio;
 
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "categoria_id", nullable = false)
 	private Categoria categoria;
 
-	@JsonManagedReference(value = "rf_catalogo_servicio")
+	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "servicio")
 	private List<Catalogo> listaCatalogos;
 
