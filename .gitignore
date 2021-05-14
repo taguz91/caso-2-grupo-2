@@ -9,5 +9,5 @@
 Thumbs.db
 rest-api/src/main/resources/application.properties
 rest-api/src/main/resources/application.properties
-
+*.properties
 application.properties

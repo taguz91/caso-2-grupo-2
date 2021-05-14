@@ -11,6 +11,7 @@ import java.util.List;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -38,11 +39,10 @@ public class UsuarioController {
 	@Autowired
 	private JwtService jwtService;
 
-	@PostMapping(value = "/")
+	@PostMapping(value = "/{rolId}", consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public ResponseEntity<Usuario> createUser(@Validated @RequestBody Usuario usuario) {
-		Long id = 1L;
-		return ResponseEntity.status(HttpStatus.OK).body(this.usuarioService.save(usuario, id));
+	public ResponseEntity<Usuario> createUser(@Validated @RequestBody Usuario usuario, Long rolId) {
+		return ResponseEntity.status(HttpStatus.OK).body(this.usuarioService.save(usuario, rolId));
 	}
 
 	@GetMapping(value = "/")

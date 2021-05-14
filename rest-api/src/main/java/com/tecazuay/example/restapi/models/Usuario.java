@@ -1,3 +1,4 @@
+  
 package com.tecazuay.example.restapi.models;
 
 import java.io.Serializable;
