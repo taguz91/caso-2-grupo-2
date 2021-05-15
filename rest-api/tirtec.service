@@ -1,0 +1,10 @@
+[Unit]
+Description=Tirtec - API
+After=syslog.target
+
+[Service]
+User=tirtec
+ExecStart=/home/ubuntu/caso-2-grupo-2/rest-api/target/rest-api-0.0.1-SNAPSHOT.jar SuccessExitStatus=143 
+
+[Install] 
+WantedBy=multi-user.target
