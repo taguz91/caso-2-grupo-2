@@ -54,4 +54,5 @@ public class ParametrosController {
 	public List<ParametrosResponse> getMediosComunicacion() {
 		return parametrosRepository.findParametrosByType(Types.PARAMETROS_MEDIOS_COMUNICACION);
 	}
+	
 }
