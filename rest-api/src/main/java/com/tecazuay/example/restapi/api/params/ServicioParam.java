@@ -2,6 +2,7 @@ package com.tecazuay.example.restapi.api.params;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 import com.tecazuay.example.restapi.models.Categoria;
 
@@ -13,9 +14,10 @@ import lombok.NoArgsConstructor;
 public class ServicioParam {
     
     @NotBlank
+    @Pattern(regexp = "[A-Z a-z]+", message = "El nombre del servicio solo puede tener letras")
     private String nombre_servicio;
 
-    @NotNull(message = "Please enter ID")
+    @NotNull
     private Categoria categoria;
 
     public String getNombre_servicio() {

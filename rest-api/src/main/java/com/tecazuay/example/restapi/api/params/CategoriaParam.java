@@ -1,6 +1,7 @@
 package com.tecazuay.example.restapi.api.params;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -10,6 +11,7 @@ import lombok.NoArgsConstructor;
 public class CategoriaParam {
     
     @NotBlank
+    @Pattern(regexp = "[A-Z a-z]+", message = "El nombre de la categoria solo puede tener letras")
     private String nombre_categoria;
 
     public String getNombre_categoria() {

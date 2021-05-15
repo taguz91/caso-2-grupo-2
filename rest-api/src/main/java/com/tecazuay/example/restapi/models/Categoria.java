@@ -1,6 +1,7 @@
 package com.tecazuay.example.restapi.models;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -10,6 +11,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity(name = "categoria")
 public class Categoria extends Globals implements Serializable {
@@ -27,6 +30,7 @@ public class Categoria extends Globals implements Serializable {
 	@Column(name = "nombre_categoria", nullable = false, length = 100)
 	private String nombre_categoria;
 
+	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "categoria")
 	private List<Servicio> listaServicios;
 
