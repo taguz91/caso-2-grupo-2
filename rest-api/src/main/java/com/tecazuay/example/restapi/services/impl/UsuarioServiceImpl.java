@@ -2,6 +2,7 @@ package com.tecazuay.example.restapi.services.impl;
 
 import java.util.List;
 import java.util.Optional;
+import com.tecazuay.example.restapi.api.params.UsuarioParam;
 import com.tecazuay.example.restapi.models.Rol;
 import com.tecazuay.example.restapi.models.Usuario;
 import com.tecazuay.example.restapi.repositories.UsuarioRepository;
@@ -36,8 +37,9 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
-    public Usuario save(Usuario usuario, Long rolId) {
+    public Usuario save(UsuarioParam up, Long rolId) {
 
+        Usuario usuario = new Usuario( null, up.getNombres(), up.getApellidos(), up.getCorreo(), up.getPassword(), up.getTelefono());
         Rol rol = this.rolService.findById(rolId);
 
         if (rol != null) {
@@ -49,18 +51,18 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
-    public Usuario update(Usuario usuario) {
+    public Usuario update(UsuarioParam up) {
 
-        Usuario user = this.findById(usuario.getPersonaId());
+        Usuario user = this.findById(up.getPersonaId());
 
         if (user != null) {
 
             //Se modifican solo los datos necesarios (añadir o quitar algún atributo)
-            user.setApellidos(usuario.getApellidos());
-            user.setNombres(usuario.getNombres());
-            user.setCorreo(usuario.getCorreo());
-            user.setTelefono(usuario.getTelefono());
-            user.setPassword(usuario.getPassword());
+            user.setApellidos(up.getApellidos());
+            user.setNombres(up.getNombres());
+            user.setCorreo(up.getCorreo());
+            user.setTelefono(up.getTelefono());
+            user.setPassword(up.getPassword());
 
             return this.usuarioRepository.save(user);
         } else {

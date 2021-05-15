@@ -1,6 +1,8 @@
 package com.tecazuay.example.restapi.services;
 
 import java.util.List;
+
+import com.tecazuay.example.restapi.api.params.UsuarioParam;
 import com.tecazuay.example.restapi.models.Usuario;
 
 public interface UsuarioService {
@@ -9,9 +11,9 @@ public interface UsuarioService {
 
     List<Usuario> findAll();
 
-    Usuario save(Usuario usuario, Long rolId);
+    Usuario save(UsuarioParam usuarioParam, Long rolId);
 
-    Usuario update(Usuario id);
+    Usuario update(UsuarioParam usuarioParam);
 
     Usuario deleteById(Long id);
 
