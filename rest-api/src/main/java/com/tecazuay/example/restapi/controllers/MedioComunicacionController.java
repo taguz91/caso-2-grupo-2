@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @RestController
-@RequestMapping("/medioComunicacion")
+@RequestMapping("/api/v1/medio-comunicacion")
 public class MedioComunicacionController {
 
 	@Autowired
