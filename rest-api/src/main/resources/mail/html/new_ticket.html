@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title th:remove="all">Bienvenido a Tirtec</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<body>
+	<p>
+		Hola, <span th:text="${nombreUsuario}"></span>
+	</p>
+
+	<p>
+		Se ha registrado un nuevo ticket en nuestra plataforma <b>Tirtec</b> el código asignado para el ticket es:
+		# <span th:text="${ticket}"></span> el registro fue realizado el
+		<span th:text="${#dates.format(fecha)}">28-12-2012</span>. 
+     </p>
+     
+     <p>
+     	Para el servicio de: <b th:text="${servicio}"></b>
+     </p>
+        
+    <p>
+    Te notificaremos cuando el estado de tu ticket sea actualizado, 
+    puedes revisar el avance o actualizar tu ticket en nuestra plataforma móvil o web.
+    </p>
+    
+    <p>
+        Saludos, <br />
+        &emsp; <em>Zero Team</em>
+    </p>
+</body>
+</html>

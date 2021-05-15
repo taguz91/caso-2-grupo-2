@@ -13,12 +13,14 @@ import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
+import com.tecazuay.example.restapi.models.Ticket;
 import com.tecazuay.example.restapi.models.Usuario;
 
 @Service
 public class EmailServiceImpl implements EmailService {
 
 	private static final String EMAIL_HTML_TEMPLATE_REGISTER = "html/registro";
+	private static final String EMAIL_HTML_TEMPLATE_NEW_TICKET = "html/new_ticket";
 
 	@Autowired
 	private JavaMailSender emailSender;
@@ -40,18 +42,42 @@ public class EmailServiceImpl implements EmailService {
 	public boolean sendRegister(Usuario user) {
 		// Prepare the evaluation context
 		final Context ctx = new Context();
-		ctx.setVariable("nombre", user.getNombres().concat(" ").concat(user.getApellidos()));
+		ctx.setVariable("nombre", user.getNombreCompleto());
 		ctx.setVariable("fecha", new Date());
 
 		final MimeMessage mimeMessage = this.emailSender.createMimeMessage();
 		final MimeMessageHelper message = new MimeMessageHelper(mimeMessage, "UTF-8");
 		try {
-			message.setSubject("Example HTML email (simple)");
+			message.setSubject("Bienvenido a la plataforma Tirtec");
 			message.setTo(user.getCorreo());
 
 			final String htmlContent = this.htmlTemplateEngine.process(EMAIL_HTML_TEMPLATE_REGISTER, ctx);
 			message.setText(htmlContent, true);
 
+			this.emailSender.send(mimeMessage);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
+	public boolean sendNewTicket(Ticket ticket) {
+		// Prepare the evaluation context
+		final Context ctx = new Context();
+		ctx.setVariable("nombreUsuario", ticket.getUsuario().getNombreCompleto());
+		ctx.setVariable("fecha", new Date());
+		ctx.setVariable("ticket", ticket.getTicket_id());
+		ctx.setVariable("servicio", ticket.getCatalogo().getDescripcion());
+
+		final MimeMessage mimeMessage = this.emailSender.createMimeMessage();
+		final MimeMessageHelper message = new MimeMessageHelper(mimeMessage, "UTF-8");
+		try {
+			message.setSubject("Nuevo ticket registrado #" + ticket.getTicket_id());
+			message.setTo(ticket.getUsuario().getCorreo());
+//			message.setTo("johnnygar98@hotmail.com");
+
+			final String htmlContent = this.htmlTemplateEngine.process(EMAIL_HTML_TEMPLATE_NEW_TICKET, ctx);
+			message.setText(htmlContent, true);
 			this.emailSender.send(mimeMessage);
 			return true;
 		} catch (Exception e) {

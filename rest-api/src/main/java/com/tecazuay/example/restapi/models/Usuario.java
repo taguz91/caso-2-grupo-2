@@ -135,4 +135,8 @@ public class Usuario extends Globals implements Serializable {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+
+	public String getNombreCompleto() {
+		return this.nombres.concat(" ").concat(this.apellidos);
+	}
 }
