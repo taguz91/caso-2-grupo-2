@@ -30,7 +30,7 @@ public class MedioComunicacionController {
 	@Autowired
 	MedioComunicacionRepository medioComunicacionRepository;
 
-	@RequestMapping(value = "/{ticket_id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/ticket/{ticket_id}", method = RequestMethod.GET)
 	@ResponseBody
 	@CrossOrigin
 	public List<MedioComunicacion> listar(@PathVariable Long ticket_id) {
@@ -57,5 +57,4 @@ public class MedioComunicacionController {
 		medioComunicacionRepository.deleteById(medio_id);
 	}
 
-	
 }
