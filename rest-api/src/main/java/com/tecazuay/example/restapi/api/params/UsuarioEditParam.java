@@ -1,18 +1,14 @@
 package com.tecazuay.example.restapi.api.params;
 
-import java.io.Serializable;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
-import com.tecazuay.example.restapi.validations.CorreoExistConstrait;
+public class UsuarioEditParam {
 
-public class UsuarioParam implements Serializable {
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 2884596714048044738L;
+	@NotNull
+	private Long personaId;
 
 	@NotEmpty
 	@Pattern(regexp = "[a-zA-ZÀ-ÿ\u00f1\u00d1 ]{2,100}")
@@ -24,7 +20,6 @@ public class UsuarioParam implements Serializable {
 
 	@NotEmpty
 	@Email
-	@CorreoExistConstrait
 	private String correo;
 
 	@NotEmpty
@@ -34,22 +29,32 @@ public class UsuarioParam implements Serializable {
 	@Pattern(regexp = "[0-9]{10,15}")
 	private String telefono;
 
-	public UsuarioParam() {
+	public UsuarioEditParam() {
 	}
 
-	public UsuarioParam(String nombres, String apellidos, String correo, String password) {
+	public UsuarioEditParam(String nombres, String apellidos, String correo, String password) {
 		this.nombres = nombres;
 		this.apellidos = apellidos;
 		this.correo = correo;
 		this.password = password;
 	}
 
-	public UsuarioParam(String nombres, String apellidos, String correo, String password, String telefono) {
+	public UsuarioEditParam(Long personaId, String nombres, String apellidos, String correo, String password,
+			String telefono) {
+		this.personaId = personaId;
 		this.nombres = nombres;
 		this.apellidos = apellidos;
 		this.correo = correo;
 		this.password = password;
 		this.telefono = telefono;
+	}
+
+	public Long getPersonaId() {
+		return personaId;
+	}
+
+	public void setPersonaId(Long personaId) {
+		this.personaId = personaId;
 	}
 
 	public String getNombres() {

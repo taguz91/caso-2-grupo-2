@@ -1,6 +1,8 @@
 package com.tecazuay.example.restapi.services.impl;
 
 import java.util.Optional;
+
+import com.tecazuay.example.restapi.api.params.UsuarioEditParam;
 import com.tecazuay.example.restapi.api.params.UsuarioParam;
 import com.tecazuay.example.restapi.models.Rol;
 import com.tecazuay.example.restapi.models.Usuario;
@@ -12,6 +14,7 @@ import com.tecazuay.example.restapi.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -28,6 +31,9 @@ public class UsuarioServiceImpl implements UsuarioService {
 
 	@Autowired
 	private EmailServiceImpl emailService;
+
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
 	@Override
 	public Usuario findById(Long id) {
@@ -47,8 +53,8 @@ public class UsuarioServiceImpl implements UsuarioService {
 
 	@Override
 	public Usuario save(UsuarioParam up, Long rolId) {
-		Usuario usuario = new Usuario(null, up.getNombres(), up.getApellidos(), up.getCorreo(), up.getPassword(),
-				up.getTelefono());
+		Usuario usuario = new Usuario(null, up.getNombres(), up.getApellidos(), up.getCorreo(),
+				passwordEncoder.encode(up.getPassword()), up.getTelefono());
 
 		Rol rol = this.rolService.findById(rolId);
 		usuario.setRol(rol);
@@ -61,18 +67,16 @@ public class UsuarioServiceImpl implements UsuarioService {
 	}
 
 	@Override
-	public Usuario update(UsuarioParam up) {
-
+	public Usuario update(UsuarioEditParam up) {
 		Usuario user = this.findById(up.getPersonaId());
 
 		if (user != null) {
-
 			// Se modifican solo los datos necesarios (añadir o quitar algún atributo)
 			user.setApellidos(up.getApellidos());
 			user.setNombres(up.getNombres());
 			user.setCorreo(up.getCorreo());
 			user.setTelefono(up.getTelefono());
-			user.setPassword(up.getPassword());
+			user.setPassword(passwordEncoder.encode(up.getPassword()));
 
 			return this.usuarioRepository.save(user);
 		} else {

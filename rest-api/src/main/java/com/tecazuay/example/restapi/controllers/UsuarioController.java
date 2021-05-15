@@ -2,6 +2,7 @@ package com.tecazuay.example.restapi.controllers;
 
 import com.tecazuay.example.restapi.api.exception.ResourceNotFoundException;
 import com.tecazuay.example.restapi.api.params.LoginParam;
+import com.tecazuay.example.restapi.api.params.UsuarioEditParam;
 import com.tecazuay.example.restapi.api.params.UsuarioParam;
 import com.tecazuay.example.restapi.definitions.PageResponse;
 import com.tecazuay.example.restapi.definitions.UsuarioToken;
@@ -18,6 +19,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -44,6 +46,9 @@ public class UsuarioController {
 	@Autowired
 	private JwtService jwtService;
 
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+
 	@PostMapping(value = "/{id}")
 	public ResponseEntity<Usuario> createUser(@Validated @RequestBody UsuarioParam usuario, @PathVariable Long id) {
 		return ResponseEntity.status(HttpStatus.OK).body(this.usuarioService.save(usuario, id));
@@ -66,7 +71,7 @@ public class UsuarioController {
 	}
 
 	@PutMapping(value = "/")
-	public ResponseEntity<Usuario> updateUser(@Validated @RequestBody UsuarioParam usuario) {
+	public ResponseEntity<Usuario> updateUser(@Validated @RequestBody UsuarioEditParam usuario) {
 		return ResponseEntity.status(HttpStatus.OK).body(this.usuarioService.update(usuario));
 	}
 
@@ -80,10 +85,14 @@ public class UsuarioController {
 		return ResponseEntity.status(HttpStatus.OK).body(this.usuarioService.deleteById(id));
 	}
 
-	@PostMapping("/login/admin")
+	@PostMapping("/login")
 	public ResponseEntity<UsuarioToken> devLogin(@Valid @RequestBody LoginParam login) {
-		Usuario user = usuarioRepository.findByCorreoAndPassword(login.getCorreo(), login.getPassword())
-				.orElseThrow(() -> new ResourceNotFoundException("Correo o contraseña incorrectos."));
+		Usuario user = usuarioRepository.findByCorreo(login.getCorreo())
+				.orElseThrow(() -> new ResourceNotFoundException("Usuario no registrado."));
+
+		if (!passwordEncoder.matches(login.getPassword(), user.getPassword())) {
+			throw new ResourceNotFoundException("Usuario o contraseña incorrectos.");
+		}
 
 		UsuarioToken userToken = new UsuarioToken(user, jwtService.toToken(user));
 		user.setToken(userToken.getToken());

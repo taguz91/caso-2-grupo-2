@@ -648,7 +648,7 @@ SET
   apellidos = 'Garcia',
   correo = 'jhonny.garcia.est@tecazuay.edu.ec',
   nombres = 'Johnny',
-  password = '1234',
+  password = '$2a$10$aQbYlYAvnVJgRZhbTk2IQuTMqatvhpXIw814uiRbBe7RUeEX14k66',
   telefono = '0968696010',
   rol_id = 1
 WHERE
@@ -669,7 +669,7 @@ SELECT
   'Garcia',
   'jhonny.garcia.est@tecazuay.edu.ec',
   'Johnny',
-  '1234',
+  '$2a$10$aQbYlYAvnVJgRZhbTk2IQuTMqatvhpXIw814uiRbBe7RUeEX14k66',
   '0968796010',
   1
 WHERE
