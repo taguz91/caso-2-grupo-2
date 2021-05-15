@@ -9,12 +9,10 @@
 Thumbs.db
 rest-api/src/main/resources/application.properties
 rest-api/src/main/resources/application.properties
-<<<<<<< HEAD
 *.properties
 application.properties
-=======
 
 application.properties
 
 application.prod.properties
->>>>>>> be37cb1f91c5aae64b3951a1add35af8b3d33713
+.temp-rest-api - RestApiApplication-classpath-arg-1621047028271.txt
