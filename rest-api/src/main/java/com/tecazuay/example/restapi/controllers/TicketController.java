@@ -27,6 +27,7 @@ import com.tecazuay.example.restapi.models.Ticket;
 import com.tecazuay.example.restapi.models.Usuario;
 import com.tecazuay.example.restapi.repositories.TicketRepository;
 import com.tecazuay.example.restapi.services.AuthorizationService;
+import com.tecazuay.example.restapi.services.EmailServiceImpl;
 import com.tecazuay.example.restapi.services.FileStoreService;
 import com.tecazuay.example.restapi.services.TicketService;
 
@@ -35,17 +36,17 @@ import com.tecazuay.example.restapi.services.TicketService;
 public class TicketController {
 
 	private TicketService ticketService;
-
 	private TicketRepository ticketRepository;
-
 	private FileStoreService fileStoreService;
+	private EmailServiceImpl emailService;
 
 	@Autowired
 	public TicketController(TicketService ticketService, TicketRepository ticketRepository,
-			FileStoreService fileStoreService) {
+			FileStoreService fileStoreService, EmailServiceImpl emailService) {
 		this.ticketService = ticketService;
 		this.ticketRepository = ticketRepository;
 		this.fileStoreService = fileStoreService;
+		this.emailService = emailService;
 	}
 
 	@PostMapping("/save")
@@ -82,6 +83,12 @@ public class TicketController {
 	@PostMapping(value = "/add/adjunto", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Adjunto> saveAdjunto(@RequestParam("file") MultipartFile file) {
 		return ResponseEntity.status(HttpStatus.OK).body(fileStoreService.saveAdjunto(file));
+	}
+
+	@PostMapping(value = "/send/welcome")
+	public ResponseEntity<String> sendEmail(@RequestParam("email") String email) {
+		emailService.sendWelcome(email);
+		return ResponseEntity.status(HttpStatus.OK).body("Enviamos el correo a: " + email);
 	}
 
 }
