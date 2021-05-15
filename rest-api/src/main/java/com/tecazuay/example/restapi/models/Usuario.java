@@ -1,9 +1,7 @@
-  
+
 package com.tecazuay.example.restapi.models;
 
 import java.io.Serializable;
-import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,73 +11,43 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Pattern;
+import javax.persistence.SequenceGenerator;
 
 import org.hibernate.annotations.Where;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 @Entity(name = "usuarios")
 @Where(clause = "is_deleted = false")
+@SequenceGenerator(name = "user_gen", sequenceName = "user_gen_pk", initialValue = 1000)
 public class Usuario extends Globals implements Serializable {
 
 	private static final long serialVersionUID = -4115808525376597079L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO, generator = "user_gen")
 	@Column(name = "usuario_id")
 	private Long personaId;
 
-	@NotEmpty
-	@Max(100)
-	@Min(1)
-	@Pattern(regexp = "[a-zA-Z]")
 	@Column(nullable = false, length = 100)
 	private String nombres;
 
-	@Max(100)
-	@Min(1)
-	@Pattern(regexp = "[0-9]")
 	@Column(nullable = false, length = 100)
 	private String apellidos;
 
-	@NotEmpty
-	@Email
-	@Max(100)
-	@Min(5)
-	@Column(nullable = false, length = 100)
+	@Column(nullable = false, length = 100, unique = true)
 	private String correo;
 
-	@NotEmpty
-	@Min(8)
-	@Max(30)
 	@Column(nullable = false, length = 30)
 	private String password;
 
 	@Column(nullable = true, length = 100)
 	private String token;
 
-	@NotEmpty
-	@Max(15)
-	@Min(10)
-	@Pattern(regexp = "[0-9]")
 	@Column(nullable = true, length = 15)
 	private String telefono;
 
-	@JsonManagedReference(value = "rf_usuario_rol")
-	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "rol_id", nullable = false)
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Rol rol;
-
-	@JsonBackReference(value = "rf_ticket_usuario")
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
-	private List<Ticket> tickets;
 
 	public Usuario() {
 	}
@@ -164,15 +132,11 @@ public class Usuario extends Globals implements Serializable {
 		this.rol = rol;
 	}
 
-	public List<Ticket> getTickets() {
-		return tickets;
-	}
-
-	public void setTickets(List<Ticket> tickets) {
-		this.tickets = tickets;
-	}
-
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+
+	public String getNombreCompleto() {
+		return this.nombres.concat(" ").concat(this.apellidos);
 	}
 }

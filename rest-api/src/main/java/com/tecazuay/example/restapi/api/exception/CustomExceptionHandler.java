@@ -64,6 +64,15 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
 		});
 	}
 
+	@ExceptionHandler(NoAuthorizationException.class)
+	public ResponseEntity<Object> handleNotAuthorizationException(NoAuthorizationException e, WebRequest request) {
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new HashMap<String, Object>() {
+			{
+				put("message", e.getMessage());
+			}
+		});
+	}
+
 	@Override
 	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException e,
 			HttpHeaders headers, HttpStatus status, WebRequest request) {

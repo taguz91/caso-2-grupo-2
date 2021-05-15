@@ -1,6 +1,7 @@
 package com.tecazuay.example.restapi.repositories;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -15,7 +16,10 @@ public interface ParametrosRepository extends JpaRepository<Parametros, Long> {
 
 	@Query(value = "SELECT p FROM parametros p WHERE p.type = :type")
 	List<Parametros> findAllByType(@Param("type") int type);
-	
+
 	@Query(value = "SELECT parametros_id, nombre,  descripcion FROM parametros WHERE type = :type", nativeQuery = true)
 	List<ParametrosResponse> findParametrosByType(int type);
+
+	@Query(value = "SELECT p FROM parametros p WHERE p.parametros_id = :id AND p.type = :type ")
+	Optional<Parametros> findByIdAndType(@Param("id") Long id, @Param("type") int type);
 }

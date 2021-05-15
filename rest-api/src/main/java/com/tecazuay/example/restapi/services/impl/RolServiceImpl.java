@@ -1,8 +1,8 @@
 package com.tecazuay.example.restapi.services.impl;
 
 import java.util.List;
-import java.util.Optional;
 
+import com.amazonaws.services.accessanalyzer.model.ResourceNotFoundException;
 import com.tecazuay.example.restapi.models.Rol;
 import com.tecazuay.example.restapi.repositories.RolRepository;
 import com.tecazuay.example.restapi.services.RolService;
@@ -11,24 +11,20 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class RolServiceImpl implements RolService {
- 
-    @Autowired
-    private RolRepository rolRepository;
 
-    @Override
-    public List<Rol> findAll() {
-        return this.rolRepository.findAll();
-    }
+	@Autowired
+	private RolRepository rolRepository;
 
-    @Override
-    public Rol findById(Long id) {
+	@Override
+	public List<Rol> findAll() {
+		return this.rolRepository.findAll();
+	}
 
-        Optional<Rol> rOptinal = this.rolRepository.findById(id);
+	@Override
+	public Rol findById(Long id) {
 
-        if (rOptinal.isPresent()) {
-            return rOptinal.get();
-        } else {
-            return null;
-        }
-    }
+		Rol rol = this.rolRepository.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException("No encontramos el rol."));
+		return rol;
+	}
 }

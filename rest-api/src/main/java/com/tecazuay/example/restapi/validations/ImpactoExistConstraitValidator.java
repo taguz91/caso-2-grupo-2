@@ -5,6 +5,7 @@ import javax.validation.ConstraintValidatorContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.tecazuay.example.restapi.Types;
 import com.tecazuay.example.restapi.repositories.ParametrosRepository;
 
 public class ImpactoExistConstraitValidator implements ConstraintValidator<ImpactoExistConstrait, Long> {
@@ -21,7 +22,7 @@ public class ImpactoExistConstraitValidator implements ConstraintValidator<Impac
 		if (impactoId == null)
 			return false;
 
-		return parametrosRepository.findById(impactoId).isPresent();
+		return parametrosRepository.findByIdAndType(impactoId, Types.PARAMETROS_IMPACTO).isPresent();
 	}
 
 }

@@ -1,15 +1,11 @@
 package com.tecazuay.example.restapi.models;
 
 import java.io.Serializable;
-import java.util.List;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.validation.constraints.NotEmpty;
 import org.hibernate.annotations.Where;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Where(clause = "is_deleted = false")
 @Entity(name = "roles")
@@ -25,10 +21,6 @@ public class Rol extends Globals implements Serializable {
 	@Column(nullable = false, length = 25)
 	private String nombre;
 
-	@JsonBackReference(value = "rf_usuario_rol")
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "rol")
-	private List<Usuario> usuarios;
-
 	public long getRolId() {
 		return rolId;
 	}
@@ -43,14 +35,6 @@ public class Rol extends Globals implements Serializable {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
-	}
-
-	public List<Usuario> getUsuarios() {
-		return usuarios;
-	}
-
-	public void setUsuarios(List<Usuario> usuarios) {
-		this.usuarios = usuarios;
 	}
 
 	public static long getSerialversionuid() {

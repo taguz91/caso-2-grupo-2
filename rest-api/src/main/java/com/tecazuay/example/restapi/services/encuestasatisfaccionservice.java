@@ -7,4 +7,5 @@ public interface encuestasatisfaccionservice {
     
     List<EncuestaSatisfacion> findAll();
     EncuestaSatisfacion findById(Long id);
+    
 }

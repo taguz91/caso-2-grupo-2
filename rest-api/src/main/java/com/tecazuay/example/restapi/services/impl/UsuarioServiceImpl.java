@@ -1,96 +1,108 @@
 package com.tecazuay.example.restapi.services.impl;
 
-import java.util.List;
 import java.util.Optional;
+import com.tecazuay.example.restapi.api.params.UsuarioParam;
 import com.tecazuay.example.restapi.models.Rol;
 import com.tecazuay.example.restapi.models.Usuario;
 import com.tecazuay.example.restapi.repositories.UsuarioRepository;
+import com.tecazuay.example.restapi.services.EmailServiceImpl;
+import com.tecazuay.example.restapi.services.JwtService;
 import com.tecazuay.example.restapi.services.RolService;
 import com.tecazuay.example.restapi.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UsuarioServiceImpl implements UsuarioService {
 
-    @Autowired
-    private UsuarioRepository usuarioRepository;
+	@Autowired
+	private UsuarioRepository usuarioRepository;
 
-    @Autowired
-    private RolService rolService;
+	@Autowired
+	private RolService rolService;
 
-    @Override
-    public Usuario findById(Long id) {
-        Optional<Usuario> uOptional = this.usuarioRepository.findById(id);
+	@Autowired
+	private JwtService jwtService;
 
-        if (uOptional.isPresent()) {
-            return uOptional.get();
-        } else {
-            return null;
-        }
-    }
+	@Autowired
+	private EmailServiceImpl emailService;
 
-    @Override
-    public List<Usuario> findAll() {
-        return this.usuarioRepository.findAll();
-    }
+	@Override
+	public Usuario findById(Long id) {
+		Optional<Usuario> uOptional = this.usuarioRepository.findById(id);
 
-    @Override
-    public Usuario save(Usuario usuario, Long rolId) {
+		if (uOptional.isPresent()) {
+			return uOptional.get();
+		} else {
+			return null;
+		}
+	}
 
-        Rol rol = this.rolService.findById(rolId);
+	@Override
+	public Page<Usuario> findAll(Pageable pageable) {
+		return this.usuarioRepository.findAllPage(pageable);
+	}
 
-        if (rol != null) {
-            usuario.setRol(rol);
-            return this.usuarioRepository.save(usuario);
-        } else {
-            return null;
-        }
-    }
+	@Override
+	public Usuario save(UsuarioParam up, Long rolId) {
+		Usuario usuario = new Usuario(null, up.getNombres(), up.getApellidos(), up.getCorreo(), up.getPassword(),
+				up.getTelefono());
 
-    @Override
-    public Usuario update(Usuario usuario) {
+		Rol rol = this.rolService.findById(rolId);
+		usuario.setRol(rol);
+		usuario.setToken(jwtService.toToken(usuario));
+		Usuario userRegister = this.usuarioRepository.save(usuario);
+		// Notificamos el registro via correo
+		emailService.sendRegister(userRegister);
 
-        Usuario user = this.findById(usuario.getPersonaId());
+		return userRegister;
+	}
 
-        if (user != null) {
+	@Override
+	public Usuario update(UsuarioParam up) {
 
-            //Se modifican solo los datos necesarios (añadir o quitar algún atributo)
-            user.setApellidos(usuario.getApellidos());
-            user.setNombres(usuario.getNombres());
-            user.setCorreo(usuario.getCorreo());
-            user.setTelefono(usuario.getTelefono());
-            user.setPassword(usuario.getPassword());
+		Usuario user = this.findById(up.getPersonaId());
 
-            return this.usuarioRepository.save(user);
-        } else {
-            return null;
-        }
-    }
+		if (user != null) {
 
-    @Override
-    public Usuario deleteById(Long usuarioId) {
-        Usuario user = this.findById(usuarioId);
+			// Se modifican solo los datos necesarios (añadir o quitar algún atributo)
+			user.setApellidos(up.getApellidos());
+			user.setNombres(up.getNombres());
+			user.setCorreo(up.getCorreo());
+			user.setTelefono(up.getTelefono());
+			user.setPassword(up.getPassword());
 
-        if (user != null) {
-            user.setDeleted(true);
-            return this.usuarioRepository.save(user);
-        } else {
-            return null;
-        }
-    }
+			return this.usuarioRepository.save(user);
+		} else {
+			return null;
+		}
+	}
 
-    @Override
-    public Usuario updateRol(Long userId, Long rolId) {
+	@Override
+	public Usuario deleteById(Long usuarioId) {
+		Usuario user = this.findById(usuarioId);
 
-        Usuario user = this.findById(userId);
-        Rol rol = this.rolService.findById(rolId);
+		if (user != null) {
+			user.setDeleted(true);
+			return this.usuarioRepository.save(user);
+		} else {
+			return null;
+		}
+	}
 
-        if (user != null && rol != null) {
-            user.setRol(rol);
-            return this.usuarioRepository.save(user);
-        } else {
-            return null;
-        }
-    }
+	@Override
+	public Usuario updateRol(Long userId, Long rolId) {
+
+		Usuario user = this.findById(userId);
+		Rol rol = this.rolService.findById(rolId);
+
+		if (user != null && rol != null) {
+			user.setRol(rol);
+			return this.usuarioRepository.save(user);
+		} else {
+			return null;
+		}
+	}
 }

@@ -645,7 +645,7 @@ UPDATE
   public.usuarios
 SET
   usuario_id = 1,
-  apellidos = 'Johnny',
+  apellidos = 'Garcia',
   correo = 'jhonny.garcia.est@tecazuay.edu.ec',
   nombres = 'Johnny',
   password = '1234',
