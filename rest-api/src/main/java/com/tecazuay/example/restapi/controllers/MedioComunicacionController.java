@@ -30,11 +30,11 @@ public class MedioComunicacionController {
 	@Autowired
 	MedioComunicacionRepository medioComunicacionRepository;
 
-	@RequestMapping(value = "", method = RequestMethod.GET)
+	@RequestMapping(value = "/{ticket_id}", method = RequestMethod.GET)
 	@ResponseBody
 	@CrossOrigin
-	public List<MedioComunicacion> listar() {
-		return medioComunicacionRepository.findAll();
+	public List<MedioComunicacion> listar(@PathVariable Long ticket_id) {
+		return medioComunicacionRepository.findAllByTicket(ticket_id);
 	}
 
 	@RequestMapping(value = "/", method = RequestMethod.POST)
