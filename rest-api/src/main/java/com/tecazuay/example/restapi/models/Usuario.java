@@ -37,38 +37,21 @@ public class Usuario extends Globals implements Serializable {
 	private Long personaId;
 
 	@NotEmpty
-	@Max(100)
-	@Min(1)
-	@Pattern(regexp = "[a-zA-Z]")
 	@Column(nullable = false, length = 100)
 	private String nombres;
 
-	@Max(100)
-	@Min(1)
-	@Pattern(regexp = "[0-9]")
 	@Column(nullable = false, length = 100)
 	private String apellidos;
 
-	@NotEmpty
-	@Email
-	@Max(100)
-	@Min(5)
 	@Column(nullable = false, length = 100)
 	private String correo;
 
-	@NotEmpty
-	@Min(8)
-	@Max(30)
 	@Column(nullable = false, length = 30)
 	private String password;
 
 	@Column(nullable = true, length = 100)
 	private String token;
 
-	@NotEmpty
-	@Max(15)
-	@Min(10)
-	@Pattern(regexp = "[0-9]")
 	@Column(nullable = true, length = 15)
 	private String telefono;
 
