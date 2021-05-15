@@ -3,16 +3,21 @@ package com.tecazuay.example.restapi.controllers;
 import com.tecazuay.example.restapi.api.exception.ResourceNotFoundException;
 import com.tecazuay.example.restapi.api.params.LoginParam;
 import com.tecazuay.example.restapi.api.params.UsuarioParam;
+import com.tecazuay.example.restapi.definitions.PageResponse;
 import com.tecazuay.example.restapi.definitions.UsuarioToken;
 import com.tecazuay.example.restapi.models.Usuario;
 import com.tecazuay.example.restapi.repositories.UsuarioRepository;
+import com.tecazuay.example.restapi.services.AuthorizationService;
 import com.tecazuay.example.restapi.services.JwtService;
 import com.tecazuay.example.restapi.services.UsuarioService;
-import java.util.List;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -22,6 +27,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -39,13 +45,19 @@ public class UsuarioController {
 	private JwtService jwtService;
 
 	@PostMapping(value = "/{id}")
-	public ResponseEntity<Usuario> createUser(@Validated @RequestBody UsuarioParam usuario, @PathVariable Long id) {	
+	public ResponseEntity<Usuario> createUser(@Validated @RequestBody UsuarioParam usuario, @PathVariable Long id) {
 		return ResponseEntity.status(HttpStatus.OK).body(this.usuarioService.save(usuario, id));
 	}
 
 	@GetMapping(value = "/")
-	public ResponseEntity<List<Usuario>> readAllUsers() {
-		return ResponseEntity.status(HttpStatus.OK).body(this.usuarioService.findAll());
+	public ResponseEntity<PageResponse> readAllUsers(@AuthenticationPrincipal Usuario user,
+			@RequestParam(value = "page", defaultValue = "0") int page,
+			@RequestParam(value = "size", defaultValue = "20") int size) {
+		AuthorizationService.onlyAdminOrDev(user);
+		Pageable pageable = PageRequest.of(page, size);
+		Page<Usuario> usuarioPage = this.usuarioService.findAll(pageable);
+
+		return ResponseEntity.status(HttpStatus.OK).body(new PageResponse(usuarioPage));
 	}
 
 	@GetMapping(value = "/{id}")
@@ -72,7 +84,7 @@ public class UsuarioController {
 	public ResponseEntity<UsuarioToken> devLogin(@Valid @RequestBody LoginParam login) {
 		Usuario user = usuarioRepository.findByCorreoAndPassword(login.getCorreo(), login.getPassword())
 				.orElseThrow(() -> new ResourceNotFoundException("Correo o contraseña incorrectos."));
-				
+
 		UsuarioToken userToken = new UsuarioToken(user, jwtService.toToken(user));
 		user.setToken(userToken.getToken());
 		usuarioRepository.save(user);

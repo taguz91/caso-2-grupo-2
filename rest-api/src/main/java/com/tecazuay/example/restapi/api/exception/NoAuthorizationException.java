@@ -7,4 +7,19 @@ import org.springframework.http.HttpStatus;
 @ResponseStatus(HttpStatus.FORBIDDEN)
 public class NoAuthorizationException extends RuntimeException {
 
+	public NoAuthorizationException() {
+		super(defaultErrorMessage(null));
+	}
+
+	public NoAuthorizationException(String message) {
+		super(defaultErrorMessage(message));
+	}
+
+	private static String defaultErrorMessage(String message) {
+		if (message == null) {
+			return "Unauthorized";
+		}
+		return message;
+	}
+
 }

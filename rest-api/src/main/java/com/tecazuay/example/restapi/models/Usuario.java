@@ -1,4 +1,4 @@
-  
+
 package com.tecazuay.example.restapi.models;
 
 import java.io.Serializable;
@@ -11,16 +11,19 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+
 import org.hibernate.annotations.Where;
 
 @Entity(name = "usuarios")
 @Where(clause = "is_deleted = false")
+@SequenceGenerator(name = "user_gen", sequenceName = "user_gen_pk", initialValue = 1000)
 public class Usuario extends Globals implements Serializable {
 
 	private static final long serialVersionUID = -4115808525376597079L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO, generator = "user_gen")
 	@Column(name = "usuario_id")
 	private Long personaId;
 

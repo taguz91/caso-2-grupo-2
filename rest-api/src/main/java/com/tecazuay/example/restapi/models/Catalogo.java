@@ -20,7 +20,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity(name = "catalogo")
 public class Catalogo extends Globals implements Serializable {
-	
+
 	private static final long serialVersionUID = 3053573538845879877L;
 
 	@Id
@@ -31,7 +31,6 @@ public class Catalogo extends Globals implements Serializable {
 	@Column(name = "descripcion", nullable = false, length = 100)
 	private String descripcion;
 
-	
 	@JsonBackReference(value = "rf_catalogo_servicio")
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "servicio_id", nullable = false)
@@ -39,7 +38,7 @@ public class Catalogo extends Globals implements Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "tipo_servicio_id", nullable = false)
-	private Parametros parametro;
+	private Parametros tipoServicio;
 
 	@JsonManagedReference(value = "rf_sla_catalogo")
 	@OneToOne(cascade = CascadeType.ALL, mappedBy = "catalogo")
@@ -73,14 +72,6 @@ public class Catalogo extends Globals implements Serializable {
 		this.servicio = servicio;
 	}
 
-	public Parametros getParametro() {
-		return this.parametro;
-	}
-
-	public void setParametro(Parametros parametro) {
-		this.parametro = parametro;
-	}
-
 	public SLA getSla() {
 		return sla;
 	}
@@ -99,6 +90,14 @@ public class Catalogo extends Globals implements Serializable {
 
 	public void setTickets(List<Ticket> tickets) {
 		this.tickets = tickets;
+	}
+
+	public Parametros getTipoServicio() {
+		return tipoServicio;
+	}
+
+	public void setTipoServicio(Parametros tipoServicio) {
+		this.tipoServicio = tipoServicio;
 	}
 
 }

@@ -3,6 +3,9 @@ package com.tecazuay.example.restapi.api.params;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import com.tecazuay.example.restapi.validations.ServicioExistConstrait;
+import com.tecazuay.example.restapi.validations.TipoServicioExistConstrait;
+
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
@@ -12,9 +15,13 @@ public class CatalogoParam {
 
 	@NotBlank
 	private String descripcion;
+
 	@NotNull
+	@ServicioExistConstrait
 	private Long servicio_id;
+
 	@NotNull
+	@TipoServicioExistConstrait
 	private Long tipo_servicio_id;
 
 	public String getDescripcion() {

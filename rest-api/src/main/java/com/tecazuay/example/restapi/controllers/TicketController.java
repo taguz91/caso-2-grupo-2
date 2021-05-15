@@ -18,8 +18,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.amazonaws.services.accessanalyzer.model.ResourceNotFoundException;
-import com.tecazuay.example.restapi.api.exception.NoAuthorizationException;
 import com.tecazuay.example.restapi.api.params.RegisterTicketParam;
 import com.tecazuay.example.restapi.definitions.PageResponse;
 import com.tecazuay.example.restapi.definitions.TicketsList;
@@ -27,9 +25,7 @@ import com.tecazuay.example.restapi.models.Adjunto;
 import com.tecazuay.example.restapi.models.Ticket;
 import com.tecazuay.example.restapi.models.Usuario;
 import com.tecazuay.example.restapi.repositories.TicketRepository;
-import com.tecazuay.example.restapi.repositories.UsuarioRepository;
 import com.tecazuay.example.restapi.services.AuthorizationService;
-import com.tecazuay.example.restapi.services.EmailServiceImpl;
 import com.tecazuay.example.restapi.services.FileStoreService;
 import com.tecazuay.example.restapi.services.TicketService;
 
@@ -40,17 +36,13 @@ public class TicketController {
 	private TicketService ticketService;
 	private TicketRepository ticketRepository;
 	private FileStoreService fileStoreService;
-	private EmailServiceImpl emailService;
-	private UsuarioRepository userRepository;
 
 	@Autowired
 	public TicketController(TicketService ticketService, TicketRepository ticketRepository,
-			FileStoreService fileStoreService, EmailServiceImpl emailService, UsuarioRepository userRepository) {
+			FileStoreService fileStoreService) {
 		this.ticketService = ticketService;
 		this.ticketRepository = ticketRepository;
 		this.fileStoreService = fileStoreService;
-		this.emailService = emailService;
-		this.userRepository = userRepository;
 	}
 
 	@PostMapping("/save")
@@ -74,9 +66,8 @@ public class TicketController {
 	public ResponseEntity<?> ticksCoordinadorHome(@Valid @PathVariable Long estado,
 			@AuthenticationPrincipal Usuario user, @RequestParam(value = "page", defaultValue = "0") int page,
 			@RequestParam(value = "size", defaultValue = "20") int size) {
-		if (!AuthorizationService.canReadTicketsByEstado(user)) {
-			throw new NoAuthorizationException();
-		}
+
+		AuthorizationService.canReadTicketsByEstado(user);
 
 		Pageable pageable = PageRequest.of(page, size);
 
@@ -87,22 +78,6 @@ public class TicketController {
 	@PostMapping(value = "/add/adjunto", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Adjunto> saveAdjunto(@RequestParam("file") MultipartFile file) {
 		return ResponseEntity.status(HttpStatus.OK).body(fileStoreService.saveAdjunto(file));
-	}
-
-	@PostMapping(value = "/send/welcome")
-	public ResponseEntity<String> sendEmail(@RequestParam("email") String email) {
-		emailService.sendWelcome(email);
-		return ResponseEntity.status(HttpStatus.OK).body("Enviamos el correo a: " + email);
-	}
-
-	@PostMapping(value = "/send/register")
-	public ResponseEntity<String> sendEmailRegistro(@RequestParam("userId") Long userId) {
-		Usuario user = userRepository.findById(userId)
-				.orElseThrow(() -> new ResourceNotFoundException("No encontramos al usuario."));
-		user.setCorreo("johnnygar98@hotmail.com");
-		boolean send = emailService.sendRegister(user);
-		return ResponseEntity.status(HttpStatus.OK).body(
-				send ? "Enviamos el correo a: " + user.getCorreo() : "No pudimos enviar el correo" + user.getCorreo());
 	}
 
 }

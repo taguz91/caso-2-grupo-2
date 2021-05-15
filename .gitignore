@@ -16,3 +16,5 @@ application.properties
 
 application.prod.properties
 .temp-rest-api - RestApiApplication-classpath-arg-1621047028271.txt
+
+rest-api/*.txt

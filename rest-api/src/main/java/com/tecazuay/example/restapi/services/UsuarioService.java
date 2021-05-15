@@ -1,21 +1,22 @@
 package com.tecazuay.example.restapi.services;
 
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import com.tecazuay.example.restapi.api.params.UsuarioParam;
 import com.tecazuay.example.restapi.models.Usuario;
 
 public interface UsuarioService {
-    
-    Usuario findById(Long id);
 
-    List<Usuario> findAll();
+	Usuario findById(Long id);
 
-    Usuario save(UsuarioParam usuarioParam, Long rolId);
+	Page<Usuario> findAll(Pageable pageable);
 
-    Usuario update(UsuarioParam usuarioParam);
+	Usuario save(UsuarioParam usuarioParam, Long rolId);
 
-    Usuario deleteById(Long id);
+	Usuario update(UsuarioParam usuarioParam);
 
-    Usuario updateRol(Long userId, Long rolId);
+	Usuario deleteById(Long id);
+
+	Usuario updateRol(Long userId, Long rolId);
 }
