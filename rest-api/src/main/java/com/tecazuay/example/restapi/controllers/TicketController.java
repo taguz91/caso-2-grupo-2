@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.tecazuay.example.restapi.api.exception.ResourceNotFoundException;
+import com.tecazuay.example.restapi.api.params.AdjuntoParam;
 import com.tecazuay.example.restapi.api.params.RegisterTicketParam;
 import com.tecazuay.example.restapi.definitions.PageResponse;
 import com.tecazuay.example.restapi.definitions.TicketsList;
@@ -43,6 +45,14 @@ public class TicketController {
 		this.ticketService = ticketService;
 		this.ticketRepository = ticketRepository;
 		this.fileStoreService = fileStoreService;
+	}
+
+	@GetMapping("/{ticketId}")
+	public ResponseEntity<Ticket> one(@PathVariable Long ticketId) {
+		Ticket ticket = ticketRepository.findById(ticketId)
+				.orElseThrow(() -> new ResourceNotFoundException("No existe el ticket con este id"));
+
+		return ResponseEntity.status(HttpStatus.OK).body(ticket);
 	}
 
 	@PostMapping("/save")
@@ -75,8 +85,10 @@ public class TicketController {
 	}
 
 	@PostMapping(value = "/add/adjunto", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Adjunto> saveAdjunto(@RequestParam("file") MultipartFile file) {
-		return ResponseEntity.status(HttpStatus.OK).body(fileStoreService.saveAdjunto(file));
+	public ResponseEntity<Adjunto> saveAdjunto(@RequestParam("file") MultipartFile file,
+			@RequestParam("ticketId") Long ticketId) {
+		return ResponseEntity.status(HttpStatus.CREATED)
+				.body(fileStoreService.saveAdjunto(new AdjuntoParam(ticketId, file)));
 	}
 
 }

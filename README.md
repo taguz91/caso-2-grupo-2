@@ -53,3 +53,9 @@ See the actual executing services.
 ```
 $ screen -list
 ```
+
+Swith to session.
+
+```
+$ screen -r 26653
+```

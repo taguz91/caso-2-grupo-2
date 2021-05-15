@@ -17,16 +17,25 @@ import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.tecazuay.example.restapi.api.BucketName;
+import com.tecazuay.example.restapi.api.exception.ResourceNotFoundException;
+import com.tecazuay.example.restapi.api.params.AdjuntoParam;
 import com.tecazuay.example.restapi.models.Adjunto;
+import com.tecazuay.example.restapi.models.Ticket;
+import com.tecazuay.example.restapi.repositories.AdjuntoRepository;
+import com.tecazuay.example.restapi.repositories.TicketRepository;
 
 @Service
 public class FileStoreService {
 
 	private final AmazonS3 amazonS3;
+	private final TicketRepository ticketRepository;
+	private final AdjuntoRepository adjuntoRepository;
 
 	@Autowired
-	public FileStoreService(AmazonS3 amazonS3) {
+	public FileStoreService(AmazonS3 amazonS3, TicketRepository ticketRepository, AdjuntoRepository adjuntoRepository) {
 		this.amazonS3 = amazonS3;
+		this.ticketRepository = ticketRepository;
+		this.adjuntoRepository = adjuntoRepository;
 	}
 
 	private String uploadToS3(String path, String fileName, Optional<Map<String, String>> optionalMetada,
@@ -47,11 +56,14 @@ public class FileStoreService {
 		}
 	}
 
-	public Adjunto saveAdjunto(MultipartFile file) {
-
+	public Adjunto saveAdjunto(AdjuntoParam adjunto) {
+		MultipartFile file = adjunto.getFile();
 		if (file.isEmpty()) {
 			throw new IllegalStateException("No encontramos el archivo.");
 		}
+
+		Ticket ticket = ticketRepository.findById(adjunto.getTicketId())
+				.orElseThrow(() -> new ResourceNotFoundException("Ticket no exist"));
 
 		Map<String, String> metadata = new HashMap<>();
 		metadata.put("Content-Type", file.getContentType());
@@ -69,7 +81,8 @@ public class FileStoreService {
 
 		Adjunto ad = new Adjunto();
 		ad.setUrl(urlS3);
-		return ad;
+		ad.setTicket(ticket);
+		return adjuntoRepository.save(ad);
 	}
 
 }

@@ -16,9 +16,11 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity(name = "catalogo")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Catalogo extends Globals implements Serializable {
 
 	private static final long serialVersionUID = 3053573538845879877L;

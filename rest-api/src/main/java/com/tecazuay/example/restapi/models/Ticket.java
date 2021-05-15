@@ -82,11 +82,15 @@ public class Ticket extends Globals implements Serializable {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "responsable_solucion_id", nullable = true)
 	private Usuario responsableSolucion;
-	
+
 	@JsonManagedReference(value = "rf_ticket_catalogo")
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "catalogo_id", nullable = false)
 	private Catalogo catalogo;
+
+	@JsonManagedReference(value = "rf_medio_comunicacion_ticket")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "ticket")
+	private List<MedioComunicacion> mediosComunicacion;
 
 	public Long getTicket_id() {
 		return ticket_id;
@@ -202,6 +206,14 @@ public class Ticket extends Globals implements Serializable {
 
 	public void setCatalogo(Catalogo catalogo) {
 		this.catalogo = catalogo;
+	}
+
+	public List<MedioComunicacion> getMediosComunicacion() {
+		return mediosComunicacion;
+	}
+
+	public void setMediosComunicacion(List<MedioComunicacion> mediosComunicacion) {
+		this.mediosComunicacion = mediosComunicacion;
 	}
 
 }

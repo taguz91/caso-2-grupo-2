@@ -12,9 +12,11 @@ import javax.persistence.OneToMany;
 import org.hibernate.annotations.Where;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Where(clause = "is_deleted = false")
 @Entity(name = "parametros")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Parametros extends Globals implements Serializable {
 
 	/**

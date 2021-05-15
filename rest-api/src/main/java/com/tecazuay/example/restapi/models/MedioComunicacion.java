@@ -11,7 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import org.hibernate.annotations.Where;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Where(clause = "is_deleted = false")
 @Entity(name = "medio_comunicacion")
@@ -24,7 +24,7 @@ public class MedioComunicacion extends Globals implements Serializable {
 	@Column(name = "medio_comunicacion_id", nullable = false)
 	private Long medio_id;
 
-	@JsonIgnore
+	@JsonBackReference(value = "rf_medio_comunicacion_ticket")
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ticket_id", nullable = false)
 	private Ticket ticket;
@@ -38,8 +38,8 @@ public class MedioComunicacion extends Globals implements Serializable {
 	}
 
 	public MedioComunicacion(Parametros mediocomunicacion2, Ticket ticket) {
-		this.medio=mediocomunicacion2;
-		this.ticket=ticket;
+		this.medio = mediocomunicacion2;
+		this.ticket = ticket;
 	}
 
 	public static long getSerialversionuid() {
@@ -53,7 +53,6 @@ public class MedioComunicacion extends Globals implements Serializable {
 	public void setMedio_id(Long medio_id) {
 		this.medio_id = medio_id;
 	}
-
 
 	public Parametros getMedio() {
 		return medio;
@@ -70,5 +69,5 @@ public class MedioComunicacion extends Globals implements Serializable {
 	public void setTicket(Ticket ticket) {
 		this.ticket = ticket;
 	}
-	
+
 }
