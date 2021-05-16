@@ -38,7 +38,7 @@ const routes: Routes = [
         component: UserCatalogoServicioComponent,
       },
       {
-        path: 'ticket/ingreso',
+        path: 'ticket/ingreso/:idCatalogo',
         component: UserRegistroTicketComponent,
       },
       {
