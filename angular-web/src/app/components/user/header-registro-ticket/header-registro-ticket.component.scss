@@ -1,0 +1,27 @@
+@import "src/scss/variables";
+
+#header_registro_ticket {
+  margin: 10px auto;
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+  border-bottom: 2px solid #ccc;
+  margin-bottom: 10px;
+  .circle {
+    height: 50px;
+    width: 50px;
+    background-color: white;
+    border: 5px solid $blue;
+    border-radius: 100%;
+    &.active {
+      background-color: $blue;
+    }
+  }
+
+  .line {
+    margin-top: 20px;
+    background-color: $blue;
+    height: 5px;
+    width: 100px;
+  }
+}

@@ -1,3 +1,57 @@
-<p>user-layout works!</p>
+<div id="user_wrapper">
 
-<router-outlet></router-outlet>
+  <div class="sidebar">
+
+    <ul class="list-unstyled">
+      <li>
+        <a routerLink="/user/home" routerLinkActive="active">
+          <span class="material-icons-round">
+            home
+          </span>
+        </a>
+      </li>
+      <li>
+        <a routerLink="/user/ticket/tipo-servicio" routerLinkActive="active">
+          <span class="material-icons-round">
+            receipt
+          </span>
+        </a>
+      </li>
+      <li>
+        <a routerLink="/user/perfil" routerLinkActive="active">
+          <span class="material-icons-round">
+            account_circle
+          </span>
+        </a>
+      </li>
+    </ul>
+
+  </div>
+
+  <div class="content">
+
+    <!-- TOP NAV TO CLOSE SESSION -->
+    <nav class="container-fluid">
+
+      <button class="btn close_btn">
+        <span class="material-icons-round text-danger">
+          chevron_right
+        </span>
+      </button>
+
+    </nav>
+
+
+    <!-- MAIN CONTENT -->
+    <router-outlet></router-outlet>
+
+  </div>
+</div>
+
+<footer class="py-5" id="user_footer">
+
+  <div class="container-fluid">
+    <h2 class="text-center mx-5">Tirtec sistema de gestión para el Instituto Superior Tecnológico del Azuay</h2>
+  </div>
+
+</footer>

@@ -1,0 +1,20 @@
+<div class="container" id="registro_ticket">
+  <app-header-registro-ticket active="0"></app-header-registro-ticket>
+
+  <div class="row">
+
+    <div *ngFor="let tipoServicio of tiposServicios" class="col-md-6 col-12 text-center">
+
+      <div class="card-option">
+
+        <a routerLink="/user/ticket/servicios/{{tipoServicio.parametros_id}}">
+          <p>{{tipoServicio.nombre}}</p>
+        </a>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

@@ -1,0 +1,83 @@
+@import "src/scss/variables";
+@import "src/scss/mixins";
+
+#user_wrapper {
+  display: flex;
+  width: 100%;
+
+  .sidebar {
+    width: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 100vh;
+    z-index: 999;
+    background-color: $primary;
+    transition: all 0.3s;
+    color: white;
+
+    ul {
+      width: 100%;
+      .components {
+        padding: 20px 0;
+        border-bottom: 1px solid $blue;
+      }
+
+      li {
+        margin: 30px 0;
+        text-align: center;
+        min-height: 90px;
+        a {
+          padding: 15px;
+          font-size: 1.4rem;
+          display: block;
+          text-decoration: none;
+          color: white;
+          margin-bottom: 0;
+          width: 100%;
+
+          span {
+            @include commonIconButton;
+          }
+
+          &:hover {
+            color: $blue;
+            background-color: white;
+            cursor: pointer;
+            span {
+              font-size: 3rem;
+            }
+          }
+        }
+
+        .active {
+          background-color: white;
+          color: $blue;
+        }
+      }
+    }
+  }
+
+  .content {
+    width: calc(100% - 100px);
+    padding: 40px;
+    min-height: 100vh;
+    transition: all 0.3s;
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    .close_btn {
+      display: block;
+      margin-left: auto;
+      span {
+        @include commonIconButton;
+      }
+    }
+  }
+}
+
+#user_footer {
+  border-top: 2px solid #ccc;
+}

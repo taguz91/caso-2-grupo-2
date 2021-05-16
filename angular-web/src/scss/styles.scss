@@ -1,8 +1,51 @@
-// Bootstrap base style 
-@import 'bootstrap';
-
-
 // My imports
-@import './variables';
-@import './mixins';
+@import "./variables";
+@import "./mixins";
 
+// Bootstrap base style
+@import "bootstrap";
+@import "material-icons";
+
+@import "https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap";
+
+body {
+  font-family: "Nunito", sans-serif;
+}
+
+/* ---------------------------------------------------
+    CARD SELECTION STYLE
+----------------------------------------------------- */
+.card-option {
+  margin: 10px auto;
+  border: 2px solid $blue;
+  padding: 15px 30px;
+  border-radius: 10px;
+  font-size: 1.3rem;
+  a {
+    text-decoration: none;
+  }
+  &:hover {
+    cursor: pointer;
+    border-color: $accent;
+    background-color: $accent;
+    color: white;
+    font-size: 1.45rem;
+  }
+  p {
+    margin-bottom: 0;
+  }
+}
+
+/* ---------------------------------------------------
+    REQUIRED FORM
+----------------------------------------------------- */
+form div.required label.control-label::after,
+form div.required label::after,
+div.form-row div.required label::after {
+  content: " * ";
+  color: var(--danger);
+}
+
+form div.required label.custom-control-label::after {
+  content: "";
+}
