@@ -27,6 +27,9 @@ export function loadHeader() {
 export function handleError<T>(result?: T) {
   return (error: any): Observable<T> => {
     console.error(error);
+    if (error.error) {
+      return of(error.error as T);
+    }
     return of(result as T);
   };
 }

@@ -1,11 +1,83 @@
 <div class="container_login">
 
   <div class="login_svc">
-    <p>login works!</p>
+
   </div>
 
   <div class="login_form">
-    <p>Login form here!</p>
+
+    <div class="container my-5">
+
+      <h1 class="mb-5">Bienvenido a Tirtec</h1>
+
+      <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+
+        <div class="mb-3">
+          <label for="" class="form-label">
+            Correo:
+          </label>
+          <input class="form-control" type="text" formControlName="correo" required>
+
+          <div *ngIf="correo.invalid && (correo.dirty || correo.touched)">
+
+            <div *ngIf="correo.errors.required" class="form-text text-danger">
+              Correo es obligatorio.
+            </div>
+            <div *ngIf="correo.errors.email" class="form-text text-danger">
+              Debe ingresar un correo valido.
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div class="mb-3">
+
+          <label for="" class="form-label">
+            Contraseña:
+          </label>
+          <input class="form-control" type="password" formControlName="password" required>
+
+          <div *ngIf="password.invalid && (password.dirty || password.touched)">
+
+            <div *ngIf="password.errors.required" class="form-text text-danger">
+              Contraseña es obligatorio.
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="mb-3">
+
+          <div *ngIf="loginResponse && loginResponse.message" class="form-text text-danger">
+            {{loginResponse.message}}
+          </div>
+
+        </div>
+
+        <div class="d-grid gap-2 d-block">
+
+          <button class="btn btn-primary" type="submit" [disabled]="!loginForm.valid">Login</button>
+
+        </div>
+
+      </form>
+
+      <div class="my-5 register_text">
+        <div class="line"></div>
+        <p>Oh registrate, es gratis</p>
+      </div>
+
+      <div class="ctn_register">
+        <div class="d-grid gap-2 d-block">
+          <button class="btn btn-outline-primary" type="button">Registrarse</button>
+        </div>
+      </div>
+
+    </div>
+
   </div>
 
 </div>

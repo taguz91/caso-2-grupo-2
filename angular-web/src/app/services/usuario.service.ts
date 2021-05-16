@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Usuario } from '../models/usuario';
+import { LoginForm, LoginUser, Usuario } from '../models/usuario';
 import { handleError, loadHeader, URL_BASE_V1 } from '../utils/constantes';
 import { PageResponse } from '../models/parametros';
 import { catchError, tap } from 'rxjs/operators';
@@ -11,15 +11,15 @@ import { catchError, tap } from 'rxjs/operators';
 })
 export class UsuarioService {
 
-  private BASE_URL = `${URL_BASE_V1}/usuario/`
+  private BASE_URL = `${URL_BASE_V1}usuario/`
 
   constructor(private http: HttpClient) {}
 
-  login(correo: string, password: string):Observable<Usuario> {
-    return this.http.post<Usuario>(`${this.BASE_URL}`, {'correo':correo, 'password': password}, loadHeader())
+  login(correo: string, password: string):Observable<LoginUser|LoginForm> {
+    return this.http.post<LoginUser>(`${this.BASE_URL}login`, {'correo':correo, 'password': password}, loadHeader())
     .pipe(
       tap((_) => console.log('Loading user data')),
-      catchError(handleError<Usuario>(null))
+      catchError(handleError<LoginForm>())
     );
   }
 

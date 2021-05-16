@@ -1,22 +1,66 @@
-@mixin pStyle {
-  text-align: center;
-  font-size: 5rem;
-}
+@import "src/scss/variables";
+@import "/node_modules/bootstrap/scss/bootstrap";
 
 .container_login {
   display: grid;
   grid-template-columns: 50% 50%;
   min-height: 100vh;
   .login_svc {
-    p {
-      color: white;
-      @include pStyle();
-    }
+    background-image: url("../../../assets/img/mouse.svg");
+    background-position: center;
+    background-repeat: no-repeat;
   }
   .login_form {
     background-color: white;
-    p {
-      @include pStyle();
+    display: flex;
+    align-content: center;
+    align-items: center;
+    h1 {
+      font-size: 4.2rem;
+      font-weight: 600;
+      width: $width-form;
+      margin: 0 auto;
+    }
+    form {
+      width: $width-form;
+      margin: 0 auto;
+      label {
+        font-size: 1.4rem;
+      }
+    }
+    .ctn_register {
+      width: $width-form;
+      margin: 0 auto;
+    }
+    .register_text {
+      text-align: center;
+      font-size: 1.5rem;
+      .line {
+        height: 2px;
+        width: 100%;
+        background-color: #ccc;
+        box-shadow: 0px 0px 0.5px 1px #cecece;
+        border: 1px solid #ccc;
+        border-radius: 1px;
+      }
+      p {
+        padding-top: 20px;
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+
+@include media-breakpoint-down(lg) {
+  .container_login {
+    display: grid;
+    grid-template-columns: 100%;
+    .login_form {
+      grid-row: 1;
+      min-height: 100vh;
+    }
+    .login_svc {
+      min-height: 50vh;
     }
   }
 }
