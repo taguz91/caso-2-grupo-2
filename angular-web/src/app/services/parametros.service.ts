@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 
-import { handleError, loadHeader, URL_BASE_V1 } from '../utils/constantes';
+import { DEFAULT_PAGE_SIZE, handleError, loadHeader, URL_BASE_V1 } from '../utils/constantes';
 
 import {
   CatalogoServicio,
@@ -27,11 +27,12 @@ export class ParametrosService {
   }
 
   listCatalogoServicios(
-    tipoServicio: number
+    tipoServicio: number,
+    page: number
   ): Observable<PageResponse<CatalogoServicio[]>> {
     return this.http
       .get<PageResponse<CatalogoServicio[]>>(
-        `${URL_BASE_V1}catalogo/tipo/${tipoServicio}`,
+        `${URL_BASE_V1}catalogo/tipo/${tipoServicio}?page=${page}&size=${DEFAULT_PAGE_SIZE}`,
         loadHeader()
       )
       .pipe(

@@ -13,7 +13,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CatalogoRepository extends JpaRepository<Catalogo, Long> {
 
-	@Query(value = "SELECT c.catalogo_id, c.descripcion FROM public.catalogo c WHERE c.tipo_servicio_id = :idTipoServicio AND c.is_deleted = false ORDER BY descripcion ASC \n-- #pageable\n;", nativeQuery = true, countQuery = "SELECT count(*) FROM public.catalogo c WHERE c.tipo_servicio_id = :idTipoServicio AND c.is_deleted = false")
-	Page<CatalogoResponse> findAllByTipo(@Param("idTipoServicio") Long idTipoServicio, Pageable pageable);
+	@Query(value = "SELECT c.catalogo_id, c.descripcion FROM public.catalogo c WHERE c.tipo_servicio_id = :idTipoServicio AND c.is_deleted = false ORDER BY descripcion ASC \n LIMIT :limitParam OFFSET :offset \n-- #pageable\n", nativeQuery = true, countQuery = "SELECT count(*) FROM public.catalogo c WHERE c.tipo_servicio_id = :idTipoServicio AND c.is_deleted = false")
+	Page<CatalogoResponse> findAllByTipo(@Param("idTipoServicio") Long idTipoServicio, @Param("offset") long offset,
+			@Param("limitParam") int limitParam, Pageable pageable);
 
 }
