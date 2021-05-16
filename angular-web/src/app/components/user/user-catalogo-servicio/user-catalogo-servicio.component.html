@@ -17,10 +17,10 @@
 
   </div>
 
-  <div class="row">
-    <div class="col-2 mx-auto">
-      <button class="btn" (click)="loadMore()">
-        <span class="material-icons-round">
+  <div class="row" *ngIf="!isLastpage">
+    <div class="col-2 mx-auto text-center">
+      <button class="btn btn-icon" [disabled]="loading" (click)="loadMore()">
+        <span class="material-icons-round" [class.spinner]="loading">
           autorenew
         </span>
       </button>

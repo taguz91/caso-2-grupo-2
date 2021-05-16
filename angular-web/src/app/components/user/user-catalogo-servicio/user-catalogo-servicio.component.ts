@@ -13,6 +13,8 @@ export class UserCatalogoServicioComponent implements OnInit {
   catalogoServicios: CatalogoServicio[] = [];
   page: number = 0;
   pageMetada: PageMetadata = DEFAULT_PAGE_METADA;
+  isLastpage: boolean = false;
+  loading: boolean = true;
 
   private tipoServicio: number = 0;
 
@@ -31,13 +33,16 @@ export class UserCatalogoServicioComponent implements OnInit {
 
   private getCatalogo(tipoServicio: number): void {
     this.parametroService
-      .listCatalogoServicios(tipoServicio, this.page)
+      .listCatalogoServicios(tipoServicio, this.page, 10)
       .subscribe((res) => {
         this.catalogoServicios.push(...res.data);
+        this.isLastpage = res.meta.pages === this.page + 1;
+        this.loading = false;
       });
   }
 
   loadMore() {
+    this.loading = true;
     this.page++;
     this.getCatalogo(this.tipoServicio);
   }

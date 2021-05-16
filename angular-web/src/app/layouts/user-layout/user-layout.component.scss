@@ -7,6 +7,7 @@
 
   .sidebar {
     width: 100px;
+    position: fixed;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -74,6 +75,11 @@
       span {
         @include commonIconButton;
       }
+    }
+
+    .main-content {
+      overflow-x: auto;
+      min-height: calc(100vh - 100px);
     }
   }
 }
