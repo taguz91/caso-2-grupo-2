@@ -1,4 +1,4 @@
 export class Rol {
-    rolId: string
+    rolId: bigint
     nombre: string
 }

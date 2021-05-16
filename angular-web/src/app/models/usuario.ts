@@ -1,7 +1,7 @@
 import { Rol } from './rol';
 
 export class Usuario {
-    personaId: string
+    personaId: bigint
     nombres: string
     apellidos: string
     correo: string
