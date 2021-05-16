@@ -15,6 +15,7 @@ import { HeaderRegistroTicketComponent } from './components/user/header-registro
 import { UserCatalogoServicioComponent } from './components/user/user-catalogo-servicio/user-catalogo-servicio.component';
 import { UserRegistroTicketComponent } from './components/user/user-registro-ticket/user-registro-ticket.component';
 import { UserPerfilComponent } from './components/user/user-perfil/user-perfil.component';
+import { CriticidadService } from './services/criticidad.service';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,7 @@ import { UserPerfilComponent } from './components/user/user-perfil/user-perfil.c
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [CriticidadService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
