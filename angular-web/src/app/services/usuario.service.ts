@@ -15,18 +15,18 @@ export class UsuarioService {
 
   constructor(private http: HttpClient) {}
 
-  login(correo: string, password: string):Observable<any> {
-    return this.http.post<PageResponse<Usuario[]>>(`${this.BASE_URL}`, {'correo':correo, 'password': password}, loadHeader())
+  login(correo: string, password: string):Observable<Usuario> {
+    return this.http.post<Usuario>(`${this.BASE_URL}`, {'correo':correo, 'password': password}, loadHeader())
     .pipe(
-      tap((_) => console.log('Loading usuario servicios')),
-      catchError(handleError<any>(null))
+      tap((_) => console.log('Loading user data')),
+      catchError(handleError<Usuario>(null))
     );
   }
 
   createUser(usuario: Usuario, rolId: string): Observable<Usuario> {
     return this.http.post<Usuario>(`${this.BASE_URL}${rolId}`, usuario, loadHeader())
     .pipe(
-      tap((_) => console.log('Loading usuario servicios')),
+      tap((_) => console.log('Loading user data')),
       catchError(handleError<Usuario>(null))
     );
   }
@@ -34,7 +34,7 @@ export class UsuarioService {
   readAllUsers(): Observable<PageResponse<Usuario[]>>   {
     return this.http.get<PageResponse<Usuario[]>>(`${this.BASE_URL}`, loadHeader())
     .pipe(
-      tap((_) => console.log('Loading usuario servicios')),
+      tap((_) => console.log('Loading users data')),
       catchError(handleError<PageResponse<Usuario[]>>(null))
     );
   }
@@ -42,7 +42,7 @@ export class UsuarioService {
   readUserById(id: string): Observable<Usuario> {
     return this.http.get<Usuario>(`${this.BASE_URL}${id}`, loadHeader())
     .pipe(
-      tap((_) => console.log('Loading usuario servicios')),
+      tap((_) => console.log('Loading user data')),
       catchError(handleError<Usuario>(null))
     );
   }
@@ -50,7 +50,7 @@ export class UsuarioService {
   updateUser(usuario: Usuario): Observable<Usuario> {
     return this.http.put<Usuario>(`${this.BASE_URL}`, usuario, loadHeader())
     .pipe(
-      tap((_) => console.log('Loading usuario servicios')),
+      tap((_) => console.log('Loading user data')),
       catchError(handleError<Usuario>(null))
     );
   }
@@ -58,7 +58,7 @@ export class UsuarioService {
   updateUserRol(personaId: string, rolId: string): Observable<Usuario> {
     return this.http.put<Usuario>(`${this.BASE_URL}${personaId}/${rolId}`, null, loadHeader())
     .pipe(
-      tap((_) => console.log('Loading usuario servicios')),
+      tap((_) => console.log('Loading user data')),
       catchError(handleError<Usuario>(null))
     );
   }

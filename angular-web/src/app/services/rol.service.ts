@@ -17,7 +17,7 @@ export class RolService {
   readAllRoles(): Observable<Rol[]> {
     return this.http.get<Rol[]>(`${this.BASE_URL}`, loadHeader())
     .pipe(
-      tap((_) => console.log('Loading rol servicios')),
+      tap((_) => console.log('Loading roles data')),
       catchError(handleError<Rol[]>([]))
     );
   }
@@ -25,7 +25,7 @@ export class RolService {
   readRolById(id: string): Observable<Rol> {
     return this.http.get<Rol>(`${this.BASE_URL}${id}`, loadHeader())
     .pipe(
-      tap((_) => console.log('Loading rol servicios')),
+      tap((_) => console.log('Loading rol data')),
       catchError(handleError<Rol>(null))
     );
   }
