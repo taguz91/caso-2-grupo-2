@@ -2,11 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
-import { MessageError } from '../models/errors';
 
 import { handleError, loadHeader, URL_BASE_V1 } from '../utils/constantes';
 
-import { Parametro } from './../models/Parametros';
+import {
+  CatalogoServicio,
+  PageResponse,
+  Parametro,
+} from './../models/Parametros';
 
 @Injectable({
   providedIn: 'root',
@@ -20,6 +23,20 @@ export class ParametrosService {
       .pipe(
         tap((_) => console.log('Loading tipos de servicio')),
         catchError(handleError<Parametro[]>([]))
+      );
+  }
+
+  listCatalogoServicios(
+    tipoServicio: number
+  ): Observable<PageResponse<CatalogoServicio[]>> {
+    return this.http
+      .get<PageResponse<CatalogoServicio[]>>(
+        `${URL_BASE_V1}catalogo/tipo/${tipoServicio}`,
+        loadHeader()
+      )
+      .pipe(
+        tap((_) => console.log('Loading catalogo servicios')),
+        catchError(handleError<PageResponse<CatalogoServicio[]>>(null))
       );
   }
 }

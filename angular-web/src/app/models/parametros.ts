@@ -3,3 +3,19 @@ export interface Parametro {
   nombre: string;
   descripcion: string;
 }
+
+export interface CatalogoServicio {
+  catalogo_id: number;
+  descripcion: string;
+}
+
+export interface PageResponse<T> {
+  data: T;
+  meta: PageMetadata;
+}
+
+export interface PageMetadata {
+  current: number;
+  items: number;
+  pages: number;
+}

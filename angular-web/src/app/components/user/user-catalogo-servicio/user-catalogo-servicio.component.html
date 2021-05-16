@@ -1,6 +1,20 @@
 <div class="container">
   <app-header-registro-ticket active="2"></app-header-registro-ticket>
 
-  <p>CATALOGO </p>
+  <div class="row">
+
+    <div *ngFor="let catalogo of catalogoServicios" class="col-md-6 col-12 text-center">
+
+      <div class="card-option">
+
+        <a routerLink="/user/ticket/ingreso/{{catalogo.catalogo_id}}">
+          <p>{{catalogo.descripcion}}</p>
+        </a>
+
+      </div>
+
+    </div>
+
+  </div>
 
 </div>
