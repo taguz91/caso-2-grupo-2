@@ -8,6 +8,7 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import com.tecazuay.example.restapi.api.params.CatalogoParam;
+import com.tecazuay.example.restapi.definitions.CatalogoResponse;
 import com.tecazuay.example.restapi.definitions.PageResponse;
 import com.tecazuay.example.restapi.models.Catalogo;
 import com.tecazuay.example.restapi.models.Usuario;
@@ -89,6 +90,17 @@ public class CatalogoController {
 		catalogo.setTipoServicio(parametroRepository.findById(catalogoParam.getTipo_servicio_id()).get());
 
 		return catalogo;
+	}
+
+	@GetMapping(value = "/tipo/{idTipo}")
+	public ResponseEntity<PageResponse> byTipoServicio(@PathVariable("idTipo") Long idTipo,
+			@RequestParam(value = "page", defaultValue = "0") int page,
+			@RequestParam(value = "size", defaultValue = "20") int size) {
+
+		Pageable pageable = PageRequest.of(page, size);
+
+		Page<CatalogoResponse> catalogos = catalogoRepository.findAllByTipo(idTipo, pageable);
+		return ResponseEntity.status(HttpStatus.OK).body(new PageResponse(catalogos));
 	}
 
 }
