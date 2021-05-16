@@ -16,7 +16,7 @@ import { UserCatalogoServicioComponent } from './components/user/user-catalogo-s
 import { UserRegistroTicketComponent } from './components/user/user-registro-ticket/user-registro-ticket.component';
 import { UserPerfilComponent } from './components/user/user-perfil/user-perfil.component';
 import { CriticidadService } from './services/criticidad.service';
-import { EncuesatisComponent } from './user/encuesatis/encuesatis.component';
+import { EncuesatisComponent } from './components/user/encuesatis/encuesatis.component';
 
 @NgModule({
   declarations: [
