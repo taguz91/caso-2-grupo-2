@@ -23,8 +23,16 @@ export class ParametrosService {
   constructor(private http: HttpClient) {}
 
   listTipoServicios(): Observable<Parametro[]> {
+    return this.callService('parametros/tipo-servicios');
+  }
+
+  listImpactos(): Observable<Parametro[]> {
+    return this.callService('parametros/impacto');
+  }
+
+  private callService(url: string): Observable<Parametro[]> {
     return this.http
-      .get<Parametro[]>(`${URL_BASE_V1}parametros/tipo-servicios`, loadHeader())
+      .get<Parametro[]>(`${URL_BASE_V1 + url}`, loadHeader())
       .pipe(
         tap((_) => console.log('Loading tipos de servicio')),
         catchError(handleError<Parametro[]>([]))

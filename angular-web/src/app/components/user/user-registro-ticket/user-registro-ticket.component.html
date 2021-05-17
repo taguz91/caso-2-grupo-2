@@ -1,6 +1,86 @@
 <div class="container">
   <app-header-registro-ticket active="4"></app-header-registro-ticket>
 
-  <p>TODO ADD FORM</p>
+  <div class="row">
+
+    <div class="col-12 col-md-8 col-lg-6 mx-auto">
+
+
+      <form [formGroup]="ticketForm" (ngSubmit)="onSave()">
+
+        <div class="mb-3">
+          <label for="" class="form-label">
+            Titulo
+          </label>
+
+          <input type="text" class="form-control" formControlName="titulo">
+
+          <div *ngIf="titulo.invalid && (titulo.dirty || titulo.touched)">
+
+            <div *ngIf="titulo.errors.required" class="form-text text-danger">
+              Titulo es obligatorio.
+            </div>
+
+            <div *ngIf="titulo.errors.maxLength" class="form-text text-danger">
+              Titulo no puede ser mayor a 100 caracteres.
+            </div>
+
+          </div>
+        </div>
+
+
+        <div class="mb-3">
+          <label for="" class="form-label">
+            Descripción
+          </label>
+
+          <textarea formControlName="descripcion" class="form-control" cols="15" rows="7"></textarea>
+
+          <div *ngIf="descripcion.invalid && (descripcion.dirty || descripcion.touched)">
+
+            <div *ngIf="descripcion.errors.required" class="form-text text-danger">
+              Descripcion es obligatorio.
+            </div>
+
+            <div *ngIf="descripcion.errors.minLength" class="form-text text-danger">
+              Descripcion debe tener almenos 10 caracteres.
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="mb-3">
+
+          <label for="" class="form-label">
+            Nivel de impacto
+          </label>
+
+          <select class="form-select" formControlName="impactoId">
+            <option value="">Selecciona el impacto</option>
+
+            <option *ngFor="let impacto of impactos" [ngValue]="impacto.parametros_id">{{ impacto.nombre }}</option>
+          </select>
+
+
+          <div *ngIf="impactoId.invalid && (impactoId.dirty || impactoId.touched)">
+
+            <div *ngIf="impactoId.errors.required" class="form-text text-danger">
+              Impacto es obligatorio.
+            </div>
+
+          </div>
+
+        </div>
+
+        <button class="btn btn-primary d-block btn-save-right " type="submit"
+          [disabled]="!ticketForm.valid">Guardar</button>
+
+      </form>
+
+
+    </div>
+
+  </div>
 
 </div>

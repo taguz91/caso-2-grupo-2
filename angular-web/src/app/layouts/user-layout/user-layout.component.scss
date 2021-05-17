@@ -42,7 +42,7 @@
             @include commonIconButton;
           }
 
-          &:hover {
+          &:hover:not(.active) {
             color: $blue;
             background-color: white;
             cursor: pointer;
