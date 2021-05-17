@@ -39,7 +39,7 @@ export class AdminLayoutComponent implements OnInit {
         {
           label: 'Nuevos',
           icon: 'receipt',
-          urlTo: '/admin/tickst/estado/2',
+          urlTo: '/admin/tickets/estado/2',
         },
         {
           label: 'Cerrados con solución',

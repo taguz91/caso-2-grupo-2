@@ -19,6 +19,7 @@ import { CriticidadService } from './services/criticidad.service';
 import { EncuesatisComponent } from './components/user/encuesatis/encuesatis.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { UserTicketComponent } from './components/user/user-ticket/user-ticket.component';
+import { TicketsEstadoComponent } from './components/admin/tickets-estado/tickets-estado.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { UserTicketComponent } from './components/user/user-ticket/user-ticket.c
     UserRegistroTicketComponent,
     UserPerfilComponent,
     EncuesatisComponent,
-    UserTicketComponent
+    UserTicketComponent,
+    TicketsEstadoComponent
   ],
   imports: [
     BrowserModule,

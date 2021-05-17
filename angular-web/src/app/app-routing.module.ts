@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminDashboardComponent } from './components/admin/admin-dashboard/admin-dashboard.component';
+import { TicketsEstadoComponent } from './components/admin/tickets-estado/tickets-estado.component';
 import { LoginComponent } from './components/login/login.component';
 import { TipoServicioComponent } from './components/user/tipo-servicio/tipo-servicio.component';
 import { UserCatalogoServicioComponent } from './components/user/user-catalogo-servicio/user-catalogo-servicio.component';
@@ -66,6 +67,10 @@ const routes: Routes = [
         path: '',
         component: AdminDashboardComponent,
       },
+      {
+        path: 'tickets/estado/:idEstado',
+        component: TicketsEstadoComponent
+      }
     ],
   },
 
