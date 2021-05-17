@@ -6,8 +6,7 @@ import { Injectable } from '@angular/core';
 })
 export class EncuesatisService {
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient) {}
 
-    
-  }
+  
 }
