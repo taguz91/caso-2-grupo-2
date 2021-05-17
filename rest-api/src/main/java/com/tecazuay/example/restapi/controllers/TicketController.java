@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.amazonaws.services.kinesisvideosignalingchannels.model.NotAuthorizedException;
 import com.tecazuay.example.restapi.api.exception.ResourceNotFoundException;
 import com.tecazuay.example.restapi.api.params.AdjuntoParam;
 import com.tecazuay.example.restapi.api.params.RegisterTicketParam;
@@ -58,6 +59,9 @@ public class TicketController {
 	@PostMapping("/save")
 	public ResponseEntity<Ticket> save(@Valid @RequestBody RegisterTicketParam registerTicket,
 			@AuthenticationPrincipal Usuario user) {
+		if (user == null) {
+			throw new NotAuthorizedException("Debes iniciar sesion para crear un ticket.");
+		}
 		return ResponseEntity.status(HttpStatus.CREATED).body(ticketService.createTicket(registerTicket, user));
 	}
 
@@ -67,7 +71,8 @@ public class TicketController {
 			@RequestParam(value = "size", defaultValue = "20") int size) {
 		Pageable pageable = PageRequest.of(page, size);
 
-		Page<TicketsList> ticketsPage = ticketRepository.findAllByUserHome(user.getPersonaId(), pageable);
+		Page<TicketsList> ticketsPage = ticketRepository.findAllByUserHome(user.getPersonaId(), pageable.getOffset(),
+				pageable.getPageSize(), pageable);
 
 		return ResponseEntity.status(HttpStatus.ACCEPTED).body(new PageResponse(ticketsPage));
 	}
@@ -80,7 +85,8 @@ public class TicketController {
 		AuthorizationService.canReadTicketsByEstado(user);
 
 		Pageable pageable = PageRequest.of(page, size);
-		Page<TicketsList> ticketsPage = ticketRepository.findAllByEstadoHome(user.getPersonaId(), pageable);
+		Page<TicketsList> ticketsPage = ticketRepository.findAllByEstadoHome(user.getPersonaId(), pageable.getOffset(),
+				pageable.getPageSize(), pageable);
 		return ResponseEntity.status(HttpStatus.ACCEPTED).body(new PageResponse(ticketsPage));
 	}
 
