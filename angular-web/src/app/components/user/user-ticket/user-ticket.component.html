@@ -1,0 +1,77 @@
+<div class="container">
+
+
+  <p *ngIf="!ticket">Loading ticket</p>
+
+  <div *ngIf="ticket" class="ticket_view">
+
+    <p>Ticket tipo: {{ ticket.catalogo.tipoServicio.nombre }}</p>
+
+    <h1>{{ticket.catalogo.descripcion}}</h1>
+
+    <div class="estado-ticket row">
+      <div class="col-12 col-md-6">
+        <p class="mb-0">{{ticket.estado.nombre}}</p>
+        <small>{{ticket.estado.descripcion}}</small>
+      </div>
+
+      <div class="col-12 col-md-6">
+        <p class="mb-0 text-end">{{ticket.impacto.nombre}}</p>
+      </div>
+    </div>
+
+    <div class="row mb-2">
+
+      <div class="col-10">
+        <h2>{{ ticket.titulo }}</h2>
+      </div>
+
+      <div class="col-2">
+        <h2># {{ ticket.ticket_id }}</h2>
+      </div>
+
+      <div class="col-12">
+        <p>{{ ticket.descripcion }}</p>
+      </div>
+
+    </div>
+
+    <div class="info_registro">
+      <p>Registrado el: {{ticket.createdAt}}</p>
+      <p>Ultima actualiación: {{ticket.updatedAt}}</p>
+    </div>
+
+    <!-- HISTORIAL -->
+
+    <div class="historial_head">
+      <div class="circle"></div>
+      <div class="line"></div>
+      <div class="text">
+        <h3 class="mb-0">Historial</h3>
+      </div>
+    </div>
+
+    <div class="historial_textos">
+
+      <div *ngFor="let message of historial;" class="historial">
+        <div class="line-small"></div>
+        <div class="circle-small"></div>
+        <div class="texto">
+          <p>{{ message }}</p>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div *ngIf="ticket" class="floating_button">
+    <a routerLink="/user/ticket/ingreso/{{ ticket.catalogo.catalogo_id }}/{{ ticket.ticket_id }}">
+      <span class="material-icons-round">
+        edit
+      </span>
+    </a>
+  </div>
+
+</div>
