@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AdminDashboardComponent } from './components/admin/admin-dashboard/admin-dashboard.component';
 import { TicketsEstadoComponent } from './components/admin/tickets-estado/tickets-estado.component';
 import { LoginComponent } from './components/login/login.component';
+import { EncuesatisComponent } from './components/user/encuesatis/encuesatis.component';
 import { TipoServicioComponent } from './components/user/tipo-servicio/tipo-servicio.component';
 import { UserCatalogoServicioComponent } from './components/user/user-catalogo-servicio/user-catalogo-servicio.component';
 import { UserDashboardComponent } from './components/user/user-dashboard/user-dashboard.component';
@@ -55,6 +56,10 @@ const routes: Routes = [
         path: 'ticket/:idTicket',
         component: UserTicketComponent,
       },
+      {
+        path: 'encuesta',
+        component: EncuesatisComponent,
+      }
     ],
   },
 
