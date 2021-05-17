@@ -69,5 +69,13 @@
   .content {
     width: calc(100% - 250px);
     @include commonContentLayout();
+    .close_btn {
+      display: block;
+      margin-left: auto;
+      span {
+        @include commonIconButton;
+      }
+      margin-bottom: 20px;
+    }
   }
 }

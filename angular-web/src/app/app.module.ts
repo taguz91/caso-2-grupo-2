@@ -20,6 +20,7 @@ import { EncuesatisComponent } from './components/user/encuesatis/encuesatis.com
 import { ReactiveFormsModule } from '@angular/forms';
 import { UserTicketComponent } from './components/user/user-ticket/user-ticket.component';
 import { TicketsEstadoComponent } from './components/admin/tickets-estado/tickets-estado.component';
+import { BreadcrumbComponent } from './components/admin/breadcrumb/breadcrumb.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { TicketsEstadoComponent } from './components/admin/tickets-estado/ticket
     UserPerfilComponent,
     EncuesatisComponent,
     UserTicketComponent,
-    TicketsEstadoComponent
+    TicketsEstadoComponent,
+    BreadcrumbComponent
   ],
   imports: [
     BrowserModule,
