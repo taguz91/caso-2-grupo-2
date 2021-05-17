@@ -30,6 +30,20 @@
 
   <div class="content">
 
+    <!-- TOP NAV TO CLOSE SESSION -->
+    <nav class="container-fluid">
+
+      <button class="btn close_btn" (click)="logout()">
+        <span class="material-icons-round text-danger">
+          chevron_right
+        </span>
+      </button>
+
+    </nav>
+
+    <!-- Breadcrumb -->
+    <app-breadcrumb></app-breadcrumb>
+
     <!-- MAIN CONTENT -->
     <div class="main-content">
       <router-outlet></router-outlet>

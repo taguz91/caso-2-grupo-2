@@ -8,3 +8,8 @@ export interface SectionMenu {
   section: string;
   options: OptionMenu[];
 }
+
+export interface Breadcrumb {
+  label: string;
+  toUrl: string;
+}
