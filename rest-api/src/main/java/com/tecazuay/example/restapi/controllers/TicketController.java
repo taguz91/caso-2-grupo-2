@@ -66,6 +66,12 @@ public class TicketController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(ticketService.createTicket(registerTicket, user));
 	}
 
+	@PostMapping("/update/{ticketId}")
+	public ResponseEntity<Ticket> update(@PathVariable Long ticketId,
+			@Valid @RequestBody RegisterTicketParam registerTicket, @AuthenticationPrincipal Usuario user) {
+		return ResponseEntity.status(HttpStatus.OK).body(ticketService.updateTicket(registerTicket, user, ticketId));
+	}
+
 	@GetMapping("/user/home")
 	public ResponseEntity<?> ticksUserHome(@AuthenticationPrincipal Usuario user,
 			@RequestParam(value = "page", defaultValue = "0") int page,
