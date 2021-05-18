@@ -1,5 +1,5 @@
-@import "src/scss/variables";
-@import "src/scss/mixins";
+@import "/src/scss/variables";
+@import "/src/scss/mixins";
 
 #user_wrapper {
   display: flex;
@@ -62,12 +62,7 @@
 
   .content {
     width: calc(100% - 100px);
-    padding: 40px;
-    min-height: 100vh;
-    transition: all 0.3s;
-    position: absolute;
-    top: 0;
-    right: 0;
+    @include commonContentLayout();
 
     .close_btn {
       display: block;

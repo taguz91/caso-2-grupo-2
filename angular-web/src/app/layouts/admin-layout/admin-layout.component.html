@@ -1,3 +1,54 @@
-<p>admin-layout works!</p>
+<div id="admin_wrapper">
 
-<router-outlet></router-outlet>
+  <div class="sidebar">
+
+    <div class="sidebar-header">
+      <h1>Tirtec</h1>
+    </div>
+
+    <ul class="list-unstyled components">
+
+      <div *ngFor="let section of menu;">
+
+        <li class="head">
+          {{ section.section }}
+        </li>
+
+        <li *ngFor="let option of section.options">
+          <a routerLink="{{option.urlTo}}" routerLinkActive="active">
+            <span class="material-icons-round">
+              {{option.icon}}
+            </span> {{option.label}}
+          </a>
+        </li>
+
+      </div>
+
+    </ul>
+
+  </div>
+
+  <div class="content">
+
+    <!-- TOP NAV TO CLOSE SESSION -->
+    <nav class="container-fluid">
+
+      <button class="btn close_btn" (click)="logout()">
+        <span class="material-icons-round text-danger">
+          chevron_right
+        </span>
+      </button>
+
+    </nav>
+
+    <!-- Breadcrumb -->
+    <app-breadcrumb></app-breadcrumb>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-content">
+      <router-outlet></router-outlet>
+    </div>
+
+  </div>
+
+</div>

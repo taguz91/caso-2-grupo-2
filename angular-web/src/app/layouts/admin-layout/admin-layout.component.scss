@@ -1,0 +1,81 @@
+@import "/src/scss/variables";
+@import "/src/scss/mixins";
+
+#admin_wrapper {
+  display: flex;
+  align-items: stretch;
+  width: 100%;
+
+  .sidebar {
+    width: 250px;
+    min-height: 100vh;
+    z-index: 3;
+    background-color: $primary;
+    color: white;
+    transition: all 0.3s;
+
+    .sidebar-header {
+      padding: 20px;
+      border-bottom: 5px solid $accent;
+      text-align: center;
+      font-weight: 600;
+    }
+
+    ul {
+      width: 100%;
+      &.components {
+        padding: 20px 0;
+      }
+
+      div {
+        color: white;
+        margin-bottom: 20px;
+        li {
+          &.head {
+            font-size: 1.3rem;
+            font-weight: 600;
+            padding-left: 15px;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #ccc;
+          }
+          a {
+            padding: 10px;
+            font-size: 1.1rem;
+            display: block;
+            color: white;
+            text-decoration: none;
+
+            &:hover {
+              color: $blue;
+              background-color: $accent;
+              cursor: pointer;
+            }
+
+            span {
+              margin-right: 10px;
+              font-size: 1.4rem;
+            }
+          }
+          .active {
+            background-color: $accent;
+            color: $blue;
+          }
+        }
+      }
+    }
+  }
+
+  .content {
+    width: calc(100% - 250px);
+    @include commonContentLayout();
+    .close_btn {
+      display: block;
+      margin-left: auto;
+      span {
+        @include commonIconButton;
+      }
+      margin-bottom: 20px;
+    }
+  }
+}

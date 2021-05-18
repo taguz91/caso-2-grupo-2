@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.amazonaws.services.kinesisvideosignalingchannels.model.NotAuthorizedException;
 import com.tecazuay.example.restapi.api.exception.ResourceNotFoundException;
 import com.tecazuay.example.restapi.api.params.AdjuntoParam;
 import com.tecazuay.example.restapi.api.params.RegisterTicketParam;
@@ -49,9 +48,13 @@ public class TicketController {
 	}
 
 	@GetMapping("/{ticketId}")
-	public ResponseEntity<Ticket> one(@PathVariable Long ticketId) {
+	public ResponseEntity<Ticket> one(@PathVariable Long ticketId, @AuthenticationPrincipal Usuario user) {
 		Ticket ticket = ticketRepository.findById(ticketId)
 				.orElseThrow(() -> new ResourceNotFoundException("No existe el ticket con este id"));
+		// Si el ticket no pertece a la persona solo los siguientes roles pueden verlo
+		if (ticket.getUsuario().getPersonaId() != user.getPersonaId()) {
+			AuthorizationService.canReadTicket(user);
+		}
 
 		return ResponseEntity.status(HttpStatus.OK).body(ticket);
 	}
@@ -59,9 +62,7 @@ public class TicketController {
 	@PostMapping("/save")
 	public ResponseEntity<Ticket> save(@Valid @RequestBody RegisterTicketParam registerTicket,
 			@AuthenticationPrincipal Usuario user) {
-		if (user == null) {
-			throw new NotAuthorizedException("Debes iniciar sesion para crear un ticket.");
-		}
+		AuthorizationService.canCreateTicket(user);
 		return ResponseEntity.status(HttpStatus.CREATED).body(ticketService.createTicket(registerTicket, user));
 	}
 

@@ -1,12 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminDashboardComponent } from './components/admin/admin-dashboard/admin-dashboard.component';
+import { TicketsEstadoComponent } from './components/admin/tickets-estado/tickets-estado.component';
 import { LoginComponent } from './components/login/login.component';
+import { EncuesatisComponent } from './components/user/encuesatis/encuesatis.component';
 import { TipoServicioComponent } from './components/user/tipo-servicio/tipo-servicio.component';
 import { UserCatalogoServicioComponent } from './components/user/user-catalogo-servicio/user-catalogo-servicio.component';
 import { UserDashboardComponent } from './components/user/user-dashboard/user-dashboard.component';
 import { UserPerfilComponent } from './components/user/user-perfil/user-perfil.component';
 import { UserRegistroTicketComponent } from './components/user/user-registro-ticket/user-registro-ticket.component';
+import { UserTicketComponent } from './components/user/user-ticket/user-ticket.component';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { EmptyLayoutComponent } from './layouts/empty-layout/empty-layout.component';
 import { UserLayoutComponent } from './layouts/user-layout/user-layout.component';
@@ -42,9 +45,21 @@ const routes: Routes = [
         component: UserRegistroTicketComponent,
       },
       {
+        path: 'ticket/ingreso/:idCatalogo/:idTicket',
+        component: UserRegistroTicketComponent,
+      },
+      {
         path: 'perfil',
         component: UserPerfilComponent,
       },
+      {
+        path: 'ticket/:idTicket',
+        component: UserTicketComponent,
+      },
+      {
+        path: 'encuesta',
+        component: EncuesatisComponent,
+      }
     ],
   },
 
@@ -57,6 +72,10 @@ const routes: Routes = [
         path: '',
         component: AdminDashboardComponent,
       },
+      {
+        path: 'tickets/estado/:idEstado',
+        component: TicketsEstadoComponent
+      }
     ],
   },
 

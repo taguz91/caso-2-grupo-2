@@ -34,7 +34,6 @@ export class LoginComponent implements OnInit {
   }
 
   onLogin() {
-    console.log(this.loginForm.value);
     if (this.loginForm.valid) {
       this.userService
         .login(this.loginForm.value.correo, this.loginForm.value.password)
