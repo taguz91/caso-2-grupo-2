@@ -21,6 +21,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { UserTicketComponent } from './components/user/user-ticket/user-ticket.component';
 import { TicketsEstadoComponent } from './components/admin/tickets-estado/tickets-estado.component';
 import { BreadcrumbComponent } from './components/admin/breadcrumb/breadcrumb.component';
+import { AdminAlertComponent } from './components/admin/admin-alert/admin-alert.component';
+import { UserAlertComponent } from './components/user/user-alert/user-alert.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +41,9 @@ import { BreadcrumbComponent } from './components/admin/breadcrumb/breadcrumb.co
     EncuesatisComponent,
     UserTicketComponent,
     TicketsEstadoComponent,
-    BreadcrumbComponent
+    BreadcrumbComponent,
+    AdminAlertComponent,
+    UserAlertComponent
   ],
   imports: [
     BrowserModule,

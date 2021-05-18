@@ -13,3 +13,8 @@ export interface Breadcrumb {
   label: string;
   toUrl: string;
 }
+
+export interface Alert {
+  type: string;
+  message: string;
+}

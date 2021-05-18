@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PageMetadata } from 'src/app/models/Parametros';
 import { TicketHome } from 'src/app/models/ticket';
+import { AlertService } from 'src/app/services/alert.service';
 import { TicketService } from 'src/app/services/ticket.service';
 import { DEFAULT_PAGE_METADA } from 'src/app/utils/constantes';
 
@@ -16,10 +17,14 @@ export class UserDashboardComponent implements OnInit {
   isLastPage: boolean = false;
   private page: number = 0;
 
-  constructor(private ticketService: TicketService) {}
+  constructor(private ticketService: TicketService, private alertService: AlertService) {}
 
   ngOnInit(): void {
     this.loadTickets();
+    this.alertService.success("MENSAJE MENSAJOSO");
+    this.alertService.error("A error ocurred in my last");
+    this.alertService.info("This is a info message");
+    this.alertService.warning("This is a info message");
   }
 
   private loadTickets() {
