@@ -25,7 +25,7 @@ public class Historial extends Globals implements Serializable {
 	@Column(name = "historial_id", nullable = false)
 	private Long historial_id;
 
-	@Column(name = "accion", nullable = false, length = 2550)
+	@Column(name = "accion", nullable = false, length = 3550)
 	private String accion;
 
 	@JsonBackReference(value = "rf_historial_ticket")
