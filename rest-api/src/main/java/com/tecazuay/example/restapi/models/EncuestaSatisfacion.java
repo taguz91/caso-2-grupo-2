@@ -34,7 +34,7 @@ public class EncuestaSatisfacion extends Globals implements Serializable {
 	
 	@JsonBackReference(value = "rf_ticket_encuesta_satisfaccion")
 	@JoinColumn(name = "ticket_id", nullable = false)
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL, mappedBy = "encuesta")
 	private Ticket ticket;
 
 	public Long getEncuesta_id() {
