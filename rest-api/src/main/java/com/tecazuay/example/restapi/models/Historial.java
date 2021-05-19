@@ -33,8 +33,10 @@ public class Historial extends Globals implements Serializable {
 	@JoinColumn(name = "ticked_id", nullable = false)
 	private Ticket ticket;
 
+	public Historial() {
+	}
+
 	public Historial(String accion, Ticket ticket) {
-		super();
 		this.accion = accion;
 		this.ticket = ticket;
 	}
