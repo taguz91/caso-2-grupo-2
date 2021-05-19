@@ -66,13 +66,7 @@
 
   </div>
 
-
-  <div *ngIf="ticket" class="floating_button">
-    <a routerLink="/user/ticket/ingreso/{{ ticket.catalogo.catalogo_id }}/{{ ticket.ticket_id }}">
-      <span class="material-icons-round">
-        edit
-      </span>
-    </a>
-  </div>
+  <app-floating-button [show]="ticket" [url]="urlEdit" [icon]="'edit'">
+  </app-floating-button>
 
 </div>

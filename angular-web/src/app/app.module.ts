@@ -24,6 +24,7 @@ import { TicketsEstadoComponent } from './components/admin/tickets-estado/ticket
 import { BreadcrumbComponent } from './components/admin/breadcrumb/breadcrumb.component';
 import { AdminAlertComponent } from './components/admin/admin-alert/admin-alert.component';
 import { UserAlertComponent } from './components/user/user-alert/user-alert.component';
+import { FloatingButtonComponent } from './components/user/floating-button/floating-button.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { UserAlertComponent } from './components/user/user-alert/user-alert.comp
     TicketsEstadoComponent,
     BreadcrumbComponent,
     AdminAlertComponent,
-    UserAlertComponent
+    UserAlertComponent,
+    FloatingButtonComponent
   ],
   imports: [
     BrowserModule,

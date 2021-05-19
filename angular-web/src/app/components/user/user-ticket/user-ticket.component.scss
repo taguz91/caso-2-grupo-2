@@ -2,7 +2,6 @@
 @import "/src/scss/mixins";
 @import "/node_modules/bootstrap/scss/functions";
 @import "/node_modules/bootstrap/scss/variables";
-@import "/node_modules/bootstrap/scss/mixins";
 
 .ticket_view {
   .estado-ticket {
@@ -90,41 +89,5 @@
         }
       }
     }
-  }
-}
-
-.floating_button {
-  position: fixed;
-  min-height: 70px;
-  min-width: 70px;
-  bottom: 50px;
-  right: 50px;
-
-  background-color: $accent;
-  border-radius: 50%;
-  a {
-    padding: 15px;
-    font-size: 1.4rem;
-    display: block;
-    text-decoration: none;
-    color: white;
-    margin-bottom: 0;
-    span {
-      @include commonIconButton;
-    }
-    &:hover {
-      font-size: 1.6rem;
-      cursor: pointer;
-      span {
-        font-size: 2.8rem;
-      }
-    }
-  }
-}
-
-@include media-breakpoint-down(lg) {
-  .floating_button {
-    bottom: 20px;
-    right: 20px;
   }
 }

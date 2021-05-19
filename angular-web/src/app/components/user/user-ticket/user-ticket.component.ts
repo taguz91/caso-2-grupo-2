@@ -7,7 +7,7 @@ import { TicketService } from 'src/app/services/ticket.service';
   selector: 'app-user-ticket',
   templateUrl: './user-ticket.component.html',
   styleUrls: ['./user-ticket.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
 export class UserTicketComponent implements OnInit {
   private ticketId: number = 0;
@@ -30,5 +30,9 @@ export class UserTicketComponent implements OnInit {
     this.ticketService.one(this.ticketId).subscribe((res) => {
       this.ticket = res;
     });
+  }
+
+  get urlEdit() {
+    return `/user/ticket/ingreso/${this.ticket.catalogo.catalogo_id}/${this.ticket.ticket_id}`;
   }
 }
