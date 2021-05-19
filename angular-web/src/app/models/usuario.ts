@@ -5,6 +5,7 @@ export class Usuario {
     nombres: string
     apellidos: string
     correo: string
+    telefono: string
     password: string
     token: string
     rol: Rol

@@ -13,13 +13,17 @@ import { UserTicketComponent } from './components/user/user-ticket/user-ticket.c
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { EmptyLayoutComponent } from './layouts/empty-layout/empty-layout.component';
 import { UserLayoutComponent } from './layouts/user-layout/user-layout.component';
+import { RegisterComponent } from './components/register/register.component';
 
 const routes: Routes = [
   // Public rutes goes here
   {
     path: '',
     component: EmptyLayoutComponent,
-    children: [{ path: '', component: LoginComponent, pathMatch: 'full' }],
+    children: [
+      { path: '', component: LoginComponent, pathMatch: 'full' },
+      { path: 'user-register', component: RegisterComponent, pathMatch: 'full'},
+    ],
   },
 
   // User rutes goes here

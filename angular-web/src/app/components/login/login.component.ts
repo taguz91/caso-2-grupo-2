@@ -52,4 +52,8 @@ export class LoginComponent implements OnInit {
   get password() {
     return this.loginForm.get('password');
   }
+
+  register() {
+    this.router.navigate(['user-register'])
+  }
 }

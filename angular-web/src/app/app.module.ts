@@ -22,6 +22,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { UserTicketComponent } from './components/user/user-ticket/user-ticket.component';
 import { TicketsEstadoComponent } from './components/admin/tickets-estado/tickets-estado.component';
 import { BreadcrumbComponent } from './components/admin/breadcrumb/breadcrumb.component';
+import { RegisterComponent } from './components/register/register.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { BreadcrumbComponent } from './components/admin/breadcrumb/breadcrumb.co
     EncuesatisComponent,
     UserTicketComponent,
     TicketsEstadoComponent,
-    BreadcrumbComponent
+    BreadcrumbComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
