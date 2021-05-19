@@ -1,5 +1,6 @@
 package com.tecazuay.example.restapi.services;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,6 +12,8 @@ import org.springframework.validation.annotation.Validated;
 
 import com.tecazuay.example.restapi.Types;
 import com.tecazuay.example.restapi.api.exception.ResourceNotFoundException;
+import com.tecazuay.example.restapi.api.params.AsignarTicketParam;
+import com.tecazuay.example.restapi.api.params.CerrarTicketParam;
 import com.tecazuay.example.restapi.api.params.RegisterTicketParam;
 import com.tecazuay.example.restapi.models.Historial;
 import com.tecazuay.example.restapi.models.Parametros;
@@ -20,6 +23,7 @@ import com.tecazuay.example.restapi.repositories.CatalogoRepository;
 import com.tecazuay.example.restapi.repositories.HistorialRepository;
 import com.tecazuay.example.restapi.repositories.ParametrosRepository;
 import com.tecazuay.example.restapi.repositories.TicketRepository;
+import com.tecazuay.example.restapi.repositories.UsuarioRepository;
 
 @Service
 @Validated
@@ -30,16 +34,18 @@ public class TicketService {
 	private CatalogoRepository catalogoRepository;
 	private EmailServiceImpl emailService;
 	private HistorialRepository historialRepository;
+	private UsuarioRepository usuarioRepository;
 
 	@Autowired
 	public TicketService(TicketRepository ticketRepository, ParametrosRepository parametrosRepository,
 			CatalogoRepository catalogoRepository, EmailServiceImpl emailService,
-			HistorialRepository historialRepository) {
+			HistorialRepository historialRepository, UsuarioRepository usuarioRepository) {
 		this.ticketRepository = ticketRepository;
 		this.parametrosRepository = parametrosRepository;
 		this.catalogoRepository = catalogoRepository;
 		this.emailService = emailService;
 		this.historialRepository = historialRepository;
+		this.usuarioRepository = usuarioRepository;
 	}
 
 	public Ticket createTicket(@Valid RegisterTicketParam registerTicket, Usuario user) {
@@ -89,5 +95,42 @@ public class TicketService {
 		// Guardamos todo el historial generado
 		this.historialRepository.saveAll(historials);
 		return this.ticketRepository.save(ticket);
+	}
+
+	public Ticket asignarTicket(@Valid AsignarTicketParam asignarTicket, Usuario user) {
+		Ticket ticket = ticketRepository.findById(asignarTicket.getTicketId()).get();
+
+		Usuario responsable = usuarioRepository.findById(asignarTicket.getSoporteId())
+				.orElseThrow(() -> new ResourceNotFoundException("No encontramos al usuario soporte."));
+
+		List<Historial> historials = new ArrayList<>();
+
+		if (ticket.getResponsable() == null) {
+			ticket.setResponsable(responsable);
+			historials.add(new Historial("Asignación ticket: " + ticket.getResponsable().getNombreCompleto(), ticket));
+		}
+
+		if (!ticket.getResponsable().getPersonaId().equals(responsable.getPersonaId())) {
+			historials.add(new Historial("Reasignación ticket: <span>" + ticket.getResponsable().getNombreCompleto()
+					+ "</span> " + responsable.getNombreCompleto(), ticket));
+			ticket.setResponsable(responsable);
+		}
+
+		return ticketRepository.save(ticket);
+	}
+
+	public Ticket cerrarTicket(@Valid CerrarTicketParam cerrarTicket, Usuario user) {
+		Ticket ticket = ticketRepository.findById(cerrarTicket.getTicketId()).get();
+		Parametros estado = parametrosRepository.findByIdAndType(cerrarTicket.getEstado(), Types.PARAMETROS_ESTADOS)
+				.orElseThrow(() -> new ResourceNotFoundException("El estado no es válido."));
+
+		ticket.setEstado(estado);
+		ticket.setSolucion(cerrarTicket.getSolucion());
+		ticket.setResponsableSolucion(user);
+		ticket.setFechaSolucion(LocalDateTime.now());
+		Historial historial = new Historial("Se cierra el ticket", ticket);
+
+		historialRepository.save(historial);
+		return ticketRepository.save(ticket);
 	}
 }

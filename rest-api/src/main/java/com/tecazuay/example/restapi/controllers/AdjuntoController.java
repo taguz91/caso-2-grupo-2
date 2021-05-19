@@ -13,15 +13,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @RestController
-@RequestMapping("/adjunto")
+@RequestMapping("/api/v1/adjunto")
 public class AdjuntoController {
 
-    @Autowired
-    private AdjuntoRepository adjuntoRepository;
+	@Autowired
+	private AdjuntoRepository adjuntoRepository;
 
-    public List<Adjunto> getAdjuntos() {
-        return adjuntoRepository.findAll();
-    }
+	public List<Adjunto> getAdjuntos() {
+		return adjuntoRepository.findAll();
+	}
 
 	@RequestMapping(value = "/crear", method = RequestMethod.POST)
 	@ResponseBody
@@ -37,10 +37,10 @@ public class AdjuntoController {
 		adjuntoRepository.deleteById(adjunto_id);
 	}
 
-    @RequestMapping(value = "{adjunto_id}", method = RequestMethod.GET)
-    @ResponseBody
-    @CrossOrigin
-    public Adjunto updateAdjunto(@PathVariable Long adjunto_id) {
-            return adjuntoRepository.findById(adjunto_id).get();
-    }
+	@RequestMapping(value = "{adjunto_id}", method = RequestMethod.GET)
+	@ResponseBody
+	@CrossOrigin
+	public Adjunto updateAdjunto(@PathVariable Long adjunto_id) {
+		return adjuntoRepository.findById(adjunto_id).get();
+	}
 }

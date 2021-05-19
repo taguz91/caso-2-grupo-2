@@ -20,6 +20,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.tecazuay.example.restapi.api.exception.ResourceNotFoundException;
 import com.tecazuay.example.restapi.api.params.AdjuntoParam;
+import com.tecazuay.example.restapi.api.params.AsignarTicketParam;
+import com.tecazuay.example.restapi.api.params.CerrarTicketParam;
 import com.tecazuay.example.restapi.api.params.RegisterTicketParam;
 import com.tecazuay.example.restapi.definitions.PageResponse;
 import com.tecazuay.example.restapi.definitions.TicketsList;
@@ -102,6 +104,18 @@ public class TicketController {
 			@RequestParam("ticketId") Long ticketId) {
 		return ResponseEntity.status(HttpStatus.CREATED)
 				.body(fileStoreService.saveAdjunto(new AdjuntoParam(ticketId, file)));
+	}
+
+	@PostMapping(value = "/asignar")
+	public ResponseEntity<Ticket> asignar(@Valid @RequestBody AsignarTicketParam asignar,
+			@AuthenticationPrincipal Usuario user) {
+		return ResponseEntity.status(HttpStatus.OK).body(ticketService.asignarTicket(asignar, user));
+	}
+
+	@PostMapping(value = "/cerrar")
+	public ResponseEntity<Ticket> cerrar(@Valid @RequestBody CerrarTicketParam cerrar,
+			@AuthenticationPrincipal Usuario user) {
+		return ResponseEntity.status(HttpStatus.OK).body(ticketService.cerrarTicket(cerrar, user));
 	}
 
 }
