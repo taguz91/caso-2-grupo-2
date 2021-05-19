@@ -50,16 +50,20 @@ import { RegisterComponent } from './components/register/register.component';
     AdminAlertComponent,
     UserAlertComponent,
     FloatingButtonComponent,
+<<<<<<< HEAD
     RegisterComponent
+=======
+    RegisterComponent,
+>>>>>>> 8d62d2e1040e9ca485c155569ac1f82fefd7dad9
   ],
   imports: [
     BrowserModule,
     FormsModule,
     AppRoutingModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   providers: [CriticidadService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

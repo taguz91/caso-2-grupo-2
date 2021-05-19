@@ -34,11 +34,18 @@
         <p>{{ ticket.descripcion }}</p>
       </div>
 
+
+      <div *ngIf="ticket.solucion" class="col-12 p-3 solucion_{{ ticket.estado.parametros_id }}">
+        <p class="solucion_title">Solución:</p>
+        <p class="mb-0"> {{ ticket.solucion }} </p>
+      </div>
+
     </div>
 
     <div class="info_registro">
       <p>Registrado el: {{ticket.createdAt}}</p>
       <p>Ultima actualiación: {{ticket.updatedAt}}</p>
+      <p *ngIf="ticket.fechaSolucion">Fecha solución: {{ ticket.fechaSolucion }}</p>
     </div>
 
     <!-- HISTORIAL -->
@@ -64,9 +71,10 @@
 
     </div>
 
-  </div>
 
-  <app-floating-button [show]="ticket" [url]="urlEdit" [icon]="'edit'">
-  </app-floating-button>
+    <app-floating-button [show]="isOpen" [url]="urlEdit" [icon]="'edit'">
+    </app-floating-button>
+
+  </div>
 
 </div>

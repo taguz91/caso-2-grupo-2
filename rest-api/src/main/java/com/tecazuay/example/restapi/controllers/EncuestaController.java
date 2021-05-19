@@ -49,7 +49,7 @@ public class EncuestaController {
 
     @PostMapping(value = "/")
     public ResponseEntity<EncuestaSatisfacion> PostEncuesta(@Valid @RequestBody EncuestaParams encu){
-        Ticket ticket= ticketRepository.findById(encu.getTicketid()).orElseThrow(ResourceNotFoundException::new);
+        Ticket ticket = ticketRepository.findById(encu.getTicketid()).orElseThrow(ResourceNotFoundException::new);
         EncuestaSatisfacion encuesta =new EncuestaSatisfacion();
         encuesta.setTicket(ticket);
         encuesta.setCalificacion(encu.getCalificacion());

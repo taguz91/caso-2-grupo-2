@@ -13,15 +13,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @RestController
-@RequestMapping("/sla")
+@RequestMapping("/api/v1/sla")
 public class SLAController {
 
-    @Autowired
-    private SLARepository slaRepository;
+	@Autowired
+	private SLARepository slaRepository;
 
-    public List<SLA> getSlas() {
-        return slaRepository.findAll();
-    }
+	public List<SLA> getSlas() {
+		return slaRepository.findAll();
+	}
 
 	@RequestMapping(value = "/crear", method = RequestMethod.POST)
 	@ResponseBody
@@ -37,10 +37,10 @@ public class SLAController {
 		slaRepository.deleteById(sla_id);
 	}
 
-    @RequestMapping(value = "{sla_id}", method = RequestMethod.GET)
-    @ResponseBody
-    @CrossOrigin
-    public SLA updateSLA(@PathVariable Long sla_id) {
-            return slaRepository.getOne(sla_id);
-    }
+	@RequestMapping(value = "{sla_id}", method = RequestMethod.GET)
+	@ResponseBody
+	@CrossOrigin
+	public SLA updateSLA(@PathVariable Long sla_id) {
+		return slaRepository.getOne(sla_id);
+	}
 }

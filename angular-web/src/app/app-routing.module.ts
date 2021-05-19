@@ -23,7 +23,11 @@ const routes: Routes = [
     component: EmptyLayoutComponent,
     children: [
       { path: '', component: LoginComponent, pathMatch: 'full' },
-      { path: 'user-register', component: RegisterComponent, pathMatch: 'full'},
+      {
+        path: 'user-register',
+        component: RegisterComponent,
+        pathMatch: 'full',
+      },
     ],
   },
 
@@ -64,7 +68,7 @@ const routes: Routes = [
       {
         path: 'encuesta',
         component: EncuesatisComponent,
-      }
+      },
     ],
   },
 
@@ -78,6 +82,7 @@ const routes: Routes = [
         component: AdminDashboardComponent,
       },
       {
+<<<<<<< HEAD
         path: 'categorias',
         component: CategoriaRegisterComponent
       },
@@ -85,6 +90,15 @@ const routes: Routes = [
         path: 'tickets/estado/:idEstado',
         component: TicketsEstadoComponent
       }
+=======
+        path: 'registrar-categoria',
+        component: CategoriaRegisterComponent,
+      },
+      {
+        path: 'tickets/estado/:idEstado',
+        component: TicketsEstadoComponent,
+      },
+>>>>>>> 8d62d2e1040e9ca485c155569ac1f82fefd7dad9
     ],
   },
 

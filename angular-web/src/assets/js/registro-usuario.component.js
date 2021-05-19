@@ -33,9 +33,9 @@ $('.form').find('input, textarea, select').on('keyup blur focus show change', fu
 
 $('#nombre').focus();
 $('#apellido').focus();
-$('#correo').focus();
 $('#password').focus();
 $('#rol').focus();
 $('#estado').focus();
 $('#email').focus();
 $('#confirmar_pass').focus();
+$('#correo').focus();

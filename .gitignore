@@ -20,3 +20,4 @@ node_modules/*
 .temp-rest-api - RestApiApplication-classpath-arg-1621047028271.txt
 
 rest-api/*.txt
+.vscode/*
