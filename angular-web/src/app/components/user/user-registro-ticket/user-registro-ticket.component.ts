@@ -103,9 +103,10 @@ export class UserRegistroTicketComponent implements OnInit {
       this.upload(file);
       uploads++;
       if (uploads === this.chosenFiles.length) {
+        // Esperamos un segundo para que nos devuelva el historial completo 
         setTimeout(() => {
           this.onSaved(urlRedirect);
-        }, 500);
+        }, 1000);
       }
     });
   }
