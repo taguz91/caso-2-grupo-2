@@ -1,11 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminDashboardComponent } from './components/admin/admin-dashboard/admin-dashboard.component';
-<<<<<<< HEAD
 import { CategoriaRegisterComponent } from './components/admin/categoria-register/categoria-register.component';
-=======
 import { TicketsEstadoComponent } from './components/admin/tickets-estado/tickets-estado.component';
->>>>>>> d13e952ec32e47d1ba0c739f016fd564172ee741
 import { LoginComponent } from './components/login/login.component';
 import { EncuesatisComponent } from './components/user/encuesatis/encuesatis.component';
 import { TipoServicioComponent } from './components/user/tipo-servicio/tipo-servicio.component';
@@ -26,7 +23,11 @@ const routes: Routes = [
     component: EmptyLayoutComponent,
     children: [
       { path: '', component: LoginComponent, pathMatch: 'full' },
-      { path: 'user-register', component: RegisterComponent, pathMatch: 'full'},
+      {
+        path: 'user-register',
+        component: RegisterComponent,
+        pathMatch: 'full',
+      },
     ],
   },
 
@@ -67,7 +68,7 @@ const routes: Routes = [
       {
         path: 'encuesta',
         component: EncuesatisComponent,
-      }
+      },
     ],
   },
 
@@ -81,14 +82,13 @@ const routes: Routes = [
         component: AdminDashboardComponent,
       },
       {
-<<<<<<< HEAD
         path: 'registrar-categoria',
-        component: CategoriaRegisterComponent
-=======
+        component: CategoriaRegisterComponent,
+      },
+      {
         path: 'tickets/estado/:idEstado',
-        component: TicketsEstadoComponent
->>>>>>> d13e952ec32e47d1ba0c739f016fd564172ee741
-      }
+        component: TicketsEstadoComponent,
+      },
     ],
   },
 

@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.tecazuay.example.restapi.api.exception.NoAuthorizationException;
 import com.tecazuay.example.restapi.api.exception.ResourceNotFoundException;
 import com.tecazuay.example.restapi.api.params.AdjuntoParam;
 import com.tecazuay.example.restapi.api.params.AsignarTicketParam;
@@ -78,6 +79,10 @@ public class TicketController {
 	public ResponseEntity<?> ticksUserHome(@AuthenticationPrincipal Usuario user,
 			@RequestParam(value = "page", defaultValue = "0") int page,
 			@RequestParam(value = "size", defaultValue = "20") int size) {
+		if (user == null) {
+			throw new NoAuthorizationException("Debe iniciar sessión.");
+		}
+
 		Pageable pageable = PageRequest.of(page, size);
 
 		Page<TicketsList> ticketsPage = ticketRepository.findAllByUserHome(user.getPersonaId(), pageable.getOffset(),
