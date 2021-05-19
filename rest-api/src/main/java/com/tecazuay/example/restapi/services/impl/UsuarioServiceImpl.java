@@ -2,6 +2,7 @@ package com.tecazuay.example.restapi.services.impl;
 
 import java.util.Optional;
 
+import com.tecazuay.example.restapi.Types;
 import com.tecazuay.example.restapi.api.params.UsuarioEditParam;
 import com.tecazuay.example.restapi.api.params.UsuarioParam;
 import com.tecazuay.example.restapi.models.Rol;
@@ -60,9 +61,10 @@ public class UsuarioServiceImpl implements UsuarioService {
 		usuario.setRol(rol);
 		usuario.setToken(jwtService.toToken(usuario));
 		Usuario userRegister = this.usuarioRepository.save(usuario);
-		// Notificamos el registro via correo
-		emailService.sendRegister(userRegister);
-
+		// Notificamos el registro via correo si es un nuevo usuario final
+		if (rol.getRolId() == Types.ROL_USUARIO || rol.getRolId() == Types.ROL_DEVELOPER) {
+			emailService.sendRegister(userRegister);
+		}
 		return userRegister;
 	}
 

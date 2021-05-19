@@ -19,6 +19,7 @@ export class LoginComponent implements OnInit {
     ]),
   });
 
+  loading: boolean = false;
   loginResponse: LoginForm;
 
   constructor(
@@ -35,9 +36,11 @@ export class LoginComponent implements OnInit {
 
   onLogin() {
     if (this.loginForm.valid) {
+      this.loading = true;
       this.userService
         .login(this.loginForm.value.correo, this.loginForm.value.password)
         .subscribe((response) => {
+          this.loading = false;
           if ('message' in response) {
             this.loginResponse = response;
           } else if ('token' in response) {

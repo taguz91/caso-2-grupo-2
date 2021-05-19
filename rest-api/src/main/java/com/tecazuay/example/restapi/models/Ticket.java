@@ -37,10 +37,10 @@ public class Ticket extends Globals implements Serializable {
 	@Column(name = "titulo", nullable = false, length = 255)
 	private String titulo;
 
-	@Column(name = "descripcion", nullable = false)
+	@Column(name = "descripcion", nullable = false, length = 1000)
 	private String descripcion;
 
-	@Column(name = "solucion", nullable = true)
+	@Column(name = "solucion", nullable = true, length = 1000)
 	private String solucion;
 
 	@Column(name = "fecha_solucion", nullable = true)

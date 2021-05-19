@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SectionMenu } from 'src/app/models/types';
+import { SessionService } from 'src/app/services/session.service';
 
 @Component({
   selector: 'app-admin-layout',
@@ -95,9 +96,11 @@ export class AdminLayoutComponent implements OnInit {
     },
   ];
 
-  constructor() {}
+  constructor(private sessionService: SessionService) {}
 
   ngOnInit(): void {}
 
-  logout() {}
+  logout() {
+    this.sessionService.logout();
+  }
 }

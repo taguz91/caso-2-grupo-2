@@ -59,7 +59,7 @@
 
                 <div class="d-grid gap-2 d-block">
 
-                    <button class="btn btn-primary" type="submit" [disabled]="!loginForm.valid">Login</button>
+                    <button class="btn btn-primary" type="submit" [disabled]="!loginForm.valid || loading" [class.spinner]="loading">Login</button>
 
                 </div>
 

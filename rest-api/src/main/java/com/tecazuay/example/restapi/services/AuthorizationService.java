@@ -2,6 +2,7 @@ package com.tecazuay.example.restapi.services;
 
 import com.tecazuay.example.restapi.Types;
 import com.tecazuay.example.restapi.api.exception.NoAuthorizationException;
+import com.tecazuay.example.restapi.models.Ticket;
 import com.tecazuay.example.restapi.models.Usuario;
 
 public class AuthorizationService {
@@ -39,6 +40,18 @@ public class AuthorizationService {
 		}
 		if (!auth) {
 			throw new NoAuthorizationException("No puedes leer el ticket con tu rol actual.");
+		}
+		return auth;
+	}
+
+	public static boolean canEditTicket(Usuario user, Ticket ticket) {
+		boolean auth = false;
+		if (user != null) {
+			Long ticketUser = ticket.getUsuario().getPersonaId();
+			auth = user.getPersonaId().equals(ticketUser);
+		}
+		if (!auth) {
+			throw new NoAuthorizationException("No puedes actualizar el ticket, no se encuentra en tus registros.");
 		}
 		return auth;
 	}

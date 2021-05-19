@@ -1,6 +1,7 @@
 import { HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { PageMetadata } from '../models/Parametros';
+import { AlertService } from '../services/alert.service';
 
 export const URL_BASE_V1: string =
   'http://ec2-54-227-48-41.compute-1.amazonaws.com:8080/api/v1/';
@@ -24,10 +25,13 @@ export function loadHeader() {
   };
 }
 
-export function handleError<T>(result?: T) {
+export function handleError<T>(result?: T, alertService?: AlertService) {
   return (error: any): Observable<T> => {
     console.error(error);
     if (error.error) {
+      if (alertService && error.error.message) {
+        alertService.error(error.error.message);
+      }
       return of(error.error as T);
     }
     return of(result as T);

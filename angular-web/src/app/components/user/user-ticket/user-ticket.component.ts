@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { TicketView } from 'src/app/models/ticket';
 import { TicketService } from 'src/app/services/ticket.service';
@@ -7,19 +7,11 @@ import { TicketService } from 'src/app/services/ticket.service';
   selector: 'app-user-ticket',
   templateUrl: './user-ticket.component.html',
   styleUrls: ['./user-ticket.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class UserTicketComponent implements OnInit {
   private ticketId: number = 0;
   ticket: TicketView;
-
-  // Es solo para testing
-  historial: string[] = [
-    'Coordinador Eddison asigna caso a Pepe',
-    'Se actualiza el estado a en revision',
-    'Johnny Garcia, actualiza el titulo del incidente a, ticket.',
-    'Se sube el ticket a nivel dos',
-    'Se cierra el ticket por ',
-  ];
 
   constructor(
     private ticketService: TicketService,
@@ -38,5 +30,9 @@ export class UserTicketComponent implements OnInit {
     this.ticketService.one(this.ticketId).subscribe((res) => {
       this.ticket = res;
     });
+  }
+
+  get urlEdit() {
+    return `/user/ticket/ingreso/${this.ticket.catalogo.catalogo_id}/${this.ticket.ticket_id}`;
   }
 }
