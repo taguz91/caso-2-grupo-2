@@ -16,13 +16,10 @@ import { HeaderRegistroTicketComponent } from './components/user/header-registro
 import { UserCatalogoServicioComponent } from './components/user/user-catalogo-servicio/user-catalogo-servicio.component';
 import { UserRegistroTicketComponent } from './components/user/user-registro-ticket/user-registro-ticket.component';
 import { UserPerfilComponent } from './components/user/user-perfil/user-perfil.component';
-<<<<<<< HEAD
 import { CategoriaRegisterComponent } from './components/admin/categoria-register/categoria-register.component';
 import { ReactiveFormsModule } from '@angular/forms';
-=======
 import { CriticidadService } from './services/criticidad.service';
 import { EncuesatisComponent } from './components/user/encuesatis/encuesatis.component';
-import { ReactiveFormsModule } from '@angular/forms';
 import { UserTicketComponent } from './components/user/user-ticket/user-ticket.component';
 import { TicketsEstadoComponent } from './components/admin/tickets-estado/tickets-estado.component';
 import { BreadcrumbComponent } from './components/admin/breadcrumb/breadcrumb.component';
@@ -30,7 +27,6 @@ import { AdminAlertComponent } from './components/admin/admin-alert/admin-alert.
 import { UserAlertComponent } from './components/user/user-alert/user-alert.component';
 import { FloatingButtonComponent } from './components/user/floating-button/floating-button.component';
 import { RegisterComponent } from './components/register/register.component';
->>>>>>> d13e952ec32e47d1ba0c739f016fd564172ee741
 
 @NgModule({
   declarations: [
@@ -46,9 +42,7 @@ import { RegisterComponent } from './components/register/register.component';
     UserCatalogoServicioComponent,
     UserRegistroTicketComponent,
     UserPerfilComponent,
-<<<<<<< HEAD
-    CategoriaRegisterComponent
-=======
+    CategoriaRegisterComponent,
     EncuesatisComponent,
     UserTicketComponent,
     TicketsEstadoComponent,
@@ -57,7 +51,6 @@ import { RegisterComponent } from './components/register/register.component';
     UserAlertComponent,
     FloatingButtonComponent,
     RegisterComponent
->>>>>>> d13e952ec32e47d1ba0c739f016fd564172ee741
   ],
   imports: [
     BrowserModule,
