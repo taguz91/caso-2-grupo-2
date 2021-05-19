@@ -16,9 +16,10 @@ import { HeaderRegistroTicketComponent } from './components/user/header-registro
 import { UserCatalogoServicioComponent } from './components/user/user-catalogo-servicio/user-catalogo-servicio.component';
 import { UserRegistroTicketComponent } from './components/user/user-registro-ticket/user-registro-ticket.component';
 import { UserPerfilComponent } from './components/user/user-perfil/user-perfil.component';
+import { CategoriaRegisterComponent } from './components/admin/categoria-register/categoria-register.component';
+import { ReactiveFormsModule } from '@angular/forms';
 import { CriticidadService } from './services/criticidad.service';
 import { EncuesatisComponent } from './components/user/encuesatis/encuesatis.component';
-import { ReactiveFormsModule } from '@angular/forms';
 import { UserTicketComponent } from './components/user/user-ticket/user-ticket.component';
 import { TicketsEstadoComponent } from './components/admin/tickets-estado/tickets-estado.component';
 import { BreadcrumbComponent } from './components/admin/breadcrumb/breadcrumb.component';
@@ -41,6 +42,7 @@ import { RegisterComponent } from './components/register/register.component';
     UserCatalogoServicioComponent,
     UserRegistroTicketComponent,
     UserPerfilComponent,
+    CategoriaRegisterComponent,
     EncuesatisComponent,
     UserTicketComponent,
     TicketsEstadoComponent,
@@ -48,16 +50,16 @@ import { RegisterComponent } from './components/register/register.component';
     AdminAlertComponent,
     UserAlertComponent,
     FloatingButtonComponent,
-    RegisterComponent
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
     AppRoutingModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   providers: [CriticidadService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
