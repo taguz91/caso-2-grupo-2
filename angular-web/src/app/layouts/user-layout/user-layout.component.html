@@ -31,9 +31,9 @@
   <div class="content">
 
     <!-- TOP NAV TO CLOSE SESSION -->
-    <nav class="container-fluid">
+    <nav class="">
 
-      <button class="btn close_btn">
+      <button class="btn close_btn" (click)="logout()">
         <span class="material-icons-round text-danger">
           chevron_right
         </span>
@@ -41,17 +41,21 @@
 
     </nav>
 
+    <!-- Alerts -->
+    <app-user-alert></app-user-alert>
 
     <!-- MAIN CONTENT -->
-    <router-outlet></router-outlet>
+    <div class="main-content">
+      <router-outlet></router-outlet>
+    </div>
+
+    <footer class="py-5 mt-5" id="user_footer">
+
+      <div class="container-fluid">
+        <h2 class="text-center mx-4">Tirtec sistema de gestión para el Instituto Superior Tecnológico del Azuay</h2>
+      </div>
+
+    </footer>
 
   </div>
 </div>
-
-<footer class="py-5" id="user_footer">
-
-  <div class="container-fluid">
-    <h2 class="text-center mx-5">Tirtec sistema de gestión para el Instituto Superior Tecnológico del Azuay</h2>
-  </div>
-
-</footer>

@@ -36,5 +36,4 @@ public class PageMetada {
 	public void setPages(int pages) {
 		this.pages = pages;
 	}
-
 }

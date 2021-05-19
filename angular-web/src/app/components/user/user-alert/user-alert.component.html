@@ -1,0 +1,7 @@
+<div *ngFor="let alert of alerts; let i = index;" class="alert alert-user {{ alert.type }} alert-dismissible fade show animate__animated animate__fadeInRight"
+  role="alert">
+  {{ alert.message }}
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" (click)="remove(i)"></button>
+</div>
+
+<hr>

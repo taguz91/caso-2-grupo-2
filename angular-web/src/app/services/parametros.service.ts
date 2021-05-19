@@ -3,7 +3,12 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 
-import { handleError, loadHeader, URL_BASE_V1 } from '../utils/constantes';
+import {
+  DEFAULT_PAGE_SIZE,
+  handleError,
+  loadHeader,
+  URL_BASE_V1,
+} from '../utils/constantes';
 
 import {
   CatalogoServicio,
@@ -18,8 +23,16 @@ export class ParametrosService {
   constructor(private http: HttpClient) {}
 
   listTipoServicios(): Observable<Parametro[]> {
+    return this.callService('parametros/tipo-servicios');
+  }
+
+  listImpactos(): Observable<Parametro[]> {
+    return this.callService('parametros/impacto');
+  }
+
+  private callService(url: string): Observable<Parametro[]> {
     return this.http
-      .get<Parametro[]>(`${URL_BASE_V1}parametros/tipo-servicios`, loadHeader())
+      .get<Parametro[]>(`${URL_BASE_V1 + url}`, loadHeader())
       .pipe(
         tap((_) => console.log('Loading tipos de servicio')),
         catchError(handleError<Parametro[]>([]))
@@ -27,11 +40,13 @@ export class ParametrosService {
   }
 
   listCatalogoServicios(
-    tipoServicio: number
+    tipoServicio: number,
+    page: number,
+    size: number = DEFAULT_PAGE_SIZE
   ): Observable<PageResponse<CatalogoServicio[]>> {
     return this.http
       .get<PageResponse<CatalogoServicio[]>>(
-        `${URL_BASE_V1}catalogo/tipo/${tipoServicio}`,
+        `${URL_BASE_V1}catalogo/tipo/${tipoServicio}?page=${page}&size=${size}`,
         loadHeader()
       )
       .pipe(

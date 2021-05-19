@@ -99,7 +99,8 @@ public class CatalogoController {
 
 		Pageable pageable = PageRequest.of(page, size);
 
-		Page<CatalogoResponse> catalogos = catalogoRepository.findAllByTipo(idTipo, pageable);
+		Page<CatalogoResponse> catalogos = catalogoRepository.findAllByTipo(idTipo, pageable.getOffset(),
+				pageable.getPageSize(), pageable);
 		return ResponseEntity.status(HttpStatus.OK).body(new PageResponse(catalogos));
 	}
 

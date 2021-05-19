@@ -1,0 +1,44 @@
+<div class="container">
+  <div class="card">
+    <div class="card-header">
+      <h3 style="text-align: center">Encuesta de satisfaccion</h3>
+    </div>
+      <div class="card-body">
+        <div class="col-12">
+          Envianos tus comentarios acerca de este servicio
+        </div>
+        <br>
+        <div class="response">
+          <textarea class="form-control" type="text" rows="8" cols="155" name="comentario" #comentario="ngModel" [(ngModel)]="encuestaCreate.comentario" required></textarea>
+        </div>
+        <br>
+        <div class="col-12">
+          Tu puntuación es importante
+        </div>
+        <br>
+        <div style="text-align: center">
+          <span class="material-icons-outlined" style="cursor : pointer" id="1estrella" (click)="califica(1)">
+            star
+          </span>
+          <span class="material-icons-outlined" style="cursor : pointer" id="2estrella" (click)="califica(2)">
+            star
+          </span>
+          <span class="material-icons-outlined" style="cursor : pointer" id="3estrella" (click)="califica(3)">
+            star
+          </span>
+          <span class="material-icons-outlined" style="cursor : pointer" id="4estrella" (click)="califica(4)">
+            star
+          </span>
+          <span class="material-icons-outlined" style="cursor : pointer" id="5estrella" (click)="califica(5)">
+            star
+          </span>
+
+        </div>
+        <br>
+        <div class="col-12" style="text-align: center">
+          <button class="btn btn-success" style="text-align: center" (click)="addEncuesta()">Calificar</button>
+        </div>
+      </div>
+
+  </div>
+</div>

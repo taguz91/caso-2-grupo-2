@@ -48,9 +48,13 @@ public class TicketController {
 	}
 
 	@GetMapping("/{ticketId}")
-	public ResponseEntity<Ticket> one(@PathVariable Long ticketId) {
+	public ResponseEntity<Ticket> one(@PathVariable Long ticketId, @AuthenticationPrincipal Usuario user) {
 		Ticket ticket = ticketRepository.findById(ticketId)
 				.orElseThrow(() -> new ResourceNotFoundException("No existe el ticket con este id"));
+		// Si el ticket no pertece a la persona solo los siguientes roles pueden verlo
+		if (ticket.getUsuario().getPersonaId() != user.getPersonaId()) {
+			AuthorizationService.canReadTicket(user);
+		}
 
 		return ResponseEntity.status(HttpStatus.OK).body(ticket);
 	}
@@ -58,7 +62,14 @@ public class TicketController {
 	@PostMapping("/save")
 	public ResponseEntity<Ticket> save(@Valid @RequestBody RegisterTicketParam registerTicket,
 			@AuthenticationPrincipal Usuario user) {
+		AuthorizationService.canCreateTicket(user);
 		return ResponseEntity.status(HttpStatus.CREATED).body(ticketService.createTicket(registerTicket, user));
+	}
+
+	@PostMapping("/update/{ticketId}")
+	public ResponseEntity<Ticket> update(@PathVariable Long ticketId,
+			@Valid @RequestBody RegisterTicketParam registerTicket, @AuthenticationPrincipal Usuario user) {
+		return ResponseEntity.status(HttpStatus.OK).body(ticketService.updateTicket(registerTicket, user, ticketId));
 	}
 
 	@GetMapping("/user/home")
@@ -67,7 +78,8 @@ public class TicketController {
 			@RequestParam(value = "size", defaultValue = "20") int size) {
 		Pageable pageable = PageRequest.of(page, size);
 
-		Page<TicketsList> ticketsPage = ticketRepository.findAllByUserHome(user.getPersonaId(), pageable);
+		Page<TicketsList> ticketsPage = ticketRepository.findAllByUserHome(user.getPersonaId(), pageable.getOffset(),
+				pageable.getPageSize(), pageable);
 
 		return ResponseEntity.status(HttpStatus.ACCEPTED).body(new PageResponse(ticketsPage));
 	}
@@ -80,7 +92,8 @@ public class TicketController {
 		AuthorizationService.canReadTicketsByEstado(user);
 
 		Pageable pageable = PageRequest.of(page, size);
-		Page<TicketsList> ticketsPage = ticketRepository.findAllByEstadoHome(user.getPersonaId(), pageable);
+		Page<TicketsList> ticketsPage = ticketRepository.findAllByEstadoHome(user.getPersonaId(), pageable.getOffset(),
+				pageable.getPageSize(), pageable);
 		return ResponseEntity.status(HttpStatus.ACCEPTED).body(new PageResponse(ticketsPage));
 	}
 

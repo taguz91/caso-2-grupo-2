@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SessionService } from 'src/app/services/session.service';
 
 @Component({
   selector: 'app-user-layout',
@@ -6,7 +7,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./user-layout.component.scss'],
 })
 export class UserLayoutComponent implements OnInit {
-  constructor() {}
+  constructor(private sessionService: SessionService) {}
 
   ngOnInit(): void {}
+
+  logout() {
+    this.sessionService.logout();
+  }
 }
