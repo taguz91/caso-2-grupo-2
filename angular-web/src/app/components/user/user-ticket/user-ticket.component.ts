@@ -12,6 +12,8 @@ import { TicketService } from 'src/app/services/ticket.service';
 export class UserTicketComponent implements OnInit {
   private ticketId: number = 0;
   ticket: TicketView;
+  urlEdit: string = '';
+  isOpen: boolean = true;
 
   constructor(
     private ticketService: TicketService,
@@ -29,10 +31,8 @@ export class UserTicketComponent implements OnInit {
   findOne() {
     this.ticketService.one(this.ticketId).subscribe((res) => {
       this.ticket = res;
+      this.urlEdit = `/user/ticket/ingreso/${this.ticket.catalogo.catalogo_id}/${this.ticket.ticket_id}`;
+      this.isOpen = ![13, 14].includes(this.ticket.estado.parametros_id);
     });
-  }
-
-  get urlEdit() {
-    return `/user/ticket/ingreso/${this.ticket.catalogo.catalogo_id}/${this.ticket.ticket_id}`;
   }
 }

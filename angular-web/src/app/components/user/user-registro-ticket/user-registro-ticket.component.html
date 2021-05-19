@@ -77,8 +77,28 @@
 
         </div>
 
-        <button class="btn btn-primary d-block btn-save-right " type="submit"
-          [disabled]="!ticketForm.valid">Guardar</button>
+        <div class="mb-3">
+
+          <label class="form-label">Adjuntos:</label>
+
+          <div class="form-text">
+            Solo puedes subir imagenes.
+          </div>
+
+          <div class="progress" *ngIf="progress > 0">
+            <div class="progress-bar progress-bar-striped bg-info" attr.aria-valuenow="{{ progress }}"
+              aria-valuemin="0" aria-valuemax="100" [ngStyle]="{ width: progress + '%' }">
+              {{ progress }}%
+            </div>
+          </div>
+
+          <input class="form-control" type="file" (change)="chooseFile($event)"
+            accept="image/png, image/gif, image/jpeg" />
+
+        </div>
+
+        <button class="btn btn-primary d-block btn-save-right " type="submit" [disabled]="!ticketForm.valid || loading"
+          [class.spinner]="loading">Guardar</button>
 
       </form>
 

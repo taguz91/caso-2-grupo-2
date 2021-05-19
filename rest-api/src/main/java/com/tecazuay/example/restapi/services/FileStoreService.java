@@ -20,8 +20,10 @@ import com.tecazuay.example.restapi.api.BucketName;
 import com.tecazuay.example.restapi.api.exception.ResourceNotFoundException;
 import com.tecazuay.example.restapi.api.params.AdjuntoParam;
 import com.tecazuay.example.restapi.models.Adjunto;
+import com.tecazuay.example.restapi.models.Historial;
 import com.tecazuay.example.restapi.models.Ticket;
 import com.tecazuay.example.restapi.repositories.AdjuntoRepository;
+import com.tecazuay.example.restapi.repositories.HistorialRepository;
 import com.tecazuay.example.restapi.repositories.TicketRepository;
 
 @Service
@@ -30,12 +32,15 @@ public class FileStoreService {
 	private final AmazonS3 amazonS3;
 	private final TicketRepository ticketRepository;
 	private final AdjuntoRepository adjuntoRepository;
+	private HistorialRepository historialRepository;
 
 	@Autowired
-	public FileStoreService(AmazonS3 amazonS3, TicketRepository ticketRepository, AdjuntoRepository adjuntoRepository) {
+	public FileStoreService(AmazonS3 amazonS3, TicketRepository ticketRepository, AdjuntoRepository adjuntoRepository,
+			HistorialRepository historialRepository) {
 		this.amazonS3 = amazonS3;
 		this.ticketRepository = ticketRepository;
 		this.adjuntoRepository = adjuntoRepository;
+		this.historialRepository = historialRepository;
 	}
 
 	private String uploadToS3(String path, String fileName, Optional<Map<String, String>> optionalMetada,
@@ -72,6 +77,7 @@ public class FileStoreService {
 		String path = String.format("%s", BucketName.TIR_IMAGE.getBucketName());
 		String fileName = String.format("%s", file.getOriginalFilename());
 
+		Historial historial = new Historial("Agregamos un archivo adjunto: " + fileName, ticket);
 		String urlS3 = "";
 		try {
 			urlS3 = uploadToS3(path, fileName, Optional.of(metadata), file.getInputStream());
@@ -82,6 +88,7 @@ public class FileStoreService {
 		Adjunto ad = new Adjunto();
 		ad.setUrl(urlS3);
 		ad.setTicket(ticket);
+		this.historialRepository.save(historial);
 		return adjuntoRepository.save(ad);
 	}
 

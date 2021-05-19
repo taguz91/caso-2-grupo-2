@@ -1,17 +1,15 @@
 export class Encuesta {
-  encuesta_id: number;
   calificacion : number;
-  comentario : string;
-  ticketid: number;
+  comentarios : string;
+  ticketid: string;
 
-  constructor(encuesta_id: number,
+  constructor(
     calificacion : number,
-    comentario : string,
-    ticketid: number){
+    comentarios : string,
+    ticketid: string){
 
-      this.encuesta_id= encuesta_id;
       this.calificacion= calificacion;
-      this.comentario= comentario;
+      this.comentarios= comentarios;
       this.ticketid= ticketid;
 
   }

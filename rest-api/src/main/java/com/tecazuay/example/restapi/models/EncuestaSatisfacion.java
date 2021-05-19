@@ -5,6 +5,8 @@ import java.io.Serializable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
@@ -20,6 +22,7 @@ public class EncuestaSatisfacion extends Globals implements Serializable {
 	private static final long serialVersionUID = 1825526025210400550L;
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "encuesta_id", nullable = false)
 	private Long encuesta_id;
 
@@ -28,7 +31,7 @@ public class EncuestaSatisfacion extends Globals implements Serializable {
 
 	@Column(name = "comentario", nullable = false, length = 255)
 	private String comentario;
-
+	
 	@JsonBackReference(value = "rf_ticket_encuesta_satisfaccion")
 	@JoinColumn(name = "ticket_id", nullable = false)
 	@OneToOne(cascade = CascadeType.ALL)
