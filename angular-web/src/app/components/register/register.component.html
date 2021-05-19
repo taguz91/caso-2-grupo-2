@@ -16,27 +16,26 @@
                         <h3>Registro Usuario</h3>
 
                         <form>
-
                             <div class="field-wrap">
                                 <label>Correo<span class="req">*</span></label>
-                                <input [(ngModel)]="usuario.correo" name="correo" id="correo" type="email" required autocomplete="off" maxlength="100" />
+                                <input [(ngModel)]="usuario.correo" name="correo" id="correo" type="email" required autocomplete="off" maxlength="100" pattern="^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$" />
                             </div>
 
                             <div class="top-row">
                                 <div class="field-wrap">
-                                    <label>Nombres<span class="req">*</span></label>
-                                    <input [(ngModel)]="usuario.nombres" name="nombres" type="text" required autocomplete="off" maxlength="20" />
+                                    <label>Nombre<span class="req">*</span></label>
+                                    <input [(ngModel)]="usuario.nombres" name="nombres" type="text" required autocomplete="off" maxlength="50" pattern="^[a-zA-ZÀ-ÿ\u00f1\u00d1 ]{1,50}" />
                                 </div>
 
                                 <div class="field-wrap">
-                                    <label>Apellidos<span class="req">*</span></label>
-                                    <input [(ngModel)]="usuario.apellidos" name="apellidos" type="text" required autocomplete="off" maxlength="20" />
+                                    <label>Apellido<span class="req">*</span></label>
+                                    <input [(ngModel)]="usuario.apellidos" name="apellidos" type="text" required autocomplete="off" maxlength="50" pattern="^[a-zA-ZÀ-ÿ\u00f1\u00d1 ]{1,50}" />
                                 </div>
                             </div>
 
                             <div class="field-wrap">
                                 <label>Teléfono / Celular<span class="req">*</span></label>
-                                <input [(ngModel)]="usuario.telefono" name="telefono" id="telefono" type="number" required autocomplete="off" maxlength="100" />
+                                <input [(ngModel)]="usuario.telefono" name="telefono" id="telefono" type="text" required autocomplete="off" maxlength="100" pattern="^[0-9]{10,15}" />
                             </div>
 
                             <div class="field-wrap">
@@ -46,7 +45,7 @@
 
                             <div class="field-wrap">
                                 <label>Confirmar Contraseña<span class="req">*</span></label>
-                                <input [(ngModel)]="confirmar_pass" name="confirmar_pass" type="password" required autocomplete="new-password" />
+                                <input [(ngModel)]="confirmar_pass" name="confirmar_pass" type="password" required autocomplete="new-password" minlength="8" maxlength="30" />
                             </div>
 
                             <span class="response" *ngIf="response_condicion == true">{{ response_msg }}</span>
