@@ -25,13 +25,21 @@ public class Historial extends Globals implements Serializable {
 	@Column(name = "historial_id", nullable = false)
 	private Long historial_id;
 
-	@Column(name = "accion", nullable = false, length = 100)
+	@Column(name = "accion", nullable = false, length = 3550)
 	private String accion;
 
 	@JsonBackReference(value = "rf_historial_ticket")
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ticked_id", nullable = false)
 	private Ticket ticket;
+
+	public Historial() {
+	}
+
+	public Historial(String accion, Ticket ticket) {
+		this.accion = accion;
+		this.ticket = ticket;
+	}
 
 	public Long getHistorial_id() {
 		return this.historial_id;
