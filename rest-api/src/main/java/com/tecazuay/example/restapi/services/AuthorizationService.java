@@ -47,7 +47,8 @@ public class AuthorizationService {
 	public static boolean canEditTicket(Usuario user, Ticket ticket) {
 		boolean auth = false;
 		if (user != null) {
-			auth = user.getPersonaId() == ticket.getUsuario().getPersonaId();
+			Long ticketUser = ticket.getUsuario().getPersonaId();
+			auth = user.getPersonaId().equals(ticketUser);
 		}
 		if (!auth) {
 			throw new NoAuthorizationException("No puedes actualizar el ticket, no se encuentra en tus registros.");
