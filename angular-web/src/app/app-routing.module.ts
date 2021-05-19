@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminDashboardComponent } from './components/admin/admin-dashboard/admin-dashboard.component';
+import { CategoriaRegisterComponent } from './components/admin/categoria-register/categoria-register.component';
 import { LoginComponent } from './components/login/login.component';
 import { TipoServicioComponent } from './components/user/tipo-servicio/tipo-servicio.component';
 import { UserCatalogoServicioComponent } from './components/user/user-catalogo-servicio/user-catalogo-servicio.component';
@@ -57,6 +58,10 @@ const routes: Routes = [
         path: '',
         component: AdminDashboardComponent,
       },
+      {
+        path: 'registrar-categoria',
+        component: CategoriaRegisterComponent
+      }
     ],
   },
 

@@ -15,6 +15,8 @@ import { HeaderRegistroTicketComponent } from './components/user/header-registro
 import { UserCatalogoServicioComponent } from './components/user/user-catalogo-servicio/user-catalogo-servicio.component';
 import { UserRegistroTicketComponent } from './components/user/user-registro-ticket/user-registro-ticket.component';
 import { UserPerfilComponent } from './components/user/user-perfil/user-perfil.component';
+import { CategoriaRegisterComponent } from './components/admin/categoria-register/categoria-register.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -29,12 +31,14 @@ import { UserPerfilComponent } from './components/user/user-perfil/user-perfil.c
     HeaderRegistroTicketComponent,
     UserCatalogoServicioComponent,
     UserRegistroTicketComponent,
-    UserPerfilComponent
+    UserPerfilComponent,
+    CategoriaRegisterComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
