@@ -77,6 +77,17 @@
 
       .texto {
         margin-left: 10px;
+        p {
+          margin-bottom: 0;
+          span {
+            text-decoration: line-through;
+            color: $secondary;
+          }
+        }
+        small {
+          font-size: 0.8rem;
+          color: $secondary;
+        }
       }
     }
   }

@@ -68,22 +68,22 @@ public class TicketService {
 
 		if (!ticket.getTitulo().equals(registerTicket.getTitulo())) {
 
-			historials.add(new Historial("Actualizo el titulo: <span style=\"text-decoration: line-through;\">"
-					+ ticket.getTitulo() + "</span> " + registerTicket.getTitulo(), ticket));
+			historials.add(new Historial(
+					"Actualizo el titulo: <span>" + ticket.getTitulo() + "</span> " + registerTicket.getTitulo(),
+					ticket));
 			ticket.setTitulo(registerTicket.getTitulo());
 		}
 
 		if (!ticket.getDescripcion().equals(registerTicket.getDescripcion())) {
-			historials.add(new Historial("Actualizo la descripción: <span style=\"text-decoration: line-through;\">"
-					+ ticket.getDescripcion() + "</span> " + registerTicket.getDescripcion(), ticket));
+			historials.add(new Historial("Actualizo la descripción: <span>" + ticket.getDescripcion() + "</span> "
+					+ registerTicket.getDescripcion(), ticket));
 			ticket.setDescripcion(registerTicket.getDescripcion());
 		}
 
 		if (ticket.getImpacto().getParametros_id() != registerTicket.getImpactoId()) {
 			Parametros impacto = parametrosRepository.findById(registerTicket.getImpactoId()).get();
-			historials
-					.add(new Historial("Actualizo el nivel de impacto: <span style=\"text-decoration: line-through;\">"
-							+ ticket.getImpacto().getNombre() + "</span> " + impacto.getNombre(), ticket));
+			historials.add(new Historial("Actualizo el nivel de impacto: <span>" + ticket.getImpacto().getNombre()
+					+ "</span> " + impacto.getNombre(), ticket));
 			ticket.setImpacto(impacto);
 		}
 		// Guardamos todo el historial generado

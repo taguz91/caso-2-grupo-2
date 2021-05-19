@@ -17,18 +17,14 @@ export class UserDashboardComponent implements OnInit {
   isLastPage: boolean = false;
   private page: number = 0;
 
-  constructor(private ticketService: TicketService, private alertService: AlertService) {}
+  constructor(private ticketService: TicketService) {}
 
   ngOnInit(): void {
     this.loadTickets();
-    this.alertService.success("MENSAJE MENSAJOSO");
-    this.alertService.error("A error ocurred in my last");
-    this.alertService.info("This is a info message");
-    this.alertService.warning("This is a info message");
   }
 
   private loadTickets() {
-    this.ticketService.listUser(this.page, 5).subscribe((res) => {
+    this.ticketService.listUser(this.page).subscribe((res) => {
       this.tickets.push(...res.data);
       this.isLastPage = res.meta.pages === this.page + 1;
       this.loading = false;

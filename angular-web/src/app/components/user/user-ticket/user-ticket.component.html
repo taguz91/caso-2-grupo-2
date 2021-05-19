@@ -53,11 +53,12 @@
 
     <div class="historial_textos">
 
-      <div *ngFor="let message of historial;" class="historial">
+      <div *ngFor="let historial of ticket.listaHistorial;" class="historial">
         <div class="line-small"></div>
         <div class="circle-small"></div>
         <div class="texto">
-          <p>{{ message }}</p>
+          <p [innerHTML]="historial.accion"></p>
+          <small> {{ historial.createdAt }} </small>
         </div>
       </div>
 

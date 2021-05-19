@@ -10,17 +10,28 @@ import {
   loadHeader,
   URL_BASE_V1,
 } from '../utils/constantes';
+import { AlertService } from './alert.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TicketService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private alertService: AlertService) {}
 
-  registerTicket(newTicket: TicketForm): Observable<any> {
+  registerTicket(newTicket: TicketForm): Observable<TicketView> {
     return this.http
-      .post<any>(`${URL_BASE_V1}ticket/save`, newTicket, loadHeader())
-      .pipe(catchError(handleError<any>(null)));
+      .post<TicketView>(`${URL_BASE_V1}ticket/save`, newTicket, loadHeader())
+      .pipe(catchError(handleError<TicketView>(null)));
+  }
+
+  updateTicket(ticketId: number, newTicket: TicketForm): Observable<TicketView> {
+    return this.http
+      .post<TicketView>(
+        `${URL_BASE_V1}ticket/update/${ticketId}`,
+        newTicket,
+        loadHeader()
+      )
+      .pipe(catchError(handleError<TicketView>(null, this.alertService)));
   }
 
   listUser(
