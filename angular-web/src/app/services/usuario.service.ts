@@ -23,7 +23,7 @@ export class UsuarioService {
     );
   }
 
-  createUser(usuario: Usuario, rolId: bigint): Observable<Usuario> {
+  createUser(usuario: Usuario, rolId: number): Observable<Usuario> {
     return this.http.post<Usuario>(`${this.BASE_URL}${rolId}`, usuario, loadHeader())
     .pipe(
       tap((_) => console.log('Loading user data')),
@@ -39,7 +39,7 @@ export class UsuarioService {
     );
   }
 
-  readUserById(id: bigint): Observable<Usuario> {
+  readUserById(id: number): Observable<Usuario> {
     return this.http.get<Usuario>(`${this.BASE_URL}${id}`, loadHeader())
     .pipe(
       tap((_) => console.log('Loading user data')),
@@ -55,7 +55,7 @@ export class UsuarioService {
     );
   }
 
-  updateUserRol(personaId: bigint, rolId: bigint): Observable<Usuario> {
+  updateUserRol(personaId: number, rolId: number): Observable<Usuario> {
     return this.http.put<Usuario>(`${this.BASE_URL}${personaId}/${rolId}`, null, loadHeader())
     .pipe(
       tap((_) => console.log('Loading user data')),
@@ -63,7 +63,7 @@ export class UsuarioService {
     );
   }
 
-  deleteUserById(id: bigint): Observable<Usuario> {
+  deleteUserById(id: number): Observable<Usuario> {
     return this.http.delete<Usuario>(`${this.BASE_URL}${id}`, loadHeader())
     .pipe(
       tap((_) => console.log('Loading user data')),

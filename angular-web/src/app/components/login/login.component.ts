@@ -29,6 +29,9 @@ export class LoginComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+<<<<<<< HEAD
+        
+=======
     if (this.sessionService.isLoged()) {
       this.router.navigate(['/user/home']);
     }
@@ -54,5 +57,10 @@ export class LoginComponent implements OnInit {
   }
   get password() {
     return this.loginForm.get('password');
+>>>>>>> d13e952ec32e47d1ba0c739f016fd564172ee741
+  }
+
+  register() {
+    this.router.navigate(['user-register'])
   }
 }

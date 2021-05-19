@@ -1,0 +1,46 @@
+<p>categoria-register works!</p>
+<div class = "container">
+
+    <button class="btn btn-primary" (click)="mostrarRegistroCategoria()">Agregar Categoria</button>
+
+    <div class="row" *ngIf="isShow">
+        <label for="nombreCategoria">Nombre Categoria</label>
+        
+        <div class="col-sm-8">
+            <form [formGroup]="formCategoria" (ngSubmit)="addCategoria()">
+                <div class="form-group"> 
+                    <input type="text" class="form-control" formControlName="nombre_categoria" placeholder="Ingrese la categoria...">
+                    <div class="text-danger" *ngIf="formCategoria.get('nombre_categoria').errors">
+                        <p *ngIf="formCategoria.get('nombre_categoria').hasError('required')">Campo Requerido</p>
+                    </div>
+                    <button type="submit" class="btn btn-primary" [disabled]="formCategoria.invalid">Guardar</button>
+                </div> 
+            </form>
+        </div>   
+        
+        <div class="col-sm-4">
+            
+        </div>
+    </div>
+    
+
+    <div class = "row" *ngIf="existsData">
+
+        <div class = "col-sm-12">
+        <table class="table">
+            <thead>
+                <th>Nombre</th>
+                <th>Editar</th>
+                <th>Eliminar</th>
+            </thead>
+            <tbody>
+                <tr *ngFor="let categoria of listaCategoria">
+                    <td>{{ categoria.nombre_categoria }}</td>
+                    <td>Editar</td>
+                    <td>Eliminar</td>
+                </tr>
+            </tbody>
+        </table>
+        </div>
+    </div>
+</div>
