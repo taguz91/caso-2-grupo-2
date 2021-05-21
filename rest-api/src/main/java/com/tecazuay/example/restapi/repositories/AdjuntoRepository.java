@@ -14,6 +14,6 @@ public interface AdjuntoRepository extends JpaRepository<Adjunto, Long> {
 	@Transactional
 	@Modifying
 	@Query(value = "UPDATE adjuntos a SET a.isDeleted = true WHERE a.adjunto_id = :idAdjunto")
-	Adjunto softDeleteById(@Param("idAdjunto") Long idAdjunto);
+	int softDeleteById(@Param("idAdjunto") Long idAdjunto);
 
 }

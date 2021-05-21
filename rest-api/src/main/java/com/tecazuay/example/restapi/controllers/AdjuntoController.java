@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tecazuay.example.restapi.api.exception.ResourceNotFoundException;
+import com.tecazuay.example.restapi.definitions.MessageResponse;
 import com.tecazuay.example.restapi.models.Adjunto;
 import com.tecazuay.example.restapi.repositories.AdjuntoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,13 +25,13 @@ public class AdjuntoController {
 	@RequestMapping(value = "/delete/{adjunto_id}", method = RequestMethod.DELETE)
 	@ResponseBody
 	@CrossOrigin
-	public ResponseEntity<Adjunto> deleteAdjunto(@PathVariable Long adjunto_id) {
-		Adjunto adjunto = adjuntoRepository.softDeleteById(adjunto_id);
-		if (adjunto == null) {
+	public ResponseEntity<MessageResponse> deleteAdjunto(@PathVariable Long adjunto_id) {
+		int adjunto = adjuntoRepository.softDeleteById(adjunto_id);
+		if (adjunto > 0) {
 			throw new ResourceNotFoundException("No pudimos eliminar el adjunto.");
 		}
 
-		return ResponseEntity.status(HttpStatus.ACCEPTED).body(adjunto);
+		return ResponseEntity.status(HttpStatus.ACCEPTED).body(new MessageResponse("Borramos " + adjunto));
 	}
 
 	@RequestMapping(value = "{adjunto_id}", method = RequestMethod.GET)
