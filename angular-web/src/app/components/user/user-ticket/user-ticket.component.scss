@@ -106,3 +106,15 @@
     }
   }
 }
+
+.card_adjunto {
+  img {
+    display: block;
+    margin: 0 auto;
+    height: 200px;
+  }
+  .card_text {
+    font-size: 0.8rem;
+  }
+  border-bottom: 2.5px solid $primary;
+}

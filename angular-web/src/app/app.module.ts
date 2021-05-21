@@ -27,6 +27,7 @@ import { AdminAlertComponent } from './components/admin/admin-alert/admin-alert.
 import { UserAlertComponent } from './components/user/user-alert/user-alert.component';
 import { FloatingButtonComponent } from './components/user/floating-button/floating-button.component';
 import { RegisterComponent } from './components/register/register.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -58,6 +59,7 @@ import { RegisterComponent } from './components/register/register.component';
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
+    NgbModule,
   ],
   providers: [CriticidadService],
   bootstrap: [AppComponent],
