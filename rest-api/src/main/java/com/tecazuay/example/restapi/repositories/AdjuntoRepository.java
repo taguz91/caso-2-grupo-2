@@ -13,7 +13,7 @@ public interface AdjuntoRepository extends JpaRepository<Adjunto, Long> {
 
 	@Transactional
 	@Modifying
-	@Query(value = "UPDATE Adjunto a SET a.is_deleted = true WHERE a.adjunto_id = :idAdjunto")
+	@Query(value = "UPDATE adjuntos a SET a.isDeleted = true WHERE a.adjunto_id = :idAdjunto")
 	Adjunto softDeleteById(@Param("idAdjunto") Long idAdjunto);
 
 }
