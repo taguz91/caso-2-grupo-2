@@ -1,6 +1,14 @@
 import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { URL_BASE_V1, JWT_NAME } from '../utils/constantes';
+import { Observable } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { Adjunto } from '../models/adjunto';
+import {
+  URL_BASE_V1,
+  JWT_NAME,
+  loadHeader,
+  handleError,
+} from '../utils/constantes';
 import { AlertService } from './alert.service';
 
 @Injectable({
@@ -29,5 +37,14 @@ export class AdjuntoService {
     );
 
     return this.http.request(request);
+  }
+
+  deleteFile(idAdjunto: number): Observable<Adjunto> {
+    return this.http
+      .delete<Adjunto>(
+        `${URL_BASE_V1}adjunto/delete/${idAdjunto}`,
+        loadHeader()
+      )
+      .pipe(catchError(handleError<Adjunto>(null, this.alertService)));
   }
 }
