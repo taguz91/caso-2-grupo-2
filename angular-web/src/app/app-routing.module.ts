@@ -15,6 +15,7 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
 import { EmptyLayoutComponent } from './layouts/empty-layout/empty-layout.component';
 import { UserLayoutComponent } from './layouts/user-layout/user-layout.component';
 import { RegisterComponent } from './components/register/register.component';
+import { ServicioRegisterComponent } from './components/admin/servicio-register/servicio-register.component';
 
 const routes: Routes = [
   // Public rutes goes here
@@ -87,7 +88,11 @@ const routes: Routes = [
       },
       {
         path: 'tickets/estado/:idEstado',
-        component: TicketsEstadoComponent,
+        component: TicketsEstadoComponent
+      },
+      {
+        path: 'servicios',
+        component: ServicioRegisterComponent
       },
     ],
   },
