@@ -19,11 +19,7 @@
     "@angular/platform-browser": "~11.2.6",
     "@angular/platform-browser-dynamic": "~11.2.6",
     "@angular/router": "~11.2.6",
-<<<<<<< HEAD
     "@ng-bootstrap/ng-bootstrap": "^11.0.0-beta.1",
-=======
-    "@ng-bootstrap/ng-bootstrap": "^9.1.1",
->>>>>>> bb17a4ead05c5a0661969a93a9c094c3509b9b72
     "bootstrap": "^5.0.0-beta3",
     "material-icons": "^0.6.3",
     "node-modules": "^1.0.1",
