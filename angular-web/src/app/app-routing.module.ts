@@ -83,9 +83,8 @@ const routes: Routes = [
         component: AdminDashboardComponent,
       },
       {
-<<<<<<< HEAD
-        path: 'categorias',
-        component: CategoriaRegisterComponent
+        path: 'registrar-categoria',
+        component: CategoriaRegisterComponent,
       },
       {
         path: 'tickets/estado/:idEstado',
@@ -94,16 +93,7 @@ const routes: Routes = [
       {
         path: 'servicios',
         component: ServicioRegisterComponent
-      }
-=======
-        path: 'registrar-categoria',
-        component: CategoriaRegisterComponent,
       },
-      {
-        path: 'tickets/estado/:idEstado',
-        component: TicketsEstadoComponent,
-      },
->>>>>>> a5d3eeb49676b88836769114e70d2f0c07f518a9
     ],
   },
 
