@@ -27,6 +27,7 @@ import { AdminAlertComponent } from './components/admin/admin-alert/admin-alert.
 import { UserAlertComponent } from './components/user/user-alert/user-alert.component';
 import { FloatingButtonComponent } from './components/user/floating-button/floating-button.component';
 import { RegisterComponent } from './components/register/register.component';
+import { ServicioRegisterComponent } from './components/admin/servicio-register/servicio-register.component';
 
 @NgModule({
   declarations: [
@@ -50,11 +51,8 @@ import { RegisterComponent } from './components/register/register.component';
     AdminAlertComponent,
     UserAlertComponent,
     FloatingButtonComponent,
-<<<<<<< HEAD
-    RegisterComponent
-=======
     RegisterComponent,
->>>>>>> 8d62d2e1040e9ca485c155569ac1f82fefd7dad9
+    ServicioRegisterComponent
   ],
   imports: [
     BrowserModule,
