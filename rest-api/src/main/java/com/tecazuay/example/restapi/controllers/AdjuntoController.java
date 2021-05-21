@@ -27,7 +27,7 @@ public class AdjuntoController {
 	@CrossOrigin
 	public ResponseEntity<MessageResponse> deleteAdjunto(@PathVariable Long adjunto_id) {
 		int adjunto = adjuntoRepository.softDeleteById(adjunto_id);
-		if (adjunto > 0) {
+		if (adjunto == 0) {
 			throw new ResourceNotFoundException("No pudimos eliminar el adjunto.");
 		}
 
