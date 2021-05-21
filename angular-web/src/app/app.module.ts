@@ -51,7 +51,11 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     AdminAlertComponent,
     UserAlertComponent,
     FloatingButtonComponent,
+<<<<<<< HEAD
+    RegisterComponent
+=======
     RegisterComponent,
+>>>>>>> 8d62d2e1040e9ca485c155569ac1f82fefd7dad9
   ],
   imports: [
     BrowserModule,

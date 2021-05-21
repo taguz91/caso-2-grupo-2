@@ -31,15 +31,20 @@ export class CategoriaService {
     );
   }
 
-   addCategoria(categoria: Categoria):Observable<Categoria>{
-      const body = JSON.stringify(categoria)
-      return this.http.post<Categoria>(`${URL_BASE_V1}categorias/`, body, loadHeader())
-      .pipe(handleError<Categoria>(null));
+   addCategoria(categoria: Categoria):Observable<any>{
+     const body = JSON.stringify(categoria);
+     console.log(body);
+      return this.http.post<any>(`${URL_BASE_V1}categorias/`, body, loadHeader());
   }
 
-//   addCategoria(categoria: Categoria):Observable<Categoria>{
-//     const body = JSON.stringify(categoria)
-//       return this.http.post<Categoria>(`${URL_BASE_V1}categorias/`, body,loadHeader())
-//       .pipe();
-//  }
+  updateCategoria(id: any, categoria: Categoria):Observable<any>{
+    const body = JSON.stringify(categoria);
+    console.log(body);
+    return this.http.put<any>(`${URL_BASE_V1}categorias/${id}`, body, loadHeader());
+  }
+
+  deleteCategoria(id: any):Observable<any>{
+    return this.http.delete<any>(`${URL_BASE_V1}categorias/${id}`, loadHeader());
+  }
+
 }
