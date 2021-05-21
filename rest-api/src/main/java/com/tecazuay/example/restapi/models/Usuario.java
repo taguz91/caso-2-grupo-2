@@ -15,6 +15,7 @@ import javax.persistence.SequenceGenerator;
 
 import org.hibernate.annotations.Where;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity(name = "usuarios")
@@ -103,6 +104,7 @@ public class Usuario extends Globals implements Serializable {
 		this.correo = correo;
 	}
 
+	@JsonIgnore
 	public String getPassword() {
 		return password;
 	}

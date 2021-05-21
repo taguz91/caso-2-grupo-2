@@ -34,6 +34,10 @@
         <p>{{ ticket.descripcion }}</p>
       </div>
 
+      <div class="col-12 mb-2">
+        <button class="btn btn-primary text-white" (click)="triggerModal(modalData)">Ver adjuntos</button>
+      </div>
+
 
       <div *ngIf="ticket.solucion" class="col-12 p-3 solucion_{{ ticket.estado.parametros_id }}">
         <p class="solucion_title">Solución:</p>
@@ -78,3 +82,35 @@
   </div>
 
 </div>
+
+
+<ng-template #modalData let-modal>
+
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Adjuntos</h4>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+      (click)="modal.dismiss('Cross click')"></button>
+  </div>
+
+  <div class="modal-body">
+
+    <div class="row">
+
+      <div *ngFor="let adjunto of adjuntos;" class="card_adjunto col-12 col-lg-5 mx-auto mb-3">
+        <div class="border-bottom mb-3 card_text row">
+          <div class="col-10">
+            <p class="text-secondary">Subido el: {{ adjunto.createdAt }}</p>
+          </div>
+          <div class="col-2">
+            <button type="button" class="btn-close" aria-label="Close" (click)="deleteAdjunto(adjunto)"></button>
+          </div>
+        </div>
+
+        <img class="img-fluid" src="{{ adjunto.url }}" alt="Imagen adjunta">
+      </div>
+
+    </div>
+
+  </div>
+
+</ng-template>

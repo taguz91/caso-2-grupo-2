@@ -1,5 +1,6 @@
 package com.tecazuay.example.restapi.controllers;
 
+import com.tecazuay.example.restapi.api.exception.NoAuthorizationException;
 import com.tecazuay.example.restapi.api.exception.ResourceNotFoundException;
 import com.tecazuay.example.restapi.api.params.LoginParam;
 import com.tecazuay.example.restapi.api.params.UsuarioEditParam;
@@ -99,5 +100,13 @@ public class UsuarioController {
 		usuarioRepository.save(user);
 
 		return ResponseEntity.status(HttpStatus.ACCEPTED).body(userToken);
+	}
+
+	@GetMapping("/loged")
+	public ResponseEntity<UsuarioToken> info(@AuthenticationPrincipal Usuario user) {
+		if (user == null) {
+			throw new NoAuthorizationException("Debe iniciar sessión.");
+		}
+		return ResponseEntity.status(HttpStatus.ACCEPTED).body(new UsuarioToken(user, jwtService.toToken(user)));
 	}
 }

@@ -1,3 +1,4 @@
+import { Adjunto } from './adjunto';
 import { Usuario } from './usuario';
 
 export interface TicketForm {
@@ -40,7 +41,7 @@ export interface TicketView {
   impacto: ParametroModel;
   listaHistorial: any[];
   encuesta?: any;
-  adjuntos: any[];
+  adjuntos: Adjunto[];
   responsable?: any;
   responsableSolucion?: any;
   catalogo: Catalogo;
