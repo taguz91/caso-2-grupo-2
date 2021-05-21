@@ -1,0 +1,134 @@
+<div class="container">
+
+    <button class="btn btn-primary" (click)="mostrarRegistroServicio()">Agregar Servicio</button>
+
+    <div class = "row" *ngIf="isShow">
+
+        <form [formGroup] = "formServicio" (ngSubmit)="addServicio(formServicio.value)">
+        
+            <div class="form-control">
+
+                <div class = "row">
+
+                    <div class="col-sm-6">
+
+                        <label for="">Nombre Servicio</label>
+
+                        <input type="text" class="form-control" formControlName="nombre_servicio" required/>
+
+                        <div class="text-danger" *ngIf="hasError">
+                        
+                        <p *ngFor="let errorServicio of listaErroresServicio"> {{ errorServicio}} </p>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-sm-6">
+
+                        <label for="">Categoria</label>
+
+                        <select class="form-select" formControlName="categoriaId">
+
+                            <option [ngValue]="categoria.categoria_id" *ngFor="let categoria of listaCategorias">{{ categoria.nombre_categoria }}</option>
+
+                        </select>
+
+                        <div class="text-danger" *ngIf="hasError">
+                        
+                            <p>Escoja una categoria</p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <input class="btn btn-primary" type="submit" value="Guardar"/>
+
+            </div>
+        
+        </form>
+    
+    </div>
+
+    
+    <div class="row">
+
+        <table class="table">
+
+            <thead>
+
+                <th>Nombre</th>
+                <th>Editar</th>
+                <th>Eliminar</th>
+
+            </thead>
+
+            <tbody>
+            
+                <tr *ngFor="let servicio of listaServicios">
+                
+                    <td>{{ servicio.nombre_servicio}}</td>
+
+                    <td>
+
+                        <button class="btn btn-warning" (click)="openModal(contenido, servicio.servicio_id, servicio.nombre_servicio)">Editar</button>
+                    
+                    </td>
+                    
+                    <td>
+                    
+                        <button class="btn btn-danger" (click)="eliminarServicio(servicio.servicio_id)">Eliminar</button>
+
+                    </td>
+
+                </tr>
+            
+            </tbody>
+        
+        </table>
+
+    </div>
+
+<ng-template #contenido let-modal>
+
+    <div class="modal-header">
+
+        <h4 class="modal-title">Editar</h4>
+
+        <button class="close" aria-label="close" type="button" (click)="modal.dismiss()">
+
+            <span aria-hidden="true">&times;</span>
+
+        </button>
+
+    </div>
+
+    <div class="modal-body">
+
+        <form [formGroup] = "servicioFormEdit" (ngSubmit)="actualizarServicio(servicioFormEdit.value)">
+                <div class="form-control"> 
+                    <input id="inputServicioEdit" type="text" class="form-control" formControlName="servicio_id" disabled>
+                    <input type="text" class="form-control" formControlName="nombre_servicio" required>
+                    <div class="text-danger" *ngIf="hasError">
+                        <p *ngFor="let errorServicio of listaErroresServicio"> {{ errorServicio }} </p>
+                    </div>
+                    <select class="form-select" formControlName="categoriaId">
+                        <option [ngValue]="categoria.categoria_id" *ngFor="let categoria of listaCategorias">{{ categoria.nombre_categoria}}</option>
+                    </select>
+                    <div class="text-danger" *ngIf="hasError">
+                        <p>Escoja una categoria</p>
+                    </div>
+                    <input id="btnCancelEdit" type="button" class="btn btn-danger" (click)="modal.close()" value="Cancel">
+                    <input type="submit" class="btn btn-primary" value="Guardar" />
+                </div> 
+            </form>
+
+    </div>
+
+   
+
+</ng-template>
+
+</div>
