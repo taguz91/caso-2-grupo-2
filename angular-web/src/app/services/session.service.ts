@@ -1,8 +1,20 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import { LoginUser } from '../models/usuario';
-import { JWT_NAME, loadHeader, URL_BASE_V1 } from '../utils/constantes';
+import {
+  JWT_NAME,
+  loadHeader,
+  ROL_ADMIN,
+  ROL_COORDINADOR,
+  ROL_DEVELOPER,
+  ROL_SOPORTE_N1,
+  ROL_SOPORTE_N2,
+  ROL_USUARIO,
+  URL_BASE_V1,
+} from '../utils/constantes';
 
 @Injectable({
   providedIn: 'root',
@@ -28,12 +40,37 @@ export class SessionService {
     this.router.navigate(['/']);
   }
 
-  async userLoged(): Promise<LoginUser> {
-    if (this.user) return this.user;
-    this.user = await this.http
+  getUserData(): Observable<LoginUser> {
+    return this.http
       .get<LoginUser>(`${URL_BASE_V1}usuario/loged`, loadHeader())
-      .toPromise();
+      .pipe(tap((user) => (this.user = user)));
+  }
 
+  getUser(): LoginUser {
     return this.user;
+  }
+
+  isAdmin(): boolean {
+    return this.isRol(ROL_ADMIN);
+  }
+
+  isUser(): boolean {
+    return this.isRol(ROL_USUARIO);
+  }
+
+  isCoordinador(): boolean {
+    return this.isRol(ROL_COORDINADOR);
+  }
+
+  isSoporte(): boolean {
+    return this.isRol(ROL_SOPORTE_N1) || this.isRol(ROL_SOPORTE_N2);
+  }
+
+  isDev(): boolean {
+    return this.isRol(ROL_DEVELOPER);
+  }
+
+  private isRol(rol: number): boolean {
+    return this.user.type === rol;
   }
 }

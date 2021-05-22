@@ -16,6 +16,21 @@ export const DEFAULT_PAGE_METADA: PageMetadata = {
   pages: 0,
 };
 
+// Constantes de roles de usuario
+export const ROL_DEVELOPER: number = 1;
+export const ROL_ADMIN: number = 2;
+export const ROL_USUARIO: number = 3;
+export const ROL_COORDINADOR: number = 4;
+export const ROL_SOPORTE_N1: number = 5;
+export const ROL_SOPORTE_N2: number = 6;
+
+// Constantes de estados de un ticket
+export const TICKET_ESTADO_ABIERTO: number = 9;
+export const TICKET_ESTADO_ATENDIENDOSE: number = 10;
+export const TICKET_ESTADO_RECHAZADO: number = 11;
+export const TICKET_ESTADO_CERRADO_SIN_SOLUCION: number = 12;
+export const TICKET_ESTADO_CERRADO_CON_SOLUCION: number = 14;
+
 export function loadHeader() {
   return {
     headers: new HttpHeaders({

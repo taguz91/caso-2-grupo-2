@@ -36,8 +36,6 @@
 
       <div class="col-12 mb-2">
         <button class="btn btn-primary text-white" (click)="triggerModal(modalData)">Ver adjuntos</button>
-
-        <a routerLink="/user/encuesta/{{ticket.ticket_id}}" class="btn btn-primary text-white"> Encuesta </a>
       </div>
 
 
@@ -77,8 +75,10 @@
 
     </div>
 
+    <app-floating-button [show]="isClosed" [url]="urlEncuesta" [icon]="'text_snippet'" [tooltip]="'Ingresar encuesta'">
+    </app-floating-button>
 
-    <app-floating-button [show]="isOpen" [url]="urlEdit" [icon]="'edit'">
+    <app-floating-button [show]="isOpen" [url]="urlEdit" [icon]="'edit'" [tooltip]="'Editar ticket'">
     </app-floating-button>
 
   </div>

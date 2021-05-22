@@ -9,6 +9,7 @@ export class FloatingButtonComponent implements OnInit {
   @Input() show: boolean = true;
   @Input() icon: string = '';
   @Input() url: string;
+  @Input() tooltip: string = '';
 
   constructor() {}
 
