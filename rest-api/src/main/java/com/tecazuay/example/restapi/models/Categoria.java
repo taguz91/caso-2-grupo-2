@@ -11,9 +11,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity(name = "categoria")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Categoria extends Globals implements Serializable {
 
 	/**
@@ -29,7 +31,7 @@ public class Categoria extends Globals implements Serializable {
 	@Column(name = "nombre_categoria", nullable = false, length = 100)
 	private String nombre_categoria;
 
-	@JsonIgnore
+	@JsonBackReference(value = "rf_categoria_servicio")
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "categoria")
 	private List<Servicio> listaServicios;
 
