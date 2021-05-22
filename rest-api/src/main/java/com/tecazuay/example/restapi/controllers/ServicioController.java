@@ -6,7 +6,6 @@ import javax.validation.Valid;
 
 import com.tecazuay.example.restapi.api.exception.ResourceNotFoundException;
 import com.tecazuay.example.restapi.api.params.ServicioParam;
-import com.tecazuay.example.restapi.definitions.CategoriaResponse;
 import com.tecazuay.example.restapi.definitions.PageResponse;
 import com.tecazuay.example.restapi.definitions.ServicioResponse;
 import com.tecazuay.example.restapi.models.Categoria;
@@ -62,7 +61,7 @@ public class ServicioController {
 
 	@GetMapping("/categoria/{id}")
 	public List<ServicioResponse> getAllByCategoriaId(@PathVariable("id") Long categoria_id) {
-		CategoriaResponse categoria = categoriaRepository.findByCategoriaId(categoria_id)
+		Categoria categoria = categoriaRepository.findByCategoriaId(categoria_id)
 				.orElseThrow(() -> new ResourceNotFoundException("Esta categoria no esta registrada"));
 		return servicioRepository.findAllByCategoriaId(categoria.getCategoria_id());
 	}
