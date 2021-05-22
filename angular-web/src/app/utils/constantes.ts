@@ -28,7 +28,7 @@ export const ROL_SOPORTE_N2: number = 6;
 export const TICKET_ESTADO_ABIERTO: number = 9;
 export const TICKET_ESTADO_ATENDIENDOSE: number = 10;
 export const TICKET_ESTADO_RECHAZADO: number = 11;
-export const TICKET_ESTADO_CERRADO_SIN_SOLUCION: number = 12;
+export const TICKET_ESTADO_CERRADO_SIN_SOLUCION: number = 13;
 export const TICKET_ESTADO_CERRADO_CON_SOLUCION: number = 14;
 
 export function loadHeader() {

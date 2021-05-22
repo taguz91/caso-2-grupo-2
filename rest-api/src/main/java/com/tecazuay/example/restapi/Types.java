@@ -13,7 +13,7 @@ public abstract class Types {
 	public final static long PARAMETROS_ESTADO_ABIERTO = 9;
 	public final static long PARAMETROS_ESTADO_ATENDIENDOSE = 10;
 	public final static long PARAMETROS_ESTADO_RECHAZADO = 11;
-	public final static long PARAMETROS_ESTADO_CERRADO_SIN_SOLUCION = 12;
+	public final static long PARAMETROS_ESTADO_CERRADO_SIN_SOLUCION = 13;
 	public final static long PARAMETROS_ESTADO_CERRADO_CON_SOLUCION = 14;
 
 	// Tipos de roles

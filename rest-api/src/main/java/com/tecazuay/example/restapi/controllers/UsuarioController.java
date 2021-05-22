@@ -6,6 +6,7 @@ import com.tecazuay.example.restapi.api.params.LoginParam;
 import com.tecazuay.example.restapi.api.params.UsuarioEditParam;
 import com.tecazuay.example.restapi.api.params.UsuarioParam;
 import com.tecazuay.example.restapi.definitions.PageResponse;
+import com.tecazuay.example.restapi.definitions.TicketCountChart;
 import com.tecazuay.example.restapi.definitions.UserList;
 import com.tecazuay.example.restapi.definitions.UsuarioToken;
 import com.tecazuay.example.restapi.models.Usuario;
@@ -16,7 +17,6 @@ import com.tecazuay.example.restapi.services.UsuarioService;
 import java.util.List;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -66,7 +66,7 @@ public class UsuarioController {
 
 		return ResponseEntity.status(HttpStatus.OK).body(new PageResponse(this.usuarioService.findAll(pageable)));
 	}
-	
+
 	@GetMapping(value = "/rol/{rolId}")
 	public ResponseEntity<List<Usuario>> readAllUsersByRol(@PathVariable Long rolId) {
 		return ResponseEntity.status(HttpStatus.OK).body(this.usuarioService.findAllByRol(rolId));
@@ -119,5 +119,14 @@ public class UsuarioController {
 	@GetMapping("/combo/type/{idRol}")
 	public ResponseEntity<List<UserList>> comboByType(@PathVariable Long idRol) {
 		return ResponseEntity.status(HttpStatus.OK).body(usuarioRepository.findAllComboByUserType(idRol));
+	}
+
+	@GetMapping("/chart/actual")
+	public ResponseEntity<List<TicketCountChart>> countByAuthUser(@AuthenticationPrincipal Usuario user) {
+		if (user == null) {
+			throw new NoAuthorizationException("Debe iniciar sessión.");
+		}
+		return ResponseEntity.status(HttpStatus.OK)
+				.body(usuarioRepository.countTicketsEstadoByUser(user.getPersonaId()));
 	}
 }
