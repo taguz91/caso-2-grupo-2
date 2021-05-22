@@ -31,6 +31,7 @@ import { ServicioRegisterComponent } from './components/admin/servicio-register/
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AdminRegisterComponent } from './components/admin/admin-register/admin-register.component';
 import { AdminListComponent } from './components/admin/admin-list/admin-list.component';
+import { DataTablesModule } from "angular-datatables";
 
 @NgModule({
   declarations: [
@@ -66,6 +67,7 @@ import { AdminListComponent } from './components/admin/admin-list/admin-list.com
     HttpClientModule,
     ReactiveFormsModule,
     NgbModule,
+    DataTablesModule,
   ],
   providers: [CriticidadService],
   bootstrap: [AppComponent],
