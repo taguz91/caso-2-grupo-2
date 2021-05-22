@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { PageMetadata } from 'src/app/models/Parametros';
 import { TicketHome } from 'src/app/models/ticket';
 import { AlertService } from 'src/app/services/alert.service';

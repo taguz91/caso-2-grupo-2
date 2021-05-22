@@ -68,7 +68,7 @@ const routes: Routes = [
         component: UserTicketComponent,
       },
       {
-        path: 'encuesta',
+        path: 'encuesta/:idTicket',
         component: EncuesatisComponent,
       },
     ],

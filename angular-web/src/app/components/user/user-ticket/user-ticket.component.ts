@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Adjunto } from 'src/app/models/adjunto';
@@ -14,7 +14,8 @@ import { TicketService } from 'src/app/services/ticket.service';
   encapsulation: ViewEncapsulation.None,
 })
 export class UserTicketComponent implements OnInit {
-  private ticketId: number = 0;
+
+  @Input() ticketId: number = 0;
   ticket: TicketView;
   urlEdit: string = '';
   isOpen: boolean = true;
@@ -29,6 +30,7 @@ export class UserTicketComponent implements OnInit {
     private alertService: AlertService
   ) {}
 
+  
   ngOnInit(): void {
     const id = this.activeRoute.snapshot.paramMap.get('idTicket');
     if (id) {

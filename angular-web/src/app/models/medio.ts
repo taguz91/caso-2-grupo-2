@@ -1,8 +1,8 @@
-import { SpawnSyncOptionsWithStringEncoding } from "child_process";
+
 
 export interface Medio {
-  medio_id: number;  
-  
+  medio_id: number;
+
   ticket:Ticket
 }
 export interface Ticket {
