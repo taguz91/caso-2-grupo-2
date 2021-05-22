@@ -1,5 +1,7 @@
 package com.tecazuay.example.restapi.services.impl;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import com.tecazuay.example.restapi.Types;
@@ -107,6 +109,18 @@ public class UsuarioServiceImpl implements UsuarioService {
 		if (user != null && rol != null) {
 			user.setRol(rol);
 			return this.usuarioRepository.save(user);
+		} else {
+			return null;
+		}
+	}
+
+	@Override
+	public List<Usuario> findAllByRol(Long rolId) {
+
+		Rol rol = this.rolService.findById(rolId);
+
+		if (rol != null) {
+			return this.usuarioRepository.findAllByRol(rol);
 		} else {
 			return null;
 		}

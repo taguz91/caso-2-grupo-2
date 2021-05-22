@@ -13,9 +13,7 @@ import com.tecazuay.example.restapi.repositories.UsuarioRepository;
 import com.tecazuay.example.restapi.services.AuthorizationService;
 import com.tecazuay.example.restapi.services.JwtService;
 import com.tecazuay.example.restapi.services.UsuarioService;
-
 import java.util.List;
-
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -65,9 +63,13 @@ public class UsuarioController {
 			@RequestParam(value = "size", defaultValue = "20") int size) {
 		AuthorizationService.onlyAdminOrDev(user);
 		Pageable pageable = PageRequest.of(page, size);
-		Page<Usuario> usuarioPage = this.usuarioService.findAll(pageable);
 
-		return ResponseEntity.status(HttpStatus.OK).body(new PageResponse(usuarioPage));
+		return ResponseEntity.status(HttpStatus.OK).body(new PageResponse(this.usuarioService.findAll(pageable)));
+	}
+	
+	@GetMapping(value = "/rol/{rolId}")
+	public ResponseEntity<List<Usuario>> readAllUsersByRol(@PathVariable Long rolId) {
+		return ResponseEntity.status(HttpStatus.OK).body(this.usuarioService.findAllByRol(rolId));
 	}
 
 	@GetMapping(value = "/{id}")
