@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginUser } from '../models/usuario';
-import { JWT_NAME, URL_BASE_V1 } from '../utils/constantes';
+import { JWT_NAME, loadHeader, URL_BASE_V1 } from '../utils/constantes';
 
 @Injectable({
   providedIn: 'root',
@@ -31,7 +31,7 @@ export class SessionService {
   async userLoged(): Promise<LoginUser> {
     if (this.user) return this.user;
     this.user = await this.http
-      .get<LoginUser>(`${URL_BASE_V1}user/loged`)
+      .get<LoginUser>(`${URL_BASE_V1}usuario/loged`, loadHeader())
       .toPromise();
 
     return this.user;
