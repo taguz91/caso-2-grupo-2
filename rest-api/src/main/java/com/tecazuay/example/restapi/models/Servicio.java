@@ -15,8 +15,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity(name = "servicio")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Servicio extends Globals implements Serializable {
 
 	/**
@@ -32,7 +35,7 @@ public class Servicio extends Globals implements Serializable {
 	@Column(name = "nombre_servicio", nullable = false, length = 100)
 	private String nombre_servicio;
 
-	@JsonIgnore
+	@JsonManagedReference(value = "rf_categoria_servicio")
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "categoria_id", nullable = false)
 	private Categoria categoria;
