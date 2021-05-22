@@ -57,8 +57,14 @@ public class CategoriaController {
 	@PostMapping(value = "/")
 	public Categoria saveCategoria(@RequestBody @Valid CategoriaParam categoriaParam) {
 		Categoria categoria = new Categoria();
-		categoria.setNombre_categoria(categoriaParam.getNombre_categoria());
-		return categoriaRepository.save(categoria);
+		categoria = categoriaRepository.findNombreCategoria(categoriaParam.getNombre_categoria());
+		if(categoria == null) {
+			categoria.setNombre_categoria(categoriaParam.getNombre_categoria());
+			return categoriaRepository.save(categoria);
+		} else {
+			return new Categoria();
+		}
+		
 	}
 
 	@PutMapping("/{id}")

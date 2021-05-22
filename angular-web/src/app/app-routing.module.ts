@@ -98,7 +98,7 @@ const routes: Routes = [
       {
         path: 'admin-list',
         component: AdminListComponent
-      },
+      }
     ],
   },
 
