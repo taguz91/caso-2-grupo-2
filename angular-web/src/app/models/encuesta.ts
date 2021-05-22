@@ -1,12 +1,12 @@
 export class Encuesta {
   calificacion : number;
   comentarios : string;
-  ticketid: string;
+  ticketid: number;
 
   constructor(
     calificacion : number,
     comentarios : string,
-    ticketid: string){
+    ticketid: number){
 
       this.calificacion= calificacion;
       this.comentarios= comentarios;

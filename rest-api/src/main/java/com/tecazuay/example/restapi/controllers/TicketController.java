@@ -55,7 +55,7 @@ public class TicketController {
 		Ticket ticket = ticketRepository.findById(ticketId)
 				.orElseThrow(() -> new ResourceNotFoundException("No existe el ticket con este id"));
 		// Si el ticket no pertece a la persona solo los siguientes roles pueden verlo
-		if (ticket.getUsuario().getPersonaId() != user.getPersonaId()) {
+		if (!ticket.getUsuario().getPersonaId().equals(user.getPersonaId())) {
 			AuthorizationService.canReadTicket(user);
 		}
 

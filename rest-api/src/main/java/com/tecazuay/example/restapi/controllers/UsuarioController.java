@@ -6,12 +6,14 @@ import com.tecazuay.example.restapi.api.params.LoginParam;
 import com.tecazuay.example.restapi.api.params.UsuarioEditParam;
 import com.tecazuay.example.restapi.api.params.UsuarioParam;
 import com.tecazuay.example.restapi.definitions.PageResponse;
+import com.tecazuay.example.restapi.definitions.UserList;
 import com.tecazuay.example.restapi.definitions.UsuarioToken;
 import com.tecazuay.example.restapi.models.Usuario;
 import com.tecazuay.example.restapi.repositories.UsuarioRepository;
 import com.tecazuay.example.restapi.services.AuthorizationService;
 import com.tecazuay.example.restapi.services.JwtService;
 import com.tecazuay.example.restapi.services.UsuarioService;
+import java.util.List;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -61,9 +63,13 @@ public class UsuarioController {
 			@RequestParam(value = "size", defaultValue = "20") int size) {
 		AuthorizationService.onlyAdminOrDev(user);
 		Pageable pageable = PageRequest.of(page, size);
-		Page<Usuario> usuarioPage = this.usuarioService.findAll(pageable);
 
-		return ResponseEntity.status(HttpStatus.OK).body(new PageResponse(usuarioPage));
+		return ResponseEntity.status(HttpStatus.OK).body(new PageResponse(this.usuarioService.findAll(pageable)));
+	}
+	
+	@GetMapping(value = "/rol/{rolId}")
+	public ResponseEntity<List<Usuario>> readAllUsersByRol(@PathVariable Long rolId) {
+		return ResponseEntity.status(HttpStatus.OK).body(this.usuarioService.findAllByRol(rolId));
 	}
 
 	@GetMapping(value = "/{id}")
@@ -107,6 +113,11 @@ public class UsuarioController {
 		if (user == null) {
 			throw new NoAuthorizationException("Debe iniciar sessión.");
 		}
-		return ResponseEntity.status(HttpStatus.ACCEPTED).body(new UsuarioToken(user, jwtService.toToken(user)));
+		return ResponseEntity.status(HttpStatus.OK).body(new UsuarioToken(user, jwtService.toToken(user)));
+	}
+
+	@GetMapping("/combo/type/{idRol}")
+	public ResponseEntity<List<UserList>> comboByType(@PathVariable Long idRol) {
+		return ResponseEntity.status(HttpStatus.OK).body(usuarioRepository.findAllComboByUserType(idRol));
 	}
 }
