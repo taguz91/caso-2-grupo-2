@@ -75,8 +75,10 @@
 
     </div>
 
+    <app-floating-button [show]="isClosed" [url]="urlEncuesta" [icon]="'text_snippet'" [tooltip]="'Ingresar encuesta'">
+    </app-floating-button>
 
-    <app-floating-button [show]="isOpen" [url]="urlEdit" [icon]="'edit'">
+    <app-floating-button [show]="isOpen" [url]="urlEdit" [icon]="'edit'" [tooltip]="'Editar ticket'">
     </app-floating-button>
 
   </div>
@@ -95,6 +97,10 @@
   <div class="modal-body">
 
     <div class="row">
+
+      <div *ngIf="adjuntos.length === 0" class="col-12 my-3">
+        <h2 class="text-center">No subio ningún archivo adjunto.</h2>
+      </div>
 
       <div *ngFor="let adjunto of adjuntos;" class="card_adjunto col-12 col-lg-5 mx-auto mb-3">
         <div class="border-bottom mb-3 card_text row">

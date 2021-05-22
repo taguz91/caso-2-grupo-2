@@ -57,3 +57,8 @@ interface ParametroModel {
   nombre: string;
   descripcion: string;
 }
+
+export interface TicketCount {
+  nombre: string;
+  total: number;
+}

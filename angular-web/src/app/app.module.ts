@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
-
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -31,6 +30,11 @@ import { ServicioRegisterComponent } from './components/admin/servicio-register/
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AdminRegisterComponent } from './components/admin/admin-register/admin-register.component';
 import { AdminListComponent } from './components/admin/admin-list/admin-list.component';
+<<<<<<< HEAD
+=======
+import { DataTablesModule } from "angular-datatables";
+import { NgxEchartsModule } from 'ngx-echarts';
+>>>>>>> 98a1ea464bb17b21ecae131844865b073caafd17
 
 @NgModule({
   declarations: [
@@ -57,7 +61,11 @@ import { AdminListComponent } from './components/admin/admin-list/admin-list.com
     RegisterComponent,
     ServicioRegisterComponent,
     AdminRegisterComponent,
+<<<<<<< HEAD
     AdminListComponent
+=======
+    AdminListComponent,
+>>>>>>> 98a1ea464bb17b21ecae131844865b073caafd17
   ],
   imports: [
     BrowserModule,
@@ -66,6 +74,10 @@ import { AdminListComponent } from './components/admin/admin-list/admin-list.com
     HttpClientModule,
     ReactiveFormsModule,
     NgbModule,
+    DataTablesModule,
+    NgxEchartsModule.forRoot({
+      echarts: () => import('echarts')
+    }),
   ],
   providers: [CriticidadService],
   bootstrap: [AppComponent],
