@@ -12,20 +12,6 @@
 
                     <div class="col-sm-6">
 
-                        <label for="">Nombre Servicio</label>
-
-                        <input type="text" class="form-control" formControlName="nombre_servicio" required/>
-
-                        <div class="text-danger" *ngIf="hasError">
-                        
-                        <p *ngFor="let errorServicio of listaErroresServicio"> {{ errorServicio}} </p>
-
-                        </div>
-
-                    </div>
-
-                    <div class="col-sm-6">
-
                         <label for="">Categoria</label>
 
                         <select class="form-select" formControlName="categoriaId">
@@ -37,6 +23,20 @@
                         <div class="text-danger" *ngIf="hasError">
                         
                             <p>Escoja una categoria</p>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-sm-6">
+
+                        <label for="">Nombre Servicio</label>
+
+                        <input type="text" class="form-control" formControlName="nombre_servicio" required/>
+
+                        <div class="text-danger" *ngIf="hasError">
+                        
+                        <p *ngFor="let errorServicio of listaErroresServicio"> {{ errorServicio}} </p>
 
                         </div>
 
@@ -59,6 +59,7 @@
 
             <thead>
 
+                <th>Categoria</th>
                 <th>Nombre</th>
                 <th>Editar</th>
                 <th>Eliminar</th>
@@ -68,6 +69,8 @@
             <tbody>
             
                 <tr *ngFor="let servicio of listaServicios">
+
+                    <td>{{servicio.categoria.nombre_categoria}}</td>
                 
                     <td>{{ servicio.nombre_servicio}}</td>
 

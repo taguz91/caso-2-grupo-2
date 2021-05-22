@@ -16,6 +16,17 @@ import { AlertService } from 'src/app/services/alert.service';
 
 export class CategoriaRegisterComponent implements OnInit {
 
+  public existsData: boolean;
+  isShow: boolean = false;
+  messageError: any;
+  listaCategoria: Categoria[];
+  hasError: boolean;
+  listaErrores: any[];
+  page = 0;
+  size = 3;
+  isFirst = false;
+  isLast = false;
+
   categoriaForm = new FormGroup({
     nombre_categoria: new FormControl('', Validators.required)
   })
@@ -24,13 +35,6 @@ export class CategoriaRegisterComponent implements OnInit {
     nombre_categoria: new FormControl('', Validators.required),
     categoria_id: new FormControl()
   })
-
-  public existsData: boolean;
-  isShow: boolean = false;
-  messageError: any;
-  listaCategoria: Categoria[];
-  hasError: boolean;
-  listaErrores: any[];
 
   constructor(private categoriaService: CategoriaService, public modal:NgbModal, private alertService: AlertService) {
   }
@@ -42,13 +46,18 @@ export class CategoriaRegisterComponent implements OnInit {
   
 
   listarCategorias(){
-    this.categoriaService.listCategorias().subscribe(data => {
+    this.categoriaService.listCategorias(this.page, this.size).subscribe(data => {
       if(data != null){
+        console.log(data);
         this.listaCategoria = data['data']
         this.existsData = true;
+        this.page = data.meta.current;
+        this.size = data.meta.pages;
       } else {
         this.existsData = false;
       } 
+    }, (err) => {
+      console.log(err);
     });
   }
 
@@ -113,5 +122,19 @@ export class CategoriaRegisterComponent implements OnInit {
 
   mostrarRegistroCategoria():void{
     this.isShow = !this.isShow;
+  }
+
+  rewind():void{
+    if(this.page > 0){
+      this.page--;
+      this.listarCategorias();
+    }
+  }
+
+  forward():void{
+    if(this.page < this.size){
+      this.page++;
+      this.listarCategorias();
+    }
   }
 }

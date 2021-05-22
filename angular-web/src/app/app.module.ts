@@ -29,11 +29,8 @@ import { FloatingButtonComponent } from './components/user/floating-button/float
 import { RegisterComponent } from './components/register/register.component';
 import { ServicioRegisterComponent } from './components/admin/servicio-register/servicio-register.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-<<<<<<< HEAD
-=======
 import { AdminRegisterComponent } from './components/admin/admin-register/admin-register.component';
 import { AdminListComponent } from './components/admin/admin-list/admin-list.component';
->>>>>>> fcdd2801506560b9f61f3cac78fe70f9ce14a6b1
 
 @NgModule({
   declarations: [
@@ -58,13 +55,9 @@ import { AdminListComponent } from './components/admin/admin-list/admin-list.com
     UserAlertComponent,
     FloatingButtonComponent,
     RegisterComponent,
-<<<<<<< HEAD
-    ServicioRegisterComponent
-=======
     ServicioRegisterComponent,
     AdminRegisterComponent,
     AdminListComponent
->>>>>>> fcdd2801506560b9f61f3cac78fe70f9ce14a6b1
   ],
   imports: [
     BrowserModule,
