@@ -9,7 +9,7 @@ import { EncuesatisService } from 'src/app/services/encuesatis.service';
 })
 export class EncuesatisComponent implements OnInit {
   public contador: number;
-  public encuestaCreate: Encuesta = new Encuesta(0,"","6");
+  public encuestaCreate: Encuesta = new Encuesta(0,"",6);
 
 constructor(public encuestaservice: EncuesatisService) { }
 
