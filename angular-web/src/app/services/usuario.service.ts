@@ -39,6 +39,14 @@ export class UsuarioService {
     );
   }
 
+  readAllUsersByRol(rolId: number): Observable<Usuario[]> {
+    return this.http.get<Usuario[]>(`${this.BASE_URL}rol/${rolId}`, loadHeader())
+    .pipe(
+      tap((_) => console.log('Loading users data')),
+      catchError(handleError<Usuario[]>(null))
+    );
+  }
+
   readUserById(id: number): Observable<Usuario> {
     return this.http.get<Usuario>(`${this.BASE_URL}${id}`, loadHeader())
     .pipe(
