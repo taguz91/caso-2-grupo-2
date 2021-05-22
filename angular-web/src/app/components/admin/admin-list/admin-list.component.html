@@ -1,0 +1,34 @@
+<!-- Card Body -->
+<div class="card-body">
+
+    <table class="table table-striped table-hover">
+        <thead>
+            <th>ID</th>
+            <th>Nombres</th>
+            <th>Apellidos</th>
+            <th>Correo</th>
+            <th>Teléfono</th>
+            <th>Rol</th>
+            <th class="all">Acciones</th>
+        </thead>
+        <tbody>
+
+            <tr *ngFor="let a of administradores">
+                <td>{{ a.usuarioId }}</td>
+                <td>{{ a.nombres }}</td>
+                <td>{{ a.apellidos }}</td>
+                <td>{{ a.correo }}</td>
+                <td>{{ a.telefono }}</td>
+                <td>{{ rol }}</td>
+                <td>
+                    <button class="btn btn-warning btn-circle">
+                        Editar
+                        <i class="far fa-edit"></i></button>
+                    <a href="#" class="btn btn-danger btn-circle" role="button">Eliminar<i class="far fa-thumbs-down"></i></a>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+
+</div>

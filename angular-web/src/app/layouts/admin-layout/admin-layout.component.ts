@@ -65,7 +65,7 @@ export class AdminLayoutComponent implements OnInit {
         {
           label: 'Coordinadores',
           icon: 'manage_accounts',
-          urlTo: '/admin/usuarios/tipo/2',
+          urlTo: 'admin-list',
         },
         {
           label: 'Soporte',
