@@ -31,6 +31,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AdminRegisterComponent } from './components/admin/admin-register/admin-register.component';
 import { AdminListComponent } from './components/admin/admin-list/admin-list.component';
 import { DataTablesModule } from "angular-datatables";
+import { NgxEchartsModule } from 'ngx-echarts';
 
 @NgModule({
   declarations: [
@@ -67,6 +68,9 @@ import { DataTablesModule } from "angular-datatables";
     ReactiveFormsModule,
     NgbModule,
     DataTablesModule,
+    NgxEchartsModule.forRoot({
+      echarts: () => import('echarts')
+    }),
   ],
   providers: [CriticidadService],
   bootstrap: [AppComponent],
