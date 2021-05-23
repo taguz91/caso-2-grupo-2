@@ -107,6 +107,7 @@ public class TicketService {
 
 		if (ticket.getResponsable() == null) {
 			ticket.setResponsable(responsable);
+			ticket.setFechaAsignacion(LocalDateTime.now());
 			historials.add(new Historial("Asignación ticket: " + ticket.getResponsable().getNombreCompleto(), ticket));
 		}
 

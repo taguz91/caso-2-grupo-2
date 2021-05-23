@@ -1,5 +1,8 @@
 package com.tecazuay.example.restapi;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public abstract class Types {
 
 	// Tipos de parametros
@@ -29,5 +32,12 @@ public abstract class Types {
 	public final static int MEDIO_COMUNICACION_CELULAR = 18;
 	public final static int MEDIO_COMUNICACION_TELEFONO = 19;
 
+	// Date format
+	public static DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ISO_DATE_TIME;
+
+	public static String getNowDate() {
+		LocalDateTime date = LocalDateTime.now();
+		return date.format(DATE_FORMAT);
+	}
 
 }
