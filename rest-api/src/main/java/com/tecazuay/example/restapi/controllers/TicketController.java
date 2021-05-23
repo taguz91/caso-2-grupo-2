@@ -104,6 +104,17 @@ public class TicketController {
 		return ResponseEntity.status(HttpStatus.ACCEPTED).body(new PageResponse(ticketsPage));
 	}
 
+	@GetMapping("/soporte/{idSoporte}")
+	public ResponseEntity<?> ticksSoporteHome(@Valid @PathVariable Long idSoporte,
+			@RequestParam(value = "page", defaultValue = "0") int page,
+			@RequestParam(value = "size", defaultValue = "20") int size) {
+
+		Pageable pageable = PageRequest.of(page, size);
+		Page<TicketsList> ticketsPage = ticketRepository.findAllByResponsableHome(idSoporte, pageable.getOffset(),
+				pageable.getPageSize(), pageable);
+		return ResponseEntity.status(HttpStatus.ACCEPTED).body(new PageResponse(ticketsPage));
+	}
+
 	@PostMapping(value = "/add/adjunto", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Adjunto> saveAdjunto(@RequestParam("file") MultipartFile file,
 			@RequestParam("ticketId") Long ticketId) {
