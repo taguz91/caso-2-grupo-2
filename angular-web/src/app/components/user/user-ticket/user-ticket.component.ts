@@ -13,6 +13,7 @@ import { FloatingOption } from 'src/app/models/Parametros';
 import { TicketView } from 'src/app/models/ticket';
 import { AdjuntoService } from 'src/app/services/adjunto.service';
 import { AlertService } from 'src/app/services/alert.service';
+import { ReporteService } from 'src/app/services/reporte.service';
 import { SessionService } from 'src/app/services/session.service';
 import { TicketService } from 'src/app/services/ticket.service';
 import {
@@ -48,6 +49,7 @@ export class UserTicketComponent implements OnInit {
   closeModal: string;
   adjuntos: Adjunto[];
   floatingButtons: FloatingOption[] = [];
+  idReporte: string;
 
   constructor(
     private ticketService: TicketService,
@@ -55,7 +57,8 @@ export class UserTicketComponent implements OnInit {
     private modalService: NgbModal,
     private adjuntoService: AdjuntoService,
     private alertService: AlertService,
-    private sessionService: SessionService
+    private sessionService: SessionService,
+    private _reporte: ReporteService
   ) {}
 
   ngOnInit(): void {
@@ -149,5 +152,10 @@ export class UserTicketComponent implements OnInit {
       this.alertService.success('Eliminamos correctamente el adjunto.');
       this.adjuntos.splice(this.adjuntos.indexOf(adjunto), 1);
     });
+  }
+
+  downloadPDF() {
+    this.idReporte="ticket";
+    this._reporte.reporte(this.idReporte);
   }
 }

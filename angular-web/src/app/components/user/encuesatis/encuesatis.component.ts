@@ -6,12 +6,14 @@ import { CriticidadService } from 'src/app/services/criticidad.service';
 import { EncuesatisService } from 'src/app/services/encuesatis.service';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
+import { ReporteService } from 'src/app/services/reporte.service';
 @Component({
   selector: 'app-encuesatis',
   templateUrl: './encuesatis.component.html',
   styleUrls: ['./encuesatis.component.scss'],
 })
 export class EncuesatisComponent implements OnInit {
+  public idReporte: string;
   public contador: number;
   public ticketId: number = 0;
   public encuestaCreate: Encuesta = new Encuesta(0, '', 0);
@@ -20,7 +22,8 @@ export class EncuesatisComponent implements OnInit {
     public encuestaservice: EncuesatisService,
     private activeRoute: ActivatedRoute,
     private _router: Router,
-    private criticidadService: CriticidadService
+    private criticidadService: CriticidadService,
+    private _reporte: ReporteService
   ) {}
 
   ngOnInit(): void {
@@ -84,26 +87,7 @@ export class EncuesatisComponent implements OnInit {
 
   downloadPDF() {
     // Extraemos el
-    const DATA: any = document.getElementById('tablaCriti');
-    const doc = new jsPDF('p', 'pt', 'a4');
-    const options = {
-      background: 'white',
-      scale: 3
-    };
-    html2canvas(DATA, options).then((canvas) => {
-
-      const img = canvas.toDataURL('image/PNG');
-
-      // Add image Canvas to PDF
-      const bufferX = 15;
-      const bufferY = 15;
-      const imgProps = (doc as any).getImageProperties(img);
-      const pdfWidth = doc.internal.pageSize.getWidth() - 2 * bufferX;
-      const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
-      doc.addImage(img, 'PNG', bufferX, bufferY, pdfWidth, pdfHeight, undefined, 'FAST');
-      return doc;
-    }).then((docResult) => {
-      docResult.save(`${new Date().toISOString()}_TDS.pdf`);
-    });
+    this.idReporte="tablaCriti";
+    this._reporte.reporte(this.idReporte);
   }
 }
