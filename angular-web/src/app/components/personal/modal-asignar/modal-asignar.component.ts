@@ -1,7 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { TicketView } from 'src/app/models/ticket';
 import { ComboUsuario } from 'src/app/models/usuario';
+import { AlertService } from 'src/app/services/alert.service';
+import { SessionService } from 'src/app/services/session.service';
 import { TicketService } from 'src/app/services/ticket.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { ROL_SOPORTE_N1, ROL_SOPORTE_N2 } from 'src/app/utils/constantes';
@@ -25,7 +28,10 @@ export class ModalAsignarComponent implements OnInit {
 
   constructor(
     private usuarioService: UsuarioService,
-    private ticketService: TicketService
+    private ticketService: TicketService,
+    private alertService: AlertService,
+    private router: Router,
+    private sessionService: SessionService
   ) {}
 
   ngOnInit(): void {
@@ -42,9 +48,15 @@ export class ModalAsignarComponent implements OnInit {
     this.ticketService
       .asignarTicket(this.asignacionForm.value)
       .subscribe((res) => {
-        this.ticket = res;
         this.modal.dismiss('Cross click');
-        window.location.reload();
+        this.alertService.success(
+          `Asignamos correctamente el ticket a: ${res.responsable.nombreCompleto}`
+        );
+        if (this.sessionService.isCoordinador()) {
+          this.router.navigate(['/dashboard/coordinador']);
+        } else {
+          this.router.navigate(['/dashboard/soporte']);
+        }
       });
   }
 

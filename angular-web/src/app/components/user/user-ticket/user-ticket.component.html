@@ -38,8 +38,13 @@
         <button class="btn btn-primary text-white" (click)="triggerModal(modalData)">Ver adjuntos</button>
       </div>
 
+      <div *ngIf="ticket.responsable" class="col-12 p-3 indicacion">
+        <p class="solucion_title">Asignado:</p>
+        <p class="mb-0"> {{ ticket.responsable.nombreCompleto }} el {{ ticket.fechaAsignacion }} con un tiempo de
+          solución estimado de 10 horas TODO CAMBIAR. </p>
+      </div>
 
-      <div *ngIf="ticket.solucion" class="col-12 p-3 solucion_{{ ticket.estado.parametros_id }}">
+      <div *ngIf="ticket.solucion" class="col-12 p-3 indicacion solucion_{{ ticket.estado.parametros_id }}">
         <p class="solucion_title">Solución:</p>
         <p class="mb-0"> {{ ticket.solucion }} </p>
       </div>

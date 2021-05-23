@@ -37,7 +37,7 @@ import { CoordinadorDashboardComponent } from './components/personal/coordinador
 import { PersonalLayoutComponent } from './layouts/personal-layout/personal-layout.component';
 import { FooterComponent } from './components/common/footer/footer.component';
 import { ListFloatingButtonComponent } from './components/user/list-floating-button/list-floating-button.component';
-import { ModalAsignarComponent } from './components/user/modal-asignar/modal-asignar.component';
+import { ModalAsignarComponent } from './components/personal/modal-asignar/modal-asignar.component';
 
 @NgModule({
   declarations: [

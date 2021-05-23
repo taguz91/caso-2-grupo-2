@@ -9,6 +9,7 @@ import { SessionService } from 'src/app/services/session.service';
 })
 export class PersonalLayoutComponent implements OnInit {
   user: LoginUser;
+  homeUrl: string = '/dashboard/coordinador';
 
   constructor(private sessionService: SessionService) {}
 
@@ -21,6 +22,13 @@ export class PersonalLayoutComponent implements OnInit {
   }
 
   private loadUser() {
-    this.sessionService.getUser().subscribe((user) => (this.user = user));
+    const user = this.sessionService.user;
+    this.sessionService.getUser().subscribe((_) => this.loadUser());
+    if (user) {
+      this.user = user;
+      if (this.sessionService.isSoporte()) {
+        this.homeUrl = '/dashboard/soporte';
+      }
+    }
   }
 }
