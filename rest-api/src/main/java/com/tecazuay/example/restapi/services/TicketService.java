@@ -106,6 +106,8 @@ public class TicketService {
 		List<Historial> historials = new ArrayList<>();
 
 		if (ticket.getResponsable() == null) {
+			Parametros estado = parametrosRepository.findById(Types.PARAMETROS_ESTADO_ATENDIENDOSE).get();
+			ticket.setEstado(estado);
 			ticket.setResponsable(responsable);
 			ticket.setFechaAsignacion(LocalDateTime.now());
 			historials.add(new Historial("Asignación ticket: " + ticket.getResponsable().getNombreCompleto(), ticket));
