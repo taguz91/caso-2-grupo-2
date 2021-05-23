@@ -38,6 +38,7 @@ import { PersonalLayoutComponent } from './layouts/personal-layout/personal-layo
 import { FooterComponent } from './components/common/footer/footer.component';
 import { ListFloatingButtonComponent } from './components/user/list-floating-button/list-floating-button.component';
 import { ModalAsignarComponent } from './components/personal/modal-asignar/modal-asignar.component';
+import { ModalCerrarComponent } from './components/personal/modal-cerrar/modal-cerrar.component';
 
 @NgModule({
   declarations: [
@@ -71,6 +72,7 @@ import { ModalAsignarComponent } from './components/personal/modal-asignar/modal
     FooterComponent,
     ListFloatingButtonComponent,
     ModalAsignarComponent,
+    ModalCerrarComponent,
   ],
   imports: [
     BrowserModule,

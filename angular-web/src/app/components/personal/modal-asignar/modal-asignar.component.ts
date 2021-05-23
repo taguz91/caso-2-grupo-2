@@ -45,6 +45,7 @@ export class ModalAsignarComponent implements OnInit {
 
   onSave() {
     if (!this.asignacionForm.valid) return;
+    this.loading = true;
     this.ticketService
       .asignarTicket(this.asignacionForm.value)
       .subscribe((res) => {

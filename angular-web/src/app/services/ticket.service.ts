@@ -5,6 +5,7 @@ import { catchError } from 'rxjs/operators';
 import { PageResponse } from '../models/Parametros';
 import {
   AsignarForm,
+  CerrarForm,
   TicketForm,
   TicketHome,
   TicketView,
@@ -45,6 +46,12 @@ export class TicketService {
   asignarTicket(form: AsignarForm): Observable<TicketView> {
     return this.http
       .post<TicketView>(`${URL_BASE_V1}ticket/asignar`, form, loadHeader())
+      .pipe(catchError(handleError<TicketView>(null, this.alertService)));
+  }
+
+  cerrarTicket(form: CerrarForm) {
+    return this.http
+      .post<TicketView>(`${URL_BASE_V1}ticket/cerrar`, form, loadHeader())
       .pipe(catchError(handleError<TicketView>(null, this.alertService)));
   }
 

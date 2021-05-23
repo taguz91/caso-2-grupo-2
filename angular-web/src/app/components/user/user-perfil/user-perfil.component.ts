@@ -24,7 +24,11 @@ export class UserPerfilComponent implements OnInit {
   }
 
   private loadUser() {
-    this.sessionService.getUser().subscribe((user) => (this.user = user));
+    const user = this.sessionService.user;
+    this.sessionService.getUser().subscribe((_) => this.loadUser());
+    if (user) {
+      this.user = user;
+    }
   }
 
   private loadChart() {
@@ -57,7 +61,7 @@ export class UserPerfilComponent implements OnInit {
             name: 'Estados',
             type: 'pie',
             roseType: 'radius',
-            radius: [30, 100],
+            radius: [30, 130],
             data: dataSeries,
           },
         ],

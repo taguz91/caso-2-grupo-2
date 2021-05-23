@@ -13,6 +13,12 @@ export interface AsignarForm {
   soporteId: number;
 }
 
+export interface CerrarForm {
+  ticketId: number;
+  solucion: string;
+  estado: number;
+}
+
 export interface TicketHome {
   ticket_id: number;
   titulo: string;

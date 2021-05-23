@@ -36,6 +36,9 @@ export class UserTicketComponent implements OnInit {
   @ViewChild('modalAsignar')
   private modalAsignar: TemplateRef<any>;
 
+  @ViewChild('modalCerrar')
+  private modalCerrar: TemplateRef<any>;
+
   ticket: TicketView;
   urlEdit: string = '';
   urlEncuesta: string = '';
@@ -88,16 +91,28 @@ export class UserTicketComponent implements OnInit {
 
       this.adjuntos = res.adjuntos;
       // Vemos si esta habilitado el boton de asignar
-      if (res?.responsable?.rol.rolId !== ROL_SOPORTE_N2) {
-        this.floatingButtons.push({
-          icon: 'contacts',
-          tooltip: 'Asignar ticket',
-          callback: () => this.triggerModal(this.modalAsignar),
-        });
-      }
+      this.addFloatingButtons();
 
       this.checkAccess();
     });
+  }
+
+  private addFloatingButtons() {
+    if (this.ticket.responsable && this.sessionService.isSoporte()) {
+      this.floatingButtons.push({
+        icon: 'task',
+        tooltip: 'Cerrar ticket',
+        callback: () => this.triggerModal(this.modalCerrar),
+      });
+    }
+
+    if (this.ticket?.responsable?.rol.rolId !== ROL_SOPORTE_N2) {
+      this.floatingButtons.push({
+        icon: 'contacts',
+        tooltip: 'Asignar ticket',
+        callback: () => this.triggerModal(this.modalAsignar),
+      });
+    }
   }
 
   triggerModal(content) {
