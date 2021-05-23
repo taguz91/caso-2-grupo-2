@@ -138,7 +138,6 @@ export class UserTicketComponent implements OnInit {
   }
 
   downloadPDF() {
-    // Extraemos el
     this.idReporte="ticket";
     this._reporte.reporte(this.idReporte);
   }
