@@ -1,1 +1,42 @@
-<p>modal-rechazar works!</p>
+<div class="modal-header">
+  <h4 class="modal-title">Rechazar ticket #{{ ticket.ticket_id }}</h4>
+  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+    (click)="modal.dismiss('Cross click')"></button>
+</div>
+
+<div class="modal-body">
+
+  <form [formGroup]="rechazarForm" (ngSubmit)="onSave()">
+
+    <div class="mb-3">
+      <label for="" class="form-label">
+        Motivo
+      </label>
+
+      <textarea formControlName="motivo" class="form-control" cols="15" rows="7"></textarea>
+
+      <div *ngIf="motivo.invalid && (motivo.dirty || motivo.touched)">
+
+        <div *ngIf="motivo.errors.required" class="form-text text-danger">
+          Motivo es obligatorio.
+        </div>
+
+        <div *ngIf="motivo.errors.minLength" class="form-text text-danger">
+          Motivo debe tener almenos 10 caracteres.
+        </div>
+
+        <div *ngIf="motivo.errors.maxLength" class="form-text text-danger">
+          Motivo debe tener menos de 1000 caracteres.
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <button class="btn btn-primary d-block btn-save-right " type="submit" [disabled]="!rechazarForm.valid || loading"
+      [class.spinner]="loading">Guardar</button>
+
+  </form>
+
+</div>

@@ -17,11 +17,11 @@ import { ReporteService } from 'src/app/services/reporte.service';
 import { SessionService } from 'src/app/services/session.service';
 import { TicketService } from 'src/app/services/ticket.service';
 import {
-  ROL_DEVELOPER,
   ROL_SOPORTE_N2,
-  ROL_USUARIO,
+  TICKET_ESTADO_ABIERTO,
   TICKET_ESTADO_CERRADO_CON_SOLUCION,
   TICKET_ESTADO_CERRADO_SIN_SOLUCION,
+  TICKET_ESTADO_RECHAZADO,
 } from 'src/app/utils/constantes';
 
 @Component({
@@ -40,6 +40,9 @@ export class UserTicketComponent implements OnInit {
   @ViewChild('modalCerrar')
   private modalCerrar: TemplateRef<any>;
 
+  @ViewChild('modalRechazar')
+  private modalRechazar: TemplateRef<any>;
+
   ticket: TicketView;
   urlEdit: string = '';
   urlEncuesta: string = '';
@@ -50,6 +53,7 @@ export class UserTicketComponent implements OnInit {
   adjuntos: Adjunto[];
   floatingButtons: FloatingOption[] = [];
   idReporte: string;
+  titleSolucion = 'Solución:';
 
   constructor(
     private ticketService: TicketService,
@@ -94,12 +98,27 @@ export class UserTicketComponent implements OnInit {
       this.adjuntos = res.adjuntos;
       // Vemos si esta habilitado el boton de asignar
       this.addFloatingButtons();
-
       this.checkAccess();
+
+      if (res.estado.parametros_id === TICKET_ESTADO_RECHAZADO) {
+        this.titleSolucion = 'Motivo rechazo:';
+      }
     });
   }
 
   private addFloatingButtons() {
+    if (
+      this.sessionService.isCoordinador() &&
+      this.ticket.estado.parametros_id === TICKET_ESTADO_ABIERTO
+    ) {
+      this.floatingButtons.push({
+        icon: 'delete',
+        tooltip: 'Rechazar ticket',
+        callback: () => this.triggerModal(this.modalRechazar),
+        color: 'danger',
+      });
+    }
+
     if (this.ticket.responsable && this.sessionService.isSoporte()) {
       this.floatingButtons.push({
         icon: 'task',
@@ -155,7 +174,7 @@ export class UserTicketComponent implements OnInit {
   }
 
   downloadPDF() {
-    this.idReporte="ticket";
+    this.idReporte = 'ticket';
     this._reporte.reporte(this.idReporte);
   }
 }

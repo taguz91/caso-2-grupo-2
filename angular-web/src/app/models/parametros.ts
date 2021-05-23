@@ -24,4 +24,5 @@ export interface FloatingOption {
   icon: string;
   tooltip: string;
   callback: any;
+  color?: string;
 }

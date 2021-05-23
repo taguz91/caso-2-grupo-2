@@ -7,6 +7,10 @@ import { AlertService } from 'src/app/services/alert.service';
 import { ParametrosService } from 'src/app/services/parametros.service';
 import { SessionService } from 'src/app/services/session.service';
 import { TicketService } from 'src/app/services/ticket.service';
+import {
+  TICKET_ESTADO_CERRADO_CON_SOLUCION,
+  TICKET_ESTADO_CERRADO_SIN_SOLUCION,
+} from 'src/app/utils/constantes';
 
 @Component({
   selector: 'app-modal-cerrar',
@@ -77,8 +81,15 @@ export class ModalCerrarComponent implements OnInit {
   }
 
   private loadEstados() {
-    this.parametroService
-      .listEstados()
-      .subscribe((res) => (this.estados = res));
+    this.parametroService.listEstados().subscribe((res) => {
+      this.estados = res.filter(this.estadoPermitido);
+    });
+  }
+
+  private estadoPermitido(estado: Parametro): boolean {
+    return [
+      TICKET_ESTADO_CERRADO_CON_SOLUCION,
+      TICKET_ESTADO_CERRADO_SIN_SOLUCION,
+    ].includes(estado.parametros_id);
   }
 }

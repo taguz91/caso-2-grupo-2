@@ -36,7 +36,7 @@ import { SoporteDashboardComponent } from './components/personal/soporte-dashboa
 import { CoordinadorDashboardComponent } from './components/personal/coordinador-dashboard/coordinador-dashboard.component';
 import { PersonalLayoutComponent } from './layouts/personal-layout/personal-layout.component';
 import { FooterComponent } from './components/common/footer/footer.component';
-import { ListFloatingButtonComponent } from './components/user/list-floating-button/list-floating-button.component';
+import { ListFloatingButtonComponent } from './components/common/list-floating-button/list-floating-button.component';
 import { ModalAsignarComponent } from './components/personal/modal-asignar/modal-asignar.component';
 import { ModalCerrarComponent } from './components/personal/modal-cerrar/modal-cerrar.component';
 import { ModalRechazarComponent } from './components/personal/modal-rechazar/modal-rechazar.component';

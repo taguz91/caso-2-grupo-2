@@ -9,6 +9,7 @@ import {
   TicketForm,
   TicketHome,
   TicketView,
+  RechazarForm,
 } from '../models/ticket';
 import {
   DEFAULT_PAGE_SIZE,
@@ -52,6 +53,12 @@ export class TicketService {
   cerrarTicket(form: CerrarForm) {
     return this.http
       .post<TicketView>(`${URL_BASE_V1}ticket/cerrar`, form, loadHeader())
+      .pipe(catchError(handleError<TicketView>(null, this.alertService)));
+  }
+
+  rechazarTicket(form: RechazarForm) {
+    return this.http
+      .post<TicketView>(`${URL_BASE_V1}ticket/rechazar`, form, loadHeader())
       .pipe(catchError(handleError<TicketView>(null, this.alertService)));
   }
 

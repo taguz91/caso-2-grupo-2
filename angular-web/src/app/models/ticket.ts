@@ -19,6 +19,11 @@ export interface CerrarForm {
   estado: number;
 }
 
+export interface RechazarForm {
+  ticketId: number;
+  motivo: string;
+}
+
 export interface TicketHome {
   ticket_id: number;
   titulo: string;
