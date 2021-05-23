@@ -87,15 +87,20 @@
     <app-floating-button [show]="isOpen" [url]="urlEdit" [icon]="'edit'" [tooltip]="'Editar ticket'">
     </app-floating-button>
 
+    <!-- Options for coordinador -->
+
+    <app-list-floating-button [buttons]="floatingButtons"></app-list-floating-button>
+
   </div>
 
 </div>
 
+<!-- Modal adjuntos -->
 
 <ng-template #modalData let-modal>
 
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Adjuntos</h4>
+    <h4 class="modal-title">Adjuntos</h4>
     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
       (click)="modal.dismiss('Cross click')"></button>
   </div>
@@ -125,4 +130,10 @@
 
   </div>
 
+</ng-template>
+
+<!-- Form asignacion -->
+
+<ng-template #modalAsignar let-modal>
+  <app-modal-asignar [modal]="modal" [ticket]="ticket"></app-modal-asignar>
 </ng-template>

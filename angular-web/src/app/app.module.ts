@@ -36,6 +36,8 @@ import { SoporteDashboardComponent } from './components/personal/soporte-dashboa
 import { CoordinadorDashboardComponent } from './components/personal/coordinador-dashboard/coordinador-dashboard.component';
 import { PersonalLayoutComponent } from './layouts/personal-layout/personal-layout.component';
 import { FooterComponent } from './components/common/footer/footer.component';
+import { ListFloatingButtonComponent } from './components/user/list-floating-button/list-floating-button.component';
+import { ModalAsignarComponent } from './components/user/modal-asignar/modal-asignar.component';
 
 @NgModule({
   declarations: [
@@ -67,6 +69,8 @@ import { FooterComponent } from './components/common/footer/footer.component';
     CoordinadorDashboardComponent,
     PersonalLayoutComponent,
     FooterComponent,
+    ListFloatingButtonComponent,
+    ModalAsignarComponent,
   ],
   imports: [
     BrowserModule,

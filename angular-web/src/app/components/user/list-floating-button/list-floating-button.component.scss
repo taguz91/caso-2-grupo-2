@@ -1,0 +1,27 @@
+@import "/src/scss/variables";
+@import "/src/scss/mixins";
+
+.list_floating_button {
+  display: inline;
+  position: fixed;
+  bottom: 50px;
+  right: 50px;
+
+  button {
+    border: none;
+    background-color: $accent;
+    border-radius: 50%;
+    margin-left: 10px;
+    padding: 15px;
+    font-size: 1.4rem;
+    text-decoration: none;
+    color: white;
+    margin-bottom: 0;
+    span {
+      @include commonIconButton;
+    }
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}

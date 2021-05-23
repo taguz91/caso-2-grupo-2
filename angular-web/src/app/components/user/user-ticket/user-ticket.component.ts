@@ -1,12 +1,24 @@
-import { Component, OnInit, ViewEncapsulation, Input } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewEncapsulation,
+  Input,
+  ViewChild,
+  TemplateRef,
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Adjunto } from 'src/app/models/adjunto';
+import { FloatingOption } from 'src/app/models/Parametros';
 import { TicketView } from 'src/app/models/ticket';
 import { AdjuntoService } from 'src/app/services/adjunto.service';
 import { AlertService } from 'src/app/services/alert.service';
+import { SessionService } from 'src/app/services/session.service';
 import { TicketService } from 'src/app/services/ticket.service';
 import {
+  ROL_DEVELOPER,
+  ROL_SOPORTE_N2,
+  ROL_USUARIO,
   TICKET_ESTADO_CERRADO_CON_SOLUCION,
   TICKET_ESTADO_CERRADO_SIN_SOLUCION,
 } from 'src/app/utils/constantes';
@@ -19,6 +31,11 @@ import {
 })
 export class UserTicketComponent implements OnInit {
   @Input() ticketId: number = 0;
+
+  // Templates
+  @ViewChild('modalAsignar')
+  private modalAsignar: TemplateRef<any>;
+
   ticket: TicketView;
   urlEdit: string = '';
   urlEncuesta: string = '';
@@ -26,13 +43,15 @@ export class UserTicketComponent implements OnInit {
   isClosed: boolean = false;
   closeModal: string;
   adjuntos: Adjunto[];
+  floatingButtons: FloatingOption[] = [];
 
   constructor(
     private ticketService: TicketService,
     private activeRoute: ActivatedRoute,
     private modalService: NgbModal,
     private adjuntoService: AdjuntoService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private sessionService: SessionService
   ) {}
 
   ngOnInit(): void {
@@ -40,6 +59,18 @@ export class UserTicketComponent implements OnInit {
     if (id) {
       this.ticketId = parseInt(id);
       this.findOne();
+    }
+  }
+
+  private checkAccess() {
+    const user = this.sessionService.user;
+    this.sessionService.getUser().subscribe((_) => this.checkAccess());
+    if (user) {
+      this.isOpen =
+        this.isOpen && (user.type == ROL_USUARIO || user.type == ROL_DEVELOPER);
+      this.isClosed =
+        this.isClosed &&
+        (user.type == ROL_USUARIO || user.type == ROL_DEVELOPER);
     }
   }
 
@@ -56,6 +87,16 @@ export class UserTicketComponent implements OnInit {
         TICKET_ESTADO_CERRADO_CON_SOLUCION === this.ticket.estado.parametros_id;
 
       this.adjuntos = res.adjuntos;
+      // Vemos si esta habilitado el boton de asignar
+      if (res?.responsable?.rol.rolId !== ROL_SOPORTE_N2) {
+        this.floatingButtons.push({
+          icon: 'contacts',
+          tooltip: 'Asignar ticket',
+          callback: () => this.triggerModal(this.modalAsignar),
+        });
+      }
+
+      this.checkAccess();
     });
   }
 

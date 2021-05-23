@@ -3,7 +3,12 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { PageResponse } from '../models/Parametros';
-import { TicketForm, TicketHome, TicketView } from '../models/ticket';
+import {
+  AsignarForm,
+  TicketForm,
+  TicketHome,
+  TicketView,
+} from '../models/ticket';
 import {
   DEFAULT_PAGE_SIZE,
   handleError,
@@ -34,6 +39,12 @@ export class TicketService {
         newTicket,
         loadHeader()
       )
+      .pipe(catchError(handleError<TicketView>(null, this.alertService)));
+  }
+
+  asignarTicket(form: AsignarForm): Observable<TicketView> {
+    return this.http
+      .post<TicketView>(`${URL_BASE_V1}ticket/asignar`, form, loadHeader())
       .pipe(catchError(handleError<TicketView>(null, this.alertService)));
   }
 

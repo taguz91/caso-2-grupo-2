@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { LoginForm, LoginUser, Usuario } from '../models/usuario';
+import { ComboUsuario, LoginForm, LoginUser, Usuario } from '../models/usuario';
 import { handleError, loadHeader, URL_BASE_V1 } from '../utils/constantes';
 import { PageResponse } from '../models/parametros';
 import { catchError, tap } from 'rxjs/operators';
@@ -94,5 +94,11 @@ export class UsuarioService {
       `${this.BASE_URL}chart/actual`,
       loadHeader()
     );
+  }
+
+  getComboByType(type: number): Observable<ComboUsuario[]> {
+    return this.http
+      .get<ComboUsuario[]>(`${this.BASE_URL}combo/type/${type}`, loadHeader())
+      .pipe(catchError(handleError<ComboUsuario[]>([])));
   }
 }

@@ -1,0 +1,9 @@
+<div *ngIf="buttons.length > 0" class="list_floating_button">
+
+  <button *ngFor="let button of buttons" placement="top" ngbTooltip="{{ button.tooltip }}" (click)="button.callback()">
+    <span class="material-icons-round">
+      {{ button.icon }}
+    </span>
+  </button>
+
+</div>

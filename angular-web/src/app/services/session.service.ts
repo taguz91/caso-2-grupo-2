@@ -20,7 +20,7 @@ import {
   providedIn: 'root',
 })
 export class SessionService {
-  private user: LoginUser;
+  user: LoginUser;
   private userData = new Subject<LoginUser>();
 
   constructor(private router: Router, private http: HttpClient) {}
