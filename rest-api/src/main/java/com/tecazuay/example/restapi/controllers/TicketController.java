@@ -99,7 +99,7 @@ public class TicketController {
 		AuthorizationService.canReadTicketsByEstado(user);
 
 		Pageable pageable = PageRequest.of(page, size);
-		Page<TicketsList> ticketsPage = ticketRepository.findAllByEstadoHome(user.getPersonaId(), pageable.getOffset(),
+		Page<TicketsList> ticketsPage = ticketRepository.findAllByEstadoHome(estado, pageable.getOffset(),
 				pageable.getPageSize(), pageable);
 		return ResponseEntity.status(HttpStatus.ACCEPTED).body(new PageResponse(ticketsPage));
 	}

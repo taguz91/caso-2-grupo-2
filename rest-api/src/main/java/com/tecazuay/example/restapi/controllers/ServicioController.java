@@ -6,6 +6,7 @@ import javax.validation.Valid;
 
 import com.tecazuay.example.restapi.api.exception.ResourceNotFoundException;
 import com.tecazuay.example.restapi.api.params.ServicioParam;
+import com.tecazuay.example.restapi.definitions.PageResponse;
 import com.tecazuay.example.restapi.definitions.ServicioResponse;
 import com.tecazuay.example.restapi.models.Categoria;
 import com.tecazuay.example.restapi.models.Servicio;
