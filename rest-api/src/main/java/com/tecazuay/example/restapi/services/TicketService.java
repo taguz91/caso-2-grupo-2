@@ -119,6 +119,7 @@ public class TicketService {
 			ticket.setResponsable(responsable);
 		}
 
+		historialRepository.saveAll(historials);
 		return ticketRepository.save(ticket);
 	}
 
