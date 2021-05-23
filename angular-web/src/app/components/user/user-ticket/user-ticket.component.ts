@@ -44,6 +44,7 @@ export class UserTicketComponent implements OnInit {
   urlEncuesta: string = '';
   isOpen: boolean = true;
   isClosed: boolean = false;
+  showUser: Boolean = false;
   closeModal: string;
   adjuntos: Adjunto[];
   floatingButtons: FloatingOption[] = [];
@@ -69,11 +70,9 @@ export class UserTicketComponent implements OnInit {
     const user = this.sessionService.user;
     this.sessionService.getUser().subscribe((_) => this.checkAccess());
     if (user) {
-      this.isOpen =
-        this.isOpen && (user.type == ROL_USUARIO || user.type == ROL_DEVELOPER);
-      this.isClosed =
-        this.isClosed &&
-        (user.type == ROL_USUARIO || user.type == ROL_DEVELOPER);
+      this.isOpen = this.isOpen && this.sessionService.isFinalUser();
+      this.isClosed = this.isClosed && this.sessionService.isFinalUser();
+      this.showUser = this.sessionService.isPersonal();
     }
   }
 
@@ -106,7 +105,10 @@ export class UserTicketComponent implements OnInit {
       });
     }
 
-    if (this.ticket?.responsable?.rol.rolId !== ROL_SOPORTE_N2) {
+    if (
+      this.ticket?.responsable?.rol.rolId !== ROL_SOPORTE_N2 &&
+      this.sessionService.isPersonal()
+    ) {
       this.floatingButtons.push({
         icon: 'contacts',
         tooltip: 'Asignar ticket',

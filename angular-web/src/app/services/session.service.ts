@@ -91,6 +91,14 @@ export class SessionService {
     return this.isRol(ROL_DEVELOPER);
   }
 
+  isFinalUser() {
+    return this.isUser() || this.isDev();
+  }
+
+  isPersonal() {
+    return this.isCoordinador() || this.isSoporte();
+  }
+
   private isRol(rol: number): boolean {
     return this.user.type === rol;
   }

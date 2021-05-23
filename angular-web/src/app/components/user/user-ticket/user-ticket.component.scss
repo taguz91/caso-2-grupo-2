@@ -26,17 +26,18 @@
 
   .solucion_14 {
     border-left: 5px solid $success;
-    @include commonSolucion();
   }
 
   .solucion_13 {
     border-left: 5px solid $warning;
-    @include commonSolucion();
   }
 
   .indicacion {
-    border-left: 5px solid $primary;
     @include commonSolucion();
+  }
+
+  .asignado {
+    border-left: 5px solid $primary;
   }
 
   .solucion_title {
