@@ -85,7 +85,7 @@ export class EncuesatisComponent implements OnInit {
   downloadPDF() {
     // Extraemos el
     const DATA: any = document.getElementById('tablaCriti');
-    const doc = new jsPDF('100', '50', 'a4');
+    const doc = new jsPDF('p', 'pt', 'a4');
     const options = {
       background: 'white',
       scale: 3
