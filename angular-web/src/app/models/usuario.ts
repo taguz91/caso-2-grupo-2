@@ -23,7 +23,7 @@ interface LoginFormErrors {
 
 export interface LoginUser {
     apellidos: string;
-    nombre: string;
+    nombres: string;
     correo: string;
     rol: string;
     token: string;

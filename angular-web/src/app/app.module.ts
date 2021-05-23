@@ -30,11 +30,11 @@ import { ServicioRegisterComponent } from './components/admin/servicio-register/
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AdminRegisterComponent } from './components/admin/admin-register/admin-register.component';
 import { AdminListComponent } from './components/admin/admin-list/admin-list.component';
-<<<<<<< HEAD
-=======
-import { DataTablesModule } from "angular-datatables";
+import { DataTablesModule } from 'angular-datatables';
 import { NgxEchartsModule } from 'ngx-echarts';
->>>>>>> 98a1ea464bb17b21ecae131844865b073caafd17
+import { SoporteDashboardComponent } from './components/personal/soporte-dashboard/soporte-dashboard.component';
+import { CoordinadorDashboardComponent } from './components/personal/coordinador-dashboard/coordinador-dashboard.component';
+import { PersonalLayoutComponent } from './layouts/personal-layout/personal-layout.component';
 
 @NgModule({
   declarations: [
@@ -61,11 +61,10 @@ import { NgxEchartsModule } from 'ngx-echarts';
     RegisterComponent,
     ServicioRegisterComponent,
     AdminRegisterComponent,
-<<<<<<< HEAD
-    AdminListComponent
-=======
     AdminListComponent,
->>>>>>> 98a1ea464bb17b21ecae131844865b073caafd17
+    SoporteDashboardComponent,
+    CoordinadorDashboardComponent,
+    PersonalLayoutComponent,
   ],
   imports: [
     BrowserModule,
@@ -76,7 +75,7 @@ import { NgxEchartsModule } from 'ngx-echarts';
     NgbModule,
     DataTablesModule,
     NgxEchartsModule.forRoot({
-      echarts: () => import('echarts')
+      echarts: () => import('echarts'),
     }),
   ],
   providers: [CriticidadService],

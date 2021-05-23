@@ -17,6 +17,9 @@ import { UserLayoutComponent } from './layouts/user-layout/user-layout.component
 import { RegisterComponent } from './components/register/register.component';
 import { ServicioRegisterComponent } from './components/admin/servicio-register/servicio-register.component';
 import { AdminListComponent } from './components/admin/admin-list/admin-list.component';
+import { SoporteDashboardComponent } from './components/personal/soporte-dashboard/soporte-dashboard.component';
+import { CoordinadorDashboardComponent } from './components/personal/coordinador-dashboard/coordinador-dashboard.component';
+import { PersonalLayoutComponent } from './layouts/personal-layout/personal-layout.component';
 
 const routes: Routes = [
   // Public rutes goes here
@@ -84,30 +87,37 @@ const routes: Routes = [
         component: AdminDashboardComponent,
       },
       {
-<<<<<<< HEAD
-        path: 'categorias',
-        component: CategoriaRegisterComponent
-=======
         path: 'registrar-categoria',
         component: CategoriaRegisterComponent,
->>>>>>> 98a1ea464bb17b21ecae131844865b073caafd17
       },
       {
         path: 'tickets/estado/:idEstado',
-        component: TicketsEstadoComponent
+        component: TicketsEstadoComponent,
       },
       {
         path: 'servicios',
-        component: ServicioRegisterComponent
+        component: ServicioRegisterComponent,
       },
       {
         path: 'admin-list',
-        component: AdminListComponent
-<<<<<<< HEAD
+        component: AdminListComponent,
       },
-=======
-      }
->>>>>>> 98a1ea464bb17b21ecae131844865b073caafd17
+    ],
+  },
+
+  // Layout for soporte and coordinador
+  {
+    path: 'dashboard',
+    component: PersonalLayoutComponent,
+    children: [
+      {
+        path: 'soporte',
+        component: SoporteDashboardComponent,
+      },
+      {
+        path: 'soporte',
+        component: CoordinadorDashboardComponent,
+      },
     ],
   },
 
