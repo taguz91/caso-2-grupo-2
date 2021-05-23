@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import com.tecazuay.example.restapi.Types;
 import com.tecazuay.example.restapi.definitions.TicketsList;
 import com.tecazuay.example.restapi.models.Ticket;
 
@@ -58,6 +59,7 @@ public interface TicketRepository extends JpaRepository<Ticket, Long> {
 //			+ "JOIN public.sla sla ON sla.catalogo_id = sla.catalogo_id "
 //			+ "JOIN public.criticidad cr ON sla.criticidad_id = cr.criticidad_id  "
 			+ "WHERE t.responsable_id = :idSoporte "
+			+ "WHERE pe.parametros_id =  " + Types.PARAMETROS_ESTADO_ATENDIENDOSE
 //			+ "ORDER BY cr.valor DESC " 
 			+ QUERY_PAGEABLE
 			+ " \n-- #pageable\n;", countQuery = "SELECT count(*) FROM public.ticket t WHERE t.estado_id = :estadoId", nativeQuery = true)
