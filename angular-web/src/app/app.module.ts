@@ -35,6 +35,7 @@ import { NgxEchartsModule } from 'ngx-echarts';
 import { SoporteDashboardComponent } from './components/personal/soporte-dashboard/soporte-dashboard.component';
 import { CoordinadorDashboardComponent } from './components/personal/coordinador-dashboard/coordinador-dashboard.component';
 import { PersonalLayoutComponent } from './layouts/personal-layout/personal-layout.component';
+import { FooterComponent } from './components/common/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -65,6 +66,7 @@ import { PersonalLayoutComponent } from './layouts/personal-layout/personal-layo
     SoporteDashboardComponent,
     CoordinadorDashboardComponent,
     PersonalLayoutComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,

@@ -115,8 +115,12 @@ const routes: Routes = [
         component: SoporteDashboardComponent,
       },
       {
-        path: 'soporte',
+        path: 'coordinador',
         component: CoordinadorDashboardComponent,
+      },
+      {
+        path: 'ticket/:idTicket',
+        component: UserTicketComponent,
       },
     ],
   },

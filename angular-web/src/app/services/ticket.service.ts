@@ -24,7 +24,10 @@ export class TicketService {
       .pipe(catchError(handleError<TicketView>(null)));
   }
 
-  updateTicket(ticketId: number, newTicket: TicketForm): Observable<TicketView> {
+  updateTicket(
+    ticketId: number,
+    newTicket: TicketForm
+  ): Observable<TicketView> {
     return this.http
       .post<TicketView>(
         `${URL_BASE_V1}ticket/update/${ticketId}`,
@@ -41,6 +44,19 @@ export class TicketService {
     return this.http
       .get<PageResponse<TicketHome[]>>(
         `${URL_BASE_V1}ticket/user/home?page=${page}&size=${size}`,
+        loadHeader()
+      )
+      .pipe(catchError(handleError<PageResponse<TicketHome[]>>(null)));
+  }
+
+  listByEstado(
+    estado: number,
+    page: number,
+    size: number = DEFAULT_PAGE_SIZE
+  ): Observable<PageResponse<TicketHome[]>> {
+    return this.http
+      .get<PageResponse<TicketHome[]>>(
+        `${URL_BASE_V1}ticket/estado/${estado}?page=${page}&size=${size}`,
         loadHeader()
       )
       .pipe(catchError(handleError<PageResponse<TicketHome[]>>(null)));

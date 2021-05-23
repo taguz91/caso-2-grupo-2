@@ -5,6 +5,12 @@
     <!-- TOP NAV TO CLOSE SESSION -->
     <nav class="personal_topnav">
 
+      <a class="home_button" routerLink="/dashboard/coordinador" placement="bottom" ngbTooltip="Inicio">
+        <span class="material-icons-round">
+          home
+        </span>
+      </a>
+
       <div *ngIf="user" class="user_info">
         <p>{{ user.nombres + ' ' + user.apellidos }}</p>
         <small class="text-secondary">{{ user.rol }}</small>
@@ -26,14 +32,7 @@
       <router-outlet></router-outlet>
     </div>
 
-    <footer class="py-5 mt-5" id="user_footer">
-
-      <div class="container-fluid">
-        <h2 class="text-center mx-4">Tirtec mesa de servicios</h2>
-        <h2 class="text-center mx-4 text-secondary"> Instituto Superior Tecnológico del Azuay</h2>
-      </div>
-
-    </footer>
+    <app-footer></app-footer>
 
   </div>
 </div>

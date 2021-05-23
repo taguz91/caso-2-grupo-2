@@ -15,7 +15,6 @@
       span {
         @include commonIconButton;
       }
-      margin-bottom: 10px;
     }
 
     .main-content {
@@ -31,7 +30,14 @@
       p {
         margin-bottom: 0;
       }
-      
+    }
+    .home_button {
+      display: block;
+      margin-right: 10px;
+      text-decoration: none;
+      span {
+        @include commonIconButton;
+      }
     }
   }
 }
