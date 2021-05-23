@@ -21,13 +21,36 @@ import {
 })
 export class SessionService {
   private user: LoginUser;
+  private rolRoutes = {
+    ROL_DEVELOPER: '/user/home',
+    ROL_ADMIN: '/admin',
+    ROL_COORDINADOR: '/dashboard/coordinador',
+    ROL_USUARIO: '/user/home',
+    ROL_SOPORTE_N1: '/dashboard/soporte',
+    ROL_SOPORTE_N2: '/dashboard/soporte',
+  };
 
   constructor(private router: Router, private http: HttpClient) {}
 
   saveToken(user: LoginUser) {
     localStorage.setItem(JWT_NAME, user.token);
     this.user = user;
-    this.router.navigate(['/user/home']);
+    this.redirect();
+  }
+
+  redirect() {
+    let route = '/user/home';
+    switch (this.user.type) {
+      case ROL_SOPORTE_N1:
+      case ROL_SOPORTE_N2:
+        route = '/dashboard/soporte';
+        break;
+
+      case ROL_COORDINADOR:
+        route = '/dashboard/coordinador';
+        break;
+    }
+    this.router.navigate([route]);
   }
 
   isLoged(): boolean {
