@@ -104,14 +104,15 @@ public class TicketController {
 		return ResponseEntity.status(HttpStatus.ACCEPTED).body(new PageResponse(ticketsPage));
 	}
 
-	@GetMapping("/soporte/{idSoporte}")
-	public ResponseEntity<?> ticksSoporteHome(@Valid @PathVariable Long idSoporte,
+	@GetMapping("/soporte")
+	public ResponseEntity<?> ticksSoporteHome(@AuthenticationPrincipal Usuario user,
 			@RequestParam(value = "page", defaultValue = "0") int page,
 			@RequestParam(value = "size", defaultValue = "20") int size) {
+		AuthorizationService.onlySoporteOrDev(user);
 
 		Pageable pageable = PageRequest.of(page, size);
-		Page<TicketsList> ticketsPage = ticketRepository.findAllByResponsableHome(idSoporte, pageable.getOffset(),
-				pageable.getPageSize(), pageable);
+		Page<TicketsList> ticketsPage = ticketRepository.findAllByResponsableHome(user.getPersonaId(),
+				pageable.getOffset(), pageable.getPageSize(), pageable);
 		return ResponseEntity.status(HttpStatus.ACCEPTED).body(new PageResponse(ticketsPage));
 	}
 
