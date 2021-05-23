@@ -42,9 +42,11 @@ public interface TicketRepository extends JpaRepository<Ticket, Long> {
 			+ "JOIN public.parametros pe ON pe.parametros_id = t.estado_id "
 			+ "JOIN public.catalogo c ON c.catalogo_id = t.catalogo_id "
 			+ "JOIN public.parametros pt ON pt.parametros_id = c.tipo_servicio_id "
-			+ "JOIN public.sla sla ON sla.catalogo_id = sla.catalogo_id "
-			+ "JOIN public.criticidad cr ON sla.criticidad_id = cr.criticidad_id  "
-			+ "WHERE pe.parametros_id = :estadoId " + "ORDER BY cr.valor DESC" + QUERY_PAGEABLE
+//			+ "JOIN public.sla sla ON sla.catalogo_id = sla.catalogo_id "
+//			+ "JOIN public.criticidad cr ON sla.criticidad_id = cr.criticidad_id  "
+			+ "WHERE pe.parametros_id = :estadoId " 
+//			+ "ORDER BY cr.valor DESC " 
+			+ QUERY_PAGEABLE
 			+ " \n-- #pageable\n;", countQuery = "SELECT count(*) FROM public.ticket t WHERE t.estado_id = :estadoId", nativeQuery = true)
 	Page<TicketsList> findAllByEstadoHome(@Param("estadoId") Long estadoId, @Param("offset") long offset,
 			@Param("limitParam") int limitParam, Pageable pageable);
