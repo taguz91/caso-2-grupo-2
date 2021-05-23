@@ -682,6 +682,174 @@ WHERE
       correo = 'jhonny.garcia.est@tecazuay.edu.ec'
   );
 
+-- Insert admin
+UPDATE
+  public.usuarios
+SET
+  usuario_id = 2,
+  apellidos = 'Johnny',
+  correo = 'admin@dev.tec',
+  nombres = 'Admin',
+  password = '$2a$10$wU3jucpWdwvXqyPDuurwBOogkb03cllpD9KCbCrzthr/gMECnZg3y',
+  telefono = '0968696010',
+  rol_id = 2
+WHERE
+  correo = 'admin@dev.tec';
+
+INSERT INTO
+  public.usuarios(
+    usuario_id,
+    apellidos,
+    correo,
+    nombres,
+    password,
+    telefono,
+    rol_id
+  )
+SELECT
+  2,
+  'Johnny',
+  'admin@dev.tec',
+  'Admin',
+  '$2a$10$wU3jucpWdwvXqyPDuurwBOogkb03cllpD9KCbCrzthr/gMECnZg3y',
+  '0968796010',
+  2
+WHERE
+  NOT EXISTS (
+    SELECT
+      1
+    FROM
+      public.usuarios
+    WHERE
+      correo = 'admin@dev.tec'
+  );
+
+-- Insert default coordinador
+UPDATE
+  public.usuarios
+SET
+  usuario_id = 3,
+  apellidos = 'Johnny',
+  correo = 'coordinador@dev.tec',
+  nombres = 'Coordinador',
+  password = '$2a$10$o37Hn2myq8MBItWEx5LMT.qTN1mWIAtgGJ66Z6ASgReXtpijusqZ.',
+  telefono = '0968696010',
+  rol_id = 4
+WHERE
+  correo = 'coordinador@dev.tec';
+
+INSERT INTO
+  public.usuarios(
+    usuario_id,
+    apellidos,
+    correo,
+    nombres,
+    password,
+    telefono,
+    rol_id
+  )
+SELECT
+  3,
+  'Johnny',
+  'coordinador@dev.tec',
+  'Coordinador',
+  '$2a$10$o37Hn2myq8MBItWEx5LMT.qTN1mWIAtgGJ66Z6ASgReXtpijusqZ.',
+  '0968796010',
+  4
+WHERE
+  NOT EXISTS (
+    SELECT
+      1
+    FROM
+      public.usuarios
+    WHERE
+      correo = 'coordinador@dev.tec'
+  );
+
+-- Insert soporte n1 
+UPDATE
+  public.usuarios
+SET
+  usuario_id = 4,
+  apellidos = 'Johnny',
+  correo = 'soporten1@dev.tec',
+  nombres = 'Soporte UNO',
+  password = '$2a$10$qOGQyyc/oleg8/VqIpYxmuwOureWXHEe3l4HPFQmCCPxz.5Goaqqa',
+  telefono = '0968696010',
+  rol_id = 5
+WHERE
+  correo = 'soporten1@dev.tec';
+
+INSERT INTO
+  public.usuarios(
+    usuario_id,
+    apellidos,
+    correo,
+    nombres,
+    password,
+    telefono,
+    rol_id
+  )
+SELECT
+  4,
+  'Johnny',
+  'soporten1@dev.tec',
+  'Soporte UNO',
+  '$2a$10$qOGQyyc/oleg8/VqIpYxmuwOureWXHEe3l4HPFQmCCPxz.5Goaqqa',
+  '0968796010',
+  5
+WHERE
+  NOT EXISTS (
+    SELECT
+      1
+    FROM
+      public.usuarios
+    WHERE
+      correo = 'soporten1@dev.tec'
+  );
+
+-- Insert soporte n2
+UPDATE
+  public.usuarios
+SET
+  usuario_id = 5,
+  apellidos = 'Johnny',
+  correo = 'soporten2@dev.tec',
+  nombres = 'Soporte DOS',
+  password = '$2a$10$eOvCA9QHT6J51A.IDO18K.Kh/9yFZB4woTjnSiRspmUlb2HECKmz2',
+  telefono = '0968696010',
+  rol_id = 1
+WHERE
+  correo = 'soporten2@dev.tec';
+
+INSERT INTO
+  public.usuarios(
+    usuario_id,
+    apellidos,
+    correo,
+    nombres,
+    password,
+    telefono,
+    rol_id
+  )
+SELECT
+  5,
+  'Johnny',
+  'soporten2@dev.tec',
+  'Soporte DOS',
+  '$2a$10$eOvCA9QHT6J51A.IDO18K.Kh/9yFZB4woTjnSiRspmUlb2HECKmz2',
+  '0968796010',
+  1
+WHERE
+  NOT EXISTS (
+    SELECT
+      1
+    FROM
+      public.usuarios
+    WHERE
+      correo = 'soporten2@dev.tec'
+  );
+
 -- Insert criticidad
 UPDATE
   public.criticidad
