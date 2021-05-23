@@ -3,7 +3,7 @@
 
   <p *ngIf="!ticket">Loading ticket</p>
 
-  <div *ngIf="ticket" class="ticket_view">
+  <div *ngIf="ticket" class="ticket_view" id="ticket">
 
     <p>Ticket tipo: {{ ticket.catalogo.tipoServicio.nombre }}</p>
 
@@ -79,7 +79,8 @@
       </div>
 
     </div>
-
+    <button class="btn col col-lg-4 btn-danger btn-block ml-4" (click)="downloadPDF()">Download PDF</button>
+      
     <app-floating-button [show]="isClosed" [url]="urlEncuesta" [icon]="'text_snippet'" [tooltip]="'Ingresar encuesta'">
     </app-floating-button>
 
