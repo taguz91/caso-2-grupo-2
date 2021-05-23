@@ -70,12 +70,24 @@
       span {
         @include commonIconButton;
       }
-      margin-bottom: 10px;
     }
 
     .main-content {
       overflow-x: auto;
       min-height: calc(100vh - 100px);
+    }
+
+    .user_topnav {
+      display: flex;
+      .user_info {
+        display: inline;
+        p {
+          margin-bottom: 0;
+          span {
+            font-weight: 600;
+          }
+        }
+      }
     }
   }
 }

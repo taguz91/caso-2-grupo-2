@@ -30,13 +30,9 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.sessionService.isLoged()) {
-      if (this.sessionService.getUser()) {
+      this.sessionService.getUser().subscribe((_) => {
         this.sessionService.redirect();
-      } else {
-        this.sessionService.getUserData().subscribe((res) => {
-          this.sessionService.saveToken(res);
-        });
-      }
+      });
     }
   }
 

@@ -38,6 +38,11 @@
         <button class="btn btn-primary text-white" (click)="triggerModal(modalData)">Ver adjuntos</button>
       </div>
 
+      <div *ngIf="ticket.responsable" class="col-12 p-3 asignado">
+        <p class="solucion_title">Asignado:</p>
+        <p class="mb-0"> {{ ticket.responsable.nombreCompleto }} el {{ ticket.fechaAsignacion }} con un tiempo de
+          solución estimado de 10 horas TODO CAMBIAR. </p>
+      </div>
 
       <div *ngIf="ticket.solucion" class="col-12 p-3 solucion_{{ ticket.estado.parametros_id }}">
         <p class="solucion_title">Solución:</p>
@@ -49,6 +54,7 @@
     <div class="info_registro">
       <p>Registrado el: {{ticket.createdAt}}</p>
       <p>Ultima actualiación: {{ticket.updatedAt}}</p>
+      <p *ngIf="ticket.responsable">Asignado a: {{ ticket.responsable.nombreCompleto }}</p>
       <p *ngIf="ticket.fechaSolucion">Fecha solución: {{ ticket.fechaSolucion }}</p>
     </div>
 

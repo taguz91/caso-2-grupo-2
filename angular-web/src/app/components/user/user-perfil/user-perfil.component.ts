@@ -24,10 +24,7 @@ export class UserPerfilComponent implements OnInit {
   }
 
   private loadUser() {
-    this.user = this.sessionService.getUser();
-    if (!this.user) {
-      this.sessionService.getUserData().subscribe((user) => (this.user = user));
-    }
+    this.sessionService.getUser().subscribe((user) => (this.user = user));
   }
 
   private loadChart() {

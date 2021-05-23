@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { LoginUser } from '../models/usuario';
 import {
@@ -21,14 +21,7 @@ import {
 })
 export class SessionService {
   private user: LoginUser;
-  private rolRoutes = {
-    ROL_DEVELOPER: '/user/home',
-    ROL_ADMIN: '/admin',
-    ROL_COORDINADOR: '/dashboard/coordinador',
-    ROL_USUARIO: '/user/home',
-    ROL_SOPORTE_N1: '/dashboard/soporte',
-    ROL_SOPORTE_N2: '/dashboard/soporte',
-  };
+  private userData = new Subject<LoginUser>();
 
   constructor(private router: Router, private http: HttpClient) {}
 
@@ -66,11 +59,16 @@ export class SessionService {
   getUserData(): Observable<LoginUser> {
     return this.http
       .get<LoginUser>(`${URL_BASE_V1}usuario/loged`, loadHeader())
-      .pipe(tap((user) => (this.user = user)));
+      .pipe(
+        tap((user) => {
+          this.user = user;
+          this.userData.next(user);
+        })
+      );
   }
 
-  getUser(): LoginUser {
-    return this.user;
+  getUser(): Observable<LoginUser> {
+    return this.userData.asObservable();
   }
 
   isAdmin(): boolean {

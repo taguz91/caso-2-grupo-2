@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { LoginUser } from 'src/app/models/usuario';
 import { SessionService } from 'src/app/services/session.service';
 
 @Component({
@@ -7,9 +8,13 @@ import { SessionService } from 'src/app/services/session.service';
   styleUrls: ['./user-layout.component.scss'],
 })
 export class UserLayoutComponent implements OnInit {
+  user: LoginUser;
+
   constructor(private sessionService: SessionService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.sessionService.getUser().subscribe((user) => (this.user = user));
+  }
 
   logout() {
     this.sessionService.logout();
