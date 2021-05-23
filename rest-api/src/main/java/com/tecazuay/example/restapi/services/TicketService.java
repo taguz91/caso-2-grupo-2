@@ -14,6 +14,7 @@ import com.tecazuay.example.restapi.Types;
 import com.tecazuay.example.restapi.api.exception.ResourceNotFoundException;
 import com.tecazuay.example.restapi.api.params.AsignarTicketParam;
 import com.tecazuay.example.restapi.api.params.CerrarTicketParam;
+import com.tecazuay.example.restapi.api.params.RechazarTicketParam;
 import com.tecazuay.example.restapi.api.params.RegisterTicketParam;
 import com.tecazuay.example.restapi.models.Historial;
 import com.tecazuay.example.restapi.models.Parametros;
@@ -134,6 +135,20 @@ public class TicketService {
 		ticket.setFechaSolucion(LocalDateTime.now());
 		Historial historial = new Historial("Se cierra el ticket", ticket);
 
+		historialRepository.save(historial);
+		return ticketRepository.save(ticket);
+	}
+
+	public Ticket rechazarTicker(RechazarTicketParam rechazarTicket, Usuario user) {
+		Ticket ticket = ticketRepository.findById(rechazarTicket.getTicketId()).get();
+		Parametros estado = parametrosRepository.findById(Types.PARAMETROS_ESTADO_RECHAZADO).get();
+
+		ticket.setEstado(estado);
+		ticket.setSolucion(rechazarTicket.getMotivo());
+		ticket.setResponsableSolucion(user);
+		ticket.setFechaSolucion(LocalDateTime.now());
+
+		Historial historial = new Historial("Se rechaza el ticket.", ticket);
 		historialRepository.save(historial);
 		return ticketRepository.save(ticket);
 	}
