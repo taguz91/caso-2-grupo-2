@@ -818,7 +818,7 @@ SET
   nombres = 'Soporte DOS',
   password = '$2a$10$eOvCA9QHT6J51A.IDO18K.Kh/9yFZB4woTjnSiRspmUlb2HECKmz2',
   telefono = '0968696010',
-  rol_id = 1
+  rol_id = 6
 WHERE
   correo = 'soporten2@dev.tec';
 
@@ -839,7 +839,7 @@ SELECT
   'Soporte DOS',
   '$2a$10$eOvCA9QHT6J51A.IDO18K.Kh/9yFZB4woTjnSiRspmUlb2HECKmz2',
   '0968796010',
-  1
+  6
 WHERE
   NOT EXISTS (
     SELECT
