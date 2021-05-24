@@ -29,7 +29,7 @@ const routes: Routes = [
     children: [
       { path: '', component: LoginComponent, pathMatch: 'full' },
       {
-        path: 'user-register',
+        path: 'registrarse',
         component: RegisterComponent,
         pathMatch: 'full',
       },
@@ -83,11 +83,11 @@ const routes: Routes = [
     component: AdminLayoutComponent,
     children: [
       {
-        path: '',
+        path: 'home',
         component: AdminDashboardComponent,
       },
       {
-        path: 'registrar-categoria',
+        path: 'categorias',
         component: CategoriaRegisterComponent,
       },
       {
@@ -99,7 +99,7 @@ const routes: Routes = [
         component: ServicioRegisterComponent,
       },
       {
-        path: 'admin-list',
+        path: 'administradores',
         component: AdminListComponent,
       },
     ],

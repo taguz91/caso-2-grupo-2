@@ -24,13 +24,7 @@
   }
 
   .personal_topnav {
-    display: flex;
-    .user_info {
-      display: inline;
-      p {
-        margin-bottom: 0;
-      }
-    }
+    @include commonNav();
     .home_button {
       display: block;
       margin-right: 10px;

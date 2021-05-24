@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SectionMenu } from 'src/app/models/types';
+import { LoginUser } from 'src/app/models/usuario';
 import { SessionService } from 'src/app/services/session.service';
 
 @Component({
@@ -8,6 +9,7 @@ import { SessionService } from 'src/app/services/session.service';
   styleUrls: ['./admin-layout.component.scss'],
 })
 export class AdminLayoutComponent implements OnInit {
+  user: LoginUser;
   menu: SectionMenu[] = [
     {
       section: 'Configuración',
@@ -15,7 +17,7 @@ export class AdminLayoutComponent implements OnInit {
         {
           label: 'Home',
           icon: 'home',
-          urlTo: '/admin',
+          urlTo: '/admin/home',
         },
         {
           label: 'Categorias',
@@ -63,6 +65,11 @@ export class AdminLayoutComponent implements OnInit {
           urlTo: '/admin/usuarios/tipo/1',
         },
         {
+          label: 'Administradores',
+          icon: 'manage_accounts',
+          urlTo: '/admin/administradores',
+        },
+        {
           label: 'Coordinadores',
           icon: 'manage_accounts',
           urlTo: 'admin-list',
@@ -98,7 +105,9 @@ export class AdminLayoutComponent implements OnInit {
 
   constructor(private sessionService: SessionService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.sessionService.getUser().subscribe((user) => (this.user = user));
+  }
 
   logout() {
     this.sessionService.logout();

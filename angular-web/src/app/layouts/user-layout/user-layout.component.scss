@@ -78,16 +78,7 @@
     }
 
     .user_topnav {
-      display: flex;
-      .user_info {
-        display: inline;
-        p {
-          margin-bottom: 0;
-          span {
-            font-weight: 600;
-          }
-        }
-      }
+      @include commonNav();
     }
   }
 }

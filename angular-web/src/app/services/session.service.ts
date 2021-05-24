@@ -42,6 +42,9 @@ export class SessionService {
       case ROL_COORDINADOR:
         route = '/dashboard/coordinador';
         break;
+      case ROL_ADMIN:
+        route = '/admin/home';
+        break;
     }
     this.router.navigate([route]);
   }

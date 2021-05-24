@@ -18,3 +18,16 @@
 @mixin commonSolucion {
   background-color: $white-grey;
 }
+
+@mixin commonNav {
+  display: flex;
+  .user_info {
+    display: inline;
+    p {
+      margin-bottom: 0;
+      span {
+        font-weight: 600;
+      }
+    }
+  }
+}
