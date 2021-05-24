@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 
 @Injectable({
   providedIn: 'root'
@@ -9,21 +10,26 @@ export class ReporteService {
   constructor() {}
 
   reporte(data : string) {
-    
-    var DATA: any = document.getElementById(data);
+    const DATA = document.getElementById(data);
+    const doc = new jsPDF('p', 'pt', 'A4');
+    const options = {
+      background: 'white',
+      scale: 3
+    };
+    html2canvas(DATA, options).then((canvas) => {
 
-    var doc = new jsPDF(
-      {
-        orientation: '1',
-        unit: 'pt',
-        format: 'A4',
-        position:'2'
-      }
-    );
-    doc.setFontSize(22);
-    doc.setFontStyle('cursiva');
-    doc.text("Instituto Tecnologico Superior del Azuay", 180,20);
-    doc.fromHTML(DATA,10,25);
-    doc.save("IstaReporte.pdf");
+      const img = canvas.toDataURL('image/PNG');
+
+      // Add image Canvas to PDF
+      const bufferX = 15;
+      const bufferY = 15;
+      const imgProps = (doc as any).getImageProperties(img);
+      const pdfWidth = doc.internal.pageSize.getWidth() - 2 * bufferX;
+      const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+      doc.addImage(img, 'PNG', bufferX, bufferY, pdfWidth, pdfHeight, undefined, 'FAST');
+      return doc;
+    }).then((docResult) => {
+      docResult.save(`${new Date().toISOString()}_TDS.pdf`);
+    });
   }
 }
