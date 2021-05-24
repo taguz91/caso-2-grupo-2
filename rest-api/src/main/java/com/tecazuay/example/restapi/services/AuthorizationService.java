@@ -58,11 +58,26 @@ public class AuthorizationService {
 	}
 
 	public static boolean onlyCoordinadorOrDev(Usuario user) {
-		if (user == null)
-			return true;
+		boolean auth = false;
+		if (user != null) {
+			auth = user.getRol().getRolId() == Types.ROL_COORDINADOR || user.getRol().getRolId() == Types.ROL_DEVELOPER;
+		}
 
-		boolean auth = user.getRol().getRolId() == Types.ROL_COORDINADOR
-				|| user.getRol().getRolId() == Types.ROL_DEVELOPER;
+		if (!auth) {
+			throw new NoAuthorizationException(
+					"Debes ser un coordinador o desarrollador para tener acceso a este recurso.");
+		}
+		return auth;
+	}
+
+	public static boolean onlyPersonal(Usuario user) {
+		boolean auth = false;
+		if (user != null) {
+			auth = user.getRol().getRolId() == Types.ROL_COORDINADOR || user.getRol().getRolId() == Types.ROL_SOPORTE_N1
+					|| user.getRol().getRolId() == Types.ROL_SOPORTE_N2
+					|| user.getRol().getRolId() == Types.ROL_DEVELOPER;
+		}
+
 		if (!auth) {
 			throw new NoAuthorizationException(
 					"Debes ser un coordinador o desarrollador para tener acceso a este recurso.");

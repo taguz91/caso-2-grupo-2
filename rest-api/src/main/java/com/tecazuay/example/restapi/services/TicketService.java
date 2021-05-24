@@ -53,7 +53,13 @@ public class TicketService {
 		Parametros impacto = parametrosRepository.findById(registerTicket.getImpactoId()).get();
 
 		Ticket ticket = new Ticket();
-		ticket.setUsuario(user);
+		if (registerTicket.getUsuarioId() != null) {
+			Usuario finalUser = usuarioRepository.findById(registerTicket.getUsuarioId())
+					.orElseThrow(() -> new ResourceNotFoundException("No encontramos al usuario"));
+			ticket.setUsuario(finalUser);
+		} else {
+			ticket.setUsuario(user);
+		}
 		ticket.setTitulo(registerTicket.getTitulo());
 		ticket.setDescripcion(registerTicket.getDescripcion());
 		ticket.setImpacto(impacto);

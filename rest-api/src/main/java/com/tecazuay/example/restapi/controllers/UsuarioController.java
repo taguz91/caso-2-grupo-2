@@ -129,4 +129,12 @@ public class UsuarioController {
 		return ResponseEntity.status(HttpStatus.OK)
 				.body(usuarioRepository.countTicketsEstadoByUser(user.getPersonaId()));
 	}
+
+	@GetMapping("/exists")
+	public ResponseEntity<Usuario> existClient(@AuthenticationPrincipal Usuario user,
+			@RequestParam(value = "q") String q) {
+		AuthorizationService.onlyPersonal(user);
+
+		return ResponseEntity.status(HttpStatus.OK).body(usuarioRepository.findByIndentificationOrCorreo(q));
+	}
 }
