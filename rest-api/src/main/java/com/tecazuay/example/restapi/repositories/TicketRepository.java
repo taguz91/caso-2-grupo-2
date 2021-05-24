@@ -47,7 +47,7 @@ public interface TicketRepository extends JpaRepository<Ticket, Long> {
 			+ "JOIN public.parametros pe ON pe.parametros_id = t.estado_id "
 			+ "JOIN public.catalogo c ON c.catalogo_id = t.catalogo_id "
 			+ "JOIN public.parametros pt ON pt.parametros_id = c.tipo_servicio_id "
-			+ "JOIN public.sla sla ON sla.catalogo_id = sla.catalogo_id "
+			+ "JOIN public.sla sla ON sla.catalogo_id = t.catalogo_id "
 			+ "JOIN public.criticidad cr ON sla.criticidad_id = cr.criticidad_id  "
 			+ "WHERE pe.parametros_id = :estadoId " + "ORDER BY cr.valor DESC " + QUERY_PAGEABLE
 			+ " \n-- #pageable\n;", countQuery = "SELECT count(*) FROM public.ticket t WHERE t.estado_id = :estadoId", nativeQuery = true)
@@ -58,7 +58,7 @@ public interface TicketRepository extends JpaRepository<Ticket, Long> {
 			+ "JOIN public.parametros pe ON pe.parametros_id = t.estado_id "
 			+ "JOIN public.catalogo c ON c.catalogo_id = t.catalogo_id "
 			+ "JOIN public.parametros pt ON pt.parametros_id = c.tipo_servicio_id "
-			+ "JOIN public.sla sla ON sla.catalogo_id = sla.catalogo_id "
+			+ "JOIN public.sla sla ON sla.catalogo_id = t.catalogo_id "
 			+ "JOIN public.criticidad cr ON sla.criticidad_id = cr.criticidad_id  "
 			+ "WHERE t.responsable_id = :idSoporte " + "AND pe.parametros_id =  " + Types.PARAMETROS_ESTADO_ATENDIENDOSE
 			+ " " + "ORDER BY cr.valor DESC " + QUERY_PAGEABLE
