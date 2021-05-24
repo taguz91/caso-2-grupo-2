@@ -60,12 +60,12 @@ public class ServicioController {
 				() -> new ResourceNotFoundException("No se encontro el servicio con el id: " + servicio_id));
 	}
 
-	@GetMapping("/categoria/{id}")
-	public List<ServicioResponse> getAllByCategoriaId(@PathVariable("id") Long categoria_id) {
-		CategoriaResponse categoria = categoriaRepository.findByCategoriaId(categoria_id)
-				.orElseThrow(() -> new ResourceNotFoundException("Esta categoria no esta registrada"));
-		return servicioRepository.findAllByCategoriaId(categoria.getCategoria_id());
-	}
+	// @GetMapping("/categoria/{id}")
+	// public List<ServicioResponse> getAllByCategoriaId(@PathVariable("id") Long categoria_id) {
+	// 	CategoriaResponse categoria = categoriaRepository.findByCategoriaId(categoria_id)
+	// 			.orElseThrow(() -> new ResourceNotFoundException("Esta categoria no esta registrada"));
+	// 	return servicioRepository.findAllByCategoriaId(categoria.getCategoria_id());
+	// }
 
 	@PostMapping("/")
 	public Servicio saveServicio(@RequestBody @Valid ServicioParam servicioParam) {

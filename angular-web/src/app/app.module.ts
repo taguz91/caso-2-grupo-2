@@ -30,11 +30,8 @@ import { ServicioRegisterComponent } from './components/admin/servicio-register/
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AdminRegisterComponent } from './components/admin/admin-register/admin-register.component';
 import { AdminListComponent } from './components/admin/admin-list/admin-list.component';
-<<<<<<< HEAD
-=======
 import { DataTablesModule } from "angular-datatables";
 import { NgxEchartsModule } from 'ngx-echarts';
->>>>>>> 98a1ea464bb17b21ecae131844865b073caafd17
 
 @NgModule({
   declarations: [
@@ -61,11 +58,7 @@ import { NgxEchartsModule } from 'ngx-echarts';
     RegisterComponent,
     ServicioRegisterComponent,
     AdminRegisterComponent,
-<<<<<<< HEAD
-    AdminListComponent
-=======
     AdminListComponent,
->>>>>>> 98a1ea464bb17b21ecae131844865b073caafd17
   ],
   imports: [
     BrowserModule,
