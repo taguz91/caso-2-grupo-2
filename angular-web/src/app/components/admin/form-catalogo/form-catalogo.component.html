@@ -1,0 +1,238 @@
+<div class="modal-header">
+  <h4 class="modal-title">{{ formTitle }}</h4>
+  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+    (click)="modal.dismiss('Cross click')"></button>
+</div>
+
+<div class="modal-body">
+
+  <form [formGroup]="catalogoForm" (ngSubmit)="onSave()">
+
+    <div class="mb-3">
+
+      <label for="" class="form-label">
+        Tipo de servicio:
+      </label>
+
+      <select class="form-select" formControlName="tipo_servicio_id">
+        <option value="">Selecciona el tipo de servicio</option>
+
+        <option *ngFor="let tipoServicio of tiposServicio" [ngValue]="tipoServicio.parametros_id">
+          {{ tipoServicio.nombre }}
+        </option>
+      </select>
+
+
+      <div *ngIf="tipo_servicio_id.invalid && (tipo_servicio_id.dirty || tipo_servicio_id.touched)">
+
+        <div *ngIf="tipo_servicio_id.errors.required" class="form-text text-danger">
+          Tipo de servicio es obligatorio.
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="mb-3">
+
+      <label for="" class="form-label">
+        Servicios:
+      </label>
+
+      <select class="form-select" formControlName="servicio_id">
+        <option value="">Selecciona el servicio</option>
+
+        <option *ngFor="let servicio of servicios" [ngValue]="servicio.servicio_id">
+          {{ servicio.nombre }}
+        </option>
+      </select>
+
+
+      <div *ngIf="servicio_id.invalid && (servicio_id.dirty || servicio_id.touched)">
+
+        <div *ngIf="servicio_id.errors.required" class="form-text text-danger">
+          Servicio es obligatorio.
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="mb-3">
+      <label for="" class="form-label">
+        Descripción:
+      </label>
+
+      <input type="text" class="form-control" formControlName="descripcion">
+
+      <div *ngIf="descripcion.invalid && (descripcion.dirty || descripcion.touched)">
+
+        <div *ngIf="descripcion.errors.required" class="form-text text-danger">
+          Descripción es obligatorio.
+        </div>
+
+        <div *ngIf="descripcion.errors.minLength" class="form-text text-danger">
+          Descripción debe tener al menos 5 caracteres.
+        </div>
+
+        <div *ngIf="descripcion.errors.maxLength" class="form-text text-danger">
+          Descripción no puede ser mayor a 255 caracteres.
+        </div>
+
+      </div>
+    </div>
+
+    <div class="mb-3">
+
+      <label for="" class="form-label">
+        Impacto:
+      </label>
+
+      <select class="form-select" formControlName="impacto">
+        <option value="">Selecciona el impacto</option>
+
+        <option *ngFor="let impacto of impactos" [ngValue]="impacto.parametros_id">
+          {{ impacto.nombre }}
+        </option>
+      </select>
+
+
+      <div *ngIf="impacto.invalid && (impacto.dirty || impacto.touched)">
+
+        <div *ngIf="impacto.errors.required" class="form-text text-danger">
+          Impacto es obligatorio.
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="mb-3">
+
+      <label for="" class="form-label">
+        Criticidad:
+      </label>
+
+      <select class="form-select" formControlName="criticidad">
+        <option value="">Selecciona la criticidad</option>
+
+        <option *ngFor="let cri of criticidades" [ngValue]="cri.criticidad_id">
+          {{ cri.nombre }}
+        </option>
+      </select>
+
+
+      <div *ngIf="criticidad.invalid && (criticidad.dirty || criticidad.touched)">
+
+        <div *ngIf="criticidad.errors.required" class="form-text text-danger">
+          Criticidad es obligatorio.
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="mb-3">
+
+      <label for="" class="form-label">
+        Nivel de prioridad:
+      </label>
+
+      <select class="form-select" formControlName="nivelPrioridad">
+        <option value="">Selecciona el nivel de prioridad</option>
+
+        <option *ngFor="let nivel of nivelesPrioridad" [ngValue]="nivel.parametros_id">
+          {{ nivel.nombre }}
+        </option>
+      </select>
+
+
+      <div *ngIf="nivelPrioridad.invalid && (nivelPrioridad.dirty || nivelPrioridad.touched)">
+
+        <div *ngIf="nivelPrioridad.errors.required" class="form-text text-danger">
+          nivelPrioridad es obligatorio.
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="mb-3">
+      <label for="" class="form-label">
+        Tiempo de respuesta:
+      </label>
+
+      <input type="text" class="form-control" formControlName="tiempoRespuesta">
+
+      <div *ngIf="tiempoRespuesta.invalid && (tiempoRespuesta.dirty || tiempoRespuesta.touched)">
+
+        <div *ngIf="tiempoRespuesta.errors.required" class="form-text text-danger">
+          Tiempo de respuesta es obligatorio.
+        </div>
+
+        <div *ngIf="tiempoRespuesta.errors.minLength" class="form-text text-danger">
+          Tiempo de respuesta debe tener al menos 5 caracteres.
+        </div>
+
+        <div *ngIf="tiempoRespuesta.errors.maxLength" class="form-text text-danger">
+          Tiempo de respuesta no puede ser mayor a 255 caracteres.
+        </div>
+
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="" class="form-label">
+        Tiempo de solución:
+      </label>
+
+      <input type="text" class="form-control" formControlName="timpoSolucion">
+
+      <div *ngIf="timpoSolucion.invalid && (timpoSolucion.dirty || timpoSolucion.touched)">
+
+        <div *ngIf="timpoSolucion.errors.required" class="form-text text-danger">
+          Tiempo de solución es obligatorio.
+        </div>
+
+        <div *ngIf="timpoSolucion.errors.minLength" class="form-text text-danger">
+          Tiempo de solución debe tener al menos 5 caracteres.
+        </div>
+
+        <div *ngIf="timpoSolucion.errors.maxLength" class="form-text text-danger">
+          Tiempo de solución no puede ser mayor a 255 caracteres.
+        </div>
+
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="" class="form-label">
+        Reglas escalada:
+      </label>
+
+      <input type="text" class="form-control" formControlName="reglasEscalada">
+
+      <div *ngIf="reglasEscalada.invalid && (reglasEscalada.dirty || reglasEscalada.touched)">
+
+        <div *ngIf="reglasEscalada.errors.required" class="form-text text-danger">
+          Reglas escalada es obligatorio.
+        </div>
+
+        <div *ngIf="reglasEscalada.errors.minLength" class="form-text text-danger">
+          Reglas escalada debe tener al menos 5 caracteres.
+        </div>
+
+        <div *ngIf="reglasEscalada.errors.maxLength" class="form-text text-danger">
+          Reglas escalada no puede ser mayor a 255 caracteres.
+        </div>
+
+      </div>
+    </div>
+
+    <button class="btn btn-primary d-block btn-save-right " type="submit" [disabled]="!catalogoForm.valid || loading"
+      [class.spinner]="loading">Guardar</button>
+
+  </form>
+
+</div>

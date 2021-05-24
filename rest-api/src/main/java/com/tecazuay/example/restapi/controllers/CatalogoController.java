@@ -103,7 +103,7 @@ public class CatalogoController {
 				.orElseThrow(() -> new ResourceNotFoundException("No existe el nivel de impacto."));
 
 		Parametros nivelPrioridad = parametroRepository
-				.findByIdAndType(catalogoParam.getImpacto(), Types.PARAMETROS_NIVEL_PRIORIDAD)
+				.findByIdAndType(catalogoParam.getNivelPrioridad(), Types.PARAMETROS_NIVEL_PRIORIDAD)
 				.orElseThrow(() -> new ResourceNotFoundException("No existe el nivel del prioridad."));
 
 		catalogo.setServicio(servicioRepository.findById(catalogoParam.getServicio_id()).get());
@@ -117,12 +117,15 @@ public class CatalogoController {
 		sla.setCriticidad(criticidad);
 		sla.setImpacto(impacto);
 		sla.setNivelPrioridad(nivelPrioridad);
+		sla.setReglasEscalada(catalogoParam.getReglasEscalada());
+		sla.setTiempoResolucion(catalogoParam.getTimpoSolucion());
+		sla.setTiempoRespuesta(catalogoParam.getTiempoRespuesta());
 
 		Catalogo newCatalogo = catalogoRepository.save(catalogo);
 		sla.setCatalogo(newCatalogo);
-		slaRepository.save(sla);
-
-		return catalogoRepository.findById(newCatalogo.getCatalogo_id()).get();
+		SLA newSla = slaRepository.save(sla);
+		newCatalogo.setSla(newSla);
+		return newCatalogo;
 	}
 
 	@GetMapping(value = "/tipo/{idTipo}")

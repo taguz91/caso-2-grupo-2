@@ -30,6 +30,10 @@ export class ParametrosService {
     return this.callService('parametros/impacto');
   }
 
+  listNivelPrioridad(): Observable<Parametro[]> {
+    return this.callService('parametros/nivel-prioridad');
+  }
+
   listEstados(): Observable<Parametro[]> {
     return this.callService('parametros/estados');
   }
