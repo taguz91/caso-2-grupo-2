@@ -1,5 +1,7 @@
 package com.tecazuay.example.restapi.controllers;
 
+import java.util.List;
+
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -26,6 +28,7 @@ import com.tecazuay.example.restapi.api.params.CerrarTicketParam;
 import com.tecazuay.example.restapi.api.params.RechazarTicketParam;
 import com.tecazuay.example.restapi.api.params.RegisterTicketParam;
 import com.tecazuay.example.restapi.definitions.PageResponse;
+import com.tecazuay.example.restapi.definitions.TicketEstadoCount;
 import com.tecazuay.example.restapi.definitions.TicketsList;
 import com.tecazuay.example.restapi.models.Adjunto;
 import com.tecazuay.example.restapi.models.Ticket;
@@ -154,6 +157,11 @@ public class TicketController {
 		Pageable pageable = PageRequest.of(page, size);
 		Page<Ticket> ticketsPage = ticketRepository.findAllByEstado(estado, pageable);
 		return ResponseEntity.status(HttpStatus.OK).body(new PageResponse(ticketsPage));
+	}
+
+	@GetMapping(value = "/estado/count")
+	public ResponseEntity<List<TicketEstadoCount>> reportLastWeek() {
+		return ResponseEntity.status(HttpStatus.OK).body(ticketRepository.reportCountLastWeek());
 	}
 
 }

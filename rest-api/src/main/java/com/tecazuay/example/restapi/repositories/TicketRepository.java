@@ -1,5 +1,7 @@
 package com.tecazuay.example.restapi.repositories;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -8,6 +10,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.tecazuay.example.restapi.Types;
+import com.tecazuay.example.restapi.definitions.TicketEstadoCount;
 import com.tecazuay.example.restapi.definitions.TicketsList;
 import com.tecazuay.example.restapi.models.Ticket;
 
@@ -62,4 +65,10 @@ public interface TicketRepository extends JpaRepository<Ticket, Long> {
 			+ " \n-- #pageable\n;", countQuery = "SELECT count(*) FROM public.ticket t WHERE t.estado_id = :estadoId", nativeQuery = true)
 	Page<TicketsList> findAllByResponsableHome(@Param("idSoporte") Long idSoporte, @Param("offset") long offset,
 			@Param("limitParam") int limitParam, Pageable pageable);
+
+	@Query(value = "SELECT date_part('dow', t.updated_at) AS day, COUNT(estado_id) AS total, estado_id\r\n"
+			+ "FROM ticket t\r\n" + "WHERE t.updated_at > now() - interval '1 week'  \r\n"
+			+ "GROUP BY estado_id, date_part('dow', t.updated_at)\r\n"
+			+ "ORDER BY \"day\", estado_id", nativeQuery = true)
+	List<TicketEstadoCount> reportCountLastWeek();
 }
