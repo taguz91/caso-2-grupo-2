@@ -5,7 +5,10 @@ import { PageMetadata } from 'src/app/models/Parametros';
 import { AlertService } from 'src/app/services/alert.service';
 import { BreadcrumbService } from 'src/app/services/breadcrumb.service';
 import { CatalogoService } from 'src/app/services/catalogo.service';
-import { DEFAULT_PAGE_METADA } from 'src/app/utils/constantes';
+import {
+  DEFAULT_PAGE_METADA,
+  DEFAULT_PAGE_SIZE,
+} from 'src/app/utils/constantes';
 
 @Component({
   selector: 'app-catalogo',
@@ -16,8 +19,16 @@ export class CatalogoComponent implements OnInit {
   catalogoId: number = 0;
   catalogos: CatalogoView[] = [];
   pageMetada: PageMetadata = DEFAULT_PAGE_METADA;
-
+  perPage: number = DEFAULT_PAGE_SIZE;
   actualPage: number = 0;
+  get page() {
+    return this.actualPage + 1;
+  }
+
+  set page(page: number) {
+    this.actualPage = page - 1;
+    this.loadCatalogos();
+  }
 
   constructor(
     private modalService: NgbModal,
