@@ -7,6 +7,7 @@ import javax.validation.Valid;
 import com.tecazuay.example.restapi.api.exception.ResourceNotFoundException;
 import com.tecazuay.example.restapi.api.params.ServicioParam;
 import com.tecazuay.example.restapi.definitions.PageResponse;
+import com.tecazuay.example.restapi.definitions.ServicioCombo;
 import com.tecazuay.example.restapi.definitions.ServicioResponse;
 import com.tecazuay.example.restapi.models.Categoria;
 import com.tecazuay.example.restapi.models.Servicio;
@@ -98,6 +99,11 @@ public class ServicioController {
 				.orElseThrow(() -> new ResourceNotFoundException("No se encontro el servicio con Id: " + servicio_id));
 		servicioRepository.deleteById(servicio_id);
 		return true;
+	}
+
+	@GetMapping("/combo")
+	public ResponseEntity<List<ServicioCombo>> getCombo() {
+		return ResponseEntity.status(HttpStatus.OK).body(servicioRepository.findAllCombo());
 	}
 
 }
