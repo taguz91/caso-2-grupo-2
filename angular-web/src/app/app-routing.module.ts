@@ -150,6 +150,18 @@ const routes: Routes = [
         path: 'ticket/:idTicket',
         component: UserTicketComponent,
       },
+      {
+        path: 'ticket/tipo-servicio/:idPersona',
+        component: TipoServicioComponent,
+      },
+      {
+        path: 'ticket/servicios/:idPersona/:idTipo',
+        component: UserCatalogoServicioComponent,
+      },
+      {
+        path: 'ticket/ingreso/:idPersona/:idCatalogo',
+        component: UserRegistroTicketComponent,
+      },
     ],
   },
 

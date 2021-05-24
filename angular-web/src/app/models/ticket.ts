@@ -8,6 +8,7 @@ export interface TicketForm {
   impactoId: number;
   titulo: string;
   descripcion: string;
+  usuarioId: number;
 }
 
 export interface AsignarForm {

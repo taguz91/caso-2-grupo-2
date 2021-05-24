@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NgbModalWindow } from '@ng-bootstrap/ng-bootstrap/modal/modal-window';
 import { TicketView } from 'src/app/models/ticket';
 import { ComboUsuario } from 'src/app/models/usuario';
 import { AlertService } from 'src/app/services/alert.service';
@@ -16,7 +17,7 @@ import { ROL_SOPORTE_N1, ROL_SOPORTE_N2 } from 'src/app/utils/constantes';
 })
 export class ModalAsignarComponent implements OnInit {
   @Input() ticket: TicketView;
-  @Input() modal: any;
+  @Input() modal: NgbModalWindow;
   loading: boolean = false;
   usuarios: ComboUsuario[] = [];
   formTitle: string = 'Asignar Soporte N1';

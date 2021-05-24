@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { PageMetadata } from 'src/app/models/Parametros';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { FloatingOption, PageMetadata } from 'src/app/models/Parametros';
 import { TicketHome } from 'src/app/models/ticket';
 import { TicketService } from 'src/app/services/ticket.service';
 import {
@@ -29,7 +30,21 @@ export class CoordinadorDashboardComponent implements OnInit {
   private pageNuevo: number = 0;
   private pageAsignado: number = 0;
 
-  constructor(private ticketService: TicketService) {}
+  @ViewChild('modalBuscar')
+  private modalBuscar: TemplateRef<any>;
+
+  floatingButtons: FloatingOption[] = [
+    {
+      icon: 'add',
+      tooltip: 'Crear ticket',
+      callback: () => this.triggerModal(this.modalBuscar),
+    },
+  ];
+
+  constructor(
+    private ticketService: TicketService,
+    private modalService: NgbModal
+  ) {}
 
   ngOnInit(): void {
     this.loadTicketsNuevos();
@@ -68,5 +83,13 @@ export class CoordinadorDashboardComponent implements OnInit {
     this.loadingAsignados = true;
     this.pageAsignado++;
     this.loadTicketsAsignados();
+  }
+
+  triggerModal(content) {
+    this.modalService.open(content, {
+      ariaLabelledBy: 'modal-basic-title',
+      modalDialogClass:
+        ' modal-dialog-centered modal-dialog-scrollable modal-lg',
+    }).result;
   }
 }

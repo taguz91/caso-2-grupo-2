@@ -42,6 +42,7 @@ import { NgxEchartsModule } from 'ngx-echarts';
 import { CatalogoComponent } from './components/admin/catalogo/catalogo.component';
 import { FormCatalogoComponent } from './components/admin/form-catalogo/form-catalogo.component';
 import { TicketPreviewComponent } from './components/common/ticket-preview/ticket-preview.component';
+import { ModalFindComponent } from './components/personal/modal-find/modal-find.component';
 
 @NgModule({
   declarations: [
@@ -80,6 +81,7 @@ import { TicketPreviewComponent } from './components/common/ticket-preview/ticke
     CatalogoComponent,
     FormCatalogoComponent,
     TicketPreviewComponent,
+    ModalFindComponent,
   ],
   imports: [
     BrowserModule,

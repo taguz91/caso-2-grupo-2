@@ -4,6 +4,7 @@
 
     <div class="col-12 col-md-6">
       <h2>Nuevos</h2>
+      <p> Un total de: {{ pageMetadaNuevos.items }} </p>
 
       <div class="row tickets_container">
 
@@ -32,6 +33,8 @@
 
     <div class="col-12 col-md-6">
       <h2>Asignados</h2>
+
+      <p> Un total de: {{ pageMetadaAsignados.items }} </p>
 
       <div class="row tickets_container">
 
@@ -62,3 +65,11 @@
   </div>
 
 </div>
+
+<app-list-floating-button [buttons]="floatingButtons"></app-list-floating-button>
+
+<!-- Form para buscar el cleinte -->
+
+<ng-template #modalBuscar let-modal>
+  <app-modal-find [modal]="modal"></app-modal-find>
+</ng-template>

@@ -14,6 +14,7 @@ import { TicketService } from 'src/app/services/ticket.service';
   styleUrls: ['./user-registro-ticket.component.scss'],
 })
 export class UserRegistroTicketComponent implements OnInit {
+  private personaId: number = 0;
   private catalogoId: number = 0;
   ticketId: number = 0;
   loading: boolean = false;
@@ -31,6 +32,7 @@ export class UserRegistroTicketComponent implements OnInit {
     ]),
     catalogoId: new FormControl(this.catalogoId, [Validators.required]),
     impactoId: new FormControl('', [Validators.required]),
+    usuarioId: new FormControl(0),
   });
 
   chosenFiles: File[] = [];
@@ -60,6 +62,13 @@ export class UserRegistroTicketComponent implements OnInit {
         this.impactoId.setValue(res.impacto.parametros_id);
       });
     }
+
+    const idPersona = this.activeRoute.snapshot.paramMap.get('idPersona');
+    if (idPersona) {
+      this.personaId = parseInt(idPersona);
+      this.ticketForm.get('usuarioId').setValue(idPersona);
+    }
+
     // Loading impactos
     this.parametroService
       .listImpactos()
@@ -69,7 +78,7 @@ export class UserRegistroTicketComponent implements OnInit {
   onSave() {
     if (!this.ticketForm.valid) return;
     this.loading = true;
-    let urlRedirect = '/user/home';
+    let urlRedirect = this.redirectUrl();
     // Si no tenemos el id solo registramos
     if (this.ticketId === 0) {
       this.ticketService
@@ -80,6 +89,7 @@ export class UserRegistroTicketComponent implements OnInit {
             this.alertService.success(
               'Ingresamos de forma correcta el ticket.'
             );
+            this.uploadFiles();
           }
         });
     } else {
@@ -90,13 +100,14 @@ export class UserRegistroTicketComponent implements OnInit {
             this.alertService.info(
               `Actualizamos correctamente el ticket #${this.ticketId}.`
             );
+            this.uploadFiles();
           }
         });
-      urlRedirect = `/user/ticket/${this.ticketId}`;
     }
+  }
 
-    if (this.chosenFiles.length === 0) this.onSaved(urlRedirect);
-
+  private uploadFiles() {
+    if (this.chosenFiles.length === 0) this.onSaved(this.redirectUrl());
     let uploads = 0;
     this.chosenFiles.forEach((file) => {
       this.upload(file);
@@ -104,7 +115,7 @@ export class UserRegistroTicketComponent implements OnInit {
       if (uploads === this.chosenFiles.length) {
         // Esperamos un segundo para que nos devuelva el historial completo
         setTimeout(() => {
-          this.onSaved(urlRedirect);
+          this.onSaved(this.redirectUrl());
         }, 1000);
       }
     });
@@ -151,5 +162,15 @@ export class UserRegistroTicketComponent implements OnInit {
 
   get impactoId() {
     return this.ticketForm.get('impactoId');
+  }
+
+  redirectUrl() {
+    if (this.personaId === 0) {
+      return this.ticketId === 0
+        ? '/user/home'
+        : `/user/ticket/${this.ticketId}`;
+    } else {
+      return `/dashboard/ticket/${this.ticketId}`;
+    }
   }
 }

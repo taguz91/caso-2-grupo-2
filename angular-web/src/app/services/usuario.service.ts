@@ -101,4 +101,10 @@ export class UsuarioService {
       .get<ComboUsuario[]>(`${this.BASE_URL}combo/type/${type}`, loadHeader())
       .pipe(catchError(handleError<ComboUsuario[]>([])));
   }
+
+  existUser(q: string) {
+    return this.http
+      .get<Usuario>(`${this.BASE_URL}exists?q=${q}`, loadHeader())
+      .pipe(catchError(handleError<Usuario>(null)));
+  }
 }
