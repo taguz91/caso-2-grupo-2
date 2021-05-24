@@ -4,6 +4,7 @@ import { UsuarioService } from '../../../services/usuario.service';
 import { Subject } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
 import { LocalService } from '../../../services/local.service';
+import { ReporteService } from 'src/app/services/reporte.service';
 
 @Component({
   selector: 'app-admin-list',
@@ -13,7 +14,7 @@ import { LocalService } from '../../../services/local.service';
 export class AdminListComponent implements OnDestroy, OnInit {
 
   dtOptions: DataTables.Settings = {};
-  administradores: Usuario[] = []  
+  administradores: Usuario[] = []
   dtTrigger: Subject<any> = new Subject<any>();
   rolId: number = 0; //Lista todos las ususarios con este ID
 
@@ -21,7 +22,12 @@ export class AdminListComponent implements OnDestroy, OnInit {
     private usuarioService: UsuarioService,
     private router: Router,
     private localService:LocalService,
+<<<<<<< Updated upstream
     private activatedRoute: ActivatedRoute) {}
+=======
+    private activatedRoute: ActivatedRoute,
+    private _reporte: ReporteService) { }
+>>>>>>> Stashed changes
 
   ngOnInit(): void {
 
@@ -76,5 +82,9 @@ export class AdminListComponent implements OnDestroy, OnInit {
         }
       });
     }
+  }
+
+  GetReporte(){
+    this._reporte.reporte('administradores');
   }
 }
