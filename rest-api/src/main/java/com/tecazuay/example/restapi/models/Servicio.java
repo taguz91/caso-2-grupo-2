@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -40,7 +41,7 @@ public class Servicio extends Globals implements Serializable {
 	@JoinColumn(name = "categoria_id", nullable = false)
 	private Categoria categoria;
 
-	@JsonIgnore
+	@JsonBackReference(value = "rf_catalogo_servicio")
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "servicio")
 	private List<Catalogo> listaCatalogos;
 
