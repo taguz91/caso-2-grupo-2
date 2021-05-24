@@ -30,8 +30,6 @@ import { ServicioRegisterComponent } from './components/admin/servicio-register/
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AdminRegisterComponent } from './components/admin/admin-register/admin-register.component';
 import { AdminListComponent } from './components/admin/admin-list/admin-list.component';
-import { DataTablesModule } from 'angular-datatables';
-import { NgxEchartsModule } from 'ngx-echarts';
 import { SoporteDashboardComponent } from './components/personal/soporte-dashboard/soporte-dashboard.component';
 import { CoordinadorDashboardComponent } from './components/personal/coordinador-dashboard/coordinador-dashboard.component';
 import { PersonalLayoutComponent } from './layouts/personal-layout/personal-layout.component';
@@ -42,6 +40,8 @@ import { ModalCerrarComponent } from './components/personal/modal-cerrar/modal-c
 import { ModalRechazarComponent } from './components/personal/modal-rechazar/modal-rechazar.component';
 import { CatalogoComponent } from './components/admin/catalogo/catalogo.component';
 import { FormCatalogoComponent } from './components/admin/form-catalogo/form-catalogo.component';
+import { DataTablesModule } from 'angular-datatables';
+import { NgxEchartsModule } from 'ngx-echarts';
 
 @NgModule({
   declarations: [

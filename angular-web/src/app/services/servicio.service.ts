@@ -16,9 +16,9 @@ export class ServicioService {
 
   constructor(private http: HttpClient) { }
 
-  listServicio():Observable<PageResponse<Servicio[]>>{
+  listServicio(page?: number, size?:number):Observable<PageResponse<Servicio[]>>{
     return this.http.get<PageResponse<Servicio[]>>(
-      `${URL_BASE_V1}servicios/`, loadHeader()
+      `${URL_BASE_V1}servicios/?page=${page}&size=${size}`, loadHeader()
     )
     .pipe(
       tap((_) => console.log('Loading servicios...')),

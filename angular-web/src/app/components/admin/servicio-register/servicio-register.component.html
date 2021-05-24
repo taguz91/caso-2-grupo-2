@@ -17,6 +17,12 @@
                         <select class="form-select" formControlName="categoriaId">
 
                             <option [ngValue]="categoria.categoria_id" *ngFor="let categoria of listaCategorias">{{ categoria.nombre_categoria }}</option>
+                            
+                            <option>
+                            
+                                <p (click)="cargarMas()">Cargar más</p>
+                            
+                            </option>
 
                         </select>
 
@@ -55,7 +61,7 @@
     
     <div class="row">
 
-        <table class="table">
+        <table class="table text-center">
 
             <thead>
 
@@ -83,6 +89,32 @@
                     <td>
                     
                         <button class="btn btn-danger" (click)="eliminarServicio(servicio.servicio_id)">Eliminar</button>
+
+                    </td>
+
+                </tr>
+
+                <tr>
+                
+                    <td>
+                    
+                        <button class="btn btn-primary" (click)="rewind()">
+                        
+                            <span class="material-icons">arrow_back</span>
+
+                        </button>
+
+                    </td>
+                    
+                    <td colspan="2"></td>
+                    
+                    <td>
+                    
+                        <button class="btn btn-primary" (click)="forward()">
+                        
+                            <span class="material-icons">arrow_forward</span>
+
+                        </button>
 
                     </td>
 

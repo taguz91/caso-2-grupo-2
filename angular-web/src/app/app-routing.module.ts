@@ -120,6 +120,10 @@ const routes: Routes = [
         component: SoporteDashboardComponent,
       },
       {
+        path: 'admin-list',
+        component: AdminListComponent,
+      },
+      {
         path: 'coordinador',
         component: CoordinadorDashboardComponent,
       },
