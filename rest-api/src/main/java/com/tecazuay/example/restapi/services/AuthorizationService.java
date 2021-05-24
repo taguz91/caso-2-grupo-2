@@ -10,7 +10,8 @@ public class AuthorizationService {
 	public static boolean canReadTicketsByEstado(Usuario user) {
 		boolean auth = false;
 		if (user != null) {
-			auth = user.getRol().getRolId() == Types.ROL_COORDINADOR || user.getRol().getRolId() == Types.ROL_DEVELOPER;
+			auth = user.getRol().getRolId() == Types.ROL_COORDINADOR || user.getRol().getRolId() == Types.ROL_DEVELOPER
+					|| user.getRol().getRolId() == Types.ROL_ADMIN;
 		}
 
 		if (!auth) {

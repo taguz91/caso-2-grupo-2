@@ -93,7 +93,7 @@ public class TicketController {
 	}
 
 	@GetMapping("/estado/{estado}")
-	public ResponseEntity<?> ticksCoordinadorHome(@Valid @PathVariable Long estado,
+	public ResponseEntity<PageResponse> ticksCoordinadorHome(@Valid @PathVariable Long estado,
 			@AuthenticationPrincipal Usuario user, @RequestParam(value = "page", defaultValue = "0") int page,
 			@RequestParam(value = "size", defaultValue = "20") int size) {
 
@@ -143,6 +143,17 @@ public class TicketController {
 			@AuthenticationPrincipal Usuario user) {
 		AuthorizationService.onlyCoordinadorOrDev(user);
 		return ResponseEntity.status(HttpStatus.OK).body(ticketService.rechazarTicker(rechazo, user));
+	}
+
+	@GetMapping(value = "/all/estado/{estado}")
+	public ResponseEntity<PageResponse> findAllEstado(@Valid @PathVariable Long estado,
+			@AuthenticationPrincipal Usuario user, @RequestParam(value = "page", defaultValue = "0") int page,
+			@RequestParam(value = "size", defaultValue = "20") int size) {
+
+		AuthorizationService.onlyAdminOrDev(user);
+		Pageable pageable = PageRequest.of(page, size);
+		Page<Ticket> ticketsPage = ticketRepository.findAllByEstado(estado, pageable);
+		return ResponseEntity.status(HttpStatus.ACCEPTED).body(new PageResponse(ticketsPage));
 	}
 
 }
