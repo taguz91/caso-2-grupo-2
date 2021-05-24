@@ -39,6 +39,8 @@ import { ModalCerrarComponent } from './components/personal/modal-cerrar/modal-c
 import { ModalRechazarComponent } from './components/personal/modal-rechazar/modal-rechazar.component';
 import { DataTablesModule } from 'angular-datatables';
 import { NgxEchartsModule } from 'ngx-echarts';
+import { CatalogoComponent } from './components/admin/catalogo/catalogo.component';
+import { FormCatalogoComponent } from './components/admin/form-catalogo/form-catalogo.component';
 
 @NgModule({
   declarations: [
@@ -74,6 +76,8 @@ import { NgxEchartsModule } from 'ngx-echarts';
     ModalAsignarComponent,
     ModalCerrarComponent,
     ModalRechazarComponent,
+    CatalogoComponent,
+    FormCatalogoComponent,
   ],
   imports: [
     BrowserModule,
