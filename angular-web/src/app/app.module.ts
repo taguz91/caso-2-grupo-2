@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
@@ -16,7 +16,6 @@ import { UserCatalogoServicioComponent } from './components/user/user-catalogo-s
 import { UserRegistroTicketComponent } from './components/user/user-registro-ticket/user-registro-ticket.component';
 import { UserPerfilComponent } from './components/user/user-perfil/user-perfil.component';
 import { CategoriaRegisterComponent } from './components/admin/categoria-register/categoria-register.component';
-import { ReactiveFormsModule } from '@angular/forms';
 import { CriticidadService } from './services/criticidad.service';
 import { EncuesatisComponent } from './components/user/encuesatis/encuesatis.component';
 import { UserTicketComponent } from './components/user/user-ticket/user-ticket.component';
@@ -38,8 +37,6 @@ import { ListFloatingButtonComponent } from './components/common/list-floating-b
 import { ModalAsignarComponent } from './components/personal/modal-asignar/modal-asignar.component';
 import { ModalCerrarComponent } from './components/personal/modal-cerrar/modal-cerrar.component';
 import { ModalRechazarComponent } from './components/personal/modal-rechazar/modal-rechazar.component';
-import { CatalogoComponent } from './components/admin/catalogo/catalogo.component';
-import { FormCatalogoComponent } from './components/admin/form-catalogo/form-catalogo.component';
 import { DataTablesModule } from 'angular-datatables';
 import { NgxEchartsModule } from 'ngx-echarts';
 
@@ -77,8 +74,6 @@ import { NgxEchartsModule } from 'ngx-echarts';
     ModalAsignarComponent,
     ModalCerrarComponent,
     ModalRechazarComponent,
-    CatalogoComponent,
-    FormCatalogoComponent,
   ],
   imports: [
     BrowserModule,

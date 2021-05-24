@@ -1,1 +1,67 @@
-<p>admin-register works!</p>
+<div style="display: flex; align-items: center; vertical-align: middle;" class="container_register">
+
+    <div class="asd">
+
+        <div class="container">
+
+            <div class="form">
+                <div class="">
+                    <div id="signup">
+
+                        <h3>Gestión de Usuario</h3>
+
+                        <form>
+                            <div class="field-wrap">
+                                <label>Correo<span class="req">*</span></label>
+                                <input [(ngModel)]="usuario.correo" name="correo" id="correo" type="email" required autocomplete="off" maxlength="100" pattern="^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$" />
+                            </div>
+
+                            <div class="top-row">
+                                <div class="field-wrap">
+                                    <label>Nombre<span class="req">*</span></label>
+                                    <input [(ngModel)]="usuario.nombres" id="nombre" name="nombre" type="text" required autocomplete="off" maxlength="50" pattern="^[a-zA-ZÀ-ÿ\u00f1\u00d1 ]{1,50}" />
+                                </div>
+
+                                <div class="field-wrap">
+                                    <label>Apellido<span class="req">*</span></label>
+                                    <input [(ngModel)]="usuario.apellidos" id="apellido" name="apellido" type="text" required autocomplete="off" maxlength="50" pattern="^[a-zA-ZÀ-ÿ\u00f1\u00d1 ]{1,50}" />
+                                </div>
+                            </div>
+
+                            <div class="field-wrap">
+                                <label>Teléfono / Celular<span class="req">*</span></label>
+                                <input [(ngModel)]="usuario.telefono" name="telefono" id="telefono" type="text" required autocomplete="off" maxlength="100" pattern="^[0-9]{10,15}" />
+                            </div>
+
+                            <div class="field-wrap">
+                                <label>Rol<span class="req">*</span></label>
+                                <select [(ngModel)]="usuario.rol" name="rol" id="rol" required>
+                                    <option *ngFor="let r of roles" value={{r}} >{{ r.nombre }}</option>
+                                </select > 
+                            </div>
+
+                            <div class="field-wrap">
+                                <label>Contraseña<span class="req">*</span></label>
+                                <input [(ngModel)]="usuario.password" name="password" type="password" id="password" required autocomplete="new-password" minlength="8" maxlength="30" />
+                            </div>
+
+                            <div class="field-wrap">
+                                <label>Confirmar Contraseña<span class="req">*</span></label>
+                                <input [(ngModel)]="confirmar_pass" name="confirmar_pass" type="password" required autocomplete="new-password" minlength="8" maxlength="30" />
+                            </div>
+
+                            <span class="response" *ngIf="response_condicion == true">{{ response_msg }}</span>
+
+
+                            <div class="c-btn">
+                                <button type="submit" (click)="registrar()" class="btn btn-outline-success">Registrarme</button>
+                                <button (click)="back()" class="btn btn-outline-danger">Regresar</button>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

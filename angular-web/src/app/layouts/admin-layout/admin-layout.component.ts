@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SectionMenu } from 'src/app/models/types';
 import { LoginUser } from 'src/app/models/usuario';
 import { SessionService } from 'src/app/services/session.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin-layout',
@@ -60,24 +61,29 @@ export class AdminLayoutComponent implements OnInit {
       section: 'Administración',
       options: [
         {
-          label: 'Usuarios',
-          icon: 'manage_accounts',
-          urlTo: '/admin/usuarios/tipo/1',
-        },
-        {
           label: 'Administradores',
           icon: 'manage_accounts',
-          urlTo: '/admin/administradores',
+          urlTo: 'admin-list/rol/2',
+        },
+        {
+          label: 'Usuarios',
+          icon: 'manage_accounts',
+          urlTo: 'admin-list/rol/3',
         },
         {
           label: 'Coordinadores',
           icon: 'manage_accounts',
-          urlTo: 'admin-list',
+          urlTo: 'admin-list/rol/4',
         },
         {
-          label: 'Soporte',
+          label: 'Soporte N1',
           icon: 'manage_accounts',
-          urlTo: '/admin/usuarios/tipo/3',
+          urlTo: 'admin-list/rol/5',
+        },
+        {
+          label: 'Soporte N2',
+          icon: 'manage_accounts',
+          urlTo: 'admin-list/rol/6',
         },
       ],
     },
@@ -103,7 +109,7 @@ export class AdminLayoutComponent implements OnInit {
     },
   ];
 
-  constructor(private sessionService: SessionService) {}
+  constructor(private sessionService: SessionService, private router: Router) {}
 
   ngOnInit(): void {
     this.sessionService.getUser().subscribe((user) => (this.user = user));
