@@ -11,7 +11,7 @@ export class ReporteService {
 
   reporte(data : string) {
     const DATA = document.getElementById(data);
-    const doc = new jsPDF('p', 'pt', 'a4');
+    const doc = new jsPDF('p', 'pt', 'A4');
     const options = {
       background: 'white',
       scale: 3
