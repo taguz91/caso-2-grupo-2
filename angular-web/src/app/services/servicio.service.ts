@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
-import { PageResponse } from '../models/categoria';
+import { PageResponse } from '../models/Parametros';
 import { Servicio, ServicioCombo } from '../models/servicio';
 import { handleError, loadHeader, URL_BASE_V1 } from '../utils/constantes';
 

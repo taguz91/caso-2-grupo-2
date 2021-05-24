@@ -14,6 +14,7 @@ export const DEFAULT_PAGE_METADA: PageMetadata = {
   current: 0,
   items: 0,
   pages: 0,
+  perPage: DEFAULT_PAGE_SIZE,
 };
 
 // Constantes de roles de usuario

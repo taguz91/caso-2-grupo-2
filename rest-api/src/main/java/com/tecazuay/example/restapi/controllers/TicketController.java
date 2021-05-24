@@ -89,7 +89,7 @@ public class TicketController {
 		Page<TicketsList> ticketsPage = ticketRepository.findAllByUserHome(user.getPersonaId(), pageable.getOffset(),
 				pageable.getPageSize(), pageable);
 
-		return ResponseEntity.status(HttpStatus.ACCEPTED).body(new PageResponse(ticketsPage));
+		return ResponseEntity.status(HttpStatus.OK).body(new PageResponse(ticketsPage));
 	}
 
 	@GetMapping("/estado/{estado}")
@@ -102,7 +102,7 @@ public class TicketController {
 		Pageable pageable = PageRequest.of(page, size);
 		Page<TicketsList> ticketsPage = ticketRepository.findAllByEstadoHome(estado, pageable.getOffset(),
 				pageable.getPageSize(), pageable);
-		return ResponseEntity.status(HttpStatus.ACCEPTED).body(new PageResponse(ticketsPage));
+		return ResponseEntity.status(HttpStatus.OK).body(new PageResponse(ticketsPage));
 	}
 
 	@GetMapping("/soporte")
@@ -114,7 +114,7 @@ public class TicketController {
 		Pageable pageable = PageRequest.of(page, size);
 		Page<TicketsList> ticketsPage = ticketRepository.findAllByResponsableHome(user.getPersonaId(),
 				pageable.getOffset(), pageable.getPageSize(), pageable);
-		return ResponseEntity.status(HttpStatus.ACCEPTED).body(new PageResponse(ticketsPage));
+		return ResponseEntity.status(HttpStatus.OK).body(new PageResponse(ticketsPage));
 	}
 
 	@PostMapping(value = "/add/adjunto", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -153,7 +153,7 @@ public class TicketController {
 		AuthorizationService.onlyAdminOrDev(user);
 		Pageable pageable = PageRequest.of(page, size);
 		Page<Ticket> ticketsPage = ticketRepository.findAllByEstado(estado, pageable);
-		return ResponseEntity.status(HttpStatus.ACCEPTED).body(new PageResponse(ticketsPage));
+		return ResponseEntity.status(HttpStatus.OK).body(new PageResponse(ticketsPage));
 	}
 
 }

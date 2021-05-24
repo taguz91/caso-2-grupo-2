@@ -1,4 +1,5 @@
 import { Adjunto } from './adjunto';
+import { Sla } from './catalogo';
 import { ParametroModel } from './Parametros';
 import { Usuario } from './usuario';
 
@@ -41,7 +42,7 @@ interface Catalogo {
   catalogo_id: number;
   descripcion: string;
   tipoServicio: ParametroModel;
-  sla?: any;
+  sla?: Sla;
 }
 
 export interface TicketView {
@@ -54,13 +55,14 @@ export interface TicketView {
   descripcion: string;
   solucion?: string;
   fechaSolucion?: Date;
+  fechaAsignacion?: Date;
   estado: ParametroModel;
   impacto: ParametroModel;
   listaHistorial: any[];
   encuesta?: any;
   adjuntos: Adjunto[];
   responsable?: Usuario;
-  responsableSolucion?: any;
+  responsableSolucion?: Usuario;
   catalogo: Catalogo;
   mediosComunicacion: any[];
   usuario: Usuario;
