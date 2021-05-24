@@ -16,5 +16,5 @@ export class EncuesatisService {
     return this.http
     .post<any>(`${URL_BASE_V1}encuesta/`,Encuesta,loadHeader());
   }
-
+  
 }

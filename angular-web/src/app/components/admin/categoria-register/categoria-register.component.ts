@@ -16,6 +16,17 @@ import { AlertService } from 'src/app/services/alert.service';
 
 export class CategoriaRegisterComponent implements OnInit {
 
+  public existsData: boolean;
+  isShow: boolean = false;
+  messageError: any;
+  listaCategoria: Categoria[];
+  hasError: boolean;
+  listaErrores: any[];
+  page = 0;
+  size = 10;
+  items: number;
+  pages: number;
+
   categoriaForm = new FormGroup({
     nombre_categoria: new FormControl('', Validators.required)
   })
@@ -25,52 +36,62 @@ export class CategoriaRegisterComponent implements OnInit {
     categoria_id: new FormControl()
   })
 
-  public existsData: boolean;
-  isShow: boolean = false;
-  messageError: any;
-  listaCategoria: Categoria[];
-  hasError: boolean;
-  listaErrores: any[];
-
-  constructor(private categoriaService: CategoriaService, public modal:NgbModal, private alertService: AlertService) {
+  constructor(private categoriaService: CategoriaService, public modal: NgbModal, private alertService: AlertService) {
   }
 
   ngOnInit(): void {
     this.listarCategorias();
   }
 
-  
 
-  listarCategorias(){
-    this.categoriaService.listCategorias().subscribe(data => {
-      if(data != null){
+
+  listarCategorias() {
+    this.categoriaService.listCategorias(this.page, this.size).subscribe(data => {
+      if (data != null) {
+        console.log(data);
         this.listaCategoria = data['data']
         this.existsData = true;
+        this.page = data.meta.current;
+        this.items = data.meta.items;
+        this.pages = data.meta.pages;
       } else {
         this.existsData = false;
-      } 
+      }
+    }, (err) => {
+      console.log(err);
     });
   }
 
-  addCategoria(form: Categoria){
-      this.categoriaService.addCategoria(form)
-    .subscribe(res => {
-      console.log("Categoria guardada ", res);
-      this.listarCategorias();
-      this.isShow = !this.isShow;
-      this.alertService.success("Categoria Registrada");
-    }, (err: HttpErrorResponse) => {
+  addCategoria(form: Categoria) {
+    this.categoriaService.findByNombreCategoria(form.nombre_categoria)
+    .subscribe(data => {
+      console.log(data, "CATEGORIA");
       this.hasError = true;
-       console.log(err.error.errors.nombre_categoria);
-       this.listaErrores = err.error.errors.nombre_categoria;
-       this.listaErrores.map(error => {
-         this.messageError = error
-       })
-    }) 
+      this.messageError = "La categoria ya existe";
+    }, err => {
+      this.hasError = false;
+      this.categoriaService.addCategoria(form)
+      .subscribe(res => {
+        console.log("Categoria guardada ", res);
+        this.isShow = !this.isShow;
+        this.listarCategorias();
+        this.categoriaForm.setValue({
+          nombre_categoria: ""
+        })
+        this.alertService.success("Categoria Registrada");
+      }, (err: HttpErrorResponse) => {
+        this.hasError = true;
+        console.log(err.error.errors.nombre_categoria);
+        this.listaErrores = err.error.errors.nombre_categoria;
+        this.listaErrores.map(error => {
+          this.messageError = error
+        })
+      })
+    })
     
   }
 
-  openModal(contenido, id, nombre_categoria){
+  openModal(contenido, id, nombre_categoria) {
     console.log(contenido);
     console.log(id);
     console.log(nombre_categoria);
@@ -81,37 +102,51 @@ export class CategoriaRegisterComponent implements OnInit {
     this.modal.open(contenido);
   }
 
-  actualizarCategoria(form: Categoria){
+  actualizarCategoria(form: Categoria) {
     this.categoriaService.updateCategoria(form.categoria_id, form)
-    .subscribe(res => {
-      console.log("Categoria # ", form.categoria_id, " Actualizada -> ", form);
-      console.log(res);
-      this.alertService.success("Se actualizo la categoria");
-      this.listarCategorias();
-      this.modal.dismissAll();
-    }, (err: HttpErrorResponse) => {
-      this.hasError = true;
-       console.log(err.error.errors.nombre_categoria);
-       this.listaErrores = err.error.errors.nombre_categoria;
-       this.listaErrores.map(error => {
-         this.messageError = error
-       })
-    })
+      .subscribe(res => {
+        console.log("Categoria # ", form.categoria_id, " Actualizada -> ", form);
+        console.log(res);
+        this.alertService.success("Se actualizo la categoria");
+        this.listarCategorias();
+        this.modal.dismissAll();
+      }, (err: HttpErrorResponse) => {
+        this.hasError = true;
+        console.log(err.error.errors.nombre_categoria);
+        this.listaErrores = err.error.errors.nombre_categoria;
+        this.listaErrores.map(error => {
+          this.messageError = error
+        })
+      })
   }
 
-  eliminarCategoria(id: any){
+  eliminarCategoria(id: any) {
     this.categoriaService.deleteCategoria(id)
-    .subscribe(res => {
-      console.log(res);
-      console.log('Categoria # ', id, " Eliminada");
-      this.alertService.success("Se elimino la categoria");
-      this.listarCategorias();
-    }, (err: HttpErrorResponse) => {
-        
-    })
+      .subscribe(res => {
+        console.log(res);
+        console.log('Categoria # ', id, " Eliminada");
+        this.alertService.success("Se elimino la categoria");
+        this.listarCategorias();
+      }, (err: HttpErrorResponse) => {
+
+      })
   }
 
-  mostrarRegistroCategoria():void{
+  mostrarRegistroCategoria(): void {
     this.isShow = !this.isShow;
+  }
+
+  rewind(): void {
+    if (this.page > 0) {
+      this.page--;
+      this.listarCategorias();
+    }
+  }
+
+  forward(): void {
+    if (this.page + 1 < this.pages) {
+      this.page++;
+      this.listarCategorias();
+    }
   }
 }

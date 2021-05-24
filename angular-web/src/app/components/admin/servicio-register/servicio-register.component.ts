@@ -25,6 +25,11 @@ export class ServicioRegisterComponent implements OnInit {
   listaErroresServicio: any[];
   listaErroresCategoriaId: any[];
 
+  page = 0;
+  size = 10;
+  items: number;
+  pages: number;
+
   formServicio = new FormGroup({
     nombre_servicio: new FormControl('', Validators.required),
     categoriaId: new FormControl(null)
@@ -54,7 +59,7 @@ export class ServicioRegisterComponent implements OnInit {
   }
 
   listarCategorias(){
-    this.categoriaService.listCategorias().subscribe(data => {
+    this.categoriaService.listCategoriasToServicio().subscribe(data => {
       if(data != null){
         console.log(data['data']);
         this.listaCategorias = data['data'];
@@ -65,9 +70,12 @@ export class ServicioRegisterComponent implements OnInit {
   }
 
   listarServicios(){
-    this.servicioService.listServicio().subscribe(data => {
+    this.servicioService.listServicio(this.page, this.size).subscribe(data => {
       if(data != null){
         this.listaServicios = data['data']
+        this.page = data.meta.current;
+        this.items = data.meta.items;
+        this.pages = data.meta.pages;
       } else {
         this.alertService.info("No existen servicios registrados");
       }
@@ -135,5 +143,18 @@ export class ServicioRegisterComponent implements OnInit {
     })
   }
 
+  rewind():void{
+    if(this.page > 0){
+      this.page--;
+      this.listarServicios();
+    }
+  }
+
+  forward():void{
+    if(this.page + 1 < this.pages){
+      this.page++;
+      this.listarServicios();
+    }
+  }
 
 }

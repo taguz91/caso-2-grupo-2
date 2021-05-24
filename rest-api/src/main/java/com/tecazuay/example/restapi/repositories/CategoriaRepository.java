@@ -15,11 +15,12 @@ import org.springframework.stereotype.Repository;
 public interface CategoriaRepository extends JpaRepository<Categoria, Long> {
 
 	@Query("SELECT c FROM categoria c WHERE categoria_id = :categoria_id")
-	Optional<CategoriaResponse> findByCategoriaId(Long categoria_id);
+	Optional<Categoria> findByCategoriaId(Long categoria_id);
 
 	@Query("SELECT c FROM categoria c")
 	Page<CategoriaResponse> findAllCategoria(Pageable pageable);
 	
-	@Query("SELECT c FROM categoria c WHERE nombre_categoria like %:nombre_categoria%")
-	Categoria findNombreCategoria(String nombre_categoria);
+	@Query("SELECT c FROM categoria c WHERE UPPER(c.nombre_categoria) LIKE CONCAT('%',UPPER(:nombre_categoria),'%')")
+	Optional<Categoria> findByNombreCategoria(String nombre_categoria);
+
 }

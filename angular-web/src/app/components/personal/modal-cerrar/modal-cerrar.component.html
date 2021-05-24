@@ -1,0 +1,67 @@
+<div class="modal-header">
+  <h4 class="modal-title">Cerrar ticket #{{ ticket.ticket_id }}</h4>
+  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+    (click)="modal.dismiss('Cross click')"></button>
+</div>
+
+<div class="modal-body">
+
+  <form [formGroup]="cerrarForm" (ngSubmit)="onSave()">
+
+    <div class="mb-3">
+
+      <label for="" class="form-label">
+        Estado
+      </label>
+
+      <select class="form-select" formControlName="estado">
+        <option value="">Selecciona el estado</option>
+
+        <option *ngFor="let estado of estados" [ngValue]="estado.parametros_id">
+          {{ estado.nombre }}
+        </option>
+      </select>
+
+
+      <div *ngIf="estado.invalid && (estado.dirty || estado.touched)">
+
+        <div *ngIf="estado.errors.required" class="form-text text-danger">
+          Estado es obligatorio.
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="mb-3">
+      <label for="" class="form-label">
+        Solución
+      </label>
+
+      <textarea formControlName="solucion" class="form-control" cols="15" rows="7"></textarea>
+
+      <div *ngIf="solucion.invalid && (solucion.dirty || solucion.touched)">
+
+        <div *ngIf="solucion.errors.required" class="form-text text-danger">
+          Solución es obligatorio.
+        </div>
+
+        <div *ngIf="solucion.errors.minLength" class="form-text text-danger">
+          Solución debe tener almenos 10 caracteres.
+        </div>
+
+        <div *ngIf="solucion.errors.maxLength" class="form-text text-danger">
+          Solución debe tener menos de 1000 caracteres.
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <button class="btn btn-primary d-block btn-save-right " type="submit" [disabled]="!cerrarForm.valid || loading"
+      [class.spinner]="loading">Guardar</button>
+
+  </form>
+
+</div>

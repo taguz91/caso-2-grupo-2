@@ -75,7 +75,6 @@ export class UserRegistroTicketComponent implements OnInit {
       this.ticketService
         .registerTicket(this.ticketForm.value)
         .subscribe((res) => {
-          console.log('RESPONSE', res);
           if (res.ticket_id) {
             this.ticketId = res.ticket_id;
             this.alertService.success(
@@ -103,7 +102,7 @@ export class UserRegistroTicketComponent implements OnInit {
       this.upload(file);
       uploads++;
       if (uploads === this.chosenFiles.length) {
-        // Esperamos un segundo para que nos devuelva el historial completo 
+        // Esperamos un segundo para que nos devuelva el historial completo
         setTimeout(() => {
           this.onSaved(urlRedirect);
         }, 1000);

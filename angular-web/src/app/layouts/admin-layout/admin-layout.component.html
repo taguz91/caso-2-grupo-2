@@ -15,7 +15,7 @@
         </li>
 
         <li *ngFor="let option of section.options">
-          <a routerLink="{{option.urlTo}}" routerLinkActive="active">
+          <a routerLink="{{ option.urlTo }}" routerLinkActive="active">
             <span class="material-icons-round">
               {{option.icon}}
             </span> {{option.label}}
@@ -31,7 +31,11 @@
   <div class="content">
 
     <!-- TOP NAV TO CLOSE SESSION -->
-    <nav class="container-fluid">
+    <nav class="admin_topnav">
+
+      <div *ngIf="user" class="user_info">
+        <p>Bienvenido, <span>{{ user.nombres + ' ' + user.apellidos }}</span> </p>
+      </div>
 
       <button class="btn close_btn" (click)="logout()">
         <span class="material-icons-round text-danger">

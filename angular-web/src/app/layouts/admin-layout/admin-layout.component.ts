@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SectionMenu } from 'src/app/models/types';
+import { LoginUser } from 'src/app/models/usuario';
 import { SessionService } from 'src/app/services/session.service';
 import { Router } from '@angular/router';
 
@@ -9,6 +10,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./admin-layout.component.scss'],
 })
 export class AdminLayoutComponent implements OnInit {
+  user: LoginUser;
   menu: SectionMenu[] = [
     {
       section: 'Configuración',
@@ -16,7 +18,7 @@ export class AdminLayoutComponent implements OnInit {
         {
           label: 'Home',
           icon: 'home',
-          urlTo: '/admin',
+          urlTo: '/admin/home',
         },
         {
           label: 'Categorias',
@@ -59,6 +61,11 @@ export class AdminLayoutComponent implements OnInit {
       section: 'Administración',
       options: [
         {
+          label: 'Administradores',
+          icon: 'manage_accounts',
+          urlTo: 'admin-list/rol/2',
+        },
+        {
           label: 'Usuarios',
           icon: 'manage_accounts',
           urlTo: 'admin-list/rol/3',
@@ -69,9 +76,14 @@ export class AdminLayoutComponent implements OnInit {
           urlTo: 'admin-list/rol/4',
         },
         {
-          label: 'Soporte',
+          label: 'Soporte N1',
           icon: 'manage_accounts',
           urlTo: 'admin-list/rol/5',
+        },
+        {
+          label: 'Soporte N2',
+          icon: 'manage_accounts',
+          urlTo: 'admin-list/rol/6',
         },
       ],
     },
@@ -99,7 +111,9 @@ export class AdminLayoutComponent implements OnInit {
 
   constructor(private sessionService: SessionService, private router: Router) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.sessionService.getUser().subscribe((user) => (this.user = user));
+  }
 
   logout() {
     this.sessionService.logout();

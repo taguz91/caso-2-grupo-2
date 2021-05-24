@@ -30,7 +30,14 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.sessionService.isLoged()) {
-      this.router.navigate(['/user/home']);
+      const user = this.sessionService.user;
+      if (user) {
+        this.sessionService.redirect();
+      } else {
+        this.sessionService.getUser().subscribe((_) => {
+          this.sessionService.redirect();
+        });
+      }
     }
   }
 

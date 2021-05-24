@@ -1,9 +1,6 @@
 package com.tecazuay.example.restapi.controllers;
-
 import com.tecazuay.example.restapi.services.encuestasatisfaccionservice;
-
 import java.util.List;
-
 import javax.validation.Valid;
 
 import com.tecazuay.example.restapi.api.exception.ResourceNotFoundException;
@@ -56,5 +53,4 @@ public class EncuestaController {
         encuesta.setComentario(encu.getComentarios()); 
         return ResponseEntity.status(HttpStatus.CREATED).body(encuesta_repo.save(encuesta));
     }
-
 }

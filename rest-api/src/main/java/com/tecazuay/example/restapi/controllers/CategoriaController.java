@@ -4,7 +4,6 @@ import javax.validation.Valid;
 
 import com.tecazuay.example.restapi.api.exception.ResourceNotFoundException;
 import com.tecazuay.example.restapi.api.params.CategoriaParam;
-import com.tecazuay.example.restapi.definitions.CategoriaResponse;
 import com.tecazuay.example.restapi.definitions.PageResponse;
 import com.tecazuay.example.restapi.models.Categoria;
 import com.tecazuay.example.restapi.models.Usuario;
@@ -48,23 +47,22 @@ public class CategoriaController {
 	}
 
 	@GetMapping("/{id}")
-	public CategoriaResponse getCategoria(@PathVariable("id") Long categoria_id) {
-		CategoriaResponse categoria = categoriaRepository.findByCategoriaId(categoria_id)
+	public Categoria getCategoria(@PathVariable("id") Long categoria_id) {
+		return categoriaRepository.findByCategoriaId(categoria_id)
 				.orElseThrow(() -> new ResourceNotFoundException("No se encontro la categoria"));
-		return categoria;
+	}
+
+	@GetMapping("/nombre-categoria")
+	public Categoria getByNombre(@RequestParam("nombre_categoria") String nombre_categoria){
+		return categoriaRepository.findByNombreCategoria(nombre_categoria)
+			.orElseThrow(() -> new ResourceNotFoundException("No se encontro la categoria"));		
 	}
 
 	@PostMapping(value = "/")
 	public Categoria saveCategoria(@RequestBody @Valid CategoriaParam categoriaParam) {
 		Categoria categoria = new Categoria();
-		categoria = categoriaRepository.findNombreCategoria(categoriaParam.getNombre_categoria());
-		if(categoria == null) {
-			categoria.setNombre_categoria(categoriaParam.getNombre_categoria());
-			return categoriaRepository.save(categoria);
-		} else {
-			return new Categoria();
-		}
-		
+		categoria.setNombre_categoria(categoriaParam.getNombre_categoria());
+		return categoriaRepository.save(categoria);
 	}
 
 	@PutMapping("/{id}")

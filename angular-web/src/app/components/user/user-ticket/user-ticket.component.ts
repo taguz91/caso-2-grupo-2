@@ -1,11 +1,28 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewEncapsulation,
+  Input,
+  ViewChild,
+  TemplateRef,
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Adjunto } from 'src/app/models/adjunto';
+import { FloatingOption } from 'src/app/models/Parametros';
 import { TicketView } from 'src/app/models/ticket';
 import { AdjuntoService } from 'src/app/services/adjunto.service';
 import { AlertService } from 'src/app/services/alert.service';
+import { ReporteService } from 'src/app/services/reporte.service';
+import { SessionService } from 'src/app/services/session.service';
 import { TicketService } from 'src/app/services/ticket.service';
+import {
+  ROL_SOPORTE_N2,
+  TICKET_ESTADO_ABIERTO,
+  TICKET_ESTADO_CERRADO_CON_SOLUCION,
+  TICKET_ESTADO_CERRADO_SIN_SOLUCION,
+  TICKET_ESTADO_RECHAZADO,
+} from 'src/app/utils/constantes';
 
 @Component({
   selector: 'app-user-ticket',
@@ -14,19 +31,38 @@ import { TicketService } from 'src/app/services/ticket.service';
   encapsulation: ViewEncapsulation.None,
 })
 export class UserTicketComponent implements OnInit {
-  private ticketId: number = 0;
+  @Input() ticketId: number = 0;
+
+  // Templates
+  @ViewChild('modalAsignar')
+  private modalAsignar: TemplateRef<any>;
+
+  @ViewChild('modalCerrar')
+  private modalCerrar: TemplateRef<any>;
+
+  @ViewChild('modalRechazar')
+  private modalRechazar: TemplateRef<any>;
+
   ticket: TicketView;
   urlEdit: string = '';
+  urlEncuesta: string = '';
   isOpen: boolean = true;
+  isClosed: boolean = false;
+  showUser: Boolean = false;
   closeModal: string;
   adjuntos: Adjunto[];
+  floatingButtons: FloatingOption[] = [];
+  idReporte: string;
+  titleSolucion = 'Solución:';
 
   constructor(
     private ticketService: TicketService,
     private activeRoute: ActivatedRoute,
     private modalService: NgbModal,
     private adjuntoService: AdjuntoService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private sessionService: SessionService,
+    private _reporte: ReporteService
   ) {}
 
   ngOnInit(): void {
@@ -37,13 +73,70 @@ export class UserTicketComponent implements OnInit {
     }
   }
 
+  private checkAccess() {
+    const user = this.sessionService.user;
+    this.sessionService.getUser().subscribe((_) => this.checkAccess());
+    if (user) {
+      this.isOpen = this.isOpen && this.sessionService.isFinalUser();
+      this.isClosed = this.isClosed && this.sessionService.isFinalUser();
+      this.showUser = this.sessionService.isPersonal();
+    }
+  }
+
   findOne() {
     this.ticketService.one(this.ticketId).subscribe((res) => {
       this.ticket = res;
       this.urlEdit = `/user/ticket/ingreso/${this.ticket.catalogo.catalogo_id}/${this.ticket.ticket_id}`;
-      this.isOpen = ![13, 14].includes(this.ticket.estado.parametros_id);
+      this.urlEncuesta = `/user/encuesta/${this.ticket.ticket_id}`;
+      this.isOpen = ![
+        TICKET_ESTADO_CERRADO_SIN_SOLUCION,
+        TICKET_ESTADO_CERRADO_CON_SOLUCION,
+      ].includes(this.ticket.estado.parametros_id);
+      this.isClosed =
+        TICKET_ESTADO_CERRADO_CON_SOLUCION === this.ticket.estado.parametros_id;
+
       this.adjuntos = res.adjuntos;
+      // Vemos si esta habilitado el boton de asignar
+      this.addFloatingButtons();
+      this.checkAccess();
+
+      if (res.estado.parametros_id === TICKET_ESTADO_RECHAZADO) {
+        this.titleSolucion = 'Motivo rechazo:';
+      }
     });
+  }
+
+  private addFloatingButtons() {
+    if (
+      this.sessionService.isCoordinador() &&
+      this.ticket.estado.parametros_id === TICKET_ESTADO_ABIERTO
+    ) {
+      this.floatingButtons.push({
+        icon: 'delete',
+        tooltip: 'Rechazar ticket',
+        callback: () => this.triggerModal(this.modalRechazar),
+        color: 'danger',
+      });
+    }
+
+    if (this.ticket.responsable && this.sessionService.isSoporte()) {
+      this.floatingButtons.push({
+        icon: 'task',
+        tooltip: 'Cerrar ticket',
+        callback: () => this.triggerModal(this.modalCerrar),
+      });
+    }
+
+    if (
+      this.ticket?.responsable?.rol.rolId !== ROL_SOPORTE_N2 &&
+      this.sessionService.isPersonal()
+    ) {
+      this.floatingButtons.push({
+        icon: 'contacts',
+        tooltip: 'Asignar ticket',
+        callback: () => this.triggerModal(this.modalAsignar),
+      });
+    }
   }
 
   triggerModal(content) {
@@ -78,5 +171,10 @@ export class UserTicketComponent implements OnInit {
       this.alertService.success('Eliminamos correctamente el adjunto.');
       this.adjuntos.splice(this.adjuntos.indexOf(adjunto), 1);
     });
+  }
+
+  downloadPDF() {
+    this.idReporte = 'ticket';
+    this._reporte.reporte(this.idReporte);
   }
 }

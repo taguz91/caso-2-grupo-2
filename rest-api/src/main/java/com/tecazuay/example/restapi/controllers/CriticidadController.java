@@ -2,7 +2,9 @@ package com.tecazuay.example.restapi.controllers;
 
 import java.util.List;
 
+import com.tecazuay.example.restapi.definitions.CriticidadCombo;
 import com.tecazuay.example.restapi.models.Criticidad;
+import com.tecazuay.example.restapi.repositories.CriticidadRepository;
 import com.tecazuay.example.restapi.services.CriticidadService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,22 +16,29 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/api/v1/criticidad")
 public class CriticidadController {
-    
-    @Autowired
-    private CriticidadService critiserv;
 
-    @GetMapping(value="/")
-    public ResponseEntity<List<Criticidad>> ReadAllEncuestas() {
-        return ResponseEntity.status(HttpStatus.OK).body(this.critiserv.findAll());
-    }
+	@Autowired
+	private CriticidadService critiserv;
 
-    @GetMapping(value="/id")
-    public ResponseEntity<Criticidad> ReadEncuestaById(@PathVariable Long id){
-        return ResponseEntity.status(HttpStatus.OK).body(this.critiserv.findById(id));
-    }
+	@Autowired
+	private CriticidadRepository criticidadRepository;
+
+	@GetMapping(value = "/")
+	public ResponseEntity<List<Criticidad>> ReadAllEncuestas() {
+		return ResponseEntity.status(HttpStatus.OK).body(this.critiserv.findAll());
+	}
+
+	@GetMapping(value = "/id")
+	public ResponseEntity<Criticidad> ReadEncuestaById(@PathVariable Long id) {
+		return ResponseEntity.status(HttpStatus.OK).body(this.critiserv.findById(id));
+	}
+
+	@GetMapping(value = "/combo")
+	public ResponseEntity<List<CriticidadCombo>> combo() {
+		return ResponseEntity.status(HttpStatus.OK).body(this.criticidadRepository.findAllCombo());
+	}
 }

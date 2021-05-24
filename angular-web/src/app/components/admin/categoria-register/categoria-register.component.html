@@ -23,7 +23,7 @@
     <div class = "row" *ngIf="existsData">
 
         <div class = "col-sm-12">
-        <table class="table">
+        <table class="table text-center">
             <thead>
                 <th>Nombre</th>
                 <th>Editar</th>
@@ -37,6 +37,23 @@
                     </td>
                     <td>
                         <button class="btn btn-danger" (click)="eliminarCategoria(categoria.categoria_id)">Eliminar</button>
+                    </td>
+                </tr>
+                <tr *ngIf="items>10">
+                    <td>
+                        <button class="btn btn-primary" (click)="rewind()">
+                            <span class="material-icons">
+                                arrow_back
+                            </span>
+                        </button>
+                    </td>
+                    <td colspan="1"></td>
+                    <td>
+                        <button class="btn btn-primary" (click)="forward()">
+                            <span class="material-icons">
+                                arrow_forward
+                            </span>
+                        </button>
                     </td>
                 </tr>
             </tbody>

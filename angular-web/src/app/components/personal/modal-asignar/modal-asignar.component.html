@@ -1,0 +1,46 @@
+<div class="modal-header">
+  <h4 class="modal-title">{{ formTitle }}</h4>
+  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+    (click)="modal.dismiss('Cross click')"></button>
+</div>
+
+<div class="modal-body">
+
+  <form [formGroup]="asignacionForm" (ngSubmit)="onSave()">
+
+    <div *ngIf="ticket.responsable" class="mb-3">
+      <p>Soporte actual: <b>{{ ticket.responsable.nombreCompleto }}</b> </p>
+    </div>
+
+
+    <div class="mb-3">
+
+      <label for="" class="form-label">
+        Soporte
+      </label>
+
+      <select class="form-select" formControlName="soporteId">
+        <option value="">Selecciona el soporte</option>
+
+        <option *ngFor="let usuario of usuarios" [ngValue]="usuario.usuario_id">{{ usuario.nombre_completo }}
+        </option>
+      </select>
+
+
+      <div *ngIf="soporteId.invalid && (soporteId.dirty || soporteId.touched)">
+
+        <div *ngIf="soporteId.errors.required" class="form-text text-danger">
+          Soporte es obligatorio.
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <button class="btn btn-primary d-block btn-save-right " type="submit" [disabled]="!asignacionForm.valid || loading"
+      [class.spinner]="loading">Guardar</button>
+
+  </form>
+
+</div>

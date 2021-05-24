@@ -21,7 +21,21 @@ export class CategoriaService {
   //   );
   // }
 
-  listCategorias():Observable<PageResponse<Categoria[]>>{
+  listCategorias(page?: number, size?: number):Observable<PageResponse<Categoria[]>>{
+    return this.http.get<PageResponse<Categoria[]>>(
+      `${URL_BASE_V1}categorias/?page=${page}&size=${size}`, loadHeader()
+    )
+    .pipe(
+      tap((_) => console.log('Loading categorias...')),
+      catchError(handleError<PageResponse<Categoria[]>>(null))
+    );
+  }
+
+  findByNombreCategoria(nombre_categoria: String):Observable<any>{
+    return this.http.get<any>(`${URL_BASE_V1}categorias/nombre-categoria?nombre_categoria=${nombre_categoria}`, loadHeader());
+  }
+
+  listCategoriasToServicio():Observable<PageResponse<Categoria[]>>{
     return this.http.get<PageResponse<Categoria[]>>(
       `${URL_BASE_V1}categorias/`, loadHeader()
     )

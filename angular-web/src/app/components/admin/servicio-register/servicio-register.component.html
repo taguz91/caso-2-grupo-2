@@ -12,13 +12,23 @@
 
                     <div class="col-sm-6">
 
-                        <label for="">Nombre Servicio</label>
+                        <label for="">Categoria</label>
 
-                        <input type="text" class="form-control" formControlName="nombre_servicio" required/>
+                        <select class="form-select" formControlName="categoriaId">
+
+                            <option [ngValue]="categoria.categoria_id" *ngFor="let categoria of listaCategorias">{{ categoria.nombre_categoria }}</option>
+                            
+                            <option>
+                            
+                                <p (click)="cargarMas()">Cargar más</p>
+                            
+                            </option>
+
+                        </select>
 
                         <div class="text-danger" *ngIf="hasError">
                         
-                        <p *ngFor="let errorServicio of listaErroresServicio"> {{ errorServicio}} </p>
+                            <p>Escoja una categoria</p>
 
                         </div>
 
@@ -26,17 +36,13 @@
 
                     <div class="col-sm-6">
 
-                        <label for="">Categoria</label>
+                        <label for="">Nombre Servicio</label>
 
-                        <select class="form-select" formControlName="categoriaId">
-
-                            <option [ngValue]="categoria.categoria_id" *ngFor="let categoria of listaCategorias">{{ categoria.nombre_categoria }}</option>
-
-                        </select>
+                        <input type="text" class="form-control" formControlName="nombre_servicio" required/>
 
                         <div class="text-danger" *ngIf="hasError">
                         
-                            <p>Escoja una categoria</p>
+                        <p *ngFor="let errorServicio of listaErroresServicio"> {{ errorServicio}} </p>
 
                         </div>
 
@@ -55,10 +61,11 @@
     
     <div class="row">
 
-        <table class="table">
+        <table class="table text-center">
 
             <thead>
 
+                <th>Categoria</th>
                 <th>Nombre</th>
                 <th>Editar</th>
                 <th>Eliminar</th>
@@ -68,6 +75,8 @@
             <tbody>
             
                 <tr *ngFor="let servicio of listaServicios">
+
+                    <td>{{servicio.categoria.nombre_categoria}}</td>
                 
                     <td>{{ servicio.nombre_servicio}}</td>
 
@@ -80,6 +89,32 @@
                     <td>
                     
                         <button class="btn btn-danger" (click)="eliminarServicio(servicio.servicio_id)">Eliminar</button>
+
+                    </td>
+
+                </tr>
+
+                <tr>
+                
+                    <td>
+                    
+                        <button class="btn btn-primary" (click)="rewind()">
+                        
+                            <span class="material-icons">arrow_back</span>
+
+                        </button>
+
+                    </td>
+                    
+                    <td colspan="2"></td>
+                    
+                    <td>
+                    
+                        <button class="btn btn-primary" (click)="forward()">
+                        
+                            <span class="material-icons">arrow_forward</span>
+
+                        </button>
 
                     </td>
 

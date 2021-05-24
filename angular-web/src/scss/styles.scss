@@ -62,6 +62,23 @@ body {
   }
 }
 
+// Card ticket style
+
+.ctn_ticket {
+  .info_ticket {
+    &:hover {
+      background-color: $accent;
+      border-color: $accent;
+    }
+    b {
+      font-size: 1.3rem;
+    }
+  }
+  a {
+    text-decoration: none;
+  }
+}
+
 /* ---------------------------------------------------
     CARD SELECTION STYLE
 ----------------------------------------------------- */
