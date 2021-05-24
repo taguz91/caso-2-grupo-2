@@ -1,13 +1,12 @@
-import { Injectable, Optional } from '@angular/core';
+import { Injectable } from '@angular/core';
 import jsPDF from 'jspdf';
-import html2canvas from 'html2canvas';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ReporteService {
 
-  constructor() { }
+  constructor() {}
 
   reporte(data : string) {
     const DATA: any = document.getElementById(data);
@@ -32,5 +31,4 @@ export class ReporteService {
       docResult.save(`${new Date().toISOString()}_TDS.pdf`);
     });
   }
-
 }
