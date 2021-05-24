@@ -11,6 +11,7 @@ import com.tecazuay.example.restapi.Types;
 import com.tecazuay.example.restapi.api.exception.ResourceNotFoundException;
 import com.tecazuay.example.restapi.api.params.CatalogoParam;
 import com.tecazuay.example.restapi.definitions.CatalogoResponse;
+import com.tecazuay.example.restapi.definitions.MessageResponse;
 import com.tecazuay.example.restapi.definitions.PageResponse;
 import com.tecazuay.example.restapi.models.Catalogo;
 import com.tecazuay.example.restapi.models.Criticidad;
@@ -85,12 +86,17 @@ public class CatalogoController {
 		Catalogo catalogo = catalogoRepository.findById(catalogo_id)
 				.orElseThrow(() -> new ResourceNotFoundException("No se encontro el catalogo"));
 
-		return ResponseEntity.status(HttpStatus.OK).body(catalogo);
+		return ResponseEntity.status(HttpStatus.OK).body(mapFromParam(catalogoParam, catalogo));
 	}
 
 	@DeleteMapping("/catalogo/{id}")
-	public void deleteCatalago(@PathVariable("id") Long catalogo_id) {
-		catalogoRepository.deleteById(catalogo_id);
+	public ResponseEntity<MessageResponse> deleteCatalago(@PathVariable("id") Long catalogo_id) {
+		int catalogo = catalogoRepository.softDeleteById(catalogo_id);
+		if (catalogo == 0) {
+			throw new ResourceNotFoundException("No pudimos eliminar el catalogo.");
+		}
+
+		return ResponseEntity.status(HttpStatus.ACCEPTED).body(new MessageResponse("Borramos " + catalogo));
 	}
 
 	private Catalogo mapFromParam(CatalogoParam catalogoParam, Catalogo catalogo) {
