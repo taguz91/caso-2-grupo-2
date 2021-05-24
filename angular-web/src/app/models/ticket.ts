@@ -72,3 +72,9 @@ export interface TicketCount {
   nombre: string;
   total: number;
 }
+
+export interface TicketCountEstado {
+  day: number;
+  total: number;
+  estado_id: number;
+}

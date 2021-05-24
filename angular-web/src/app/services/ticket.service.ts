@@ -10,6 +10,7 @@ import {
   TicketHome,
   TicketView,
   RechazarForm,
+  TicketCountEstado,
 } from '../models/ticket';
 import {
   DEFAULT_PAGE_SIZE,
@@ -116,5 +117,12 @@ export class TicketService {
     return this.http
       .get<TicketView>(`${URL_BASE_V1}ticket/${ticketId}`, loadHeader())
       .pipe(catchError(handleError<TicketView>(null)));
+  }
+
+  countByEstado(): Observable<TicketCountEstado[]> {
+    return this.http.get<TicketCountEstado[]>(
+      `${URL_BASE_V1}ticket/estado/count`,
+      loadHeader()
+    );
   }
 }
