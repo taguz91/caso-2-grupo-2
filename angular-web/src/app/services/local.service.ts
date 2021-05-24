@@ -8,6 +8,7 @@ export class LocalService {
 
   constructor() { }
 
+  $emitter_create_user = new EventEmitter();
   $emitter_update_user = new EventEmitter();
   $emitter_list_user = new EventEmitter();
 
@@ -16,6 +17,10 @@ export class LocalService {
     script.src = `./assets/js/${file}`;
     let body = document.getElementsByTagName('body')[0];
     body.appendChild(script);
+  }
+  
+  emmiterCreateUser(idRol: number) {
+    this.$emitter_create_user.emit(idRol);
   }
 
   emmiterUpdateUser(user: Usuario) {

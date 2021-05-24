@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Usuario } from '../../../models/usuario';
 import { UsuarioService } from '../../../services/usuario.service';
 import { Subject } from 'rxjs';
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { LocalService } from '../../../services/local.service';
 
 @Component({
@@ -15,7 +15,7 @@ export class AdminListComponent implements OnDestroy, OnInit {
   dtOptions: DataTables.Settings = {};
   administradores: Usuario[] = []  
   dtTrigger: Subject<any> = new Subject<any>();
-  rolId: number = 0;
+  rolId: number = 0; //Lista todos las ususarios con este ID
 
   constructor(
     private usuarioService: UsuarioService,
@@ -51,7 +51,9 @@ export class AdminListComponent implements OnDestroy, OnInit {
   }
 
   register() {
-    this.router.navigate(['admin/admin-register'])
+    this.router.navigate(['admin/admin-register']).finally(() => {
+      this.localService.emmiterCreateUser(this.rolId);
+    });
   }
 
   update(usuario: Usuario) {

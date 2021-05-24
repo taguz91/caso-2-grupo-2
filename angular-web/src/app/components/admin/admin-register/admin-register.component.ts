@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationStart, Router } from '@angular/router';
 import { Usuario } from 'src/app/models/usuario';
 import { LocalService } from 'src/app/services/local.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
@@ -20,6 +20,7 @@ export class AdminRegisterComponent implements OnInit {
   response_condicion: boolean;
   response_msg: string;
   roles: Rol[] = []
+  rolId: number;
 
   constructor (
       private localService:LocalService,
@@ -27,12 +28,30 @@ export class AdminRegisterComponent implements OnInit {
       private rolService: RolService,
       private router: Router) {
 
+    this.router.events.forEach(event => {
+      if (event instanceof NavigationStart) {
+        console.log(event);
+      }
+    });
+
     this.localService.load_js('registro-usuario.component.js');
+
     this.localService.$emitter_update_user.subscribe(data => {
       this.usuario = data;
       this.action = 'update';
       this.localService.load_js('registro-usuario.component.js');
-      console.log(this.usuario)
+    });
+
+    this.localService.$emitter_create_user.subscribe(id => {
+
+      this.rolId = id;
+
+      this.rolService.readRolById(id).subscribe(rol => {
+        console.log(id)
+        if (rol != null) {
+          this.usuario.rol = rol;
+        }
+      });
     });
   }
 
@@ -56,52 +75,55 @@ export class AdminRegisterComponent implements OnInit {
       this.response_msg = null;
 
       if (this.action == 'create') {
-
-        
-        this.usuarioService.createUser(this.usuario, 3).subscribe(data => {
-          
-          try {
-            var user: Usuario;
-            user = data;
-            
-            if (user != null && this.usuario.correo == user.correo) {
-              
-              this.usuario = new Usuario();
-              this.confirmar_pass = null;
-              sessionStorage.setItem(JWT_NAME, user.token);
-              this.router.navigate(['user/home'])
-            }
-            
-          } catch (error) {
-            this.show_response('Error Desconocido');
-          }
-        });
+        this.create();
       } else if (this.action == 'update') {
-
-        this.usuarioService.updateUser(this.usuario).subscribe(data => {
-          
-          try {
-            var user: Usuario;
-            user = data;
-            
-            if (user != null && this.usuario.correo == user.correo) {
-              
-              this.usuario = new Usuario();
-              this.confirmar_pass = null;
-              sessionStorage.setItem(JWT_NAME, user.token);
-              this.router.navigate(['user/home'])
-            }
-            
-          } catch (error) {
-            this.show_response('Error Desconocido');
-          }
-        });
+        this.update();
       }
     }
   }
 
+  create() {
+    this.usuarioService.createUser(this.usuario, 3).subscribe(data => {
+          
+      try {
+        var user: Usuario;
+        user = data;
+        
+        if (user != null && this.usuario.correo == user.correo) {
+          
+          this.usuario = new Usuario();
+          this.confirmar_pass = null;
+          sessionStorage.setItem(JWT_NAME, user.token);
+          this.router.navigate([`admin/list/${this.usuario.rol.rolId}`])
+        }        
+      } catch (error) {
+        this.show_response('Error Desconocido');
+      }
+    });
+  }
+
+  update() {
+    this.usuarioService.updateUser(this.usuario).subscribe(data => {
+          
+      try {
+        var user: Usuario;
+        user = data;
+        
+        if (user != null && this.usuario.correo == user.correo) {
+          
+          this.usuario = new Usuario();
+          this.confirmar_pass = null;
+          sessionStorage.setItem(JWT_NAME, user.token);
+          this.router.navigate([`admin/list/${this.usuario.rol.rolId}`])
+        }        
+      } catch (error) {
+        this.show_response('Error Desconocido');
+      }
+    });
+  }
+
   back() {
-    this.router.navigate(['admin/admin-list', this.usuario.rol.rolId])
+    this.router.navigate([]);
   }
 
   //Validaciones
@@ -111,19 +133,15 @@ export class AdminRegisterComponent implements OnInit {
     if (!this.validar_correo(user.correo)) {
       return false;
     }
-
     if (!this.validar_nombres([user.apellidos, user.nombres])) {
       return false;
     }
-
     if (!this.validar_telefono(user.telefono)) {
       return false;
     }
-
     if (!this.validar_password(user.password)) {
       return false;
-    }
-     
+    }     
     return true;
   }
 
