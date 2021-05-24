@@ -123,9 +123,9 @@ public class CatalogoController {
 
 		Catalogo newCatalogo = catalogoRepository.save(catalogo);
 		sla.setCatalogo(newCatalogo);
-		slaRepository.save(sla);
-
-		return catalogoRepository.findById(newCatalogo.getCatalogo_id()).get();
+		SLA newSla = slaRepository.save(sla);
+		newCatalogo.setSla(newSla);
+		return newCatalogo;
 	}
 
 	@GetMapping(value = "/tipo/{idTipo}")

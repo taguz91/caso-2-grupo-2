@@ -4,6 +4,7 @@ import { NgbModalWindow } from '@ng-bootstrap/ng-bootstrap/modal/modal-window';
 import { CriticidadCombo } from 'src/app/models/criticidad';
 import { Parametro } from 'src/app/models/Parametros';
 import { ServicioCombo } from 'src/app/models/servicio';
+import { AlertService } from 'src/app/services/alert.service';
 import { CatalogoService } from 'src/app/services/catalogo.service';
 import { CriticidadService } from 'src/app/services/criticidad.service';
 import { ParametrosService } from 'src/app/services/parametros.service';
@@ -58,7 +59,8 @@ export class FormCatalogoComponent implements OnInit {
     private parametrosService: ParametrosService,
     private criticidadService: CriticidadService,
     private servicioService: ServicioService,
-    private catalogoService: CatalogoService
+    private catalogoService: CatalogoService,
+    private alertService: AlertService
   ) {}
 
   ngOnInit(): void {
@@ -89,8 +91,12 @@ export class FormCatalogoComponent implements OnInit {
     if (!this.catalogoForm.valid) return;
     this.loading = true;
     this.catalogoService.save(this.catalogoForm.value).subscribe((res) => {
-      // this.modal.dismiss('Closed');
-      // this.catalogoForm.reset();
+      if (res.catalogo_id) {
+        this.alertService.success(
+          `Guardamos correctamente el catalogo: ${res.catalogo_id}`
+        );
+        this.modal.dismiss('Closed');
+      }
     });
   }
 

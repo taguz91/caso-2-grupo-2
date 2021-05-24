@@ -1,4 +1,5 @@
 import { Adjunto } from './adjunto';
+import { ParametroModel } from './Parametros';
 import { Usuario } from './usuario';
 
 export interface TicketForm {
@@ -63,15 +64,6 @@ export interface TicketView {
   catalogo: Catalogo;
   mediosComunicacion: any[];
   usuario: Usuario;
-}
-
-interface ParametroModel {
-  createdAt: Date;
-  updatedAt: Date;
-  parametros_id: number;
-  type: number;
-  nombre: string;
-  descripcion: string;
 }
 
 export interface TicketCount {
