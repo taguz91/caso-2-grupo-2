@@ -22,12 +22,8 @@ export class AdminListComponent implements OnDestroy, OnInit {
     private usuarioService: UsuarioService,
     private router: Router,
     private localService:LocalService,
-<<<<<<< Updated upstream
-    private activatedRoute: ActivatedRoute) {}
-=======
     private activatedRoute: ActivatedRoute,
     private _reporte: ReporteService) { }
->>>>>>> Stashed changes
 
   ngOnInit(): void {
 
