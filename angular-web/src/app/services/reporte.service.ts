@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,7 @@ export class ReporteService {
   constructor() {}
 
   reporte(data : string) {
-    const DATA: any = document.getElementById(data);
+    const DATA = document.getElementById(data);
     const doc = new jsPDF('p', 'pt', 'a4');
     const options = {
       background: 'white',
