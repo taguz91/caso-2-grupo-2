@@ -117,6 +117,9 @@ public class CatalogoController {
 		sla.setCriticidad(criticidad);
 		sla.setImpacto(impacto);
 		sla.setNivelPrioridad(nivelPrioridad);
+		sla.setReglasEscalada(catalogoParam.getReglasEscalada());
+		sla.setTiempoResolucion(catalogoParam.getTimpoSolucion());
+		sla.setTiempoRespuesta(catalogoParam.getTiempoRespuesta());
 
 		Catalogo newCatalogo = catalogoRepository.save(catalogo);
 		sla.setCatalogo(newCatalogo);
