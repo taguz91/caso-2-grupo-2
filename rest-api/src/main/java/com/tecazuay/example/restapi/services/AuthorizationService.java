@@ -81,4 +81,18 @@ public class AuthorizationService {
 		return auth;
 	}
 
+	public static boolean onlySoporteOrDev(Usuario user) {
+		boolean auth = false;
+		if (user != null) {
+			auth = user.getRol().getRolId() == Types.ROL_SOPORTE_N1 || user.getRol().getRolId() == Types.ROL_SOPORTE_N2
+					|| user.getRol().getRolId() == Types.ROL_DEVELOPER;
+		}
+
+		if (!auth) {
+			throw new NoAuthorizationException(
+					"Debes ser un soporte o desarrollador para tener acceso a este recurso.");
+		}
+		return auth;
+	}
+
 }

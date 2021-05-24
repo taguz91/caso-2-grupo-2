@@ -2,7 +2,6 @@ package com.tecazuay.example.restapi;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -37,7 +36,6 @@ public class JacksonCustomizations {
 		 * 
 		 */
 		private static final long serialVersionUID = 409366482783302124L;
-		static DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
 
 		protected LocalDateTimeSerializer() {
 			super(LocalDateTime.class);
@@ -48,7 +46,7 @@ public class JacksonCustomizations {
 			if (value == null) {
 				gen.writeNull();
 			} else {
-				gen.writeString(value.format(formatter));
+				gen.writeString(value.format(Types.DATE_FORMAT));
 			}
 
 		}

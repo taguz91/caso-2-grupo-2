@@ -1,0 +1,41 @@
+<div class="container">
+
+  <h2>Tickets Asignados</h2>
+
+  <div class="row mt-2">
+
+    <div *ngFor="let ticket of tickets" class="col-12 col-md-6 col-lg-4 ctn_ticket">
+
+      <a routerLink="/dashboard/ticket/{{ticket.ticket_id}}">
+
+        <div class="border border-2 mx-2 p-3 my-2 info_ticket">
+
+          <p>
+            {{ticket.titulo}}
+          </p>
+
+          <p class="text-end mb-0">
+            <b>{{ticket.estado}}</b>
+          </p>
+
+          <small class="text-secondary">{{ticket.created_at}}</small>
+
+        </div>
+
+      </a>
+
+    </div>
+
+  </div>
+
+  <div class="row" *ngIf="!isLastPage">
+    <div class="col-2 mx-auto text-center">
+      <button class="btn btn-icon" [disabled]="loading" (click)="loadMore()">
+        <span class="material-icons-round" [class.spinner]="loading">
+          autorenew
+        </span>
+      </button>
+    </div>
+  </div>
+
+</div>

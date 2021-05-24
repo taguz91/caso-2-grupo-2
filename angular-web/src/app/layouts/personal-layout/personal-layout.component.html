@@ -1,0 +1,38 @@
+<div id="personal_wrapper">
+
+  <div class="content">
+
+    <!-- TOP NAV TO CLOSE SESSION -->
+    <nav class="personal_topnav">
+
+      <a class="home_button" routerLink="{{ homeUrl }}" placement="bottom" ngbTooltip="Inicio">
+        <span class="material-icons-round">
+          home
+        </span>
+      </a>
+
+      <div *ngIf="user" class="user_info">
+        <p>{{ user.nombres + ' ' + user.apellidos }}</p>
+        <small class="text-secondary">{{ user.rol }}</small>
+      </div>
+
+      <button class="btn close_btn" (click)="logout()" placement="bottom" ngbTooltip="Salir">
+        <span class="material-icons-round text-danger">
+          chevron_right
+        </span>
+      </button>
+
+    </nav>
+
+    <!-- Alerts -->
+    <app-user-alert></app-user-alert>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-content">
+      <router-outlet></router-outlet>
+    </div>
+
+    <app-footer></app-footer>
+
+  </div>
+</div>

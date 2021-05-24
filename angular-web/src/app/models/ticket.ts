@@ -8,6 +8,22 @@ export interface TicketForm {
   descripcion: string;
 }
 
+export interface AsignarForm {
+  ticketId: number;
+  soporteId: number;
+}
+
+export interface CerrarForm {
+  ticketId: number;
+  solucion: string;
+  estado: number;
+}
+
+export interface RechazarForm {
+  ticketId: number;
+  motivo: string;
+}
+
 export interface TicketHome {
   ticket_id: number;
   titulo: string;
@@ -42,7 +58,7 @@ export interface TicketView {
   listaHistorial: any[];
   encuesta?: any;
   adjuntos: Adjunto[];
-  responsable?: any;
+  responsable?: Usuario;
   responsableSolucion?: any;
   catalogo: Catalogo;
   mediosComunicacion: any[];

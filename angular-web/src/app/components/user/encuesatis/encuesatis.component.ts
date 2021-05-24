@@ -6,12 +6,14 @@ import { CriticidadService } from 'src/app/services/criticidad.service';
 import { EncuesatisService } from 'src/app/services/encuesatis.service';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
+import { ReporteService } from 'src/app/services/reporte.service';
 @Component({
   selector: 'app-encuesatis',
   templateUrl: './encuesatis.component.html',
   styleUrls: ['./encuesatis.component.scss'],
 })
 export class EncuesatisComponent implements OnInit {
+  public idReporte: string;
   public contador: number;
   public ticketId: number = 0;
   public encuestaCreate: Encuesta = new Encuesta(0, '', 0);
@@ -20,7 +22,8 @@ export class EncuesatisComponent implements OnInit {
     public encuestaservice: EncuesatisService,
     private activeRoute: ActivatedRoute,
     private _router: Router,
-    private criticidadService: CriticidadService
+    private criticidadService: CriticidadService,
+    private _reporte: ReporteService
   ) {}
 
   ngOnInit(): void {
@@ -84,6 +87,7 @@ export class EncuesatisComponent implements OnInit {
 
   downloadPDF() {
     // Extraemos el
+<<<<<<< HEAD
     const DATA: any = document.getElementById('tablaCriti');
     const doc = new jsPDF('l', 'mm', 'a4');
     const options = {
@@ -105,5 +109,9 @@ export class EncuesatisComponent implements OnInit {
     }).then((docResult) => {
       docResult.save(`${new Date().toISOString()}_TDS.pdf`);
     });
+=======
+    this.idReporte="tablaCriti";
+    this._reporte.reporte(this.idReporte);
+>>>>>>> 512c9f1d93bebab6b3003c3a17d1227981516113
   }
 }

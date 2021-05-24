@@ -23,6 +23,7 @@ import com.tecazuay.example.restapi.api.exception.ResourceNotFoundException;
 import com.tecazuay.example.restapi.api.params.AdjuntoParam;
 import com.tecazuay.example.restapi.api.params.AsignarTicketParam;
 import com.tecazuay.example.restapi.api.params.CerrarTicketParam;
+import com.tecazuay.example.restapi.api.params.RechazarTicketParam;
 import com.tecazuay.example.restapi.api.params.RegisterTicketParam;
 import com.tecazuay.example.restapi.definitions.PageResponse;
 import com.tecazuay.example.restapi.definitions.TicketsList;
@@ -99,8 +100,20 @@ public class TicketController {
 		AuthorizationService.canReadTicketsByEstado(user);
 
 		Pageable pageable = PageRequest.of(page, size);
-		Page<TicketsList> ticketsPage = ticketRepository.findAllByEstadoHome(user.getPersonaId(), pageable.getOffset(),
+		Page<TicketsList> ticketsPage = ticketRepository.findAllByEstadoHome(estado, pageable.getOffset(),
 				pageable.getPageSize(), pageable);
+		return ResponseEntity.status(HttpStatus.ACCEPTED).body(new PageResponse(ticketsPage));
+	}
+
+	@GetMapping("/soporte")
+	public ResponseEntity<?> ticksSoporteHome(@AuthenticationPrincipal Usuario user,
+			@RequestParam(value = "page", defaultValue = "0") int page,
+			@RequestParam(value = "size", defaultValue = "20") int size) {
+		AuthorizationService.onlySoporteOrDev(user);
+
+		Pageable pageable = PageRequest.of(page, size);
+		Page<TicketsList> ticketsPage = ticketRepository.findAllByResponsableHome(user.getPersonaId(),
+				pageable.getOffset(), pageable.getPageSize(), pageable);
 		return ResponseEntity.status(HttpStatus.ACCEPTED).body(new PageResponse(ticketsPage));
 	}
 
@@ -114,13 +127,22 @@ public class TicketController {
 	@PostMapping(value = "/asignar")
 	public ResponseEntity<Ticket> asignar(@Valid @RequestBody AsignarTicketParam asignar,
 			@AuthenticationPrincipal Usuario user) {
+		AuthorizationService.onlyCoordinadorOrDev(user);
 		return ResponseEntity.status(HttpStatus.OK).body(ticketService.asignarTicket(asignar, user));
 	}
 
 	@PostMapping(value = "/cerrar")
 	public ResponseEntity<Ticket> cerrar(@Valid @RequestBody CerrarTicketParam cerrar,
 			@AuthenticationPrincipal Usuario user) {
+		AuthorizationService.onlySoporteOrDev(user);
 		return ResponseEntity.status(HttpStatus.OK).body(ticketService.cerrarTicket(cerrar, user));
+	}
+
+	@PostMapping(value = "/rechazar")
+	public ResponseEntity<Ticket> rechazar(@Valid @RequestBody RechazarTicketParam rechazo,
+			@AuthenticationPrincipal Usuario user) {
+		AuthorizationService.onlyCoordinadorOrDev(user);
+		return ResponseEntity.status(HttpStatus.OK).body(ticketService.rechazarTicker(rechazo, user));
 	}
 
 }

@@ -6,7 +6,6 @@ import javax.validation.Valid;
 
 import com.tecazuay.example.restapi.api.exception.ResourceNotFoundException;
 import com.tecazuay.example.restapi.api.params.ServicioParam;
-import com.tecazuay.example.restapi.definitions.CategoriaResponse;
 import com.tecazuay.example.restapi.definitions.PageResponse;
 import com.tecazuay.example.restapi.definitions.ServicioResponse;
 import com.tecazuay.example.restapi.models.Categoria;
@@ -60,12 +59,21 @@ public class ServicioController {
 				() -> new ResourceNotFoundException("No se encontro el servicio con el id: " + servicio_id));
 	}
 
+<<<<<<< HEAD
 	// @GetMapping("/categoria/{id}")
 	// public List<ServicioResponse> getAllByCategoriaId(@PathVariable("id") Long categoria_id) {
 	// 	CategoriaResponse categoria = categoriaRepository.findByCategoriaId(categoria_id)
 	// 			.orElseThrow(() -> new ResourceNotFoundException("Esta categoria no esta registrada"));
 	// 	return servicioRepository.findAllByCategoriaId(categoria.getCategoria_id());
 	// }
+=======
+	@GetMapping("/categoria/{id}")
+	public List<ServicioResponse> getAllByCategoriaId(@PathVariable("id") Long categoria_id) {
+		Categoria categoria = categoriaRepository.findByCategoriaId(categoria_id)
+				.orElseThrow(() -> new ResourceNotFoundException("Esta categoria no esta registrada"));
+		return servicioRepository.findAllByCategoriaId(categoria.getCategoria_id());
+	}
+>>>>>>> 512c9f1d93bebab6b3003c3a17d1227981516113
 
 	@PostMapping("/")
 	public Servicio saveServicio(@RequestBody @Valid ServicioParam servicioParam) {

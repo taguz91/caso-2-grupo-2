@@ -69,6 +69,9 @@
   .content {
     width: calc(100% - 250px);
     @include commonContentLayout();
+    .admin_topnav {
+      @include commonNav();
+    }
     .close_btn {
       display: block;
       margin-left: auto;

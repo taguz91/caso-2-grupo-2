@@ -45,6 +45,9 @@ public class Ticket extends Globals implements Serializable {
 
 	@Column(name = "fecha_solucion", nullable = true)
 	private LocalDateTime fechaSolucion;
+	
+	@Column(name = "fecha_asignacion", nullable = true)
+	private LocalDateTime fechaAsignacion;
 
 	@JsonManagedReference(value = "rf_estado_parametro")
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -214,6 +217,14 @@ public class Ticket extends Globals implements Serializable {
 
 	public void setMediosComunicacion(List<MedioComunicacion> mediosComunicacion) {
 		this.mediosComunicacion = mediosComunicacion;
+	}
+
+	public LocalDateTime getFechaAsignacion() {
+		return fechaAsignacion;
+	}
+
+	public void setFechaAsignacion(LocalDateTime fechaAsignacion) {
+		this.fechaAsignacion = fechaAsignacion;
 	}
 
 }

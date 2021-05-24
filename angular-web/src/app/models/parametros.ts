@@ -20,3 +20,9 @@ export interface PageMetadata {
   pages: number;
 }
 
+export interface FloatingOption {
+  icon: string;
+  tooltip: string;
+  callback: any;
+  color?: string;
+}

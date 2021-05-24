@@ -17,6 +17,9 @@ import { UserLayoutComponent } from './layouts/user-layout/user-layout.component
 import { RegisterComponent } from './components/register/register.component';
 import { ServicioRegisterComponent } from './components/admin/servicio-register/servicio-register.component';
 import { AdminListComponent } from './components/admin/admin-list/admin-list.component';
+import { SoporteDashboardComponent } from './components/personal/soporte-dashboard/soporte-dashboard.component';
+import { CoordinadorDashboardComponent } from './components/personal/coordinador-dashboard/coordinador-dashboard.component';
+import { PersonalLayoutComponent } from './layouts/personal-layout/personal-layout.component';
 
 const routes: Routes = [
   // Public rutes goes here
@@ -26,7 +29,7 @@ const routes: Routes = [
     children: [
       { path: '', component: LoginComponent, pathMatch: 'full' },
       {
-        path: 'user-register',
+        path: 'registrarse',
         component: RegisterComponent,
         pathMatch: 'full',
       },
@@ -80,24 +83,53 @@ const routes: Routes = [
     component: AdminLayoutComponent,
     children: [
       {
-        path: '',
+        path: 'home',
         component: AdminDashboardComponent,
       },
       {
         path: 'categorias',
+<<<<<<< HEAD
         component: CategoriaRegisterComponent
+=======
+        component: CategoriaRegisterComponent,
+>>>>>>> 512c9f1d93bebab6b3003c3a17d1227981516113
       },
       {
         path: 'tickets/estado/:idEstado',
-        component: TicketsEstadoComponent
+        component: TicketsEstadoComponent,
       },
       {
         path: 'servicios',
-        component: ServicioRegisterComponent
+        component: ServicioRegisterComponent,
       },
       {
+        path: 'administradores',
+        component: AdminListComponent,
+      },
+    ],
+  },
+
+  // Layout for soporte and coordinador
+  {
+    path: 'dashboard',
+    component: PersonalLayoutComponent,
+    children: [
+      {
+        path: 'soporte',
+        component: SoporteDashboardComponent,
+      },
+      {
+<<<<<<< HEAD
         path: 'admin-list',
         component: AdminListComponent
+=======
+        path: 'coordinador',
+        component: CoordinadorDashboardComponent,
+      },
+      {
+        path: 'ticket/:idTicket',
+        component: UserTicketComponent,
+>>>>>>> 512c9f1d93bebab6b3003c3a17d1227981516113
       },
     ],
   },

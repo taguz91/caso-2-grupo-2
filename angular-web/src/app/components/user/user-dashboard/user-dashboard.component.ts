@@ -1,7 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { PageMetadata } from 'src/app/models/Parametros';
 import { TicketHome } from 'src/app/models/ticket';
-import { AlertService } from 'src/app/services/alert.service';
 import { TicketService } from 'src/app/services/ticket.service';
 import { DEFAULT_PAGE_METADA } from 'src/app/utils/constantes';
 

@@ -3,7 +3,7 @@
 
   <p *ngIf="!ticket">Loading ticket</p>
 
-  <div *ngIf="ticket" class="ticket_view">
+  <div *ngIf="ticket" class="ticket_view" id="ticket">
 
     <p>Ticket tipo: {{ ticket.catalogo.tipoServicio.nombre }}</p>
 
@@ -38,10 +38,25 @@
         <button class="btn btn-primary text-white" (click)="triggerModal(modalData)">Ver adjuntos</button>
       </div>
 
+      <div *ngIf="showUser && ticket.usuario" class="col-12 p-3 indicacion asignado">
+        <p class="solucion_title">Usuario:</p>
+        <p class="mb-0">{{ ticket.usuario.nombreCompleto }}</p>
+        <p class="mb-0">Correo: {{ ticket.usuario.correo }}</p>
+        <p class="mb-0">Celular: {{ ticket.usuario.telefono }}</p>
+      </div>
 
-      <div *ngIf="ticket.solucion" class="col-12 p-3 solucion_{{ ticket.estado.parametros_id }}">
-        <p class="solucion_title">Solución:</p>
+      <div *ngIf="ticket.responsable" class="col-12 p-3 indicacion asignado">
+        <p class="solucion_title">Asignado:</p>
+        <p class="mb-0"> {{ ticket.responsable.nombreCompleto }} el {{ ticket.fechaAsignacion }} con un tiempo de
+          solución estimado de 10 horas TODO CAMBIAR. </p>
+      </div>
+
+      <div *ngIf="ticket.solucion" class="col-12 p-3 indicacion solucion_{{ ticket.estado.parametros_id }}">
+        <p class="solucion_title">{{ titleSolucion }} </p>
         <p class="mb-0"> {{ ticket.solucion }} </p>
+        <p *ngIf="ticket.responsableSolucion" class="mb-0"> Por <b>{{ ticket.responsableSolucion.nombreCompleto }}</b>
+          el {{
+          ticket.fechaSolucion }}.</p>
       </div>
 
     </div>
@@ -75,21 +90,28 @@
 
     </div>
 
+    <button class="btn col col-lg-4 btn-danger btn-block ml-4 mt-4" (click)="downloadPDF()">Download PDF</button>
+
     <app-floating-button [show]="isClosed" [url]="urlEncuesta" [icon]="'text_snippet'" [tooltip]="'Ingresar encuesta'">
     </app-floating-button>
 
     <app-floating-button [show]="isOpen" [url]="urlEdit" [icon]="'edit'" [tooltip]="'Editar ticket'">
     </app-floating-button>
 
+    <!-- Options for coordinador -->
+
+    <app-list-floating-button [buttons]="floatingButtons"></app-list-floating-button>
+
   </div>
 
 </div>
 
+<!-- Modal adjuntos -->
 
 <ng-template #modalData let-modal>
 
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Adjuntos</h4>
+    <h4 class="modal-title">Adjuntos</h4>
     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
       (click)="modal.dismiss('Cross click')"></button>
   </div>
@@ -119,4 +141,21 @@
 
   </div>
 
+</ng-template>
+
+<!-- Form asignacion -->
+
+<ng-template #modalAsignar let-modal>
+  <app-modal-asignar [modal]="modal" [ticket]="ticket"></app-modal-asignar>
+</ng-template>
+
+<!-- Form close ticket -->
+
+<ng-template #modalCerrar let-modal>
+  <app-modal-cerrar [modal]="modal" [ticket]="ticket"></app-modal-cerrar>
+</ng-template>
+
+<!-- Form para rechazar el tikcet -->
+<ng-template #modalRechazar let-modal>
+  <app-modal-rechazar [modal]="modal" [ticket]="ticket"></app-modal-rechazar>
 </ng-template>

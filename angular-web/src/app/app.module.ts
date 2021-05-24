@@ -30,8 +30,21 @@ import { ServicioRegisterComponent } from './components/admin/servicio-register/
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AdminRegisterComponent } from './components/admin/admin-register/admin-register.component';
 import { AdminListComponent } from './components/admin/admin-list/admin-list.component';
+<<<<<<< HEAD
 import { DataTablesModule } from "angular-datatables";
 import { NgxEchartsModule } from 'ngx-echarts';
+=======
+import { DataTablesModule } from 'angular-datatables';
+import { NgxEchartsModule } from 'ngx-echarts';
+import { SoporteDashboardComponent } from './components/personal/soporte-dashboard/soporte-dashboard.component';
+import { CoordinadorDashboardComponent } from './components/personal/coordinador-dashboard/coordinador-dashboard.component';
+import { PersonalLayoutComponent } from './layouts/personal-layout/personal-layout.component';
+import { FooterComponent } from './components/common/footer/footer.component';
+import { ListFloatingButtonComponent } from './components/common/list-floating-button/list-floating-button.component';
+import { ModalAsignarComponent } from './components/personal/modal-asignar/modal-asignar.component';
+import { ModalCerrarComponent } from './components/personal/modal-cerrar/modal-cerrar.component';
+import { ModalRechazarComponent } from './components/personal/modal-rechazar/modal-rechazar.component';
+>>>>>>> 512c9f1d93bebab6b3003c3a17d1227981516113
 
 @NgModule({
   declarations: [
@@ -59,6 +72,17 @@ import { NgxEchartsModule } from 'ngx-echarts';
     ServicioRegisterComponent,
     AdminRegisterComponent,
     AdminListComponent,
+<<<<<<< HEAD
+=======
+    SoporteDashboardComponent,
+    CoordinadorDashboardComponent,
+    PersonalLayoutComponent,
+    FooterComponent,
+    ListFloatingButtonComponent,
+    ModalAsignarComponent,
+    ModalCerrarComponent,
+    ModalRechazarComponent,
+>>>>>>> 512c9f1d93bebab6b3003c3a17d1227981516113
   ],
   imports: [
     BrowserModule,
@@ -69,7 +93,7 @@ import { NgxEchartsModule } from 'ngx-echarts';
     NgbModule,
     DataTablesModule,
     NgxEchartsModule.forRoot({
-      echarts: () => import('echarts')
+      echarts: () => import('echarts'),
     }),
   ],
   providers: [CriticidadService],
