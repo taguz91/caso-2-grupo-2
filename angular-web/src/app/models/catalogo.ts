@@ -35,6 +35,7 @@ export interface CatalogoView {
   updatedBy?: any;
   catalogo_id: number;
   descripcion: string;
-  tipoServicio: Servicio;
+  tipoServicio: ParametroModel;
   sla: Sla;
+  servicio: Servicio;
 }

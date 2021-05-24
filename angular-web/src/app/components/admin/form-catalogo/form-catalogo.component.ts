@@ -17,6 +17,7 @@ import { ServicioService } from 'src/app/services/servicio.service';
 })
 export class FormCatalogoComponent implements OnInit {
   @Input() modal: NgbModalWindow;
+  @Input() idCatalogo: number = 0;
 
   loading: boolean = false;
   formTitle: string = 'Nuevo servicio | Catalogo';
@@ -65,6 +66,7 @@ export class FormCatalogoComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadCombos();
+    this.loadForm();
   }
 
   private loadCombos() {
@@ -87,17 +89,45 @@ export class FormCatalogoComponent implements OnInit {
     this.servicioService.getCombo().subscribe((res) => (this.servicios = res));
   }
 
+  private loadForm() {
+    if (this.idCatalogo === 0) return;
+    this.catalogoService.one(this.idCatalogo).subscribe((res) => {
+      this.tipo_servicio_id.setValue(res.tipoServicio.parametros_id);
+      this.descripcion.setValue(res.descripcion);
+      this.servicio_id.setValue(res.servicio.servicio_id);
+      this.impacto.setValue(res.sla.impacto.parametros_id);
+      this.criticidad.setValue(res.sla.criticidad.criticidad_id);
+      this.nivelPrioridad.setValue(res.sla.nivelPrioridad.parametros_id);
+      this.tiempoRespuesta.setValue(res.sla.tiempoRespuesta);
+      this.timpoSolucion.setValue(res.sla.tiempoResolucion);
+      this.reglasEscalada.setValue(res.sla.reglasEscalada);
+    });
+  }
+
   onSave() {
     if (!this.catalogoForm.valid) return;
     this.loading = true;
-    this.catalogoService.save(this.catalogoForm.value).subscribe((res) => {
-      if (res.catalogo_id) {
-        this.alertService.success(
-          `Guardamos correctamente el catalogo: ${res.catalogo_id}`
-        );
-        this.modal.dismiss('Closed');
-      }
-    });
+    if (this.idCatalogo === 0) {
+      this.catalogoService.save(this.catalogoForm.value).subscribe((res) => {
+        if (res.catalogo_id) {
+          this.alertService.success(
+            `Guardamos correctamente el catalogo: ${res.catalogo_id}`
+          );
+          this.modal.dismiss('Closed');
+        }
+      });
+    } else {
+      this.catalogoService
+        .update(this.idCatalogo, this.catalogoForm.value)
+        .subscribe((res) => {
+          if (res.catalogo_id) {
+            this.alertService.info(
+              `Editamos correctamente el catalogo: ${res.catalogo_id}`
+            );
+            this.modal.dismiss('Closed');
+          }
+        });
+    }
   }
 
   get tipo_servicio_id() {

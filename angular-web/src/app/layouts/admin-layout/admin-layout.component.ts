@@ -3,6 +3,7 @@ import { SectionMenu } from 'src/app/models/types';
 import { LoginUser } from 'src/app/models/usuario';
 import { SessionService } from 'src/app/services/session.service';
 import { Router } from '@angular/router';
+import { BreadcrumbService } from 'src/app/services/breadcrumb.service';
 
 @Component({
   selector: 'app-admin-layout',
@@ -109,9 +110,13 @@ export class AdminLayoutComponent implements OnInit {
     },
   ];
 
-  constructor(private sessionService: SessionService, private router: Router) {}
+  constructor(
+    private sessionService: SessionService,
+    private breadcrumbService: BreadcrumbService
+  ) {}
 
   ngOnInit(): void {
+    this.breadcrumbService.addRutes([]);
     this.sessionService.getUser().subscribe((user) => (this.user = user));
   }
 
