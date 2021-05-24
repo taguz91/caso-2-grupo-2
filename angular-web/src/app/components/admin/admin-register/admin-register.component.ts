@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { NavigationStart, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Usuario } from 'src/app/models/usuario';
 import { LocalService } from 'src/app/services/local.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
-import { JWT_NAME } from 'src/app/utils/constantes';
 import { Rol } from '../../../models/rol';
 import { RolService } from '../../../services/rol.service';
 
@@ -25,33 +24,19 @@ export class AdminRegisterComponent implements OnInit {
   constructor (
       private localService:LocalService,
       private usuarioService:UsuarioService,
-      private rolService: RolService,
-      private router: Router) {
-
-    this.router.events.forEach(event => {
-      if (event instanceof NavigationStart) {
-        console.log(event);
-      }
-    });
+      private rolService: RolService ) {
 
     this.localService.load_js('registro-usuario.component.js');
 
     this.localService.$emitter_update_user.subscribe(data => {
       this.usuario = data;
-      this.action = 'update';
+      this.rolId = this.usuario.rol.rolId
       this.localService.load_js('registro-usuario.component.js');
+      this.action = 'update';
     });
 
-    this.localService.$emitter_create_user.subscribe(id => {
-
-      this.rolId = id;
-
-      this.rolService.readRolById(id).subscribe(rol => {
-        console.log(id)
-        if (rol != null) {
-          this.usuario.rol = rol;
-        }
-      });
+    this.localService.$emitter_create_user.subscribe(rol => {
+      this.rolId = rol;
     });
   }
 
@@ -67,9 +52,13 @@ export class AdminRegisterComponent implements OnInit {
     });
   }
 
-  registrar() {
+  guardar() {
+
+    this.usuario.rol = this.getRolById(this.rolId);
 
     if (this.validarUsuario(this.usuario)) {
+
+      console.log(this.action)
       
       this.response_condicion = false;
       this.response_msg = null;
@@ -83,7 +72,9 @@ export class AdminRegisterComponent implements OnInit {
   }
 
   create() {
-    this.usuarioService.createUser(this.usuario, 3).subscribe(data => {
+    this.usuarioService.createUser(this.usuario, this.usuario.rol.rolId).subscribe(data => {
+
+      console.log(this.usuario)
           
       try {
         var user: Usuario;
@@ -91,10 +82,9 @@ export class AdminRegisterComponent implements OnInit {
         
         if (user != null && this.usuario.correo == user.correo) {
           
+          alert(`Usuario ${user.nombres} ${user.apellidos} registrado`);
           this.usuario = new Usuario();
           this.confirmar_pass = null;
-          sessionStorage.setItem(JWT_NAME, user.token);
-          this.router.navigate([`admin/list/${this.usuario.rol.rolId}`])
         }        
       } catch (error) {
         this.show_response('Error Desconocido');
@@ -110,11 +100,8 @@ export class AdminRegisterComponent implements OnInit {
         user = data;
         
         if (user != null && this.usuario.correo == user.correo) {
-          
-          this.usuario = new Usuario();
-          this.confirmar_pass = null;
-          sessionStorage.setItem(JWT_NAME, user.token);
-          this.router.navigate([`admin/list/${this.usuario.rol.rolId}`])
+          this.updateRol(this.usuario.personaId, this.usuario.rol.rolId);
+          alert(`Usuario ${user.nombres} ${user.apellidos} actualizado`);
         }        
       } catch (error) {
         this.show_response('Error Desconocido');
@@ -122,8 +109,22 @@ export class AdminRegisterComponent implements OnInit {
     });
   }
 
-  back() {
-    this.router.navigate([]);
+  updateRol(user_id: number, rol_id: number) {
+    this.usuarioService.updateUserRol(user_id, rol_id).subscribe(data => {
+      if (data != null) {
+        console.log(data)
+      } else {
+        alert('No se actualizó el rol');        
+      }
+    });
+  }
+
+  getRolById(id: number):Rol {
+    for (let r of this.roles) {
+      if (r.rolId == id) {
+        return r;
+      }
+    }
   }
 
   //Validaciones
@@ -141,7 +142,10 @@ export class AdminRegisterComponent implements OnInit {
     }
     if (!this.validar_password(user.password)) {
       return false;
-    }     
+    }
+    if (this.usuario.rol == null) {
+      return false;
+    }  
     return true;
   }
 
@@ -200,8 +204,6 @@ export class AdminRegisterComponent implements OnInit {
   }
 
   validar_telefono(telefono: string) {
-
-    console.log(telefono)
 
     if ((Boolean(telefono) && telefono.length > 0)) {
 

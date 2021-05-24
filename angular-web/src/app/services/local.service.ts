@@ -19,8 +19,8 @@ export class LocalService {
     body.appendChild(script);
   }
   
-  emmiterCreateUser(idRol: number) {
-    this.$emitter_create_user.emit(idRol);
+  emmiterCreateUser(rol: number) {
+    this.$emitter_create_user.emit(rol);
   }
 
   emmiterUpdateUser(user: Usuario) {

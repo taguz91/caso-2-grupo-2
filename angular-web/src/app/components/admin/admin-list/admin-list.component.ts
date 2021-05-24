@@ -21,7 +21,7 @@ export class AdminListComponent implements OnDestroy, OnInit {
     private usuarioService: UsuarioService,
     private router: Router,
     private localService:LocalService,
-    private activatedRoute: ActivatedRoute) { }
+    private activatedRoute: ActivatedRoute) {}
 
   ngOnInit(): void {
 
@@ -51,6 +51,7 @@ export class AdminListComponent implements OnDestroy, OnInit {
   }
 
   register() {
+    let url = this.router.url.toString()
     this.router.navigate(['admin/admin-register']).finally(() => {
       this.localService.emmiterCreateUser(this.rolId);
     });

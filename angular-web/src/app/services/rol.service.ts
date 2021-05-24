@@ -22,7 +22,7 @@ export class RolService {
     );
   }
 
-  readRolById(id: string): Observable<Rol> {
+  readRolById(id: number): Observable<Rol> {
     return this.http.get<Rol>(`${this.BASE_URL}id/${id}`, loadHeader())
     .pipe(
       tap((_) => console.log('Loading rol data')),
