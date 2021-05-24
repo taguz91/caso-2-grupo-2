@@ -87,6 +87,19 @@ export class TicketService {
       .pipe(catchError(handleError<PageResponse<TicketHome[]>>(null)));
   }
 
+  allByEstado(
+    estado: number,
+    page: number,
+    size: number = DEFAULT_PAGE_SIZE
+  ): Observable<PageResponse<TicketView[]>> {
+    return this.http
+      .get<PageResponse<TicketView[]>>(
+        `${URL_BASE_V1}ticket/all/estado/${estado}?page=${page}&size=${size}`,
+        loadHeader()
+      )
+      .pipe(catchError(handleError<PageResponse<TicketView[]>>(null)));
+  }
+
   listBySoporte(
     page: number,
     size: number = DEFAULT_PAGE_SIZE

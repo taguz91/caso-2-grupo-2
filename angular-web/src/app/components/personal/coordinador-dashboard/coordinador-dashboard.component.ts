@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PageMetadata } from 'src/app/models/categoria';
+import { PageMetadata } from 'src/app/models/Parametros';
 import { TicketHome } from 'src/app/models/ticket';
 import { TicketService } from 'src/app/services/ticket.service';
 import {

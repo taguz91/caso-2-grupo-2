@@ -27,6 +27,7 @@ export interface PageMetadata {
   current: number;
   items: number;
   pages: number;
+  perPage: number;
 }
 
 export interface FloatingOption {

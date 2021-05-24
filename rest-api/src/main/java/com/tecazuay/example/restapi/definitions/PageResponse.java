@@ -11,7 +11,7 @@ public class PageResponse {
 
 	public PageResponse(Page<?> page) {
 		this.data = page.getContent();
-		this.meta = new PageMetada(page.getNumber(), page.getTotalElements(), page.getTotalPages());
+		this.meta = new PageMetada(page.getNumber(), page.getTotalElements(), page.getTotalPages(), page.getSize());
 	}
 
 	public List<?> getData() {

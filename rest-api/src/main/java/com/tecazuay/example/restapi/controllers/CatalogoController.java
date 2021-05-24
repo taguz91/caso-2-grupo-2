@@ -23,6 +23,7 @@ import com.tecazuay.example.restapi.repositories.CriticidadRepository;
 import com.tecazuay.example.restapi.repositories.ParametrosRepository;
 import com.tecazuay.example.restapi.repositories.SLARepository;
 import com.tecazuay.example.restapi.repositories.ServicioRepository;
+import com.tecazuay.example.restapi.repositories.TicketRepository;
 import com.tecazuay.example.restapi.services.AuthorizationService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,6 +55,9 @@ public class CatalogoController {
 
 	@Autowired
 	CriticidadRepository criticidadRepository;
+
+	@Autowired
+	private TicketRepository ticketRepository;
 
 	@Autowired
 	SLARepository slaRepository;
@@ -91,6 +95,12 @@ public class CatalogoController {
 
 	@DeleteMapping("/catalogo/{id}")
 	public ResponseEntity<MessageResponse> deleteCatalago(@PathVariable("id") Long catalogo_id) {
+		long total = ticketRepository.countByIdCatalogo(catalogo_id);
+		if (total > 0) {
+			throw new ResourceNotFoundException(
+					"No puedes eliminar este catalogo, porque existe un de " + total + " tickets  ingresados");
+		}
+
 		int catalogo = catalogoRepository.softDeleteById(catalogo_id);
 		if (catalogo == 0) {
 			throw new ResourceNotFoundException("No pudimos eliminar el catalogo.");
