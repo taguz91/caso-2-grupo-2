@@ -17,6 +17,7 @@ import { UserLayoutComponent } from './layouts/user-layout/user-layout.component
 import { RegisterComponent } from './components/register/register.component';
 import { ServicioRegisterComponent } from './components/admin/servicio-register/servicio-register.component';
 import { AdminListComponent } from './components/admin/admin-list/admin-list.component';
+import { AdminRegisterComponent } from './components/admin/admin-register/admin-register.component';
 
 const routes: Routes = [
   // Public rutes goes here
@@ -96,8 +97,13 @@ const routes: Routes = [
         component: ServicioRegisterComponent
       },
       {
-        path: 'admin-list',
+        path: 'admin-list/rol/:id',
         component: AdminListComponent
+      },
+      {
+        path: 'admin-register',
+        component: AdminRegisterComponent,
+        pathMatch: 'full'
       }
     ],
   },

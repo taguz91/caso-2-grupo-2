@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SectionMenu } from 'src/app/models/types';
 import { SessionService } from 'src/app/services/session.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin-layout',
@@ -60,17 +61,17 @@ export class AdminLayoutComponent implements OnInit {
         {
           label: 'Usuarios',
           icon: 'manage_accounts',
-          urlTo: '/admin/usuarios/tipo/1',
+          urlTo: 'admin-list/rol/3',
         },
         {
           label: 'Coordinadores',
           icon: 'manage_accounts',
-          urlTo: 'admin-list',
+          urlTo: 'admin-list/rol/4',
         },
         {
           label: 'Soporte',
           icon: 'manage_accounts',
-          urlTo: '/admin/usuarios/tipo/3',
+          urlTo: 'admin-list/rol/5',
         },
       ],
     },
@@ -96,7 +97,7 @@ export class AdminLayoutComponent implements OnInit {
     },
   ];
 
-  constructor(private sessionService: SessionService) {}
+  constructor(private sessionService: SessionService, private router: Router) {}
 
   ngOnInit(): void {}
 

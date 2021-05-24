@@ -10,7 +10,7 @@ import { catchError, tap } from 'rxjs/operators';
 })
 export class RolService {
 
-  private BASE_URL = `${URL_BASE_V1}/rol/`
+  private BASE_URL = `${URL_BASE_V1}rol/`
 
   constructor(private http: HttpClient) {}
 
