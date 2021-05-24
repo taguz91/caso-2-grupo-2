@@ -5,6 +5,7 @@ import { PageMetadata } from 'src/app/models/Parametros';
 import { AlertService } from 'src/app/services/alert.service';
 import { BreadcrumbService } from 'src/app/services/breadcrumb.service';
 import { CatalogoService } from 'src/app/services/catalogo.service';
+import { ReporteService } from 'src/app/services/reporte.service';
 import {
   DEFAULT_PAGE_METADA,
   DEFAULT_PAGE_SIZE,
@@ -34,7 +35,8 @@ export class CatalogoComponent implements OnInit {
     private modalService: NgbModal,
     private breadcrumb: BreadcrumbService,
     private catalogoService: CatalogoService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private _reporte: ReporteService
   ) {
     this.loadCatalogos();
   }
@@ -88,5 +90,8 @@ export class CatalogoComponent implements OnInit {
         this.loadCatalogos();
       }
     });
+  }
+  GetReporte(){
+    this._reporte.reporte('catalogo');
   }
 }

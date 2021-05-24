@@ -1,6 +1,6 @@
 <button (click)="triggerModal(modalForm)" class="btn btn-primary">Registrar</button>
 
-<div class="card shadow my-3 card_responsive">
+<div id="catalogo" class="card shadow my-3 card_responsive">
 
   <div class="card-body">
 
@@ -56,8 +56,16 @@
 
     <ngb-pagination [collectionSize]="pageMetada.items" [(page)]="page" [pageSize]="perPage">
     </ngb-pagination>
-
+    <button
+      type="button"
+      (click)="GetReporte()"
+      class="btn btn-outline-success"
+    >
+      Guardar Registro
+    </button>
   </div>
+
+
 
 </div>
 
