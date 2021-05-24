@@ -103,7 +103,7 @@ public class CatalogoController {
 				.orElseThrow(() -> new ResourceNotFoundException("No existe el nivel de impacto."));
 
 		Parametros nivelPrioridad = parametroRepository
-				.findByIdAndType(catalogoParam.getImpacto(), Types.PARAMETROS_NIVEL_PRIORIDAD)
+				.findByIdAndType(catalogoParam.getNivelPrioridad(), Types.PARAMETROS_NIVEL_PRIORIDAD)
 				.orElseThrow(() -> new ResourceNotFoundException("No existe el nivel del prioridad."));
 
 		catalogo.setServicio(servicioRepository.findById(catalogoParam.getServicio_id()).get());
