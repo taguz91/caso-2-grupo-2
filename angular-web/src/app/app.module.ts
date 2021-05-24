@@ -41,6 +41,7 @@ import { DataTablesModule } from 'angular-datatables';
 import { NgxEchartsModule } from 'ngx-echarts';
 import { CatalogoComponent } from './components/admin/catalogo/catalogo.component';
 import { FormCatalogoComponent } from './components/admin/form-catalogo/form-catalogo.component';
+import { TicketPreviewComponent } from './components/common/ticket-preview/ticket-preview.component';
 
 @NgModule({
   declarations: [
@@ -78,6 +79,7 @@ import { FormCatalogoComponent } from './components/admin/form-catalogo/form-cat
     ModalRechazarComponent,
     CatalogoComponent,
     FormCatalogoComponent,
+    TicketPreviewComponent,
   ],
   imports: [
     BrowserModule,

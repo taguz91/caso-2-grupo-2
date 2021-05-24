@@ -23,6 +23,9 @@ export class CoordinadorDashboardComponent implements OnInit {
   loadingNuevos: boolean = true;
   loadingAsignados: boolean = true;
 
+  isLastNuevos: boolean = false;
+  isLastAsignados: boolean = false;
+
   private pageNuevo: number = 0;
   private pageAsignado: number = 0;
 
@@ -39,6 +42,8 @@ export class CoordinadorDashboardComponent implements OnInit {
       .subscribe((res) => {
         this.ticketsNuevos.push(...res.data);
         this.loadingNuevos = false;
+        this.isLastNuevos = this.pageNuevo + 1 === res.meta.pages;
+        this.pageMetadaNuevos = res.meta;
       });
   }
 
@@ -54,6 +59,8 @@ export class CoordinadorDashboardComponent implements OnInit {
       .subscribe((res) => {
         this.ticketsAsignados.push(...res.data);
         this.loadingAsignados = false;
+        this.isLastAsignados = this.pageAsignado + 1 === res.meta.pages;
+        this.pageMetadaAsignados = res.meta;
       });
   }
 

@@ -8,19 +8,7 @@
 
       <a routerLink="/user/ticket/{{ticket.ticket_id}}">
 
-        <div class="border border-2 mx-2 p-3 my-2 info_ticket">
-
-          <p>
-            {{ticket.titulo}}
-          </p>
-
-          <p class="text-end mb-0">
-            <b>{{ticket.estado}}</b>
-          </p>
-
-          <small class="text-secondary">{{ticket.created_at}}</small>
-
-        </div>
+        <app-ticket-preview [ticket]="ticket"></app-ticket-preview>
 
       </a>
 
