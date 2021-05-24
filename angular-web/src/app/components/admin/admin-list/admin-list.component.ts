@@ -2,8 +2,9 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Usuario } from '../../../models/usuario';
 import { UsuarioService } from '../../../services/usuario.service';
 import { Subject } from 'rxjs';
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { LocalService } from '../../../services/local.service';
+import { ReporteService } from 'src/app/services/reporte.service';
 
 @Component({
   selector: 'app-admin-list',
@@ -13,15 +14,16 @@ import { LocalService } from '../../../services/local.service';
 export class AdminListComponent implements OnDestroy, OnInit {
 
   dtOptions: DataTables.Settings = {};
-  administradores: Usuario[] = []  
+  administradores: Usuario[] = []
   dtTrigger: Subject<any> = new Subject<any>();
-  rolId: number = 0;
+  rolId: number = 0; //Lista todos las ususarios con este ID
 
   constructor(
     private usuarioService: UsuarioService,
     private router: Router,
     private localService:LocalService,
-    private activatedRoute: ActivatedRoute) { }
+    private activatedRoute: ActivatedRoute,
+    private _reporte: ReporteService) { }
 
   ngOnInit(): void {
 
@@ -51,7 +53,10 @@ export class AdminListComponent implements OnDestroy, OnInit {
   }
 
   register() {
-    this.router.navigate(['admin/admin-register'])
+    let url = this.router.url.toString()
+    this.router.navigate(['admin/admin-register']).finally(() => {
+      this.localService.emmiterCreateUser(this.rolId);
+    });
   }
 
   update(usuario: Usuario) {
@@ -73,5 +78,9 @@ export class AdminListComponent implements OnDestroy, OnInit {
         }
       });
     }
+  }
+
+  GetReporte(){
+    this._reporte.reporte('administradores');
   }
 }

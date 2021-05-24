@@ -64,27 +64,27 @@ export class AdminLayoutComponent implements OnInit {
         {
           label: 'Administradores',
           icon: 'manage_accounts',
-          urlTo: 'admin-list/rol/2',
+          urlTo: 'administradores/rol/2',
         },
         {
           label: 'Usuarios',
           icon: 'manage_accounts',
-          urlTo: 'admin-list/rol/3',
+          urlTo: 'usuarios/rol/3',
         },
         {
           label: 'Coordinadores',
           icon: 'manage_accounts',
-          urlTo: 'admin-list/rol/4',
+          urlTo: 'coordinadores/rol/4',
         },
         {
           label: 'Soporte N1',
           icon: 'manage_accounts',
-          urlTo: 'admin-list/rol/5',
+          urlTo: 'soporte-n1/rol/5',
         },
         {
           label: 'Soporte N2',
           icon: 'manage_accounts',
-          urlTo: 'admin-list/rol/6',
+          urlTo: 'soporte-n2/rol/6',
         },
       ],
     },

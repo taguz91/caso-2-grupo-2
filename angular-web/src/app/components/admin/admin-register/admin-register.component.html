@@ -35,8 +35,8 @@
 
                             <div class="field-wrap">
                                 <label>Rol<span class="req">*</span></label>
-                                <select [(ngModel)]="usuario.rol" name="rol" id="rol" required>
-                                    <option *ngFor="let r of roles" value={{r}} >{{ r.nombre }}</option>
+                                <select [(ngModel)]="rolId" name="rol" id="rol" required>
+                                    <option *ngFor="let r of roles" value={{r.rolId}} >{{ r.nombre }}</option>
                                 </select > 
                             </div>
 
@@ -54,10 +54,8 @@
 
 
                             <div class="c-btn">
-                                <button type="submit" (click)="registrar()" class="btn btn-outline-success">Registrarme</button>
-                                <button (click)="back()" class="btn btn-outline-danger">Regresar</button>
+                                <button type="submit" (click)="guardar()" class="btn btn-outline-success">Guardar</button>
                             </div>
-
                         </form>
                     </div>
                 </div>

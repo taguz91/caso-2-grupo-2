@@ -105,9 +105,26 @@ const routes: Routes = [
         component: TicketsEstadoComponent,
       },
       {
-        path: 'admin-list/rol/:id',
+        path: 'administradores/rol/:id',
         component: AdminListComponent,
       },
+      {
+        path: 'usuarios/rol/:id',
+        component: AdminListComponent,
+      },
+      {
+        path: 'coordinadores/rol/:id',
+        component: AdminListComponent,
+      },
+      {
+        path: 'soporte-n1/rol/:id',
+        component: AdminListComponent,
+      },
+      {
+        path: 'soporte-n2/rol/:id',
+        component: AdminListComponent,
+      },
+
       {
         path: 'admin-register',
         component: AdminRegisterComponent,
