@@ -20,6 +20,7 @@ import { AdminListComponent } from './components/admin/admin-list/admin-list.com
 import { SoporteDashboardComponent } from './components/personal/soporte-dashboard/soporte-dashboard.component';
 import { CoordinadorDashboardComponent } from './components/personal/coordinador-dashboard/coordinador-dashboard.component';
 import { PersonalLayoutComponent } from './layouts/personal-layout/personal-layout.component';
+import { CatalogoComponent } from './components/admin/catalogo/catalogo.component';
 
 const routes: Routes = [
   // Public rutes goes here
@@ -91,12 +92,16 @@ const routes: Routes = [
         component: CategoriaRegisterComponent,
       },
       {
-        path: 'tickets/estado/:idEstado',
-        component: TicketsEstadoComponent,
-      },
-      {
         path: 'servicios',
         component: ServicioRegisterComponent,
+      },
+      {
+        path: 'catalogo',
+        component: CatalogoComponent,
+      },
+      {
+        path: 'tickets/estado/:idEstado',
+        component: TicketsEstadoComponent,
       },
       {
         path: 'administradores',

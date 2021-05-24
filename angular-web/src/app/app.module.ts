@@ -40,6 +40,8 @@ import { ListFloatingButtonComponent } from './components/common/list-floating-b
 import { ModalAsignarComponent } from './components/personal/modal-asignar/modal-asignar.component';
 import { ModalCerrarComponent } from './components/personal/modal-cerrar/modal-cerrar.component';
 import { ModalRechazarComponent } from './components/personal/modal-rechazar/modal-rechazar.component';
+import { CatalogoComponent } from './components/admin/catalogo/catalogo.component';
+import { FormCatalogoComponent } from './components/admin/form-catalogo/form-catalogo.component';
 
 @NgModule({
   declarations: [
@@ -75,6 +77,8 @@ import { ModalRechazarComponent } from './components/personal/modal-rechazar/mod
     ModalAsignarComponent,
     ModalCerrarComponent,
     ModalRechazarComponent,
+    CatalogoComponent,
+    FormCatalogoComponent,
   ],
   imports: [
     BrowserModule,
