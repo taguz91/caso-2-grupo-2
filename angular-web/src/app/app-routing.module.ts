@@ -22,6 +22,9 @@ import { CoordinadorDashboardComponent } from './components/personal/coordinador
 import { PersonalLayoutComponent } from './layouts/personal-layout/personal-layout.component';
 import { AdminRegisterComponent } from './components/admin/admin-register/admin-register.component';
 import { CatalogoComponent } from './components/admin/catalogo/catalogo.component';
+import { FilterAdminService } from './services/auth/filter-admin.service';
+import { FilterPersonalService } from './services/auth/filter-personal.service';
+import { FilterUsuarioService } from './services/auth/filter-usuario.service';
 
 const routes: Routes = [
   // Public rutes goes here
@@ -43,6 +46,7 @@ const routes: Routes = [
   {
     path: 'user',
     component: UserLayoutComponent,
+    canActivate: [FilterUsuarioService],
     children: [
       {
         path: 'home',
@@ -83,6 +87,7 @@ const routes: Routes = [
   {
     path: 'admin',
     component: AdminLayoutComponent,
+    canActivate: [FilterAdminService],
     children: [
       {
         path: 'home',
@@ -137,6 +142,7 @@ const routes: Routes = [
   {
     path: 'dashboard',
     component: PersonalLayoutComponent,
+    canActivate: [FilterPersonalService],
     children: [
       {
         path: 'soporte',
