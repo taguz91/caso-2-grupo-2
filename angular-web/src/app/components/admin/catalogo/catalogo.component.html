@@ -1,0 +1,7 @@
+<p>catalogo works!</p>
+
+<button (click)="triggerModal(modalForm)" class="btn btn-primary">Registrar</button>
+
+<ng-template #modalForm let-modal>
+  <app-form-catalogo [modal]="modal"></app-form-catalogo>
+</ng-template>

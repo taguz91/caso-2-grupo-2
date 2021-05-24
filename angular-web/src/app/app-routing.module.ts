@@ -21,6 +21,7 @@ import { SoporteDashboardComponent } from './components/personal/soporte-dashboa
 import { CoordinadorDashboardComponent } from './components/personal/coordinador-dashboard/coordinador-dashboard.component';
 import { PersonalLayoutComponent } from './layouts/personal-layout/personal-layout.component';
 import { AdminRegisterComponent } from './components/admin/admin-register/admin-register.component';
+import { CatalogoComponent } from './components/admin/catalogo/catalogo.component';
 
 const routes: Routes = [
   // Public rutes goes here
@@ -96,18 +97,22 @@ const routes: Routes = [
         component: ServicioRegisterComponent,
       },
       {
+        path: 'catalogo',
+        component: CatalogoComponent,
+      },
+      {
         path: 'tickets/estado/:idEstado',
         component: TicketsEstadoComponent,
       },
       {
         path: 'admin-list/rol/:id',
-        component: AdminListComponent
+        component: AdminListComponent,
       },
       {
         path: 'admin-register',
         component: AdminRegisterComponent,
-        pathMatch: 'full'
-      }
+        pathMatch: 'full',
+      },
     ],
   },
 
