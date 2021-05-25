@@ -5,6 +5,7 @@ import { PageMetadata } from 'src/app/models/Parametros';
 import { TicketView } from 'src/app/models/ticket';
 import { BreadcrumbService } from 'src/app/services/breadcrumb.service';
 import { TicketService } from 'src/app/services/ticket.service';
+import { ReporteService } from '../../../services/reporte.service';
 import {
   DEFAULT_PAGE_METADA,
   DEFAULT_PAGE_SIZE,
@@ -43,7 +44,8 @@ export class TicketsEstadoComponent implements OnInit {
   constructor(
     private breadcrumb: BreadcrumbService,
     private activeRoute: ActivatedRoute,
-    private ticketService: TicketService
+    private ticketService: TicketService,
+    private _reporte: ReporteService
   ) {}
 
   ngOnInit(): void {
@@ -234,5 +236,9 @@ export class TicketsEstadoComponent implements OnInit {
       ]);
     });
     return values;
+  }
+
+  GetReporte(){
+    this._reporte.reporte('ticket');
   }
 }

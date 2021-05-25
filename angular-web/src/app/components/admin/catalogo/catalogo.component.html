@@ -1,12 +1,14 @@
 <button (click)="triggerModal(modalForm)" class="btn btn-primary">Registrar</button>
-
-<div id="catalogo" class="card shadow my-3 card_responsive">
+<button type="button" (click)="GetReporte()" class="btn btn-outline-success">
+      Guardar Registro
+</button>
+<div class="card shadow my-3 card_responsive">
 
   <div class="card-body">
 
-    <table class="table table-striped table-hover table-responsive">
+    <table class="table table-striped table-hover table-responsive" id="catalogo">
 
-      <thead>
+      <thead >
         <tr>
           <th>Tipo servicio</th>
           <th>Servicio</th>
@@ -56,13 +58,7 @@
 
     <ngb-pagination [collectionSize]="pageMetada.items" [(page)]="page" [pageSize]="perPage">
     </ngb-pagination>
-    <button
-      type="button"
-      (click)="GetReporte()"
-      class="btn btn-outline-success"
-    >
-      Guardar Registro
-    </button>
+
   </div>
 
 

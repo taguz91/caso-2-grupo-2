@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
+import { NgbCalendarGregorian } from '@ng-bootstrap/ng-bootstrap';
 
 @Injectable({
   providedIn: 'root'
@@ -20,13 +21,15 @@ export class ReporteService {
       background: 'white',
       scale: 3
     };
-
+    const dia= new NgbCalendarGregorian().getToday().day;
+    const mes= new NgbCalendarGregorian().getToday().month;
+    const year= new NgbCalendarGregorian().getToday().year;
     html2canvas(DATA,options).then((canvas) => {
-      var ctx = canvas.getContext('2d');
-      ctx.imageSmoothingEnabled = false;
+
       this.img.src=('/assets/img/logo.png') ;
       pdf.addImage(this.img,'PNG',10,10,80,70);
       pdf.text(290, 50, 'Instituto Tecnologico Superior del Azuay');
+      pdf.text(700, 80,'Fecha: '+dia+'/'+mes+'/'+year);
       const img = canvas.toDataURL('image/JPEG');
       console.log(img);
       const bufferX = 15;
