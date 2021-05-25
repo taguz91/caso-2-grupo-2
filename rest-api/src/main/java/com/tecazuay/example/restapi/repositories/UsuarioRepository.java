@@ -35,6 +35,6 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 	@Query(value = "SELECT nombre, count(estado_id) AS total FROM public.ticket JOIN public.parametros ON parametros_id = estado_id WHERE usuario_id = :idUser GROUP BY estado_id, nombre", nativeQuery = true)
 	List<TicketCountChart> countTicketsEstadoByUser(@Param("idUser") Long idUser);
 
-	@Query(value = "SELECT u FROM usuarios u WHERE u.correo = :q AND u.rol.rol_id = " + Types.ROL_USUARIO)
+	@Query(value = "SELECT u FROM usuarios u WHERE u.correo = :q AND u.rol.rolId = " + Types.ROL_USUARIO)
 	Usuario findByIndentificationOrCorreo(@Param("q") String correo);
 }
