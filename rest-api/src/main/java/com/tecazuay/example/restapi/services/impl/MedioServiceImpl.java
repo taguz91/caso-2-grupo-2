@@ -6,9 +6,11 @@ import java.util.Optional;
 
 import com.tecazuay.example.restapi.api.exception.ResourceNotFoundException;
 import com.tecazuay.example.restapi.api.params.MedioComunicacionParam;
+import com.tecazuay.example.restapi.models.Historial;
 import com.tecazuay.example.restapi.models.MedioComunicacion;
 import com.tecazuay.example.restapi.models.Parametros;
 import com.tecazuay.example.restapi.models.Ticket;
+import com.tecazuay.example.restapi.repositories.HistorialRepository;
 import com.tecazuay.example.restapi.repositories.MedioComunicacionRepository;
 import com.tecazuay.example.restapi.repositories.ParametrosRepository;
 import com.tecazuay.example.restapi.repositories.TicketRepository;
@@ -18,39 +20,48 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class MedioServiceImpl implements MedioService {
-    
-    @Autowired
-     private MedioComunicacionRepository medioComunicacionRepository;
 
-    @Autowired
-    private ParametrosRepository parametrosRepository;
-     
-    @Override
-    public List<MedioComunicacion> findAll() {
-        return this.medioComunicacionRepository.findAll();
-    }
+	@Autowired
+	private MedioComunicacionRepository medioComunicacionRepository;
 
-    @Autowired
-    private TicketRepository ticketRepository;
+	@Autowired
+	private ParametrosRepository parametrosRepository;
 
-    @Override
-    public MedioComunicacion findById(Long id) {
-        Optional<MedioComunicacion> medio = this.medioComunicacionRepository.findById(id); 
-        if (medio.isPresent()) {
-            return medio.get();
-        }else {
-            return null;
-        }
-    }
+	@Autowired
+	private HistorialRepository historialRepository;
 
-    @Override
-    public MedioComunicacion save(MedioComunicacionParam medioComunicacion) {
-        Parametros medio = parametrosRepository.findById(medioComunicacion.getMedio_id()).orElseThrow(()->new ResourceNotFoundException("No existe el tipo de medio de comunicacion"));
-        Ticket ticket = ticketRepository.findById(medioComunicacion.getTicket_id()).orElseThrow(()->new ResourceNotFoundException("No existe el ticket"));
-        MedioComunicacion medioComunicacion2 = new MedioComunicacion(medio,ticket);
-        return medioComunicacionRepository.save(medioComunicacion2);
-    }
+	@Override
+	public List<MedioComunicacion> findAll() {
+		return this.medioComunicacionRepository.findAll();
+	}
 
+	@Autowired
+	private TicketRepository ticketRepository;
 
-    
+	@Override
+	public MedioComunicacion findById(Long id) {
+		Optional<MedioComunicacion> medio = this.medioComunicacionRepository.findById(id);
+		if (medio.isPresent()) {
+			return medio.get();
+		} else {
+			return null;
+		}
+	}
+
+	@Override
+	public MedioComunicacion save(MedioComunicacionParam medioComunicacion) {
+		Parametros medio = parametrosRepository.findById(medioComunicacion.getMedio_id())
+				.orElseThrow(() -> new ResourceNotFoundException("No existe el tipo de medio de comunicacion"));
+		Ticket ticket = ticketRepository.findById(medioComunicacion.getTicket_id())
+				.orElseThrow(() -> new ResourceNotFoundException("No existe el ticket"));
+
+		MedioComunicacion medioComunicacion2 = new MedioComunicacion(medio, ticket);
+
+		// Agregamso el historial
+		Historial historial = new Historial("Se agrega como medio de comunicación el " + medio.getNombre(), ticket);
+		historialRepository.save(historial);
+
+		return medioComunicacionRepository.save(medioComunicacion2);
+	}
+
 }
