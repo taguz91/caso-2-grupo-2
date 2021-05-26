@@ -1,5 +1,6 @@
 import { Adjunto } from './adjunto';
 import { Sla } from './catalogo';
+import { Medio } from './medio';
 import { ParametroModel } from './Parametros';
 import { Usuario } from './usuario';
 
@@ -65,7 +66,7 @@ export interface TicketView {
   responsable?: Usuario;
   responsableSolucion?: Usuario;
   catalogo: Catalogo;
-  mediosComunicacion: any[];
+  mediosComunicacion: Medio[];
   usuario: Usuario;
 }
 

@@ -38,27 +38,5 @@
           <button class="btn btn-success" style="text-align: center" (click)="addEncuesta()">Calificar</button>
         </div>
       </div>
-      <div id="tablaCriti">
-        <table class="table">
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Actividades</th>
-              <th scope="col"></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let x of critiAll">
-              <th scope="row">{{i+1}}</th>
-              <td>{{x.nombre}}</td>
-              <td>kmkkmckdm
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div>
-        <button class="btn col col-lg-4 btn-danger btn-block ml-4" (click)="downloadPDF()">Download PDF</button>
-      </div>
   </div>
 </div>
