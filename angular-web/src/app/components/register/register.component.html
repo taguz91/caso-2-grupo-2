@@ -6,8 +6,6 @@
 
         <div class="container my-5">
 
-            <h1 class="mb-4">Bienvenido a Tirtec</h1>
-
             <div class="form">
 
                 <div class="container">
@@ -31,6 +29,11 @@
                                     <label>Apellido<span class="req">*</span></label>
                                     <input [(ngModel)]="usuario.apellidos" name="apellidos" type="text" required autocomplete="off" maxlength="50" pattern="^[a-zA-ZÀ-ÿ\u00f1\u00d1 ]{1,50}" />
                                 </div>
+                            </div>
+
+                            <div class="field-wrap">
+                                <label>Cédula<span class="req">*</span></label>
+                                <input [(ngModel)]="usuario.cedula" name="cedula" id="cedula" type="text" autocomplete="off" maxlength="100" pattern="^[0-9]{10,10}" required/>
                             </div>
 
                             <div class="field-wrap">

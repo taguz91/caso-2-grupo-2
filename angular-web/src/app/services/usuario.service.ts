@@ -62,6 +62,13 @@ export class UsuarioService {
     );
   }
 
+  readUserByCedula(cedula: string): Observable<Usuario> {
+    return this.http.get<Usuario>(`${this.BASE_URL}cedula/${cedula}`, loadHeader()).pipe(
+      tap((_) => console.log('Loading user data')),
+      catchError(handleError<Usuario>(null))
+    );
+  }
+  
   updateUser(usuario: Usuario): Observable<Usuario> {
     return this.http
       .put<Usuario>(`${this.BASE_URL}`, usuario, loadHeader())

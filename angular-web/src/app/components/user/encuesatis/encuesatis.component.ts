@@ -86,6 +86,7 @@ export class EncuesatisComponent implements OnInit {
   }
 
   downloadPDF() {
+<<<<<<< HEAD
     // Extraemos el
     const DATA: any = document.getElementById('tablaCriti');
     const doc = new jsPDF('l', 'mm', 'a4');
@@ -110,5 +111,8 @@ export class EncuesatisComponent implements OnInit {
     });
     this.idReporte="tablaCriti";
     this._reporte.reporte(this.idReporte);
+=======
+    this._reporte.reporte('tablaCriti');
+>>>>>>> a38059e18874ed498885475df38e6ad7e8dd9ac2
   }
 }
