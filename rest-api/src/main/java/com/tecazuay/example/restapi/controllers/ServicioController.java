@@ -5,6 +5,11 @@ import javax.validation.Valid;
 import com.tecazuay.example.restapi.api.exception.ResourceNotFoundException;
 import com.tecazuay.example.restapi.api.params.ServicioParam;
 import com.tecazuay.example.restapi.definitions.PageResponse;
+<<<<<<< HEAD
+=======
+import com.tecazuay.example.restapi.definitions.ServicioCombo;
+import com.tecazuay.example.restapi.definitions.ServicioResponse;
+>>>>>>> b0081a27b2f5999e399dec366e6fdfb340a9cbb3
 import com.tecazuay.example.restapi.models.Categoria;
 import com.tecazuay.example.restapi.models.Servicio;
 import com.tecazuay.example.restapi.models.Usuario;
@@ -56,12 +61,22 @@ public class ServicioController {
 				() -> new ResourceNotFoundException("No se encontro el servicio con el id: " + servicio_id));
 	}
 
+<<<<<<< HEAD
 	// @GetMapping("/categoria/{id}")
 	// public List<ServicioResponse> getAllByCategoriaId(@PathVariable("id") Long categoria_id) {
 	// 	CategoriaResponse categoria = categoriaRepository.findByCategoriaId(categoria_id)
 	// 			.orElseThrow(() -> new ResourceNotFoundException("Esta categoria no esta registrada"));
 	// 	return servicioRepository.findAllByCategoriaId(categoria.getCategoria_id());
 	// }
+=======
+
+	@GetMapping("/categoria/{id}")
+	public List<ServicioResponse> getAllByCategoriaId(@PathVariable("id") Long categoria_id) {
+		Categoria categoria = categoriaRepository.findByCategoriaId(categoria_id)
+				.orElseThrow(() -> new ResourceNotFoundException("Esta categoria no esta registrada"));
+		return servicioRepository.findAllByCategoriaId(categoria.getCategoria_id());
+	}
+>>>>>>> b0081a27b2f5999e399dec366e6fdfb340a9cbb3
 
 	@PostMapping("/")
 	public Servicio saveServicio(@RequestBody @Valid ServicioParam servicioParam) {
@@ -95,6 +110,11 @@ public class ServicioController {
 				.orElseThrow(() -> new ResourceNotFoundException("No se encontro el servicio con Id: " + servicio_id));
 		servicioRepository.deleteById(servicio_id);
 		return true;
+	}
+
+	@GetMapping("/combo")
+	public ResponseEntity<List<ServicioCombo>> getCombo() {
+		return ResponseEntity.status(HttpStatus.OK).body(servicioRepository.findAllCombo());
 	}
 
 }

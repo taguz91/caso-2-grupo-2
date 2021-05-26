@@ -1,4 +1,3 @@
-
 package com.tecazuay.example.restapi.models;
 
 import java.io.Serializable;
@@ -12,9 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
-
 import org.hibernate.annotations.Where;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -30,6 +27,9 @@ public class Usuario extends Globals implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "user_gen")
 	@Column(name = "usuario_id")
 	private Long personaId;
+
+	@Column(nullable = true, length = 10)
+	private String cedula;
 
 	@Column(nullable = false, length = 100)
 	private String nombres;
@@ -63,8 +63,9 @@ public class Usuario extends Globals implements Serializable {
 		this.password = password;
 	}
 
-	public Usuario(Long personaId, String nombres, String apellidos, String correo, String password, String telefono) {
+	public Usuario(Long personaId, String cedula, String nombres, String apellidos, String correo, String password, String telefono) {
 		this.personaId = personaId;
+		this.cedula = cedula;
 		this.nombres = nombres;
 		this.apellidos = apellidos;
 		this.correo = correo;
@@ -78,6 +79,14 @@ public class Usuario extends Globals implements Serializable {
 
 	public void setPersonaId(Long personaId) {
 		this.personaId = personaId;
+	}
+
+	public String getCedula() {
+		return cedula;
+	}
+
+	public void setCedula(String cedula) {
+		this.cedula = cedula;
 	}
 
 	public String getNombres() {

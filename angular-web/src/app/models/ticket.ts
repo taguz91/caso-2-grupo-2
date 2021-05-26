@@ -1,4 +1,7 @@
 import { Adjunto } from './adjunto';
+import { Sla } from './catalogo';
+import { Medio } from './medio';
+import { ParametroModel } from './Parametros';
 import { Usuario } from './usuario';
 
 export interface TicketForm {
@@ -6,6 +9,7 @@ export interface TicketForm {
   impactoId: number;
   titulo: string;
   descripcion: string;
+  usuarioId: number;
 }
 
 export interface AsignarForm {
@@ -40,7 +44,7 @@ interface Catalogo {
   catalogo_id: number;
   descripcion: string;
   tipoServicio: ParametroModel;
-  sla?: any;
+  sla?: Sla;
 }
 
 export interface TicketView {
@@ -53,28 +57,26 @@ export interface TicketView {
   descripcion: string;
   solucion?: string;
   fechaSolucion?: Date;
+  fechaAsignacion?: Date;
   estado: ParametroModel;
   impacto: ParametroModel;
   listaHistorial: any[];
   encuesta?: any;
   adjuntos: Adjunto[];
   responsable?: Usuario;
-  responsableSolucion?: any;
+  responsableSolucion?: Usuario;
   catalogo: Catalogo;
-  mediosComunicacion: any[];
+  mediosComunicacion: Medio[];
   usuario: Usuario;
-}
-
-interface ParametroModel {
-  createdAt: Date;
-  updatedAt: Date;
-  parametros_id: number;
-  type: number;
-  nombre: string;
-  descripcion: string;
 }
 
 export interface TicketCount {
   nombre: string;
   total: number;
+}
+
+export interface TicketCountEstado {
+  day: number;
+  total: number;
+  estado_id: number;
 }

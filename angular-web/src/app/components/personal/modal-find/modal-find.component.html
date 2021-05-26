@@ -1,0 +1,52 @@
+<div class="modal-header">
+  <h4 class="modal-title">Buscar usuario:</h4>
+  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+    (click)="modal.dismiss('Cross click')"></button>
+</div>
+
+<div class="modal-body">
+
+  <form [formGroup]="searchForm" (ngSubmit)="onSave()">
+
+    <div class="mb-3">
+      <label for="" class="form-label">
+        Buscar:
+      </label>
+
+      <input formControlName="buscar" class="form-control" />
+
+      <div *ngIf="buscar.invalid && (buscar.dirty || buscar.touched)">
+
+        <div *ngIf="buscar.errors.required" class="form-text text-danger">
+          Buscar es obligatorio.
+        </div>
+
+        <div *ngIf="buscar.errors.minLength" class="form-text text-danger">
+          Buscar debe tener almenos 5 caracteres.
+        </div>
+
+        <div *ngIf="buscar.errors.maxLength" class="form-text text-danger">
+          Buscar debe tener menos de 100 caracteres.
+        </div>
+
+      </div>
+
+      <div *ngIf="userNotExist" class="form-text text-danger">
+        El usuario no existe, debe registrarse para poder ingresar tickets.
+      </div>
+
+    </div>
+
+
+    <button *ngIf="!usuario" class="btn btn-primary d-block btn-save-right " type="submit"
+      [disabled]="!searchForm.valid || loading" [class.spinner]="loading">Guardar</button>
+
+
+    <a *ngIf="usuario" routerLink="/dashboard/ticket/tipo-servicio/{{ usuario.personaId }}"
+      class="btn btn-primary d-block btn-save-right" (click)="modal.dismiss()">
+      Ingresar ticket - {{usuario.nombreCompleto }}
+    </a>
+
+  </form>
+
+</div>

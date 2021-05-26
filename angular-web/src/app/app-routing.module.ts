@@ -20,6 +20,11 @@ import { AdminListComponent } from './components/admin/admin-list/admin-list.com
 import { SoporteDashboardComponent } from './components/personal/soporte-dashboard/soporte-dashboard.component';
 import { CoordinadorDashboardComponent } from './components/personal/coordinador-dashboard/coordinador-dashboard.component';
 import { PersonalLayoutComponent } from './layouts/personal-layout/personal-layout.component';
+import { AdminRegisterComponent } from './components/admin/admin-register/admin-register.component';
+import { CatalogoComponent } from './components/admin/catalogo/catalogo.component';
+import { FilterAdminService } from './services/auth/filter-admin.service';
+import { FilterPersonalService } from './services/auth/filter-personal.service';
+import { FilterUsuarioService } from './services/auth/filter-usuario.service';
 
 const routes: Routes = [
   // Public rutes goes here
@@ -41,6 +46,7 @@ const routes: Routes = [
   {
     path: 'user',
     component: UserLayoutComponent,
+    canActivate: [FilterUsuarioService],
     children: [
       {
         path: 'home',
@@ -81,6 +87,7 @@ const routes: Routes = [
   {
     path: 'admin',
     component: AdminLayoutComponent,
+    canActivate: [FilterAdminService],
     children: [
       {
         path: 'home',
@@ -89,18 +96,47 @@ const routes: Routes = [
       {
         path: 'categorias',
         component: CategoriaRegisterComponent,
-      },
-      {
-        path: 'tickets/estado/:idEstado',
-        component: TicketsEstadoComponent,
+<<<<<<< HEAD
+=======
       },
       {
         path: 'servicios',
         component: ServicioRegisterComponent,
       },
       {
-        path: 'administradores',
+        path: 'catalogo',
+        component: CatalogoComponent,
+>>>>>>> b0081a27b2f5999e399dec366e6fdfb340a9cbb3
+      },
+      {
+        path: 'tickets/estado/:idEstado',
+        component: TicketsEstadoComponent,
+      },
+      {
+        path: 'administradores/rol/:id',
         component: AdminListComponent,
+      },
+      {
+        path: 'usuarios/rol/:id',
+        component: AdminListComponent,
+      },
+      {
+        path: 'coordinadores/rol/:id',
+        component: AdminListComponent,
+      },
+      {
+        path: 'soporte-n1/rol/:id',
+        component: AdminListComponent,
+      },
+      {
+        path: 'soporte-n2/rol/:id',
+        component: AdminListComponent,
+      },
+
+      {
+        path: 'admin-register',
+        component: AdminRegisterComponent,
+        pathMatch: 'full',
       },
     ],
   },
@@ -109,22 +145,41 @@ const routes: Routes = [
   {
     path: 'dashboard',
     component: PersonalLayoutComponent,
+    canActivate: [FilterPersonalService],
     children: [
       {
         path: 'soporte',
         component: SoporteDashboardComponent,
       },
       {
+<<<<<<< HEAD
         path: 'admin-list',
         component: AdminListComponent
       },
       {
+=======
+>>>>>>> b0081a27b2f5999e399dec366e6fdfb340a9cbb3
         path: 'coordinador',
         component: CoordinadorDashboardComponent,
       },
       {
         path: 'ticket/:idTicket',
         component: UserTicketComponent,
+<<<<<<< HEAD
+=======
+      },
+      {
+        path: 'ticket/tipo-servicio/:idPersona',
+        component: TipoServicioComponent,
+      },
+      {
+        path: 'ticket/servicios/:idPersona/:idTipo',
+        component: UserCatalogoServicioComponent,
+      },
+      {
+        path: 'ticket/ingreso/:idPersona/:idCatalogo',
+        component: UserRegistroTicketComponent,
+>>>>>>> b0081a27b2f5999e399dec366e6fdfb340a9cbb3
       },
     ],
   },

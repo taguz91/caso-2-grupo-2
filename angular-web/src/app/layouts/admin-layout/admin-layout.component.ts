@@ -2,6 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { SectionMenu } from 'src/app/models/types';
 import { LoginUser } from 'src/app/models/usuario';
 import { SessionService } from 'src/app/services/session.service';
+import { Router } from '@angular/router';
+import { BreadcrumbService } from 'src/app/services/breadcrumb.service';
+import {
+  TICKET_ESTADO_ABIERTO,
+  TICKET_ESTADO_ATENDIENDOSE,
+  TICKET_ESTADO_CERRADO_CON_SOLUCION,
+  TICKET_ESTADO_CERRADO_SIN_SOLUCION,
+  TICKET_ESTADO_RECHAZADO,
+} from 'src/app/utils/constantes';
 
 @Component({
   selector: 'app-admin-layout',
@@ -42,12 +51,27 @@ export class AdminLayoutComponent implements OnInit {
         {
           label: 'Nuevos',
           icon: 'receipt',
-          urlTo: '/admin/tickets/estado/2',
+          urlTo: `/admin/tickets/estado/${TICKET_ESTADO_ABIERTO}`,
+        },
+        {
+          label: 'Atendiendose',
+          icon: 'receipt',
+          urlTo: `/admin/tickets/estado/${TICKET_ESTADO_ATENDIENDOSE}`,
         },
         {
           label: 'Cerrados con solución',
           icon: 'receipt',
-          urlTo: '/admin/tickets/estado/1',
+          urlTo: `/admin/tickets/estado/${TICKET_ESTADO_CERRADO_CON_SOLUCION}`,
+        },
+        {
+          label: 'Cerrados sin solución',
+          icon: 'receipt',
+          urlTo: `/admin/tickets/estado/${TICKET_ESTADO_CERRADO_SIN_SOLUCION}`,
+        },
+        {
+          label: 'Rechazado',
+          icon: 'receipt',
+          urlTo: `/admin/tickets/estado/${TICKET_ESTADO_RECHAZADO}`,
         },
         {
           label: 'Encuestas',
@@ -60,24 +84,29 @@ export class AdminLayoutComponent implements OnInit {
       section: 'Administración',
       options: [
         {
-          label: 'Usuarios',
-          icon: 'manage_accounts',
-          urlTo: '/admin/usuarios/tipo/1',
-        },
-        {
           label: 'Administradores',
           icon: 'manage_accounts',
-          urlTo: '/admin/administradores',
+          urlTo: 'administradores/rol/2',
+        },
+        {
+          label: 'Usuarios',
+          icon: 'manage_accounts',
+          urlTo: 'usuarios/rol/3',
         },
         {
           label: 'Coordinadores',
           icon: 'manage_accounts',
-          urlTo: 'admin-list',
+          urlTo: 'coordinadores/rol/4',
         },
         {
-          label: 'Soporte',
+          label: 'Soporte N1',
           icon: 'manage_accounts',
-          urlTo: '/admin/usuarios/tipo/3',
+          urlTo: 'soporte-n1/rol/5',
+        },
+        {
+          label: 'Soporte N2',
+          icon: 'manage_accounts',
+          urlTo: 'soporte-n2/rol/6',
         },
       ],
     },
@@ -103,10 +132,19 @@ export class AdminLayoutComponent implements OnInit {
     },
   ];
 
-  constructor(private sessionService: SessionService) {}
+  constructor(
+    private sessionService: SessionService,
+    private breadcrumbService: BreadcrumbService
+  ) {}
 
   ngOnInit(): void {
-    this.sessionService.getUser().subscribe((user) => (this.user = user));
+    this.breadcrumbService.addRutes([]);
+    const user = this.sessionService.user;
+    if (user) {
+      this.user = user;
+    } else {
+      this.sessionService.getUser().subscribe((user) => (this.user = user));
+    }
   }
 
   logout() {

@@ -8,12 +8,13 @@ export const URL_BASE_V1: string =
 
 export const JWT_NAME: string = 'JWT_TIR_TEC_TOKEN';
 
-export const DEFAULT_PAGE_SIZE: number = 20;
+export const DEFAULT_PAGE_SIZE: number = 10;
 
 export const DEFAULT_PAGE_METADA: PageMetadata = {
   current: 0,
   items: 0,
   pages: 0,
+  perPage: DEFAULT_PAGE_SIZE,
 };
 
 // Constantes de roles de usuario

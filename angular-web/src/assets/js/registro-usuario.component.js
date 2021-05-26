@@ -31,6 +31,7 @@ $('.form').find('input, textarea, select').on('keyup blur focus show change', fu
     }
 });
 
+$('#telefono').focus();
 $('#nombre').focus();
 $('#apellido').focus();
 $('#password').focus();

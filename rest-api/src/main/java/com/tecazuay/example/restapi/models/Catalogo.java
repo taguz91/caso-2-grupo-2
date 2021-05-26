@@ -33,7 +33,7 @@ public class Catalogo extends Globals implements Serializable {
 	@Column(name = "descripcion", nullable = false, length = 100)
 	private String descripcion;
 
-	@JsonBackReference(value = "rf_catalogo_servicio")
+	@JsonManagedReference(value = "rf_catalogo_servicio")
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "servicio_id", nullable = false)
 	private Servicio servicio;

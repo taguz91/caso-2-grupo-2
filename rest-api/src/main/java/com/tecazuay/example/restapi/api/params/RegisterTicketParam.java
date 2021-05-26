@@ -27,6 +27,8 @@ public class RegisterTicketParam {
 	@NotBlank(message = "Descripción es obligatoria")
 	private String descripcion;
 
+	private Long usuarioId;
+
 	public Long getImpactoId() {
 		return impactoId;
 	}
@@ -57,6 +59,14 @@ public class RegisterTicketParam {
 
 	public void setCatalogoId(Long catalogoId) {
 		this.catalogoId = catalogoId;
+	}
+
+	public Long getUsuarioId() {
+		return usuarioId;
+	}
+
+	public void setUsuarioId(Long usuarioId) {
+		this.usuarioId = usuarioId;
 	}
 
 }

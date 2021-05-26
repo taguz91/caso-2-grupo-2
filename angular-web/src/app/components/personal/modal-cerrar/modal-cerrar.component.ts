@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NgbModalWindow } from '@ng-bootstrap/ng-bootstrap/modal/modal-window';
 import { Parametro } from 'src/app/models/Parametros';
 import { TicketView } from 'src/app/models/ticket';
 import { AlertService } from 'src/app/services/alert.service';
@@ -19,7 +20,7 @@ import {
 })
 export class ModalCerrarComponent implements OnInit {
   @Input() ticket: TicketView;
-  @Input() modal: any;
+  @Input() modal: NgbModalWindow;
 
   loading: boolean = false;
   estados: Parametro[] = [];

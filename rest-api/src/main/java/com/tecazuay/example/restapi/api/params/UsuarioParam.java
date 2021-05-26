@@ -4,15 +4,14 @@ import java.io.Serializable;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
-
 import com.tecazuay.example.restapi.validations.CorreoExistConstrait;
 
 public class UsuarioParam implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 2884596714048044738L;
+
+	@Pattern(regexp = "[0-9]{10,10}")
+	private String cedula;
 
 	@NotEmpty
 	@Pattern(regexp = "[a-zA-ZÀ-ÿ\u00f1\u00d1 ]{2,100}")
@@ -50,6 +49,18 @@ public class UsuarioParam implements Serializable {
 		this.correo = correo;
 		this.password = password;
 		this.telefono = telefono;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	public String getCedula() {
+		return cedula;
+	}
+
+	public void setCedula(String cedula) {
+		this.cedula = cedula;
 	}
 
 	public String getNombres() {

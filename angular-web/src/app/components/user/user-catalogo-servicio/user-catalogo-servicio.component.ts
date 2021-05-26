@@ -10,6 +10,7 @@ import { DEFAULT_PAGE_METADA } from 'src/app/utils/constantes';
   styleUrls: ['./user-catalogo-servicio.component.scss'],
 })
 export class UserCatalogoServicioComponent implements OnInit {
+  private idPersona: number = 0;
   catalogoServicios: CatalogoServicio[] = [];
   page: number = 0;
   pageMetada: PageMetadata = DEFAULT_PAGE_METADA;
@@ -25,9 +26,13 @@ export class UserCatalogoServicioComponent implements OnInit {
 
   ngOnInit(): void {
     const id = this.activeRoute.snapshot.paramMap.get('idTipo');
+    const idPersona = this.activeRoute.snapshot.paramMap.get('idPersona');
     if (id) {
       this.tipoServicio = parseInt(id);
       this.getCatalogo(this.tipoServicio);
+    }
+    if (idPersona) {
+      this.idPersona = parseInt(idPersona);
     }
   }
 
@@ -45,5 +50,12 @@ export class UserCatalogoServicioComponent implements OnInit {
     this.loading = true;
     this.page++;
     this.getCatalogo(this.tipoServicio);
+  }
+
+  redirectUrl(servicio: CatalogoServicio): string {
+    if (this.idPersona !== 0) {
+      return `/dashboard/ticket/ingreso/${this.idPersona}/${servicio.catalogo_id}`;
+    }
+    return `/user/ticket/ingreso/${servicio.catalogo_id}`;
   }
 }

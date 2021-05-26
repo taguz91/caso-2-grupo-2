@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
@@ -16,7 +16,6 @@ import { UserCatalogoServicioComponent } from './components/user/user-catalogo-s
 import { UserRegistroTicketComponent } from './components/user/user-registro-ticket/user-registro-ticket.component';
 import { UserPerfilComponent } from './components/user/user-perfil/user-perfil.component';
 import { CategoriaRegisterComponent } from './components/admin/categoria-register/categoria-register.component';
-import { ReactiveFormsModule } from '@angular/forms';
 import { CriticidadService } from './services/criticidad.service';
 import { EncuesatisComponent } from './components/user/encuesatis/encuesatis.component';
 import { UserTicketComponent } from './components/user/user-ticket/user-ticket.component';
@@ -30,8 +29,11 @@ import { ServicioRegisterComponent } from './components/admin/servicio-register/
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AdminRegisterComponent } from './components/admin/admin-register/admin-register.component';
 import { AdminListComponent } from './components/admin/admin-list/admin-list.component';
+<<<<<<< HEAD
 import { DataTablesModule } from 'angular-datatables';
 import { NgxEchartsModule } from 'ngx-echarts';
+=======
+>>>>>>> b0081a27b2f5999e399dec366e6fdfb340a9cbb3
 import { SoporteDashboardComponent } from './components/personal/soporte-dashboard/soporte-dashboard.component';
 import { CoordinadorDashboardComponent } from './components/personal/coordinador-dashboard/coordinador-dashboard.component';
 import { PersonalLayoutComponent } from './layouts/personal-layout/personal-layout.component';
@@ -40,6 +42,15 @@ import { ListFloatingButtonComponent } from './components/common/list-floating-b
 import { ModalAsignarComponent } from './components/personal/modal-asignar/modal-asignar.component';
 import { ModalCerrarComponent } from './components/personal/modal-cerrar/modal-cerrar.component';
 import { ModalRechazarComponent } from './components/personal/modal-rechazar/modal-rechazar.component';
+<<<<<<< HEAD
+=======
+import { DataTablesModule } from 'angular-datatables';
+import { NgxEchartsModule } from 'ngx-echarts';
+import { CatalogoComponent } from './components/admin/catalogo/catalogo.component';
+import { FormCatalogoComponent } from './components/admin/form-catalogo/form-catalogo.component';
+import { TicketPreviewComponent } from './components/common/ticket-preview/ticket-preview.component';
+import { ModalFindComponent } from './components/personal/modal-find/modal-find.component';
+>>>>>>> b0081a27b2f5999e399dec366e6fdfb340a9cbb3
 
 @NgModule({
   declarations: [
@@ -75,6 +86,13 @@ import { ModalRechazarComponent } from './components/personal/modal-rechazar/mod
     ModalAsignarComponent,
     ModalCerrarComponent,
     ModalRechazarComponent,
+<<<<<<< HEAD
+=======
+    CatalogoComponent,
+    FormCatalogoComponent,
+    TicketPreviewComponent,
+    ModalFindComponent,
+>>>>>>> b0081a27b2f5999e399dec366e6fdfb340a9cbb3
   ],
   imports: [
     BrowserModule,

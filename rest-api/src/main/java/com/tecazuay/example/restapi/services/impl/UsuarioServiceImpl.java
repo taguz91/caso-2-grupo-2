@@ -1,9 +1,7 @@
 package com.tecazuay.example.restapi.services.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
 import com.tecazuay.example.restapi.Types;
 import com.tecazuay.example.restapi.api.params.UsuarioEditParam;
 import com.tecazuay.example.restapi.api.params.UsuarioParam;
@@ -56,7 +54,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 
 	@Override
 	public Usuario save(UsuarioParam up, Long rolId) {
-		Usuario usuario = new Usuario(null, up.getNombres(), up.getApellidos(), up.getCorreo(),
+		Usuario usuario = new Usuario(null, up.getCedula(), up.getNombres(), up.getApellidos(), up.getCorreo(),
 				passwordEncoder.encode(up.getPassword()), up.getTelefono());
 
 		Rol rol = this.rolService.findById(rolId);
@@ -76,6 +74,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 
 		if (user != null) {
 			// Se modifican solo los datos necesarios (añadir o quitar algún atributo)
+			user.setCedula(up.getCedula());
 			user.setApellidos(up.getApellidos());
 			user.setNombres(up.getNombres());
 			user.setCorreo(up.getCorreo());
@@ -124,5 +123,10 @@ public class UsuarioServiceImpl implements UsuarioService {
 		} else {
 			return null;
 		}
+	}
+
+	@Override
+	public Usuario findByCedula(String cedula) {
+		return this.usuarioRepository.findByCedula(cedula);
 	}
 }

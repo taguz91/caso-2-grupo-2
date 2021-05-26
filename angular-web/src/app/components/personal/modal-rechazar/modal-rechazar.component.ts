@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NgbModalWindow } from '@ng-bootstrap/ng-bootstrap/modal/modal-window';
 import { TicketView } from 'src/app/models/ticket';
 import { AlertService } from 'src/app/services/alert.service';
 import { SessionService } from 'src/app/services/session.service';
@@ -13,7 +14,7 @@ import { TicketService } from 'src/app/services/ticket.service';
 })
 export class ModalRechazarComponent implements OnInit {
   @Input() ticket: TicketView;
-  @Input() modal: any;
+  @Input() modal: NgbModalWindow;
 
   loading: boolean = false;
 

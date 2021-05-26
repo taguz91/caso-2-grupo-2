@@ -10,6 +10,7 @@ import {
   TicketHome,
   TicketView,
   RechazarForm,
+  TicketCountEstado,
 } from '../models/ticket';
 import {
   DEFAULT_PAGE_SIZE,
@@ -87,6 +88,19 @@ export class TicketService {
       .pipe(catchError(handleError<PageResponse<TicketHome[]>>(null)));
   }
 
+  allByEstado(
+    estado: number,
+    page: number,
+    size: number = DEFAULT_PAGE_SIZE
+  ): Observable<PageResponse<TicketView[]>> {
+    return this.http
+      .get<PageResponse<TicketView[]>>(
+        `${URL_BASE_V1}ticket/all/estado/${estado}?page=${page}&size=${size}`,
+        loadHeader()
+      )
+      .pipe(catchError(handleError<PageResponse<TicketView[]>>(null)));
+  }
+
   listBySoporte(
     page: number,
     size: number = DEFAULT_PAGE_SIZE
@@ -103,5 +117,12 @@ export class TicketService {
     return this.http
       .get<TicketView>(`${URL_BASE_V1}ticket/${ticketId}`, loadHeader())
       .pipe(catchError(handleError<TicketView>(null)));
+  }
+
+  countByEstado(): Observable<TicketCountEstado[]> {
+    return this.http.get<TicketCountEstado[]>(
+      `${URL_BASE_V1}ticket/estado/count`,
+      loadHeader()
+    );
   }
 }

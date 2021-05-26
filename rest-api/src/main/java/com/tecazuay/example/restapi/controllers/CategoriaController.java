@@ -4,7 +4,10 @@ import javax.validation.Valid;
 
 import com.tecazuay.example.restapi.api.exception.ResourceNotFoundException;
 import com.tecazuay.example.restapi.api.params.CategoriaParam;
+<<<<<<< HEAD
 import com.tecazuay.example.restapi.definitions.MessageResponse;
+=======
+>>>>>>> b0081a27b2f5999e399dec366e6fdfb340a9cbb3
 import com.tecazuay.example.restapi.definitions.PageResponse;
 import com.tecazuay.example.restapi.models.Categoria;
 import com.tecazuay.example.restapi.models.Usuario;

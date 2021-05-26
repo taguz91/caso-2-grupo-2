@@ -8,8 +8,11 @@ import javax.persistence.Id;
 
 import org.hibernate.annotations.Where;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Where(clause = "is_deleted = false")
 @Entity(name = "criticidad")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Criticidad extends Globals implements Serializable {
 
 	/**

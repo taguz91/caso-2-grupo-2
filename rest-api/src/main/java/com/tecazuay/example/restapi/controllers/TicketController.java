@@ -1,5 +1,7 @@
 package com.tecazuay.example.restapi.controllers;
 
+import java.util.List;
+
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -26,6 +28,7 @@ import com.tecazuay.example.restapi.api.params.CerrarTicketParam;
 import com.tecazuay.example.restapi.api.params.RechazarTicketParam;
 import com.tecazuay.example.restapi.api.params.RegisterTicketParam;
 import com.tecazuay.example.restapi.definitions.PageResponse;
+import com.tecazuay.example.restapi.definitions.TicketEstadoCount;
 import com.tecazuay.example.restapi.definitions.TicketsList;
 import com.tecazuay.example.restapi.models.Adjunto;
 import com.tecazuay.example.restapi.models.Ticket;
@@ -89,11 +92,11 @@ public class TicketController {
 		Page<TicketsList> ticketsPage = ticketRepository.findAllByUserHome(user.getPersonaId(), pageable.getOffset(),
 				pageable.getPageSize(), pageable);
 
-		return ResponseEntity.status(HttpStatus.ACCEPTED).body(new PageResponse(ticketsPage));
+		return ResponseEntity.status(HttpStatus.OK).body(new PageResponse(ticketsPage));
 	}
 
 	@GetMapping("/estado/{estado}")
-	public ResponseEntity<?> ticksCoordinadorHome(@Valid @PathVariable Long estado,
+	public ResponseEntity<PageResponse> ticksCoordinadorHome(@Valid @PathVariable Long estado,
 			@AuthenticationPrincipal Usuario user, @RequestParam(value = "page", defaultValue = "0") int page,
 			@RequestParam(value = "size", defaultValue = "20") int size) {
 
@@ -102,7 +105,7 @@ public class TicketController {
 		Pageable pageable = PageRequest.of(page, size);
 		Page<TicketsList> ticketsPage = ticketRepository.findAllByEstadoHome(estado, pageable.getOffset(),
 				pageable.getPageSize(), pageable);
-		return ResponseEntity.status(HttpStatus.ACCEPTED).body(new PageResponse(ticketsPage));
+		return ResponseEntity.status(HttpStatus.OK).body(new PageResponse(ticketsPage));
 	}
 
 	@GetMapping("/soporte")
@@ -114,7 +117,7 @@ public class TicketController {
 		Pageable pageable = PageRequest.of(page, size);
 		Page<TicketsList> ticketsPage = ticketRepository.findAllByResponsableHome(user.getPersonaId(),
 				pageable.getOffset(), pageable.getPageSize(), pageable);
-		return ResponseEntity.status(HttpStatus.ACCEPTED).body(new PageResponse(ticketsPage));
+		return ResponseEntity.status(HttpStatus.OK).body(new PageResponse(ticketsPage));
 	}
 
 	@PostMapping(value = "/add/adjunto", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -143,6 +146,22 @@ public class TicketController {
 			@AuthenticationPrincipal Usuario user) {
 		AuthorizationService.onlyCoordinadorOrDev(user);
 		return ResponseEntity.status(HttpStatus.OK).body(ticketService.rechazarTicker(rechazo, user));
+	}
+
+	@GetMapping(value = "/all/estado/{estado}")
+	public ResponseEntity<PageResponse> findAllEstado(@Valid @PathVariable Long estado,
+			@AuthenticationPrincipal Usuario user, @RequestParam(value = "page", defaultValue = "0") int page,
+			@RequestParam(value = "size", defaultValue = "20") int size) {
+
+		AuthorizationService.onlyAdminOrDev(user);
+		Pageable pageable = PageRequest.of(page, size);
+		Page<Ticket> ticketsPage = ticketRepository.findAllByEstado(estado, pageable);
+		return ResponseEntity.status(HttpStatus.OK).body(new PageResponse(ticketsPage));
+	}
+
+	@GetMapping(value = "/estado/count")
+	public ResponseEntity<List<TicketEstadoCount>> reportLastWeek() {
+		return ResponseEntity.status(HttpStatus.OK).body(ticketRepository.reportCountLastWeek());
 	}
 
 }

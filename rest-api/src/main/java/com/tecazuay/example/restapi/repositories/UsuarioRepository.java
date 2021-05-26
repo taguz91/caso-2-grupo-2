@@ -1,5 +1,6 @@
 package com.tecazuay.example.restapi.repositories;
 
+import com.tecazuay.example.restapi.Types;
 import com.tecazuay.example.restapi.definitions.TicketCountChart;
 import com.tecazuay.example.restapi.definitions.UserList;
 import com.tecazuay.example.restapi.models.Rol;
@@ -33,4 +34,10 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 
 	@Query(value = "SELECT nombre, count(estado_id) AS total FROM public.ticket JOIN public.parametros ON parametros_id = estado_id WHERE usuario_id = :idUser GROUP BY estado_id, nombre", nativeQuery = true)
 	List<TicketCountChart> countTicketsEstadoByUser(@Param("idUser") Long idUser);
+
+	@Query(value = "SELECT u FROM usuarios u WHERE u.correo = :q AND u.rol.rolId = " + Types.ROL_USUARIO)
+	Usuario findByIndentificationOrCorreo(@Param("q") String correo);
+
+	@Query(value = "SELECT u FROM usuarios u WHERE u.cedula = :cedula")
+	Usuario findByCedula(String cedula);
 }

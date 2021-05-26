@@ -22,4 +22,6 @@ public interface UsuarioService {
 	Usuario updateRol(Long userId, Long rolId);
 
 	List<Usuario> findAllByRol(Long rolId);
+
+	Usuario findByCedula(String cedula);
 }
