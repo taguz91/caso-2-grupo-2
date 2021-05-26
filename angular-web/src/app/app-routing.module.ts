@@ -149,13 +149,6 @@ const routes: Routes = [
         component: SoporteDashboardComponent,
       },
       {
-<<<<<<< HEAD
-        path: 'admin-list',
-        component: AdminListComponent
-      },
-      {
-=======
->>>>>>> a38059e18874ed498885475df38e6ad7e8dd9ac2
         path: 'coordinador',
         component: CoordinadorDashboardComponent,
       },
