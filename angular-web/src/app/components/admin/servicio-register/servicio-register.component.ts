@@ -3,10 +3,13 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Categoria } from 'src/app/models/categoria';
+import { PageMetadata } from 'src/app/models/Parametros';
 import { Servicio } from 'src/app/models/servicio';
 import { AlertService } from 'src/app/services/alert.service';
+import { CatalogoService } from 'src/app/services/catalogo.service';
 import { CategoriaService } from 'src/app/services/categoria.service';
 import { ServicioService } from 'src/app/services/servicio.service';
+import { DEFAULT_PAGE_METADA, DEFAULT_PAGE_SIZE } from 'src/app/utils/constantes';
 
 @Component({
   selector: 'app-servicio-register',
@@ -27,10 +30,18 @@ export class ServicioRegisterComponent implements OnInit {
   existsData: boolean = false;
   existsListCategoria: boolean = false;
 
-  page = 0;
-  size = 10;
-  items: number;
-  pages: number;
+  pageMetaData: PageMetadata = DEFAULT_PAGE_METADA;
+  perPage: number = DEFAULT_PAGE_SIZE;
+  actualPage: number = 0;
+
+  get page(){
+    return this.actualPage + 1;
+  }
+
+  set page(page: number){
+    this.actualPage = page - 1;
+    this.listarServicios();
+  }
 
   formServicio = new FormGroup({
     nombre_servicio: new FormControl('', Validators.required),
@@ -48,11 +59,13 @@ export class ServicioRegisterComponent implements OnInit {
     private servicioService: ServicioService, 
     public modal:NgbModal, 
     private alertService:AlertService,
-    private categoriaService: CategoriaService
+    private categoriaService: CategoriaService,
+    private catalogoService: CatalogoService
     ) { }
 
   ngOnInit(): void {
     this.listarServicios();
+    this.catalogoService.all(0, 10).subscribe(data => {console.log(data)})
   }
 
   mostrarRegistroServicio(){
@@ -65,23 +78,19 @@ export class ServicioRegisterComponent implements OnInit {
       if(data != null){
         this.existsListCategoria = true;
         this.existsData = true;
-        console.log(data['data']);
         this.listaCategorias = data['data'];
       } else {
         this.existsData = false;
         this.existsListCategoria = false;
-        console.log('no hay');
       }
     })
   }
 
   listarServicios(){
-    this.servicioService.listServicio(this.page, this.size).subscribe(data => {
+    this.servicioService.listServicio(this.actualPage).subscribe(data => {
       if(data != null){
-        this.listaServicios = data['data']
-        this.page = data.meta.current;
-        this.items = data.meta.items;
-        this.pages = data.meta.pages;
+        this.listaServicios = data['data'];
+        this.pageMetaData = data.meta;
       } else {
         this.alertService.info("No existen servicios registrados");
       }
@@ -89,7 +98,6 @@ export class ServicioRegisterComponent implements OnInit {
   }
 
   addServicio(form: Servicio){
-    console.log(form);
     this.servicioService.addServicio(form)
     .subscribe(res => {
       this.listarServicios();
@@ -97,8 +105,6 @@ export class ServicioRegisterComponent implements OnInit {
       this.alertService.success("Servicio registrado");
     }, (err: HttpErrorResponse) => {
       this.hasError = true;
-      console.log(err.error.errors.nombre_servicio);
-      console.log(err.error.errors.categoriaId);
       this.listaErroresServicio = err.error.errors.nombre_servicio;
       this.listaErroresCategoriaId = err.error.errors.categoriaId;
     })
@@ -121,16 +127,12 @@ export class ServicioRegisterComponent implements OnInit {
   }
 
   actualizarServicio(form: Servicio){
-    console.log(form, " PARA VER QUE TIENE")
     this.servicioService.updateServicio(form.servicio_id, form)
     .subscribe(res => {
-      console.log("Servicio # "+ form.servicio_id + " actualizado -> ", form);
-      console.log(res);
       this.alertService.success("Se actualizo el servicio");
       this.listarServicios();
       this.modal.dismissAll();
     }, (err: HttpErrorResponse) => {
-      console.log(err.error.errors);
       this.hasError = true;
       this.listaErroresServicio = err.error.errors.nombre_servicio;
       this.listaErroresCategoriaId = err.error.errors.categoriaId;
@@ -141,26 +143,11 @@ export class ServicioRegisterComponent implements OnInit {
   eliminarServicio(id: any){
     this.servicioService.deleteServicio(id)
     .subscribe(res => {
-      console.log('Categoria # ', id, ' Eliminado');
       this.alertService.success("Se elimino la categoria");
       this.listarServicios();
     }, (err: HttpErrorResponse) => {
       
     })
-  }
-
-  rewind():void{
-    if(this.page > 0){
-      this.page--;
-      this.listarServicios();
-    }
-  }
-
-  forward():void{
-    if(this.page + 1 < this.pages){
-      this.page++;
-      this.listarServicios();
-    }
   }
 
 }
