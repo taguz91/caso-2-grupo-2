@@ -10,6 +10,9 @@ public class UsuarioEditParam {
 	@NotNull
 	private Long personaId;
 
+	@Pattern(regexp = "[0-9]{10,10}")
+	private String cedula;
+
 	@NotEmpty
 	@Pattern(regexp = "[a-zA-ZÀ-ÿ\u00f1\u00d1 ]{2,100}")
 	private String nombres;
@@ -39,9 +42,10 @@ public class UsuarioEditParam {
 		this.password = password;
 	}
 
-	public UsuarioEditParam(Long personaId, String nombres, String apellidos, String correo, String password,
+	public UsuarioEditParam(Long personaId, String cedula, String nombres, String apellidos, String correo, String password,
 			String telefono) {
 		this.personaId = personaId;
+		this.cedula = cedula;
 		this.nombres = nombres;
 		this.apellidos = apellidos;
 		this.correo = correo;
@@ -55,6 +59,14 @@ public class UsuarioEditParam {
 
 	public void setPersonaId(Long personaId) {
 		this.personaId = personaId;
+	}
+
+	public String getCedula() {
+		return cedula;
+	}
+
+	public void setCedula(String cedula) {
+		this.cedula = cedula;
 	}
 
 	public String getNombres() {

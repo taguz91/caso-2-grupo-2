@@ -77,6 +77,11 @@ public class UsuarioController {
 		return ResponseEntity.status(HttpStatus.OK).body(this.usuarioService.findById(id));
 	}
 
+	@GetMapping(value = "cedula/{cedula}")
+	public ResponseEntity<Usuario> readUserByCedula(@PathVariable String cedula) {
+		return ResponseEntity.status(HttpStatus.OK).body(this.usuarioService.findByCedula(cedula));
+	}
+
 	@PutMapping(value = "/")
 	public ResponseEntity<Usuario> updateUser(@Validated @RequestBody UsuarioEditParam usuario) {
 		return ResponseEntity.status(HttpStatus.OK).body(this.usuarioService.update(usuario));
