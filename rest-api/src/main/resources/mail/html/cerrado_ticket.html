@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title th:remove="all">Cerrado Ticket | Tirtec</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<body>
+	<p>
+		Hola, <span th:text="${nombreUsuario}"></span>
+	</p>
+
+	<p>
+		Se ha cerrado el ticket con el código # <span th:text="${ticket}"></span>
+		con el estado de <b th:text="${estado}"> </b> el: <span th:text="${#dates.format(fecha)}">28-12-2012</span>. 
+     </p>
+     
+     <p>
+     	Cerrado por: <b th:text="${userCierre}"></b>
+     </p>
+        
+    <p th:text="${solucion}"></p>
+    
+    <p>
+        Saludos, <br />
+        &emsp; <em>Zero Team</em>
+    </p>
+</body>
+</html>
