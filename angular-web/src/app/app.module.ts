@@ -30,10 +30,6 @@ import { ServicioRegisterComponent } from './components/admin/servicio-register/
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AdminRegisterComponent } from './components/admin/admin-register/admin-register.component';
 import { AdminListComponent } from './components/admin/admin-list/admin-list.component';
-<<<<<<< HEAD
-import { DataTablesModule } from "angular-datatables";
-import { NgxEchartsModule } from 'ngx-echarts';
-=======
 import { DataTablesModule } from 'angular-datatables';
 import { NgxEchartsModule } from 'ngx-echarts';
 import { SoporteDashboardComponent } from './components/personal/soporte-dashboard/soporte-dashboard.component';
@@ -44,7 +40,6 @@ import { ListFloatingButtonComponent } from './components/common/list-floating-b
 import { ModalAsignarComponent } from './components/personal/modal-asignar/modal-asignar.component';
 import { ModalCerrarComponent } from './components/personal/modal-cerrar/modal-cerrar.component';
 import { ModalRechazarComponent } from './components/personal/modal-rechazar/modal-rechazar.component';
->>>>>>> 512c9f1d93bebab6b3003c3a17d1227981516113
 
 @NgModule({
   declarations: [
@@ -72,8 +67,6 @@ import { ModalRechazarComponent } from './components/personal/modal-rechazar/mod
     ServicioRegisterComponent,
     AdminRegisterComponent,
     AdminListComponent,
-<<<<<<< HEAD
-=======
     SoporteDashboardComponent,
     CoordinadorDashboardComponent,
     PersonalLayoutComponent,
@@ -82,7 +75,6 @@ import { ModalRechazarComponent } from './components/personal/modal-rechazar/mod
     ModalAsignarComponent,
     ModalCerrarComponent,
     ModalRechazarComponent,
->>>>>>> 512c9f1d93bebab6b3003c3a17d1227981516113
   ],
   imports: [
     BrowserModule,

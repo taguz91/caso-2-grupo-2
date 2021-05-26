@@ -17,14 +17,14 @@
                         <select class="form-select" formControlName="categoriaId">
 
                             <option [ngValue]="categoria.categoria_id" *ngFor="let categoria of listaCategorias">{{ categoria.nombre_categoria }}</option>
-                            
-                            <option>
-                            
-                                <p (click)="cargarMas()">Cargar más</p>
-                            
-                            </option>
 
                         </select>
+
+                        <div class = "text-danger" *ngIf="!existsListCategoria">
+                        
+                            <p>No existen categorias disponibles</p>
+
+                        </div>
 
                         <div class="text-danger" *ngIf="hasError">
                         
@@ -59,7 +59,7 @@
     </div>
 
     
-    <div class="row">
+    <div class="row" *ngIf="existsData">
 
         <table class="table text-center">
 
@@ -94,7 +94,7 @@
 
                 </tr>
 
-                <tr>
+                <tr *ngIf="items>10">
                 
                     <td>
                     

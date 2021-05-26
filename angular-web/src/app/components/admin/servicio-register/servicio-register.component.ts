@@ -24,6 +24,8 @@ export class ServicioRegisterComponent implements OnInit {
   hasError: boolean = false;
   listaErroresServicio: any[];
   listaErroresCategoriaId: any[];
+  existsData: boolean = false;
+  existsListCategoria: boolean = false;
 
   page = 0;
   size = 10;
@@ -61,9 +63,13 @@ export class ServicioRegisterComponent implements OnInit {
   listarCategorias(){
     this.categoriaService.listCategoriasToServicio().subscribe(data => {
       if(data != null){
+        this.existsListCategoria = true;
+        this.existsData = true;
         console.log(data['data']);
         this.listaCategorias = data['data'];
       } else {
+        this.existsData = false;
+        this.existsListCategoria = false;
         console.log('no hay');
       }
     })

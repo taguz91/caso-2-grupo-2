@@ -4,7 +4,7 @@ import javax.validation.Valid;
 
 import com.tecazuay.example.restapi.api.exception.ResourceNotFoundException;
 import com.tecazuay.example.restapi.api.params.CategoriaParam;
-import com.tecazuay.example.restapi.definitions.CategoriaResponse;
+import com.tecazuay.example.restapi.definitions.MessageResponse;
 import com.tecazuay.example.restapi.definitions.PageResponse;
 import com.tecazuay.example.restapi.models.Categoria;
 import com.tecazuay.example.restapi.models.Usuario;
@@ -86,11 +86,19 @@ public class CategoriaController {
 		// categoria"));
 	}
 
+	// @DeleteMapping("/{id}")
+	// public boolean deleteCategoria(@PathVariable("id") Long categoria_id) {
+	// 	Categoria categoria = categoriaRepository.findById(categoria_id)
+	// 			.orElseThrow(() -> new ResourceNotFoundException("No se encontro la categoria con id:" + categoria_id));
+	// 	categoriaRepository.deleteById(categoria.getCategoria_id());
+	// 	return true;
+	// }
+
 	@DeleteMapping("/{id}")
-	public boolean deleteCategoria(@PathVariable("id") Long categoria_id) {
-		Categoria categoria = categoriaRepository.findById(categoria_id)
-				.orElseThrow(() -> new ResourceNotFoundException("No se encontro la categoria con id:" + categoria_id));
-		categoriaRepository.deleteById(categoria.getCategoria_id());
+	public boolean deleteCategoria(@PathVariable("id") Long categoria_id){
+		categoriaRepository.findById(categoria_id)
+			.orElseThrow(() -> new ResourceNotFoundException("No se encontro la categoria"));
+		categoriaRepository.deleteById(categoria_id);
 		return true;
 	}
 }

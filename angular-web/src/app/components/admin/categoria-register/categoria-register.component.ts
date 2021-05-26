@@ -56,9 +56,10 @@ export class CategoriaRegisterComponent implements OnInit {
         this.pages = data.meta.pages;
       } else {
         this.existsData = false;
+        this.alertService.info("No existen categorias registradas");
       }
-    }, (err) => {
-      console.log(err);
+    }, (err: HttpErrorResponse) => {
+      console.log(err.error);
     });
   }
 
@@ -128,7 +129,7 @@ export class CategoriaRegisterComponent implements OnInit {
         this.alertService.success("Se elimino la categoria");
         this.listarCategorias();
       }, (err: HttpErrorResponse) => {
-
+        console.log(err);
       })
   }
 

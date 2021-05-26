@@ -87,7 +87,6 @@ export class EncuesatisComponent implements OnInit {
 
   downloadPDF() {
     // Extraemos el
-<<<<<<< HEAD
     const DATA: any = document.getElementById('tablaCriti');
     const doc = new jsPDF('l', 'mm', 'a4');
     const options = {
@@ -109,9 +108,7 @@ export class EncuesatisComponent implements OnInit {
     }).then((docResult) => {
       docResult.save(`${new Date().toISOString()}_TDS.pdf`);
     });
-=======
     this.idReporte="tablaCriti";
     this._reporte.reporte(this.idReporte);
->>>>>>> 512c9f1d93bebab6b3003c3a17d1227981516113
   }
 }
