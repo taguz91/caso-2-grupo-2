@@ -38,5 +38,6 @@ $('#password').focus();
 $('#rol').focus();
 $('#estado').focus();
 $('#email').focus();
+$('#cedula').focus();
 $('#confirmar_pass').focus();
 $('#correo').focus();

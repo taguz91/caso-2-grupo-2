@@ -2,6 +2,7 @@ import { Rol } from './rol';
 
 export class Usuario {
   personaId: number;
+  cedula: string
   nombres: string;
   apellidos: string;
   correo: string;
