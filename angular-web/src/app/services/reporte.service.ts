@@ -13,6 +13,23 @@ export class ReporteService {
   constructor() {}
 
   reporte(data : string) {
+<<<<<<< HEAD
+  //   var DATA: any = document.getElementById(data);
+  //   var doc = new jsPDF(
+  //     {
+  //       orientation: '1',
+  //       unit: 'pt',
+  //       format: 'A4',
+  //       position:'2'
+  //     }
+  //   );
+  //   doc.setFontSize(22);
+  //   doc.setFontStyle('cursiva');
+  //   doc.text("Instituto Tecnologico Superior del Azuay", 180,20);
+  //   doc.fromHTML(DATA,10,25);
+  //   doc.save("IstaReporte.pdf");
+  // }
+=======
     var DATA: any = document.getElementById(data);
 
     var pdf = new jsPDF('l', 'pt', 'a4');
@@ -42,5 +59,6 @@ export class ReporteService {
     }).then((docResult) => {
       docResult.save(`${new Date().toISOString()}_TIRTEC.pdf`);
     });
+>>>>>>> b0081a27b2f5999e399dec366e6fdfb340a9cbb3
   }
 }

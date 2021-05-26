@@ -96,6 +96,8 @@ const routes: Routes = [
       {
         path: 'categorias',
         component: CategoriaRegisterComponent,
+<<<<<<< HEAD
+=======
       },
       {
         path: 'servicios',
@@ -104,6 +106,7 @@ const routes: Routes = [
       {
         path: 'catalogo',
         component: CatalogoComponent,
+>>>>>>> b0081a27b2f5999e399dec366e6fdfb340a9cbb3
       },
       {
         path: 'tickets/estado/:idEstado',
@@ -149,12 +152,21 @@ const routes: Routes = [
         component: SoporteDashboardComponent,
       },
       {
+<<<<<<< HEAD
+        path: 'admin-list',
+        component: AdminListComponent
+      },
+      {
+=======
+>>>>>>> b0081a27b2f5999e399dec366e6fdfb340a9cbb3
         path: 'coordinador',
         component: CoordinadorDashboardComponent,
       },
       {
         path: 'ticket/:idTicket',
         component: UserTicketComponent,
+<<<<<<< HEAD
+=======
       },
       {
         path: 'ticket/tipo-servicio/:idPersona',
@@ -167,6 +179,7 @@ const routes: Routes = [
       {
         path: 'ticket/ingreso/:idPersona/:idCatalogo',
         component: UserRegistroTicketComponent,
+>>>>>>> b0081a27b2f5999e399dec366e6fdfb340a9cbb3
       },
     ],
   },

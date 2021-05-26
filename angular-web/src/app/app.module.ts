@@ -29,6 +29,11 @@ import { ServicioRegisterComponent } from './components/admin/servicio-register/
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AdminRegisterComponent } from './components/admin/admin-register/admin-register.component';
 import { AdminListComponent } from './components/admin/admin-list/admin-list.component';
+<<<<<<< HEAD
+import { DataTablesModule } from 'angular-datatables';
+import { NgxEchartsModule } from 'ngx-echarts';
+=======
+>>>>>>> b0081a27b2f5999e399dec366e6fdfb340a9cbb3
 import { SoporteDashboardComponent } from './components/personal/soporte-dashboard/soporte-dashboard.component';
 import { CoordinadorDashboardComponent } from './components/personal/coordinador-dashboard/coordinador-dashboard.component';
 import { PersonalLayoutComponent } from './layouts/personal-layout/personal-layout.component';
@@ -37,12 +42,15 @@ import { ListFloatingButtonComponent } from './components/common/list-floating-b
 import { ModalAsignarComponent } from './components/personal/modal-asignar/modal-asignar.component';
 import { ModalCerrarComponent } from './components/personal/modal-cerrar/modal-cerrar.component';
 import { ModalRechazarComponent } from './components/personal/modal-rechazar/modal-rechazar.component';
+<<<<<<< HEAD
+=======
 import { DataTablesModule } from 'angular-datatables';
 import { NgxEchartsModule } from 'ngx-echarts';
 import { CatalogoComponent } from './components/admin/catalogo/catalogo.component';
 import { FormCatalogoComponent } from './components/admin/form-catalogo/form-catalogo.component';
 import { TicketPreviewComponent } from './components/common/ticket-preview/ticket-preview.component';
 import { ModalFindComponent } from './components/personal/modal-find/modal-find.component';
+>>>>>>> b0081a27b2f5999e399dec366e6fdfb340a9cbb3
 
 @NgModule({
   declarations: [
@@ -78,10 +86,13 @@ import { ModalFindComponent } from './components/personal/modal-find/modal-find.
     ModalAsignarComponent,
     ModalCerrarComponent,
     ModalRechazarComponent,
+<<<<<<< HEAD
+=======
     CatalogoComponent,
     FormCatalogoComponent,
     TicketPreviewComponent,
     ModalFindComponent,
+>>>>>>> b0081a27b2f5999e399dec366e6fdfb340a9cbb3
   ],
   imports: [
     BrowserModule,
