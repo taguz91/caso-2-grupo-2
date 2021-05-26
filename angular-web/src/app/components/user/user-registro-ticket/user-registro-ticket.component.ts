@@ -3,8 +3,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Parametro } from 'src/app/models/Parametros';
+import { TicketView } from 'src/app/models/ticket';
 import { AdjuntoService } from 'src/app/services/adjunto.service';
 import { AlertService } from 'src/app/services/alert.service';
+import { MedioService } from 'src/app/services/medio.service';
 import { ParametrosService } from 'src/app/services/parametros.service';
 import { TicketService } from 'src/app/services/ticket.service';
 
@@ -18,8 +20,11 @@ export class UserRegistroTicketComponent implements OnInit {
   private catalogoId: number = 0;
   ticketId: number = 0;
   loading: boolean = false;
+  ticketView: TicketView;
 
   impactos: Parametro[] = [];
+  mediosComunicacion: Parametro[] = [];
+  mediosSelected: number[] = [];
 
   ticketForm = new FormGroup({
     titulo: new FormControl('', [
@@ -44,7 +49,8 @@ export class UserRegistroTicketComponent implements OnInit {
     private ticketService: TicketService,
     private router: Router,
     private alertService: AlertService,
-    private adjuntoService: AdjuntoService
+    private adjuntoService: AdjuntoService,
+    private medioService: MedioService
   ) {}
 
   ngOnInit(): void {
@@ -57,9 +63,13 @@ export class UserRegistroTicketComponent implements OnInit {
     if (idTicket) {
       this.ticketId = parseInt(idTicket);
       this.ticketService.one(this.ticketId).subscribe((res) => {
+        this.ticketView = res;
         this.titulo.setValue(res.titulo);
         this.descripcion.setValue(res.descripcion);
         this.impactoId.setValue(res.impacto.parametros_id);
+        res.mediosComunicacion.forEach((medio) => {
+          this.mediosSelected.push(medio.medio.parametros_id);
+        });
       });
     }
 
@@ -73,6 +83,11 @@ export class UserRegistroTicketComponent implements OnInit {
     this.parametroService
       .listImpactos()
       .subscribe((res) => (this.impactos = res));
+
+    // Loading medios comunicacion
+    this.parametroService
+      .listMediosComunicacion()
+      .subscribe((res) => (this.mediosComunicacion = res));
   }
 
   onSave() {
@@ -90,6 +105,12 @@ export class UserRegistroTicketComponent implements OnInit {
               'Ingresamos de forma correcta el ticket.'
             );
             this.uploadFiles();
+            this.mediosSelected.forEach((medio) => {
+              this.medioService.save({
+                ticket_id: this.ticketId,
+                medio_id: medio,
+              });
+            });
           }
         });
     } else {
@@ -143,13 +164,40 @@ export class UserRegistroTicketComponent implements OnInit {
           );
         }
       },
-      (error) => {
+      (_) => {
         this.progress = 0;
         this.alertService.error(
           'Error al subir tu imagen, vuelve a intentarlo.'
         );
       }
     );
+  }
+
+  async onChangeMedio(e) {
+    const select = parseInt(e.target.value);
+    if (e.target.checked) {
+      this.mediosSelected.push(select);
+      if (this.ticketId === 0) return;
+      const newMedio = await this.medioService.save({
+        ticket_id: this.ticketId,
+        medio_id: select,
+      });
+      this.ticketView.mediosComunicacion.push(newMedio);
+    } else {
+      let i = this.mediosSelected.indexOf(select);
+      if (i === -1) return;
+      this.mediosSelected.splice(i, 1);
+      if (this.ticketId === 0) return;
+      this.ticketView.mediosComunicacion.forEach((medio) => {
+        if (medio.medio.parametros_id === select) {
+          this.medioService.delete(medio.medio_id).subscribe((res) => {
+            this.alertService.info(
+              `Removimos ${medio.medio.nombre} de tus medio de comunicación.`
+            );
+          });
+        }
+      });
+    }
   }
 
   get titulo() {
@@ -162,6 +210,10 @@ export class UserRegistroTicketComponent implements OnInit {
 
   get impactoId() {
     return this.ticketForm.get('impactoId');
+  }
+
+  isChecket(medio: Parametro): boolean {
+    return this.mediosSelected.includes(medio.parametros_id);
   }
 
   redirectUrl() {

@@ -38,6 +38,10 @@ export class ParametrosService {
     return this.callService('parametros/estados');
   }
 
+  listMediosComunicacion(): Observable<Parametro[]> {
+    return this.callService('parametros/medios-comunicacion');
+  }
+
   private callService(url: string): Observable<Parametro[]> {
     return this.http
       .get<Parametro[]>(`${URL_BASE_V1 + url}`, loadHeader())
