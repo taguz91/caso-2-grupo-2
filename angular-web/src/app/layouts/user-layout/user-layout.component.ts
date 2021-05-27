@@ -13,7 +13,12 @@ export class UserLayoutComponent implements OnInit {
   constructor(private sessionService: SessionService) {}
 
   ngOnInit(): void {
-    this.sessionService.getUser().subscribe((user) => (this.user = user));
+    const user = this.sessionService.user;
+    if (user) {
+      this.user = user;
+    } else {
+      this.sessionService.getUser().subscribe((user) => (this.user = user));
+    }
   }
 
   logout() {

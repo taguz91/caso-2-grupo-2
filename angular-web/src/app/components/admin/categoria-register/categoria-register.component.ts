@@ -75,6 +75,7 @@ export class CategoriaRegisterComponent implements OnInit {
   }
 
   addCategoria(form: Categoria) {
+    this.hasError = false;
     this.categoriaService.findByNombreCategoria(form.nombre_categoria)
       .subscribe(data => {
         this.hasError = true;
@@ -98,7 +99,7 @@ export class CategoriaRegisterComponent implements OnInit {
             })
           })
       })
-
+      this.categoriaForm.reset();
   }
 
   openModal(contenido, id, nombre_categoria) {
@@ -110,6 +111,7 @@ export class CategoriaRegisterComponent implements OnInit {
   }
 
   actualizarCategoria(form: Categoria) {
+    this.hasError = false;
     this.categoriaService.updateCategoria(form.categoria_id, form)
       .subscribe(res => {
         this.alertService.success("Se actualizo la categoria");
@@ -122,6 +124,7 @@ export class CategoriaRegisterComponent implements OnInit {
           this.messageError = error
         })
       })
+      this.categoriaFormEdit.reset();
   }
 
   eliminarCategoria(id: any) {
