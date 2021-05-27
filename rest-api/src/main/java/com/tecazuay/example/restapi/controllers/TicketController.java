@@ -165,7 +165,7 @@ public class TicketController {
 	}
 
 	@GetMapping(value = "/search/{estado}")
-	public ResponseEntity<PageResponse> search(@PathVariable Long estado, @RequestParam(value = "q") String q,
+	public ResponseEntity<PageResponse> searchByEstado(@PathVariable Long estado, @RequestParam(value = "q") String q,
 			@AuthenticationPrincipal Usuario user, @RequestParam(value = "page", defaultValue = "0") int page,
 			@RequestParam(value = "size", defaultValue = "20") int size) {
 		AuthorizationService.onlyAdminOrDev(user);
