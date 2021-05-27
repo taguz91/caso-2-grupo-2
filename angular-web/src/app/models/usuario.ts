@@ -24,6 +24,7 @@ interface LoginFormErrors {
 }
 
 export interface LoginUser {
+  personaId: number;
   apellidos: string;
   nombres: string;
   correo: string;
