@@ -126,7 +126,7 @@ export class AdminLayoutComponent implements OnInit {
         {
           label: 'Excel',
           icon: 'table_chart',
-          urlTo: '/admin/reportes/excel',
+          urlTo: '/admin/reportes/admin-report',
         },
       ],
     },

@@ -21,6 +21,7 @@ import {
   templateUrl: './tickets-estado.component.html',
   styleUrls: ['./tickets-estado.component.scss'],
 })
+
 export class TicketsEstadoComponent implements OnInit {
   estado: number = 0;
   tickets: TicketView[] = [];

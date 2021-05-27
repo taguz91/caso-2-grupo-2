@@ -137,6 +137,9 @@ export class AdminRegisterComponent implements OnInit {
     if (!this.validar_nombres([user.apellidos, user.nombres])) {
       return false;
     }
+    if (!this.validar_cedula(user.cedula)) {
+      return false;
+    }
     if (!this.validar_telefono(user.telefono)) {
       return false;
     }
@@ -145,7 +148,8 @@ export class AdminRegisterComponent implements OnInit {
     }
     if (this.usuario.rol == null) {
       return false;
-    }  
+    }
+
     return true;
   }
 
@@ -217,6 +221,32 @@ export class AdminRegisterComponent implements OnInit {
       }
     } else {
       this.show_response('Teléfono/Celular vacío');
+      return false;
+    }
+  }
+
+  validar_cedula(cedula: string) {
+    if (Boolean(cedula) && cedula.length > 0) {
+      if (this.localService.is_cedula(cedula)) {
+        this.usuarioService.readUserByCedula(cedula).subscribe(data => {
+          try {
+            if (data != null && data.cedula == cedula) {
+              this.show_response('Cédula existente');
+              return false;
+            } else {
+              return true;
+            }
+          } catch (error) {
+            this.show_response('Error desconocido');
+            return false;
+          }
+        });
+      } else {
+        this.show_response('Formato de la cédula incorrecta');
+        return false;
+      }
+    } else {
+      this.show_response('Cédula vacía');
       return false;
     }
   }

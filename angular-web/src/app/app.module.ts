@@ -43,6 +43,10 @@ import { CatalogoComponent } from './components/admin/catalogo/catalogo.componen
 import { FormCatalogoComponent } from './components/admin/form-catalogo/form-catalogo.component';
 import { TicketPreviewComponent } from './components/common/ticket-preview/ticket-preview.component';
 import { ModalFindComponent } from './components/personal/modal-find/modal-find.component';
+import { AdminReportComponent } from './components/admin/admin-report/admin-report.component';
+import { ReportUsuarioComponent } from './components/admin/admin-report/report-usuario/report-usuario.component';
+import { ReportTicketComponent } from './components/admin/admin-report/report-ticket/report-ticket.component';
+import { ReportCatalogoComponent } from './components/admin/admin-report/report-catalogo/report-catalogo.component';
 
 @NgModule({
   declarations: [
@@ -82,6 +86,10 @@ import { ModalFindComponent } from './components/personal/modal-find/modal-find.
     FormCatalogoComponent,
     TicketPreviewComponent,
     ModalFindComponent,
+    AdminReportComponent,
+    ReportUsuarioComponent,
+    ReportTicketComponent,
+    ReportCatalogoComponent,
   ],
   imports: [
     BrowserModule,
