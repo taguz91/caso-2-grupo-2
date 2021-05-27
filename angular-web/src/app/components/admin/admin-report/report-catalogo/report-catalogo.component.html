@@ -43,7 +43,7 @@
           <th>Tiempo Resolucion</th>
           <th>Tiempo Respuesta</th>
           <th>Tiempo Escalada</th>
-          <th>Acciones</th>
+          
         </tr>
       </thead>
       <tbody>
@@ -57,19 +57,6 @@
           <td>{{ catalogo.sla.tiempoResolucion }}</td>
           <td>{{ catalogo.sla.tiempoRespuesta }}</td>
           <td>{{ catalogo.sla.reglasEscalada }}</td>
-          <td>
-            <button class="btn" (click)="update(catalogo.catalogo_id); triggerModal(modalForm);">
-              <span class="material-icons-round">
-                edit
-              </span>
-            </button>
-
-            <button class="btn ml-2 text-danger" (click)="delete(catalogo.catalogo_id);">
-              <span class="material-icons-round">
-                delete
-              </span>
-            </button>
-          </td>
         </tr>
 
       </tbody>

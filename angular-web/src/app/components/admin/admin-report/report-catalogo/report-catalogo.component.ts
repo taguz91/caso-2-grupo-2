@@ -57,9 +57,7 @@ export class ReportCatalogoComponent implements OnInit,PipeTransform {
 
   private nuevosData(): any[] {
     
-    const values:any[] = [['Tipo de servicio','Servicio','Catalogo'
-    ,'Criticidad','Impacto','Nivel Prioridad','Tiempo Resolucion',
-    ,'Tiempo Respuesta','Tiempo Escalada'],["      "]];
+    const values:any[] = [['Tipo de servicio','Servicio','Catalogo','Criticidad','Impacto','Nivel Prioridad','Tiempo Resolucion','Tiempo Respuesta','Tiempo Escalada']];
     this.catalogosExcel.forEach((catalogo) => {
       values.push([
         catalogo.tipoServicio.nombre,
@@ -73,7 +71,6 @@ export class ReportCatalogoComponent implements OnInit,PipeTransform {
         catalogo.sla.reglasEscalada
       ]);
     });
-    this.values.filter((values)=>'Bajo');
     return values;
   }
 
@@ -97,19 +94,6 @@ export class ReportCatalogoComponent implements OnInit,PipeTransform {
   private resetForm() {
     this.catalogoId = 0;
     this.loadCatalogos();
-  }
-
-  update(idCatalogo: number) {
-    this.catalogoId = idCatalogo;
-  }
-
-  delete(idCatalogo: number) {
-    this.catalogoService.delete(idCatalogo).subscribe((res) => {
-      if (res > 0) {
-        this.alertService.info(`Eliminamos correctamente #${res}`);
-        this.loadCatalogos();
-      }
-    });
   }
   GetReporte(){
     this._reporte.reporte('tabla');
