@@ -25,6 +25,7 @@ import { CatalogoComponent } from './components/admin/catalogo/catalogo.componen
 import { FilterAdminService } from './services/auth/filter-admin.service';
 import { FilterPersonalService } from './services/auth/filter-personal.service';
 import { FilterUsuarioService } from './services/auth/filter-usuario.service';
+import { AdminReportComponent } from './components/admin/admin-report/admin-report.component';
 
 const routes: Routes = [
   // Public rutes goes here
@@ -129,12 +130,15 @@ const routes: Routes = [
         path: 'soporte-n2/rol/:id',
         component: AdminListComponent,
       },
-
       {
         path: 'admin-register',
         component: AdminRegisterComponent,
         pathMatch: 'full',
       },
+      {
+        path: 'reportes/admin-report',
+        component: AdminReportComponent
+      }
     ],
   },
 
@@ -149,13 +153,10 @@ const routes: Routes = [
         component: SoporteDashboardComponent,
       },
       {
-<<<<<<< HEAD
         path: 'admin-list',
         component: AdminListComponent
       },
       {
-=======
->>>>>>> a38059e18874ed498885475df38e6ad7e8dd9ac2
         path: 'coordinador',
         component: CoordinadorDashboardComponent,
       },
@@ -175,6 +176,7 @@ const routes: Routes = [
         path: 'ticket/ingreso/:idPersona/:idCatalogo',
         component: UserRegistroTicketComponent,
       },
+      
     ],
   },
 

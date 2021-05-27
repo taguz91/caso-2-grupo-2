@@ -39,3 +39,15 @@ export interface CatalogoView {
   sla: Sla;
   servicio: Servicio;
 }
+
+export interface CatalogoViewFull {
+  createdAt: Date;
+  updatedAt: Date;
+  createdBy: number;
+  updatedBy?: any;
+  catalogo_id: number;
+  descripcion: string;
+  tipoServicio: ParametroModel;
+  sla: Sla;
+  servicio: Servicio;
+}
