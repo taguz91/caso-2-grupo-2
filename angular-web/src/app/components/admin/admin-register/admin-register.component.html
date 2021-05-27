@@ -29,6 +29,11 @@
                             </div>
 
                             <div class="field-wrap">
+                                <label>Cédula<span class="req">*</span></label>
+                                <input [(ngModel)]="usuario.cedula" name="cedula" id="cedula" type="text" autocomplete="off" maxlength="100" pattern="^[0-9]{10,10}" required/>
+                            </div>
+
+                            <div class="field-wrap">
                                 <label>Teléfono / Celular<span class="req">*</span></label>
                                 <input [(ngModel)]="usuario.telefono" name="telefono" id="telefono" type="text" required autocomplete="off" maxlength="100" pattern="^[0-9]{10,15}" />
                             </div>
