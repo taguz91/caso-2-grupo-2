@@ -164,4 +164,15 @@ public class TicketController {
 		return ResponseEntity.status(HttpStatus.OK).body(ticketRepository.reportCountLastWeek());
 	}
 
+	@GetMapping(value = "/search")
+	public ResponseEntity<PageResponse> search(@RequestParam(value = "q") String q,
+			@AuthenticationPrincipal Usuario user, @RequestParam(value = "page", defaultValue = "0") int page,
+			@RequestParam(value = "size", defaultValue = "20") int size) {
+		AuthorizationService.onlyAdminOrDev(user);
+
+		Pageable pageable = PageRequest.of(page, size);
+		Page<Ticket> ticketsPage = ticketRepository.search(q.toLowerCase(), pageable);
+		return ResponseEntity.status(HttpStatus.OK).body(new PageResponse(ticketsPage));
+	}
+
 }
