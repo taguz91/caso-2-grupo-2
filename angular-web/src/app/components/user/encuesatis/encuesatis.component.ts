@@ -86,33 +86,6 @@ export class EncuesatisComponent implements OnInit {
   }
 
   downloadPDF() {
-<<<<<<< HEAD
-    // Extraemos el
-    const DATA: any = document.getElementById('tablaCriti');
-    const doc = new jsPDF('l', 'mm', 'a4');
-    const options = {
-      background: 'white',
-      scale: 3
-    };
-    html2canvas(DATA, options).then((canvas) => {
-
-      const img = canvas.toDataURL('image/PNG');
-
-      // Add image Canvas to PDF
-      const bufferX = 15;
-      const bufferY = 15;
-      const imgProps = (doc as any).getImageProperties(img);
-      const pdfWidth = doc.internal.pageSize.getWidth() - 2 * bufferX;
-      const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
-      doc.addImage(img, 'PNG', bufferX, bufferY, pdfWidth, pdfHeight, undefined, 'FAST');
-      return doc;
-    }).then((docResult) => {
-      docResult.save(`${new Date().toISOString()}_TDS.pdf`);
-    });
-    this.idReporte="tablaCriti";
-    this._reporte.reporte(this.idReporte);
-=======
->>>>>>> 795e5d80e270a5d6a1e0cdbd7ddfe8e71d9fe9d8
     this._reporte.reporte('tablaCriti');
   }
 }
