@@ -13,7 +13,7 @@ import { catchError, tap } from 'rxjs/operators';
 import { Categoria } from '../models/categoria';
 import { PageResponse } from '../models/Parametros';
 
-import { handleError, loadHeader, URL_BASE_V1 } from '../utils/constantes';
+import { DEFAULT_PAGE_SIZE, handleError, loadHeader, URL_BASE_V1 } from '../utils/constantes';
 
 @Injectable({
   providedIn: 'root',
@@ -31,7 +31,7 @@ export class CategoriaService {
 
   listCategorias(
     page?: number,
-    size?: number
+    size: number = DEFAULT_PAGE_SIZE
   ): Observable<PageResponse<Categoria[]>> {
     return this.http
       .get<PageResponse<Categoria[]>>(

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title th:remove="all">Rechazo Ticket | Tirtec</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<body>
+	<p>
+		Hola, <span th:text="${nombreUsuario}"></span>
+	</p>
+
+	<p>
+		Se ha rechazado el ticket con el código #<span th:text="${ticket}"></span>
+		el rechazo fue registrado el: <span th:text="${#dates.format(fecha)}">28-12-2012</span>. 
+     </p>
+     
+     <p>
+     	Rechazado por: <b th:text="${userRechazo}"></b>
+     </p>
+        
+    <p th:text="${motivo}"></p>
+    
+    <p>
+        Saludos, <br />
+        &emsp; <em>Zero Team</em>
+    </p>
+</body>
+</html>

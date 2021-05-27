@@ -17,6 +17,7 @@ import com.tecazuay.example.restapi.api.params.CerrarTicketParam;
 import com.tecazuay.example.restapi.api.params.RechazarTicketParam;
 import com.tecazuay.example.restapi.api.params.RegisterTicketParam;
 import com.tecazuay.example.restapi.models.Historial;
+import com.tecazuay.example.restapi.models.MedioComunicacion;
 import com.tecazuay.example.restapi.models.Parametros;
 import com.tecazuay.example.restapi.models.Ticket;
 import com.tecazuay.example.restapi.models.Usuario;
@@ -142,6 +143,10 @@ public class TicketService {
 		Historial historial = new Historial("Se cierra el ticket", ticket);
 
 		historialRepository.save(historial);
+
+		if (haveCorreoNotification(ticket)) {
+			emailService.sendCerrado(ticket);
+		}
 		return ticketRepository.save(ticket);
 	}
 
@@ -156,6 +161,17 @@ public class TicketService {
 
 		Historial historial = new Historial("Se rechaza el ticket.", ticket);
 		historialRepository.save(historial);
+		if (haveCorreoNotification(ticket)) {
+			emailService.sendRechazo(ticket);
+		}
 		return ticketRepository.save(ticket);
+	}
+
+	private boolean haveCorreoNotification(Ticket ticket) {
+		boolean notificar = false;
+		for (MedioComunicacion mc : ticket.getMediosComunicacion()) {
+			notificar = mc.getMedio().getParametros_id() == Types.MEDIO_COMUNICACION_CORREO;
+		}
+		return notificar;
 	}
 }

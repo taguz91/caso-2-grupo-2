@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { PageResponse } from '../models/Parametros';
 import { Servicio, ServicioCombo } from '../models/servicio';
-import { handleError, loadHeader, URL_BASE_V1 } from '../utils/constantes';
+import { DEFAULT_PAGE_SIZE, handleError, loadHeader, URL_BASE_V1 } from '../utils/constantes';
 
 @Injectable({
   providedIn: 'root',
@@ -16,7 +16,7 @@ export class ServicioService {
 
   listServicio(
     page?: number,
-    size?: number
+    size: number = DEFAULT_PAGE_SIZE
   ): Observable<PageResponse<Servicio[]>> {
     return this.http
       .get<PageResponse<Servicio[]>>(
@@ -31,7 +31,6 @@ export class ServicioService {
 
   addServicio(servicio: Servicio): Observable<any> {
     const body = JSON.stringify(servicio);
-    console.log(body);
     return this.http.post<Servicio>(
       `${URL_BASE_V1}servicios/`,
       body,
@@ -41,7 +40,6 @@ export class ServicioService {
 
   updateServicio(id: any, servicio: Servicio): Observable<any> {
     const body = JSON.stringify(servicio);
-    console.log(body);
     return this.http.put<any>(
       `${URL_BASE_V1}servicios/${id}`,
       body,
@@ -58,5 +56,9 @@ export class ServicioService {
       `${URL_BASE_V1}servicios/combo`,
       loadHeader()
     );
+  }
+
+  getServicioByCategoria(id:any):Observable<any>{
+    return this.http.get<any>(`${URL_BASE_V1}servicios/categoria/${id}`, loadHeader());
   }
 }

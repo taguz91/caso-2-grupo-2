@@ -61,11 +61,7 @@
 
 <div class="card shadow my-3 card_responsive">
     
-<<<<<<< HEAD
-    <div class="row" *ngIf="existsData">
-=======
     <div class="card-body">
->>>>>>> b0081a27b2f5999e399dec366e6fdfb340a9cbb3
 
         <table class="table text-center">
 
@@ -99,40 +95,16 @@
                     </td>
 
                 </tr>
-
-                <tr *ngIf="items>10">
-                
-                    <td>
-                    
-                        <button class="btn btn-primary" (click)="rewind()">
-                        
-                            <span class="material-icons">arrow_back</span>
-
-                        </button>
-
-                    </td>
-                    
-                    <td colspan="2"></td>
-                    
-                    <td>
-                    
-                        <button class="btn btn-primary" (click)="forward()">
-                        
-                            <span class="material-icons">arrow_forward</span>
-
-                        </button>
-
-                    </td>
-
-                </tr>
             
             </tbody>
         
         </table>
 
+        <ngb-pagination [collectionSize]="pageMetaData.items" [(page)]="page" [pageSize]="perPage">
+        </ngb-pagination>
+
     </div>
 
-    
 </div>
 
 <ng-template #contenido let-modal>
