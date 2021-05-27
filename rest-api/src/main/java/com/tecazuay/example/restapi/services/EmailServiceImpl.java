@@ -141,7 +141,7 @@ public class EmailServiceImpl implements EmailService {
 		final MimeMessage mimeMessage = this.emailSender.createMimeMessage();
 		final MimeMessageHelper message = new MimeMessageHelper(mimeMessage, "UTF-8");
 		try {
-			message.setSubject("Ticket rechazado #" + ticket.getTicket_id());
+			message.setSubject("Ticket cerrado #" + ticket.getTicket_id());
 			message.setTo(ticket.getUsuario().getCorreo());
 			final String htmlContent = this.htmlTemplateEngine.process(EMAIL_HTML_TEMPLATE_CERRAR_TICKET, ctx);
 			message.setText(htmlContent, true);
