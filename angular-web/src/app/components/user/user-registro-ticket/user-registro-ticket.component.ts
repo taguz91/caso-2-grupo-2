@@ -9,6 +9,7 @@ import { AlertService } from 'src/app/services/alert.service';
 import { MedioService } from 'src/app/services/medio.service';
 import { ParametrosService } from 'src/app/services/parametros.service';
 import { TicketService } from 'src/app/services/ticket.service';
+import { MEDIO_COMUNICACION_DEFAULT } from 'src/app/utils/constantes';
 
 @Component({
   selector: 'app-user-registro-ticket',
@@ -71,6 +72,8 @@ export class UserRegistroTicketComponent implements OnInit {
           this.mediosSelected.push(medio.medio.parametros_id);
         });
       });
+    } else {
+      this.mediosSelected = MEDIO_COMUNICACION_DEFAULT;
     }
 
     const idPersona = this.activeRoute.snapshot.paramMap.get('idPersona');
@@ -160,7 +163,7 @@ export class UserRegistroTicketComponent implements OnInit {
           this.progress = Math.round((100 * event.loaded) / event.total);
         } else if (event instanceof HttpResponse) {
           this.alertService.success(
-            'Subimos de forma correcta tu archvio adjunto.'
+            'Subimos de forma correcta tu archivo adjunto.'
           );
         }
       },

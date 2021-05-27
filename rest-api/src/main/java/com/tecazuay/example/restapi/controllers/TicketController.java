@@ -130,7 +130,7 @@ public class TicketController {
 	@PostMapping(value = "/asignar")
 	public ResponseEntity<Ticket> asignar(@Valid @RequestBody AsignarTicketParam asignar,
 			@AuthenticationPrincipal Usuario user) {
-		AuthorizationService.onlyCoordinadorOrDev(user);
+		AuthorizationService.onlyPersonal(user);
 		return ResponseEntity.status(HttpStatus.OK).body(ticketService.asignarTicket(asignar, user));
 	}
 

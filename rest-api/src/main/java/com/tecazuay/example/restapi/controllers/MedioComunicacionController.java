@@ -1,7 +1,10 @@
 package com.tecazuay.example.restapi.controllers;
 
+import com.tecazuay.example.restapi.api.exception.ResourceNotFoundException;
 import com.tecazuay.example.restapi.api.params.MedioComunicacionParam;
+import com.tecazuay.example.restapi.models.Historial;
 import com.tecazuay.example.restapi.models.MedioComunicacion;
+import com.tecazuay.example.restapi.repositories.HistorialRepository;
 import com.tecazuay.example.restapi.repositories.MedioComunicacionRepository;
 import com.tecazuay.example.restapi.services.MedioService;
 
@@ -30,6 +33,9 @@ public class MedioComunicacionController {
 	@Autowired
 	MedioComunicacionRepository medioComunicacionRepository;
 
+	@Autowired
+	private HistorialRepository historialRepository;
+
 	@RequestMapping(value = "/ticket/{ticket_id}", method = RequestMethod.GET)
 	@ResponseBody
 	@CrossOrigin
@@ -53,8 +59,16 @@ public class MedioComunicacionController {
 	@RequestMapping(value = "/{medio_id}", method = RequestMethod.DELETE)
 	@ResponseBody
 	@CrossOrigin
-	public void borrar(@PathVariable Long medio_id) {
+	public ResponseEntity<MedioComunicacion> borrar(@PathVariable Long medio_id) {
+		MedioComunicacion medio = medioComunicacionRepository.findById(medio_id)
+				.orElseThrow(() -> new ResourceNotFoundException("No encontramos el medio de comunicacion"));
+
+		Historial historial = new Historial(
+				"Se elimino <span>" + medio.getMedio().getNombre() + "</span> como medio de comunicación.",
+				medio.getTicket());
+		historialRepository.save(historial);
 		medioComunicacionRepository.deleteById(medio_id);
+		return ResponseEntity.status(HttpStatus.OK).body(medio);
 	}
 
 }
