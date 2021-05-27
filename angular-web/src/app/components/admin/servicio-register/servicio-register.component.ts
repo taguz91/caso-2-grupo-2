@@ -34,6 +34,8 @@ export class ServicioRegisterComponent implements OnInit {
   perPage: number = DEFAULT_PAGE_SIZE;
   actualPage: number = 0;
 
+  datosPorLista: number = 1;
+
   get page(){
     return this.actualPage + 1;
   }
@@ -41,6 +43,11 @@ export class ServicioRegisterComponent implements OnInit {
   set page(page: number){
     this.actualPage = page - 1;
     this.listarServicios();
+  }
+
+  mostrarMas(){
+    this.perPage = this.perPage + 10;
+    this.listarCategorias();
   }
 
   formServicio = new FormGroup({
@@ -65,7 +72,6 @@ export class ServicioRegisterComponent implements OnInit {
 
   ngOnInit(): void {
     this.listarServicios();
-    this.catalogoService.all(0, 10).subscribe(data => {console.log(data)})
   }
 
   mostrarRegistroServicio(){
@@ -74,6 +80,7 @@ export class ServicioRegisterComponent implements OnInit {
   }
 
   listarCategorias(){
+    
     this.categoriaService.listCategoriasToServicio().subscribe(data => {
       if(data != null){
         this.existsListCategoria = true;
@@ -102,21 +109,23 @@ export class ServicioRegisterComponent implements OnInit {
     .subscribe(res => {
       this.listarServicios();
       this.isShow = !this.isShow;
+      this.hasError = false;
       this.alertService.success("Servicio registrado");
     }, (err: HttpErrorResponse) => {
       this.hasError = true;
       this.listaErroresServicio = err.error.errors.nombre_servicio;
       this.listaErroresCategoriaId = err.error.errors.categoriaId;
-    })
+    });
+    this.formServicio.reset();
   }
 
   openModal(contenido, id, nombre_servicio){
-    this.categoriaService.listCategorias()
+    this.categoriaService.listCategoriasToServicio()
     .subscribe(data => {
       if(data != null){
         this.listaCategorias = data['data'];
       }  
-    })
+    });
     
     this.servicioFormEdit.setValue({
       nombre_servicio: nombre_servicio,
@@ -132,11 +141,13 @@ export class ServicioRegisterComponent implements OnInit {
       this.alertService.success("Se actualizo el servicio");
       this.listarServicios();
       this.modal.dismissAll();
+      this.hasError = false;
     }, (err: HttpErrorResponse) => {
       this.hasError = true;
       this.listaErroresServicio = err.error.errors.nombre_servicio;
       this.listaErroresCategoriaId = err.error.errors.categoriaId;
-    })
+    });
+    this.servicioFormEdit.reset();
   }
 
 
