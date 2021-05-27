@@ -71,7 +71,7 @@ public interface TicketRepository extends JpaRepository<Ticket, Long> {
 			+ "GROUP BY estado_id, date_part('dow', t.updated_at)\r\n"
 			+ "ORDER BY \"day\", estado_id", nativeQuery = true)
 	List<TicketEstadoCount> reportCountLastWeek();
-	
-	@Query(value = "SELECT t FROM ticket t WHERE LOWER( CONCAT(t.titulo, ' ', t.descripcion, ' ', t.solucion, ' ', t.usuario.nombres, ' ', t.usuario.apellidos) ) LIKE %?1%")
-	Page<Ticket> search(String q, Pageable pageable);
+
+	@Query(value = "SELECT t FROM ticket t WHERE LOWER( CONCAT(t.titulo, ' ', t.descripcion, ' ', t.solucion, ' ', t.usuario.nombres, ' ', t.usuario.apellidos) ) LIKE %?1% AND t.estado.parametros_id = :estado_id")
+	Page<Ticket> search(String q, @Param("estado_id") Long estadoId, Pageable pageable);
 }
