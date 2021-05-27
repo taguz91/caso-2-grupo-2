@@ -160,7 +160,7 @@ export class UserRegistroTicketComponent implements OnInit {
           this.progress = Math.round((100 * event.loaded) / event.total);
         } else if (event instanceof HttpResponse) {
           this.alertService.success(
-            'Subimos de forma correcta tu archvio adjunto.'
+            'Subimos de forma correcta tu archivo adjunto.'
           );
         }
       },
