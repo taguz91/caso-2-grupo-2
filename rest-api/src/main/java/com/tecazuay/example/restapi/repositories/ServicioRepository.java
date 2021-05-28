@@ -1,6 +1,7 @@
 package com.tecazuay.example.restapi.repositories;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.tecazuay.example.restapi.definitions.ServicioCombo;
 import com.tecazuay.example.restapi.definitions.ServicioResponse;
@@ -21,4 +22,7 @@ public interface ServicioRepository extends JpaRepository<Servicio, Long> {
 	
 	@Query(value = "SELECT servicio_id, nombre_servicio AS nombre FROM servicio", nativeQuery = true)
 	List<ServicioCombo> findAllCombo();
+
+	@Query(value = "SELECT s FROM servicio s WHERE UPPER(s.nombre_servicio) LIKE CONCAT('%',UPPER(:nombre_servicio),'%')")
+	Optional<Servicio> findByNombreServicio(String nombre_servicio);
 }
