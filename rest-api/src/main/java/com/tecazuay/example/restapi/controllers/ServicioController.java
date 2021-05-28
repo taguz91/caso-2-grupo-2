@@ -60,6 +60,11 @@ public class ServicioController {
 				() -> new ResourceNotFoundException("No se encontro el servicio con el id: " + servicio_id));
 	}
 
+	@GetMapping("/nombre-servicio")
+	public Servicio getByNombre(@RequestParam("nombre_servicio") String nombre_servicio){
+		return servicioRepository.findByNombreServicio(nombre_servicio)
+			.orElseThrow(() -> new ResourceNotFoundException("No se encontro el servicio con el nombre " + nombre_servicio));
+	}
 
 	@GetMapping("/categoria/{id}")
 	public List<ServicioResponse> getAllByCategoriaId(@PathVariable("id") Long categoria_id) {

@@ -80,7 +80,6 @@ export class ServicioRegisterComponent implements OnInit {
   }
 
   listarCategorias(){
-    
     this.categoriaService.listCategoriasToServicio().subscribe(data => {
       if(data != null){
         this.existsListCategoria = true;
