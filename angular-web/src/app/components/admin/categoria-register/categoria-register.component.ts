@@ -86,9 +86,6 @@ export class CategoriaRegisterComponent implements OnInit {
           .subscribe(res => {
             this.isShow = !this.isShow;
             this.listarCategorias();
-            this.categoriaForm.setValue({
-              nombre_categoria: ""
-            })
             this.alertService.success("Categoria Registrada");
           }, (err: HttpErrorResponse) => {
             this.hasError = true;
