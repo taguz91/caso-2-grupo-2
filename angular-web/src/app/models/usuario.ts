@@ -9,6 +9,8 @@ export class Usuario {
   telefono: string;
   password: string;
   token: string;
+  createdAt: Date;
+  updatedAt: Date;
   nombreCompleto?: string;
   rol: Rol;
 }
@@ -24,6 +26,7 @@ interface LoginFormErrors {
 }
 
 export interface LoginUser {
+  personaId: number;
   apellidos: string;
   nombres: string;
   correo: string;

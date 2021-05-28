@@ -43,6 +43,7 @@ import { CatalogoComponent } from './components/admin/catalogo/catalogo.componen
 import { FormCatalogoComponent } from './components/admin/form-catalogo/form-catalogo.component';
 import { TicketPreviewComponent } from './components/common/ticket-preview/ticket-preview.component';
 import { ModalFindComponent } from './components/personal/modal-find/modal-find.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -82,6 +83,7 @@ import { ModalFindComponent } from './components/personal/modal-find/modal-find.
     FormCatalogoComponent,
     TicketPreviewComponent,
     ModalFindComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,
