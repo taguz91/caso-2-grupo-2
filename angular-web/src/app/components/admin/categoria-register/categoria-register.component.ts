@@ -91,7 +91,6 @@ export class CategoriaRegisterComponent implements OnInit {
             this.alertService.success("Categoria Registrada");
           }, (err: HttpErrorResponse) => {
             this.hasError = true;
-            console.log(err.error.errors.nombre_categoria);
             this.listaErrores = err.error.errors.nombre_categoria;
             this.listaErrores.map(error => {
               this.messageError = error

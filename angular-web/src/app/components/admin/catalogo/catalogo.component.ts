@@ -62,7 +62,7 @@ export class CatalogoComponent implements OnInit {
       .open(content, {
         ariaLabelledBy: 'modal-basic-title',
         modalDialogClass:
-          'modal-dialog-centered modal-dialog-scrollable modal-lg',
+          'modal-dialog-centered modal-dialog modal-dialog-scrollable',
       })
       .result.then(
         (res) => {
@@ -91,7 +91,7 @@ export class CatalogoComponent implements OnInit {
       }
     });
   }
-  GetReporte(){
+  GetReporte() {
     this._reporte.reporte('catalogo');
   }
 }
