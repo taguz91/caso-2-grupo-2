@@ -1,0 +1,26 @@
+<form [formGroup]="searchForm" (ngSubmit)="onFind()">
+
+  <div class="mb-3">
+    <div class="input-group">
+      <input type="search" class="form-control" placeholder="Buscar..." aria-label="Buscar" formControlName="search">
+      <div class="input-group-text">
+        <button class="btn btn-primary d-block btn-save-right " type="submit" [disabled]="!searchForm.valid || loading"
+          [class.spinner]="loading">
+          <span class="material-icons-outlined">
+            search
+          </span>
+        </button>
+      </div>
+    </div>
+
+    <div *ngIf="search.invalid && (search.dirty || search.touched)">
+
+      <div *ngIf="search.errors.minLength" class="form-text text-danger">
+        Descripción debe tener al menos 5 caracteres.
+      </div>
+
+    </div>
+
+  </div>
+
+</form>

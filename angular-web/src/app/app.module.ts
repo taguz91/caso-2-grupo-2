@@ -47,6 +47,8 @@ import { AdminReportComponent } from './components/admin/admin-report/admin-repo
 import { ReportUsuarioComponent } from './components/admin/admin-report/report-usuario/report-usuario.component';
 import { ReportTicketComponent } from './components/admin/admin-report/report-ticket/report-ticket.component';
 import { ReportCatalogoComponent } from './components/admin/admin-report/report-catalogo/report-catalogo.component';
+import { AdminSearchComponent } from './components/admin/admin-search/admin-search.component';
+import { FilterPipe } from './components/admin/admin-report/pipe/filter.pipe';
 
 @NgModule({
   declarations: [
@@ -90,6 +92,8 @@ import { ReportCatalogoComponent } from './components/admin/admin-report/report-
     ReportUsuarioComponent,
     ReportTicketComponent,
     ReportCatalogoComponent,
+    AdminSearchComponent,
+    FilterPipe,
   ],
   imports: [
     BrowserModule,
