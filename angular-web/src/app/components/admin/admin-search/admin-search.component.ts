@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-admin-search',
@@ -14,9 +15,13 @@ export class AdminSearchComponent implements OnInit {
     search: new FormControl('', [Validators.minLength(3)]),
   });
 
-  constructor() {}
+  constructor(private activeRoute: ActivatedRoute) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.activeRoute.params.subscribe((params) => {
+      this.searchForm.reset();
+    });
+  }
 
   onFind() {
     if (!this.searchForm.valid) return;
