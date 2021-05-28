@@ -48,6 +48,7 @@ import { ReportUsuarioComponent } from './components/admin/admin-report/report-u
 import { ReportTicketComponent } from './components/admin/admin-report/report-ticket/report-ticket.component';
 import { ReportCatalogoComponent } from './components/admin/admin-report/report-catalogo/report-catalogo.component';
 import { FilterPipe } from './components/admin/admin-report/pipe/filter.pipe';
+import { AdminEncuestasComponent } from './components/admin/admin-encuestas/admin-encuestas.component';
 
 @NgModule({
   declarations: [
@@ -92,6 +93,7 @@ import { FilterPipe } from './components/admin/admin-report/pipe/filter.pipe';
     ReportTicketComponent,
     ReportCatalogoComponent,
     FilterPipe,
+    AdminEncuestasComponent,
   ],
   imports: [
     BrowserModule,
