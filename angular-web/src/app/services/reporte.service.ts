@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import { NgbCalendarGregorian } from '@ng-bootstrap/ng-bootstrap';
-import {saveAs} from 'file-saver';
 import * as XLSX from 'xlsx';
 import * as FileSaver from 'file-saver';
 
@@ -64,4 +63,17 @@ export class ReporteService {
     FileSaver.saveAs(data, fileName + '_export_' + new Date().getTime() + _EXCEL_EXT);
   }
 
+  reporteTabla(data:string){
+    var DATA: any = document.getElementById(data);
+    var pdf = new jsPDF({
+      orientation:'l',
+      unit:'pt',
+      format:'carta',
+      posicicion:3
+    });
+    pdf.setFontSize(22);
+    pdf.fromHTML(DATA,10,25);
+    console.log(DATA);
+    pdf.save("tabla.pdf");
+  }
 }

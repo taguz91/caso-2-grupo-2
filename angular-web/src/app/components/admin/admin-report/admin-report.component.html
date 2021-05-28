@@ -2,34 +2,32 @@
   <div class="card-header">
     <div class="row">
       <div class="col-md-12">
-        <a class="col-md-8"> <button class="btn btn-success" (click)="pages(1)">Catalogo</button></a>
+        <a class="col-md-8">
+          <button class="btn btn-success" (click)="pages(1)">
+            Catalogo
+          </button></a
+        >
         <button class="btn btn-invalid"></button>
-        <a class="col-md-12"><button class="btn btn-success" (click)="pages(2)">Ticket</button></a>
+        <a class="col-md-12"
+          ><button class="btn btn-success" (click)="pages(2)">Ticket</button></a
+        >
         <button class="btn btn-invalid"></button>
-        <a><button class="btn btn-success" (click)="pages(3)">Usuarios</button></a>
+        <a
+          ><button class="btn btn-success" (click)="pages(3)">
+            Usuarios
+          </button></a
+        >
       </div>
     </div>
   </div>
   <div class="card-body" *ngIf="valueBook == 1">
+    <app-report-catalogo></app-report-catalogo>
+  </div>
+  <div class="card-body" *ngIf="valueBook == 2">
+    <app-report-ticket></app-report-ticket>
+  </div>
+  <div class="card-body" *ngIf="valueBook == 3">
     <app-report-usuario></app-report-usuario>
   </div>
-    <div class="card-body" *ngIf="valueBook == 2">
-      <app-report-ticket></app-report-ticket>
-    </div>
-    <div class="card-body" *ngIf="valueBook == 3">
-      <app-report-catalogo></app-report-catalogo>
-    </div>
+  <div class="card-footer text-center">SISTEMA DE REPORTES DE TIRTEC</div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -81,7 +81,6 @@ export class AdminListComponent implements OnDestroy, OnInit {
   }
 
   GetReporte(){
-    this._reporte.reporte('administradores');
     this._reporte.reporte('tr');
   }
 }

@@ -11,8 +11,7 @@ export class AdminReportComponent implements OnInit {
     
   }
  
-  valueBook: number=0;
-
+  valueBook: number=1;
   pages(item):void{
     this.valueBook=item;
     console.log(this.valueBook);
