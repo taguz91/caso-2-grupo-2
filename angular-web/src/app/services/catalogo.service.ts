@@ -54,8 +54,7 @@ export class CatalogoService {
     page: number,
     size: number = DEFAULT_PAGE_SIZE
   ): Observable<PageResponse<CatalogoView[]>> {
-    return this.http
-      .get<PageResponse<CatalogoView[]>>(
+    return this.http.get<PageResponse<CatalogoView[]>>(
         `${URL_BASE_V1}catalogo/?page=${page}&size=${size}`,
         loadHeader()
       )
