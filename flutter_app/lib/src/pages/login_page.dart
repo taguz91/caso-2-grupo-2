@@ -66,9 +66,9 @@ class _LoginPageState extends State<LoginPage> {
     return LoadButton(
       label: 'Ingresar',
       onTap: () async {
-        await Future.delayed(Duration(seconds: 1));
         FocusScope.of(context).unfocus();
         bool valid = _formKey.currentState!.saveAndValidate();
+        await Future.delayed(Duration(seconds: 1));
         if (valid) {
           setState(() => _loginError = null);
           final saveData = _formKey.currentState!.value;

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+
+import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+
 import 'package:flutter/services.dart';
 import 'package:flutter_app/routes_generator.dart';
 import 'package:flutter_app/src/utils/global_settings.dart';
 import 'package:flutter_app/src/utils/theme_data.dart';
-import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -71,7 +73,7 @@ class MyApp extends StatelessWidget {
       supportedLocales: [
         Locale('es'),
       ],
-      initialRoute: '/',
+      initialRoute: LOAD,
       onGenerateRoute: RouterGenerator.generateRoute,
     );
   }

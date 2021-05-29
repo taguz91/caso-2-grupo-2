@@ -62,10 +62,10 @@ class _FormTicketPageState extends State<FormTicketPage> {
   LoadButton _saveButton(BuildContext context) {
     return LoadButton(
       onTap: () async {
-        await Future.delayed(Duration(seconds: 1));
         setState(() => _formError = null);
         FocusScope.of(context).unfocus();
         bool valid = _formKey.currentState!.saveAndValidate();
+        await Future.delayed(Duration(seconds: 1));
         if (valid) {
           int ticketId = await _ticketProvider.registerTikcet({
             'catalogoId': widget._catalogoServicio.catalogoId,

@@ -89,3 +89,18 @@ class Usuario {
     return data;
   }
 }
+
+class ComboUsuario {
+  late String nombreCompleto;
+  late int usuarioId;
+
+  ComboUsuario({
+    required this.nombreCompleto,
+    required this.usuarioId,
+  });
+
+  ComboUsuario.fromJson(Map<String, dynamic> json) {
+    nombreCompleto = json['nombre_completo'];
+    usuarioId = json['usuario_id'];
+  }
+}

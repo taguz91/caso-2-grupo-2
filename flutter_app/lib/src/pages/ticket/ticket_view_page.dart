@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_app/src/models/usuario.dart';
+import 'package:flutter_app/src/pages/form/form_asignar_page.dart';
 import 'package:flutter_app/src/pages/form/form_rechazar_page.dart';
 import 'package:flutter_app/src/providers/ticket_provider.dart';
 import 'package:flutter_app/src/utils/constantes.dart';
@@ -50,7 +51,7 @@ class TicketViewPage extends StatelessWidget {
       case ROL_USUARIO:
         return _user();
       case ROL_SOPORTE_N1:
-        return _soporteN1();
+        return _soporteN1(context);
       case ROL_SOPORTE_N2:
         return _soporteN2();
       case ROL_COORDINADOR:
@@ -58,7 +59,7 @@ class TicketViewPage extends StatelessWidget {
     }
   }
 
-  FloatingButtonList _soporteN1() {
+  FloatingButtonList _soporteN1(BuildContext context) {
     return FloatingButtonList(
       children: [
         FloatingActionButton(
@@ -72,7 +73,9 @@ class TicketViewPage extends StatelessWidget {
         SizedBox(width: 15),
         FloatingActionButton(
           heroTag: null,
-          onPressed: () {},
+          onPressed: () {
+            _navToFormAsignar(context);
+          },
           child: Icon(
             Icons.contacts,
             color: Colors.white,
@@ -140,7 +143,9 @@ class TicketViewPage extends StatelessWidget {
         if (ticket.canReject) SizedBox(width: 15),
         FloatingActionButton(
           heroTag: null,
-          onPressed: () {},
+          onPressed: () {
+            _navToFormAsignar(context);
+          },
           child: Icon(
             Icons.contacts,
             color: Colors.white,
@@ -148,5 +153,11 @@ class TicketViewPage extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  void _navToFormAsignar(BuildContext context) {
+    Navigator.of(context).push(MaterialPageRoute(
+      builder: (_) => FormAsignarPage(ticket),
+    ));
   }
 }

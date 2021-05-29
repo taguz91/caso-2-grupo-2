@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/src/providers/usuario_provider.dart';
+import 'package:flutter_app/src/utils/constantes.dart';
 
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 
@@ -10,23 +12,31 @@ import 'package:flutter_app/src/providers/ticket_provider.dart';
 import 'package:flutter_app/src/widgets/load_button.dart';
 import 'package:flutter_app/src/widgets/personal_app_bar.dart';
 
-class FormRechazarPage extends StatefulWidget {
-  final int ticketId;
+class FormAsignarPage extends StatefulWidget {
+  final TicketHome ticketHome;
 
-  FormRechazarPage(this.ticketId);
+  FormAsignarPage(this.ticketHome);
 
   @override
-  _FormRechazarPageState createState() => _FormRechazarPageState();
+  _FormAsignarPageState createState() => _FormAsignarPageState();
 }
 
-class _FormRechazarPageState extends State<FormRechazarPage> {
-  final _formRechazarKey = GlobalKey<FormBuilderState>();
-  final _ticketProvider = new TicketProvider();
+class _FormAsignarPageState extends State<FormAsignarPage> {
+  final _formAsignarKey = GlobalKey<FormBuilderState>();
+  final List<ComboUsuario> _usuariosSoporte = [];
+
+  final _ticketProvider = TicketProvider();
+  final _usuarioProvider = UsuarioProvider();
 
   String? _formError;
 
   @override
   Widget build(BuildContext context) {
+    _loadSoporte();
+    final _title = widget.ticketHome.estadoId == TICKET_ESTADO_ABIERTO
+        ? 'Asignar Soporte N1'
+        : 'Re-asignar Soporte N2';
+
     return Scaffold(
       appBar: PersonalAppBar(),
       body: SingleChildScrollView(
@@ -43,7 +53,7 @@ class _FormRechazarPageState extends State<FormRechazarPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              FormHeader('Rechazar ticket #${widget.ticketId}'),
+              FormHeader('$_title #${widget.ticketHome.ticketId}'),
               _form(context),
               FormErrorMessage(_formError),
               _saveButton(context),
@@ -54,22 +64,33 @@ class _FormRechazarPageState extends State<FormRechazarPage> {
     );
   }
 
+  _loadSoporte() {
+    if (_usuariosSoporte.isEmpty) {
+      final type = widget.ticketHome.estadoId == TICKET_ESTADO_ABIERTO
+          ? ROL_SOPORTE_N1
+          : ROL_SOPORTE_N2;
+      _usuarioProvider.comboByType(type).then((value) {
+        setState(() => _usuariosSoporte.addAll(value));
+      });
+    }
+  }
+
   LoadButton _saveButton(BuildContext context) {
     return LoadButton(
       onTap: () async {
         setState(() => _formError = null);
         FocusScope.of(context).unfocus();
-        bool valid = _formRechazarKey.currentState!.saveAndValidate();
+        bool valid = _formAsignarKey.currentState!.saveAndValidate();
         await Future.delayed(Duration(seconds: 1));
         if (valid) {
-          final newTicket = await _ticketProvider.rechazar({
-            'ticketId': widget.ticketId,
-          }..addAll(_formRechazarKey.currentState!.value));
+          final newTicket = await _ticketProvider.asignar({
+            'ticketId': widget.ticketHome.ticketId,
+          }..addAll(_formAsignarKey.currentState!.value));
           if (newTicket != null) {
             Navigator.of(context).pushReplacementNamed(COORDINADOR_PAGE);
           } else {
             setState(() => _formError =
-                'Error al rechazar el ticket, vuelve a intentarlo en unos minutos.');
+                'Error al asignar el ticket, vuelve a intentarlo en unos minutos.');
           }
         }
       },
@@ -79,19 +100,29 @@ class _FormRechazarPageState extends State<FormRechazarPage> {
 
   FormBuilder _form(BuildContext context) {
     return FormBuilder(
-      key: _formRechazarKey,
+      key: _formAsignarKey,
       child: Column(
         children: [
           InputContainerWidget(
-            label: 'Motivo:',
-            child: FormBuilderTextField(
-              name: "motivo",
+            label: 'Soporte:',
+            child: FormBuilderDropdown(
+              name: "soporteId",
               validator: FormBuilderValidators.compose([
                 FormBuilderValidators.required(context),
-                FormBuilderValidators.minLength(context, 10),
-                FormBuilderValidators.maxLength(context, 1000),
               ]),
-              maxLines: 5,
+              hint: Text(
+                _usuariosSoporte.isEmpty
+                    ? 'Cargando soporte...'
+                    : 'Seleciona un soporte',
+              ),
+              items: _usuariosSoporte
+                  .map(
+                    (e) => DropdownMenuItem(
+                      value: e.usuarioId,
+                      child: Text(e.nombreCompleto),
+                    ),
+                  )
+                  .toList(),
             ),
           ),
         ],
