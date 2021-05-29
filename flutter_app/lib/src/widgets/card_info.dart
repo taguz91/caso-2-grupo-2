@@ -16,6 +16,7 @@ class CardInfo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(15),
+      width: double.infinity,
       decoration: BoxDecoration(
         color: GREY_COLOR,
         border: Border(

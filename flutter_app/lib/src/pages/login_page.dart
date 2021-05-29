@@ -85,12 +85,12 @@ class _LoginPageState extends State<LoginPage> {
                 Navigator.of(context).pushReplacementNamed(SOPORTE_PAGE);
               } else if (userType == ROL_USUARIO) {
                 Navigator.of(context).pushReplacementNamed(USER_PAGE);
+              } else {
+                setState(
+                  () => _loginError =
+                      'No puedes loguearte en la aplicación, utiliza nuestra plataforma web para acceder.',
+                );
               }
-
-              setState(
-                () => _loginError =
-                    'No puedes loguearte en la aplicación, utiliza nuestra plataforma web para acceder.',
-              );
             }
           }
         },
@@ -117,8 +117,8 @@ class _LoginPageState extends State<LoginPage> {
             child: FormBuilderTextField(
               name: "correo",
               // initialValue: "johnnygar98@hotmail.com",
-              // initialValue: "coordinador@dev.tec",
-              initialValue: "soporten1@dev.tec",
+              initialValue: "coordinador@dev.tec",
+              // initialValue: "soporten1@dev.tec",
               keyboardType: TextInputType.emailAddress,
               validator: FormBuilderValidators.compose([
                 FormBuilderValidators.required(context),

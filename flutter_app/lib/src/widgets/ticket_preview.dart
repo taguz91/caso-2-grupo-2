@@ -13,7 +13,7 @@ class TicketPreview extends StatelessWidget {
     return InkWell(
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(
-          builder: (_) => TicketViewPage(this.ticket.ticketId),
+          builder: (_) => TicketViewPage(this.ticket),
         ));
       },
       child: Container(

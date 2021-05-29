@@ -4,9 +4,11 @@ import 'package:flutter_app/src/models/historial.dart';
 import 'package:flutter_app/src/models/medio_comunicacion.dart';
 import 'package:flutter_app/src/models/parametros.dart';
 import 'package:flutter_app/src/models/usuario.dart';
+import 'package:flutter_app/src/utils/constantes.dart';
 
 class TicketHome {
   late int ticketId;
+  late int estadoId;
   late String titulo;
   late String estado;
   late String tipo;
@@ -14,6 +16,7 @@ class TicketHome {
 
   TicketHome({
     required this.ticketId,
+    required this.estadoId,
     required this.titulo,
     required this.estado,
     required this.tipo,
@@ -22,11 +25,24 @@ class TicketHome {
 
   TicketHome.fromJson(Map<String, dynamic> json) {
     ticketId = json['ticket_id'];
+    estadoId = json['estado_id'];
     titulo = json['titulo'];
     estado = json['estado'];
     tipo = json['tipo'];
     createdAt = json['created_at'];
   }
+
+  bool get isSolucionado => estadoId == TICKET_ESTADO_CERRADO_CON_SOLUCION;
+
+  bool get isNotSolucionado => estadoId == TICKET_ESTADO_CERRADO_SIN_SOLUCION;
+
+  bool get isRejected => estadoId == TICKET_ESTADO_RECHAZADO;
+
+  bool get canReject => estadoId == TICKET_ESTADO_ABIERTO;
+
+  bool get isAsigned => estadoId == TICKET_ESTADO_ATENDIENDOSE;
+
+  bool get isClosed => isSolucionado || isNotSolucionado || isRejected;
 }
 
 class TicketView {
