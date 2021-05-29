@@ -9,6 +9,6 @@ import org.springframework.stereotype.Repository;
 @Repository 
 public interface EncuestaRepository extends JpaRepository<EncuestaSatisfacion, Long>{
 
-    @Query("SELECT c FROM EncuestaSatisfacion c WHERE  c.ticket.ticket_id =?1")
+    @Query("SELECT c FROM encuesta_satisfaccion c WHERE  c.ticket.ticket_id =?1")
     EncuestaSatisfacion existsByTicket(Long idTicket);
 }
