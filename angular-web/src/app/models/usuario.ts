@@ -9,6 +9,8 @@ export class Usuario {
   telefono: string;
   password: string;
   token: string;
+  createdAt: Date;
+  updatedAt: Date;
   nombreCompleto?: string;
   rol: Rol;
 }

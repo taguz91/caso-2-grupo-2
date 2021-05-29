@@ -1,0 +1,90 @@
+<div class="page-content page-container" id="page-content">
+    <div class="padding">
+        <div class="row container d-flex justify-content-center">
+            <div class="col-xl-9 col-md-12">
+                <div class="card user-card-full">
+                    <div class="row m-l-0 m-r-0">
+                        <div class="col-sm-4 bg-c-lite-green user-profile">
+                            <div class="card-block text-center text-white">
+                                <div class="m-b-25"> <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/OOjs_UI_icon_userAvatar.svg/1200px-OOjs_UI_icon_userAvatar.svg.png" class="img-radius col-sm-7" alt="User-Profile-Image"> </div>
+                                <h6 class="f-w-600"><b>{{ usuario.nombres }} {{ usuario.apellidos }}</b></h6>
+                                <i>{{ usuario.cedula }}</i>
+                                <p style="text-decoration: underline;"></p>
+                                <button class="btn" (click)="modal.open(update)"> <img style="width: 25px;" src="https://www.freeiconspng.com/thumbs/edit-icon-png/edit-new-icon-22.png" alt=""></button>
+                            </div>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="card-block">
+                                <h6 class="m-b-20 p-b-5 b-b-default f-w-600"><i>Información</i></h6>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <p class="m-b-10 f-w-600 f-b font-weight-bold"><b>Correo</b></p>
+                                        <h6 class="text-muted f-w-400">{{ usuario.correo }}</h6>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <p class="m-b-10 f-w-600 font-weight-bold"><b>Teléfono</b></p>
+                                        <h6 class="text-muted f-w-400">{{ usuario.telefono }}</h6>
+                                    </div>
+                                </div>
+                                <h6 class="m-b-20 m-t-40 p-b-5 b-b-default f-w-600 font-italic"><i>Fechas</i></h6>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <p class="m-b-10 f-w-600 font-weight-bold"><b>Creación</b></p>
+                                        <h6 class="text-muted f-w-400">{{ usuario.createdAt | date }}</h6>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <p class="m-b-10 f-w-600 font-weight-bold"><b>Modificación</b></p>
+                                        <h6 class="text-muted f-w-400">{{ usuario.updatedAt | date}}</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template class=".modal" #update let-modal>
+    <div class="modal-header">
+        <h3>Actualizar mi perfil</h3>
+    </div>
+    <div class="modal-body">
+        <form action="">
+            <div class="field-wrap">
+                <label>Correo<span class="req">*</span></label>
+                <input [(ngModel)]="usuario.correo" name="correo" id="correo" type="email" required autocomplete="off" maxlength="100" pattern="^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$" />
+            </div>
+
+            <div class="top-row">
+                <div class="field-wrap">
+                    <label>Nombre<span class="req">*</span></label>
+                    <input [(ngModel)]="usuario.nombres" name="nombres" type="text" required autocomplete="off" maxlength="50" pattern="^[a-zA-ZÀ-ÿ\u00f1\u00d1 ]{1,50}" />
+                </div>
+
+                <div class="field-wrap">
+                    <label>Apellido<span class="req">*</span></label>
+                    <input [(ngModel)]="usuario.apellidos" name="apellidos" type="text" required autocomplete="off" maxlength="50" pattern="^[a-zA-ZÀ-ÿ\u00f1\u00d1 ]{1,50}" />
+                </div>
+            </div>
+
+            <div class="field-wrap">
+                <label>Cédula<span class="req">*</span></label>
+                <input [(ngModel)]="usuario.cedula" name="cedula" id="cedula" type="text" autocomplete="off" maxlength="100" pattern="^[0-9]{10,10}" required/>
+            </div>
+
+            <div class="field-wrap">
+                <label>Teléfono / Celular<span class="req">*</span></label>
+                <input [(ngModel)]="usuario.telefono" name="telefono" id="telefono" type="text" required autocomplete="off" maxlength="100" pattern="^[0-9]{10,15}" />
+            </div>
+
+            <span class="response" *ngIf="response_condicion == true">{{ response_msg }}</span>
+        </form>
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-success">Guardar</button>
+        <button type="button" class="btn btn-outline-danger" (click)="modal.close()">Cancelar</button>
+    </div>
+</ng-template>

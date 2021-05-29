@@ -4,7 +4,6 @@ import java.io.Serializable;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
-import com.tecazuay.example.restapi.validations.CorreoExistConstrait;
 
 public class UsuarioParam implements Serializable {
 
@@ -23,7 +22,6 @@ public class UsuarioParam implements Serializable {
 
 	@NotEmpty
 	@Email
-	@CorreoExistConstrait
 	private String correo;
 
 	@NotEmpty

@@ -50,6 +50,7 @@ import { ReportCatalogoComponent } from './components/admin/admin-report/report-
 import { AdminSearchComponent } from './components/admin/admin-search/admin-search.component';
 import { FilterPipe } from './components/admin/admin-report/pipe/filter.pipe';
 import { AdminEncuestasComponent } from './components/admin/admin-encuestas/admin-encuestas.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -95,7 +96,8 @@ import { AdminEncuestasComponent } from './components/admin/admin-encuestas/admi
     ReportCatalogoComponent,
     AdminSearchComponent,
     FilterPipe,
-    AdminEncuestasComponent,
+    ProfileComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,

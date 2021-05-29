@@ -5,6 +5,7 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 import com.tecazuay.example.restapi.api.params.UsuarioEditParam;
 import com.tecazuay.example.restapi.api.params.UsuarioParam;
+import com.tecazuay.example.restapi.models.ResponseModel;
 import com.tecazuay.example.restapi.models.Usuario;
 
 public interface UsuarioService {
@@ -13,9 +14,9 @@ public interface UsuarioService {
 
 	Page<Usuario> findAll(Pageable pageable);
 
-	Usuario save(UsuarioParam usuarioParam, Long rolId);
+	ResponseModel save(UsuarioParam usuarioParam, Long rolId);
 	
-	Usuario update(UsuarioEditParam usuarioParam);
+	ResponseModel update(UsuarioEditParam usuarioParam);
 	
 	Usuario deleteById(Long id);
 	
@@ -24,4 +25,6 @@ public interface UsuarioService {
 	List<Usuario> findAllByRol(Long rolId);
 
 	Usuario findByCedula(String cedula);
+
+	Usuario findByEmail(String correo);
 }

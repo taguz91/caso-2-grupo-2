@@ -5,6 +5,7 @@ import java.util.Optional;
 import com.tecazuay.example.restapi.Types;
 import com.tecazuay.example.restapi.api.params.UsuarioEditParam;
 import com.tecazuay.example.restapi.api.params.UsuarioParam;
+import com.tecazuay.example.restapi.models.ResponseModel;
 import com.tecazuay.example.restapi.models.Rol;
 import com.tecazuay.example.restapi.models.Usuario;
 import com.tecazuay.example.restapi.repositories.UsuarioRepository;
@@ -53,38 +54,58 @@ public class UsuarioServiceImpl implements UsuarioService {
 	}
 
 	@Override
-	public Usuario save(UsuarioParam up, Long rolId) {
-		Usuario usuario = new Usuario(null, up.getCedula(), up.getNombres(), up.getApellidos(), up.getCorreo(),
-				passwordEncoder.encode(up.getPassword()), up.getTelefono());
+	public ResponseModel save(UsuarioParam up, Long rolId) {
+		
+		Usuario usuario = new Usuario(null, up.getCedula(), up.getNombres(), up.getApellidos(), up.getCorreo(), passwordEncoder.encode(up.getPassword()), up.getTelefono());
 
-		Rol rol = this.rolService.findById(rolId);
-		usuario.setRol(rol);
-		usuario.setToken(jwtService.toToken(usuario));
-		Usuario userRegister = this.usuarioRepository.save(usuario);
-		// Notificamos el registro via correo si es un nuevo usuario final
-		if (rol.getRolId() == Types.ROL_USUARIO || rol.getRolId() == Types.ROL_DEVELOPER) {
-			emailService.sendRegister(userRegister);
-		}
-		return userRegister;
+		if (this.findByCedula(usuario.getCedula()) == null) {
+			if (this.findByEmail(usuario.getCorreo()) == null) {
+
+				Rol rol = this.rolService.findById(rolId);
+
+				if (rol != null) {
+
+
+					usuario.setRol(rol);
+					usuario.setToken(jwtService.toToken(usuario));
+					Usuario userRegistered = this.usuarioRepository.save(usuario);
+					
+					if (rol.getRolId() == Types.ROL_USUARIO || rol.getRolId() == Types.ROL_DEVELOPER) {
+						emailService.sendRegister(userRegistered);
+					}
+
+					return new ResponseModel(true, userRegistered, "Usuario registrado");
+				} else { return new ResponseModel(false, null, "Rol inexistente"); }
+			} else { return new ResponseModel(false, null, "Correo existente"); }
+		} else { return new ResponseModel(false, null, "Cédula existente"); }
 	}
 
 	@Override
-	public Usuario update(UsuarioEditParam up) {
-		Usuario user = this.findById(up.getPersonaId());
+	public ResponseModel update(UsuarioEditParam up) {
 
-		if (user != null) {
-			// Se modifican solo los datos necesarios (añadir o quitar algún atributo)
-			user.setCedula(up.getCedula());
-			user.setApellidos(up.getApellidos());
-			user.setNombres(up.getNombres());
-			user.setCorreo(up.getCorreo());
-			user.setTelefono(up.getTelefono());
-			user.setPassword(passwordEncoder.encode(up.getPassword()));
+		Usuario uCedula = this.findByCedula(up.getCedula());
+		Usuario uCorreo = this.findByEmail(up.getCorreo());
 
-			return this.usuarioRepository.save(user);
-		} else {
-			return null;
-		}
+		if (uCedula == null || uCedula.getPersonaId().equals(up.getPersonaId())) {
+
+			if (uCorreo == null || uCorreo.getPersonaId().equals(up.getPersonaId())) {
+				
+				Usuario user = this.findById(up.getPersonaId());
+
+				if (user != null) {
+						
+					user.setCedula(up.getCedula());
+					user.setApellidos(up.getApellidos());
+					user.setNombres(up.getNombres());
+					user.setCorreo(up.getCorreo());
+					user.setTelefono(up.getTelefono());
+					user.setPassword(passwordEncoder.encode(up.getPassword()));
+								
+					return new ResponseModel(true, this.usuarioRepository.save(user), "Usuario Actualizado");
+
+				} else { return new ResponseModel(false, null, "Usuario inexistente");	}
+			} else { return new ResponseModel(false, null, "Correo existente"); }
+		} else { return new ResponseModel(false, null, "Cédula existente"); }
 	}
 
 	@Override
@@ -128,5 +149,10 @@ public class UsuarioServiceImpl implements UsuarioService {
 	@Override
 	public Usuario findByCedula(String cedula) {
 		return this.usuarioRepository.findByCedula(cedula);
+	}
+
+	@Override
+	public Usuario findByEmail(String correo) {
+		return this.usuarioRepository.findByEmail(correo);
 	}
 }
