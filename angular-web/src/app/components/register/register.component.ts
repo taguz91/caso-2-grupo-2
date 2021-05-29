@@ -31,28 +31,20 @@ export class RegisterComponent implements OnInit {
 
   registrar() {
     if (this.validarUsuario(this.usuario)) {
-      
-      this.response_condicion = false;
-      this.response_msg = null;
-      this.router.navigate(['user/home'])
 
       this.usuarioService.createUser(this.usuario, 3).subscribe(data => {
 
-        try {
-          var user: Usuario;
-          user = data;
+        if (data.status) {
 
-          if (user != null && this.usuario.correo == user.correo) {
+          this.usuario = new Usuario();
+          this.confirmar_pass = null;
+          sessionStorage.setItem(JWT_NAME, data.data.token);
+          localStorage.setItem(JWT_NAME, data.data.token);
+          this.router.navigate(['/'])
+          alert("¡Registrado con éxito! Ahora inicie seción con el correo y la contraseña");
 
-            this.usuario = new Usuario();
-            this.confirmar_pass = null;
-            sessionStorage.setItem(JWT_NAME, user.token);
-            localStorage.setItem(JWT_NAME, user.token);
-            this.router.navigate(['user/home'])
-          }
-
-        } catch (error) {
-          this.show_response('Error Desconocido');
+        } else {
+          this.show_response(data.msg);
         }
       });
     }
@@ -74,7 +66,7 @@ export class RegisterComponent implements OnInit {
       return false;
     }
 
-    if (this.validar_cedula(user.cedula) == false) {
+    if (!this.validar_cedula(user.cedula)) {
       return false;
     }
 
@@ -165,19 +157,7 @@ export class RegisterComponent implements OnInit {
 
     if (Boolean(cedula) && cedula.length > 0) {
       if (this.localService.is_cedula(cedula)) {
-        this.usuarioService.readUserByCedula(cedula).subscribe(data => {
-          try {
-            if (data != null && data.cedula == cedula) {
-              this.show_response('Cédula existente');
-              return false;
-            } else {
-              return true;
-            }
-          } catch (error) {
-            this.show_response('Error desconocido');
-            return false;
-          }
-        });
+        return true;
       } else {
         this.show_response('Formato de la cédula incorrecta');
         return false;

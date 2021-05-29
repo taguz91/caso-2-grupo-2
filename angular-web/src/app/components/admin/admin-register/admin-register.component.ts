@@ -73,38 +73,30 @@ export class AdminRegisterComponent implements OnInit {
 
   create() {
     this.usuarioService.createUser(this.usuario, this.usuario.rol.rolId).subscribe(data => {
-
-      console.log(this.usuario)
-          
-      try {
-        var user: Usuario;
-        user = data;
         
-        if (user != null && this.usuario.correo == user.correo) {
-          
-          alert(`Usuario ${user.nombres} ${user.apellidos} registrado`);
-          this.usuario = new Usuario();
-          this.confirmar_pass = null;
-        }        
-      } catch (error) {
-        this.show_response('Error Desconocido');
+      if (data.status) {
+
+        alert(`Usuario ${data.data.nombres} ${data.data.apellidos} registrado`);
+        this.usuario = new Usuario();
+        this.confirmar_pass = null;
+        this.response_condicion = false;
+
+      } else {
+        this.show_response(data.msg);
       }
     });
   }
 
   update() {
     this.usuarioService.updateUser(this.usuario).subscribe(data => {
-          
-      try {
-        var user: Usuario;
-        user = data;
-        
-        if (user != null && this.usuario.correo == user.correo) {
-          this.updateRol(this.usuario.personaId, this.usuario.rol.rolId);
-          alert(`Usuario ${user.nombres} ${user.apellidos} actualizado`);
-        }        
-      } catch (error) {
-        this.show_response('Error Desconocido');
+
+      if (data.status) {
+
+        this.updateRol(this.usuario.personaId, this.usuario.rol.rolId);
+        alert(`Usuario ${data.data.nombres} ${data.data.apellidos} actualizado`);
+
+      } else {
+        this.show_response(data.msg);
       }
     });
   }
@@ -228,23 +220,7 @@ export class AdminRegisterComponent implements OnInit {
   validar_cedula(cedula: string) {
     if (Boolean(cedula) && cedula.length > 0) {
       if (this.localService.is_cedula(cedula)) {
-        this.usuarioService.readUserByCedula(cedula).subscribe(data => {
-          try {
-            if (data != null) {
-              if (data.cedula == this.usuario.cedula) {
-                return true;
-              } else {
-                this.show_response('Cédula existente');
-                return false;
-              }
-            } else {
-              return true;
-            }
-          } catch (error) {
-            this.show_response('Error desconocido');
-            return false;
-          }
-        });
+        return true;
       } else {
         this.show_response('Formato de la cédula incorrecta');
         return false;

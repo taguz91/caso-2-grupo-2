@@ -6,6 +6,7 @@ import { handleError, loadHeader, URL_BASE_V1 } from '../utils/constantes';
 import { PageResponse } from '../models/parametros';
 import { catchError, tap } from 'rxjs/operators';
 import { TicketCount } from '../models/ticket';
+import { ResponseModel } from '../models/response-model';
 
 @Injectable({
   providedIn: 'root',
@@ -28,12 +29,12 @@ export class UsuarioService {
       );
   }
 
-  createUser(usuario: Usuario, rolId: number): Observable<Usuario> {
+  createUser(usuario: Usuario, rolId: number): Observable<ResponseModel> {
     return this.http
-      .post<Usuario>(`${this.BASE_URL}${rolId}`, usuario, loadHeader())
+      .post<ResponseModel>(`${this.BASE_URL}${rolId}`, usuario, loadHeader())
       .pipe(
         tap((_) => console.log('Loading user data')),
-        catchError(handleError<Usuario>(null))
+        catchError(handleError<ResponseModel>(null))
       );
   }
 
@@ -69,12 +70,12 @@ export class UsuarioService {
     );
   }
   
-  updateUser(usuario: Usuario): Observable<Usuario> {
+  updateUser(usuario: Usuario): Observable<ResponseModel> {
     return this.http
-      .put<Usuario>(`${this.BASE_URL}`, usuario, loadHeader())
+      .put<ResponseModel>(`${this.BASE_URL}`, usuario, loadHeader())
       .pipe(
         tap((_) => console.log('Loading user data')),
-        catchError(handleError<Usuario>(null))
+        catchError(handleError<ResponseModel>(null))
       );
   }
 
