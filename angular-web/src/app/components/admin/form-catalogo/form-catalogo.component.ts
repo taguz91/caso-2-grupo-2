@@ -14,6 +14,11 @@ import { ServicioService } from 'src/app/services/servicio.service';
   selector: 'app-form-catalogo',
   templateUrl: './form-catalogo.component.html',
   styleUrls: ['./form-catalogo.component.scss'],
+  host: {
+    '[style.display]': '"flex"',
+    '[style.flex-direction]': '"column"',
+    '[style.overflow]': '"hidden"',
+  },
 })
 export class FormCatalogoComponent implements OnInit {
   @Input() modal: NgbModalWindow;

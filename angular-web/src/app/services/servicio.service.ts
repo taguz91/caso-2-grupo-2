@@ -61,4 +61,8 @@ export class ServicioService {
   getServicioByCategoria(id:any):Observable<any>{
     return this.http.get<any>(`${URL_BASE_V1}servicios/categoria/${id}`, loadHeader());
   }
+
+  findByNombreServicio(nombre_servicio: String):Observable<any>{
+    return this.http.get<any>(`${URL_BASE_V1}servicios/nombre-servicio?nombre_servicio=${nombre_servicio}`, loadHeader());
+  }
 }

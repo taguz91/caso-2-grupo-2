@@ -26,6 +26,7 @@ import { FilterAdminService } from './services/auth/filter-admin.service';
 import { FilterPersonalService } from './services/auth/filter-personal.service';
 import { FilterUsuarioService } from './services/auth/filter-usuario.service';
 import { AdminReportComponent } from './components/admin/admin-report/admin-report.component';
+import { AdminEncuestasComponent } from './components/admin/admin-encuestas/admin-encuestas.component';
 
 const routes: Routes = [
   // Public rutes goes here
@@ -138,6 +139,10 @@ const routes: Routes = [
       {
         path: 'reportes/admin-report',
         component: AdminReportComponent
+      },
+      {
+        path: 'tickets/encuestas',
+        component: AdminEncuestasComponent
       }
     ],
   },
@@ -176,7 +181,7 @@ const routes: Routes = [
         path: 'ticket/ingreso/:idPersona/:idCatalogo',
         component: UserRegistroTicketComponent,
       },
-      
+
     ],
   },
 

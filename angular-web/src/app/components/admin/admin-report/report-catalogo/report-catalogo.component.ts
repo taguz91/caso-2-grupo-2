@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CatalogoView, CatalogoViewFull } from 'src/app/models/catalogo';
 import { PageMetadata } from 'src/app/models/Parametros';
-import { DEFAULT_PAGE_METADA } from 'src/app/utils/constantes';
-import { DEFAULT_PAGE_SIZE } from '../../../../utils/constantes';
+import { DEFAULT_PAGE_METADA_REPORT } from 'src/app/utils/constantes';
+import { DEFAULT_PAGE_SIZE_REPORT } from '../../../../utils/constantes';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BreadcrumbService } from '../../../../services/breadcrumb.service';
 import { CatalogoService } from '../../../../services/catalogo.service';
@@ -20,8 +20,8 @@ export class ReportCatalogoComponent implements OnInit,PipeTransform {
   catalogoId: number = 0;
   catalogos: CatalogoView[] = [];
   catalogosExcel: CatalogoViewFull[] = [];
-  pageMetada: PageMetadata = DEFAULT_PAGE_METADA;
-  perPage: number = DEFAULT_PAGE_SIZE;
+  pageMetada: PageMetadata = DEFAULT_PAGE_METADA_REPORT;
+  perPage: number = DEFAULT_PAGE_SIZE_REPORT;
   actualPage: number = 0;
   values: any[] = [];
   constructor(private modalService: NgbModal,

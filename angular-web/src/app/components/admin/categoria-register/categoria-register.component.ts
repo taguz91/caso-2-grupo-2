@@ -72,6 +72,8 @@ export class CategoriaRegisterComponent implements OnInit {
     }, (err: HttpErrorResponse) => {
 
     });
+    this.categoriaForm.reset();
+    this.categoriaFormEdit.reset();
   }
 
   addCategoria(form: Categoria) {
@@ -86,20 +88,15 @@ export class CategoriaRegisterComponent implements OnInit {
           .subscribe(res => {
             this.isShow = !this.isShow;
             this.listarCategorias();
-            this.categoriaForm.setValue({
-              nombre_categoria: ""
-            })
             this.alertService.success("Categoria Registrada");
           }, (err: HttpErrorResponse) => {
             this.hasError = true;
-            console.log(err.error.errors.nombre_categoria);
             this.listaErrores = err.error.errors.nombre_categoria;
             this.listaErrores.map(error => {
               this.messageError = error
             })
           })
       })
-      this.categoriaForm.reset();
   }
 
   openModal(contenido, id, nombre_categoria) {
@@ -124,7 +121,6 @@ export class CategoriaRegisterComponent implements OnInit {
           this.messageError = error
         })
       })
-      this.categoriaFormEdit.reset();
   }
 
   eliminarCategoria(id: any) {
