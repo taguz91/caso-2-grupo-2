@@ -11,6 +11,8 @@ public interface TicketsList {
 	String getTipo();
 
 	String getEstado();
+	
+	Long getEstado_id();
 
 	LocalDateTime getCreated_at();
 

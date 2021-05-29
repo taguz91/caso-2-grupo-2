@@ -22,7 +22,7 @@ public interface TicketRepository extends JpaRepository<Ticket, Long> {
 			+ "JOIN public.catalogo c ON c.catalogo_id = t.catalogo_id "
 			+ "JOIN public.parametros pt ON pt.parametros_id = c.tipo_servicio_id " + "WHERE t.usuario_id = :userId ";
 
-	static final String QUERY_SELECT_HOME = "SELECT  t.ticket_id, t.titulo, pe.nombre AS estado, pt.nombre AS tipo, t.created_at AS created_at ";
+	static final String QUERY_SELECT_HOME = "SELECT  t.ticket_id, t.titulo, pe.nombre AS estado, pt.nombre AS tipo, t.created_at AS created_at, pe.parametros_id AS estado_id ";
 
 	static final String QUERY_PAGEABLE = "\n LIMIT :limitParam OFFSET :offset \n";
 
