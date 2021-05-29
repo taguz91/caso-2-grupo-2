@@ -21,20 +21,17 @@ export class Encuesta {
   }
 }
 
-
 export class EncuestaView {
   calificacion : number;
   comentario : string;
-  ticketid: number;
+  usuario: Usuario;
 
   constructor(
     calificacion : number,
     comentarios : string,
-    ticketid: number){
-
+    usuario: Usuario){
       this.calificacion= calificacion;
       this.comentario= comentarios;
-      this.ticketid= ticketid;
-
+      this.usuario= usuario;
   }
 }

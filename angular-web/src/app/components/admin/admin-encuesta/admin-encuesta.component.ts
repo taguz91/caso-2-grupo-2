@@ -3,6 +3,7 @@ import { Encuesta, EncuestaView } from '../../../models/encuesta';
 import { PageMetadata } from '../../../models/parametros';
 import { DEFAULT_PAGE_METADA } from '../../../utils/constantes';
 import { EncuesatisService } from '../../../services/encuesatis.service';
+import { ReporteService } from 'src/app/services/reporte.service';
 
 @Component({
   selector: 'app-admin-encuesta',
@@ -15,7 +16,7 @@ export class AdminEncuestaComponent implements OnInit {
   encuestasAl: EncuestaView[] = [];
   pageMetada: PageMetadata = DEFAULT_PAGE_METADA;
   values: any[] = [];
-  constructor(public _encuestasService: EncuesatisService) { }
+  constructor(public _encuestasService: EncuesatisService, public _reporte: ReporteService) { }
 
   ngOnInit(): void {
     this.mostrarActividades();
@@ -52,10 +53,16 @@ export class AdminEncuestaComponent implements OnInit {
       values.push([
         encuesta.comentario,
         encuesta.calificacion,
-        encuesta.ticketid
+        encuesta.usuario.correo,
+        encuesta.usuario.nombreCompleto,
+        encuesta.usuario.telefono
       ])
     });
     return values;
+  }
+
+  GetReporte(){
+    this._reporte.reporte('tr');
   }
 }
 
