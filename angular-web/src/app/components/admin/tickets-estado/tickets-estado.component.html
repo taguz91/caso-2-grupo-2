@@ -1,7 +1,11 @@
 <button type="button" (click)="GetReporte()" class="btn btn-outline-success">
-      Guardar Registro
+  Guardar Registro
 </button>
 <div class="card shadow my-3 card_responsive">
+
+  <div class="card-header">
+    <app-admin-search (onSeach)="searchTickets($event)" [loading]='loading'></app-admin-search>
+  </div>
 
   <div class="card-body">
 

@@ -4,6 +4,7 @@ import com.tecazuay.example.restapi.models.Usuario;
 
 public class UsuarioToken {
 
+	private Long personaId;
 	private String correo;
 	private String nombres;
 	private String apellidos;
@@ -12,6 +13,7 @@ public class UsuarioToken {
 	private Long type;
 
 	public UsuarioToken(Usuario user, String token) {
+		this.personaId = user.getPersonaId();
 		this.correo = user.getCorreo();
 		this.nombres = user.getNombres();
 		this.apellidos = user.getApellidos();
@@ -66,6 +68,14 @@ public class UsuarioToken {
 
 	public void setType(Long type) {
 		this.type = type;
+	}
+
+	public Long getPersonaId() {
+		return personaId;
+	}
+
+	public void setPersonaId(Long personaId) {
+		this.personaId = personaId;
 	}
 
 }

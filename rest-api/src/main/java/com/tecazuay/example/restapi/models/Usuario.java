@@ -28,7 +28,7 @@ public class Usuario extends Globals implements Serializable {
 	@Column(name = "usuario_id")
 	private Long personaId;
 
-	@Column(nullable = true, length = 10)
+	@Column(nullable = true, length = 10, unique = true)
 	private String cedula;
 
 	@Column(nullable = false, length = 100)

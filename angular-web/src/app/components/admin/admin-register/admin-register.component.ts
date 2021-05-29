@@ -230,9 +230,13 @@ export class AdminRegisterComponent implements OnInit {
       if (this.localService.is_cedula(cedula)) {
         this.usuarioService.readUserByCedula(cedula).subscribe(data => {
           try {
-            if (data != null && data.cedula == cedula) {
-              this.show_response('Cédula existente');
-              return false;
+            if (data != null) {
+              if (data.cedula == this.usuario.cedula) {
+                return true;
+              } else {
+                this.show_response('Cédula existente');
+                return false;
+              }
             } else {
               return true;
             }

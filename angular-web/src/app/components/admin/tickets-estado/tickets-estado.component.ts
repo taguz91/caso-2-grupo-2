@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { title } from 'process';
-import { PageMetadata } from 'src/app/models/Parametros';
+import { PageMetadata, PageResponse } from 'src/app/models/Parametros';
 import { TicketView } from 'src/app/models/ticket';
 import { BreadcrumbService } from 'src/app/services/breadcrumb.service';
 import { TicketService } from 'src/app/services/ticket.service';
@@ -31,6 +31,7 @@ export class TicketsEstadoComponent implements OnInit {
 
   titles: string[] = [];
   values: any[] = [];
+  loading: boolean = false;
 
   get page() {
     return this.actualPage + 1;
@@ -59,55 +60,71 @@ export class TicketsEstadoComponent implements OnInit {
   }
 
   private loadTickets() {
+    this.loading = true;
     this.ticketService
       .allByEstado(this.estado, this.actualPage)
-      .subscribe((data) => {
-        this.tickets = data.data;
-        this.pageMetada = data.meta;
+      .subscribe(this.mapResponse.bind(this));
+  }
 
-        if (this.tickets.length > 0) {
-          this.title = this.tickets[0].estado.nombre;
-        } else {
-          this.title = this.estado.toString();
-        }
+  searchTickets(q: string) {
+    this.actualPage = 0;
+    if (q.length === 0) {
+      this.loadTickets();
+    } else {
+      this.loading = true;
+      this.ticketService
+        .searchByEstado(q, this.estado, this.actualPage)
+        .subscribe(this.mapResponse.bind(this));
+    }
+  }
 
-        this.breadcrumb.addRutes([
-          {
-            label: `Tickets ${this.title}`,
-            toUrl: `/admin/tickets/${this.estado}`,
-          },
-        ]);
+  private mapResponse(data: PageResponse<TicketView[]>) {
+    this.tickets = data.data;
+    this.pageMetada = data.meta;
 
-        switch (this.estado) {
-          case TICKET_ESTADO_ABIERTO:
-            this.titles = this.nuevosTitle();
-            this.values = this.nuevosData();
-            break;
+    if (this.tickets.length > 0) {
+      this.title = this.tickets[0].estado.nombre;
+    } else {
+      this.title = this.estado.toString();
+    }
 
-          case TICKET_ESTADO_ATENDIENDOSE:
-            this.titles = this.atendiendoseTitle();
-            this.values = this.atendiendoseData();
-            break;
+    this.breadcrumb.addRutes([
+      {
+        label: `Tickets ${this.title}`,
+        toUrl: `/admin/tickets/${this.estado}`,
+      },
+    ]);
 
-          case TICKET_ESTADO_CERRADO_CON_SOLUCION:
-            this.titles = this.conSolucionTitle();
-            this.values = this.cerradoData();
-            break;
+    switch (this.estado) {
+      case TICKET_ESTADO_ABIERTO:
+        this.titles = this.nuevosTitle();
+        this.values = this.nuevosData();
+        break;
 
-          case TICKET_ESTADO_CERRADO_SIN_SOLUCION:
-            this.titles = this.sinSolucionTitle();
-            this.values = this.cerradoData();
-            break;
+      case TICKET_ESTADO_ATENDIENDOSE:
+        this.titles = this.atendiendoseTitle();
+        this.values = this.atendiendoseData();
+        break;
 
-          case TICKET_ESTADO_RECHAZADO:
-            this.titles = this.rechazadoTitle();
-            this.values = this.rechazadoData();
-            break;
+      case TICKET_ESTADO_CERRADO_CON_SOLUCION:
+        this.titles = this.conSolucionTitle();
+        this.values = this.cerradoData();
+        break;
 
-          default:
-            break;
-        }
-      });
+      case TICKET_ESTADO_CERRADO_SIN_SOLUCION:
+        this.titles = this.sinSolucionTitle();
+        this.values = this.cerradoData();
+        break;
+
+      case TICKET_ESTADO_RECHAZADO:
+        this.titles = this.rechazadoTitle();
+        this.values = this.rechazadoData();
+        break;
+
+      default:
+        break;
+    }
+    this.loading = false;
   }
 
   private nuevosTitle(): string[] {
@@ -238,7 +255,7 @@ export class TicketsEstadoComponent implements OnInit {
     return values;
   }
 
-  GetReporte(){
+  GetReporte() {
     this._reporte.reporte('ticket');
   }
 }

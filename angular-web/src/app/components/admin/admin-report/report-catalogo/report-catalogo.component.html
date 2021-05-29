@@ -1,0 +1,77 @@
+<div class="card shadow my-3 card_responsive">
+  <div class="card-header">
+    <div class="row">
+      <div class="text-end">
+        <a class="text-end">
+          <input type="text" class="forms-control col-md-3" placeholder="Buscar.."  [(ngModel)]="filterpost"
+          name="filterpost" />
+        </a>
+        <a class="text-end">
+          <button type="button" (click)="exportAsXLSX()" class="btn btn-outline-success">
+            <span class="material-icons-outlined">
+              description
+            </span>
+            <br>
+            Guardar Registro .XLSX
+          </button>
+          <button type="button" (click)="GetReporte()" class="btn btn-outline-warning">
+            <span class="material-icons-outlined">
+              picture_as_pdf
+              </span>
+              <br>
+            Guardar Captura .PDF
+          </button>
+        </a>
+      </div>
+    </div>
+    
+  </div>
+
+
+  <div id="tabla" class="card-body">
+
+    <table id=".tabla-materiales" class="table table-striped table-hover table-responsive" id="catalogo">
+
+      <thead>
+        <tr>
+          <th>Tipo servicio</th>
+          <th>Servicio</th>
+          <th>Catalogo</th>
+          <th>Criticidad</th>
+          <th>Impacto</th>
+          <th>Nivel Prioridad</th>
+          <th>Tiempo Resolucion</th>
+          <th>Tiempo Respuesta</th>
+          <th>Tiempo Escalada</th>
+          
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let catalogo of catalogos | filter:filterpost">
+          <td id="nombre">{{ catalogo.tipoServicio.nombre }}</td>
+          <td>{{ catalogo.servicio.nombre_servicio }}</td>
+          <td>{{ catalogo.descripcion }}</td>
+          <td>{{ catalogo.sla.criticidad.nombre }}</td>
+          <td>{{ catalogo.sla.impacto.nombre }}</td>
+          <td>{{ catalogo.sla.nivelPrioridad.nombre }}</td>
+          <td>{{ catalogo.sla.tiempoResolucion }}</td>
+          <td>{{ catalogo.sla.tiempoRespuesta }}</td>
+          <td>{{ catalogo.sla.reglasEscalada }}</td>
+        </tr>
+
+      </tbody>
+
+
+    </table>
+
+
+    <ngb-pagination [collectionSize]="pageMetada.items" [(page)]="page" [pageSize]="perPage">
+    </ngb-pagination>
+
+  </div>
+
+</div>
+
+<ng-template #modalForm let-modal>
+  <app-form-catalogo [modal]="modal" [idCatalogo]="catalogoId"></app-form-catalogo>
+</ng-template>
