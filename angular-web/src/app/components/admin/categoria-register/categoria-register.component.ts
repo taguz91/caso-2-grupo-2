@@ -72,6 +72,8 @@ export class CategoriaRegisterComponent implements OnInit {
     }, (err: HttpErrorResponse) => {
 
     });
+    this.categoriaForm.reset();
+    this.categoriaFormEdit.reset();
   }
 
   addCategoria(form: Categoria) {
@@ -95,7 +97,6 @@ export class CategoriaRegisterComponent implements OnInit {
             })
           })
       })
-      this.categoriaForm.reset();
   }
 
   openModal(contenido, id, nombre_categoria) {
@@ -120,7 +121,6 @@ export class CategoriaRegisterComponent implements OnInit {
           this.messageError = error
         })
       })
-      this.categoriaFormEdit.reset();
   }
 
   eliminarCategoria(id: any) {

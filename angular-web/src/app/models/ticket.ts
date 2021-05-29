@@ -70,6 +70,28 @@ export interface TicketView {
   usuario: Usuario;
 }
 
+export interface TicketViewExcel {
+  createdAt: Date;
+  updatedAt: Date;
+  createdBy: number;
+  updatedBy?: number;
+  ticket_id: number;
+  titulo: string;
+  descripcion: string;
+  solucion?: string;
+  fechaSolucion?: Date;
+  fechaAsignacion?: Date;
+  estado: ParametroModel;
+  impacto: ParametroModel;
+  listaHistorial: any[];
+  encuesta?: any;
+  adjuntos: Adjunto[];
+  responsable?: Usuario;
+  responsableSolucion?: Usuario;
+  catalogo: Catalogo;
+  mediosComunicacion: Medio[];
+  usuario: Usuario;
+}
 export interface TicketCount {
   nombre: string;
   total: number;

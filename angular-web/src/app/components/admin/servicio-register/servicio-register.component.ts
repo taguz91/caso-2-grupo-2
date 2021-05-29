@@ -25,10 +25,12 @@ export class ServicioRegisterComponent implements OnInit {
   categoria: Categoria;
   servicio: Servicio;
   hasError: boolean = false;
+  hasErrorDuplicado: boolean = false;
   listaErroresServicio: any[];
   listaErroresCategoriaId: any[];
   existsData: boolean = false;
   existsListCategoria: boolean = false;
+  messageError: string;
 
   pageMetaData: PageMetadata = DEFAULT_PAGE_METADA;
   perPage: number = DEFAULT_PAGE_SIZE;
@@ -36,16 +38,16 @@ export class ServicioRegisterComponent implements OnInit {
 
   datosPorLista: number = 1;
 
-  get page(){
+  get page() {
     return this.actualPage + 1;
   }
 
-  set page(page: number){
+  set page(page: number) {
     this.actualPage = page - 1;
     this.listarServicios();
   }
 
-  mostrarMas(){
+  mostrarMas() {
     this.perPage = this.perPage + 10;
     this.listarCategorias();
   }
@@ -63,25 +65,25 @@ export class ServicioRegisterComponent implements OnInit {
 
 
   constructor(
-    private servicioService: ServicioService, 
-    public modal:NgbModal, 
-    private alertService:AlertService,
+    private servicioService: ServicioService,
+    public modal: NgbModal,
+    private alertService: AlertService,
     private categoriaService: CategoriaService,
     private catalogoService: CatalogoService
-    ) { }
+  ) { }
 
   ngOnInit(): void {
     this.listarServicios();
   }
 
-  mostrarRegistroServicio(){
+  mostrarRegistroServicio() {
     this.isShow = !this.isShow;
     this.listarCategorias();
   }
 
-  listarCategorias(){
+  listarCategorias() {
     this.categoriaService.listCategoriasToServicio().subscribe(data => {
-      if(data != null){
+      if (data != null) {
         this.existsListCategoria = true;
         this.existsData = true;
         this.listaCategorias = data['data'];
@@ -92,9 +94,9 @@ export class ServicioRegisterComponent implements OnInit {
     })
   }
 
-  listarServicios(){
+  listarServicios() {
     this.servicioService.listServicio(this.actualPage).subscribe(data => {
-      if(data != null){
+      if (data != null) {
         this.listaServicios = data['data'];
         this.pageMetaData = data.meta;
       } else {
@@ -103,61 +105,69 @@ export class ServicioRegisterComponent implements OnInit {
     })
   }
 
-  addServicio(form: Servicio){
-    this.servicioService.addServicio(form)
-    .subscribe(res => {
-      this.listarServicios();
-      this.isShow = !this.isShow;
-      this.hasError = false;
-      this.alertService.success("Servicio registrado");
-    }, (err: HttpErrorResponse) => {
-      this.hasError = true;
-      this.listaErroresServicio = err.error.errors.nombre_servicio;
-      this.listaErroresCategoriaId = err.error.errors.categoriaId;
-    });
+  addServicio(form: Servicio) {
+    this.hasErrorDuplicado = false;
+    this.servicioService.findByNombreServicio(form.nombre_servicio)
+      .subscribe(data => {
+        this.hasErrorDuplicado = true;
+        this.messageError = "El servicio '" + form.nombre_servicio + "' ya existe";
+      }, err => {
+        this.servicioService.addServicio(form)
+          .subscribe(res => {
+            this.listarServicios();
+            this.isShow = !this.isShow;
+            this.hasError = false;
+            this.alertService.success("Servicio registrado");
+          }, (err: HttpErrorResponse) => {
+            this.hasError = true;
+            this.listaErroresServicio = err.error.errors.nombre_servicio;
+            this.listaErroresCategoriaId = err.error.errors.categoriaId;
+          });
+      })
+
     this.formServicio.reset();
   }
 
-  openModal(contenido, id, nombre_servicio){
+  openModal(contenido, id, nombre_servicio) {
     this.categoriaService.listCategoriasToServicio()
-    .subscribe(data => {
-      if(data != null){
-        this.listaCategorias = data['data'];
-      }  
-    });
-    
+      .subscribe(data => {
+        if (data != null) {
+          this.listaCategorias = data['data'];
+        }
+      });
+
     this.servicioFormEdit.setValue({
       nombre_servicio: nombre_servicio,
       servicio_id: id,
-      categoriaId:  [ this.listaCategorias ]
+      categoriaId: [this.listaCategorias]
     });
     this.modal.open(contenido);
   }
 
-  actualizarServicio(form: Servicio){
+  actualizarServicio(form: Servicio) {
     this.servicioService.updateServicio(form.servicio_id, form)
-    .subscribe(res => {
-      this.alertService.success("Se actualizo el servicio");
-      this.listarServicios();
-      this.modal.dismissAll();
-      this.hasError = false;
-    }, (err: HttpErrorResponse) => {
-      this.hasError = true;
-      this.listaErroresServicio = err.error.errors.nombre_servicio;
-      this.listaErroresCategoriaId = err.error.errors.categoriaId;
-    });
+      .subscribe(res => {
+        this.alertService.success("Se actualizo el servicio");
+        this.listarServicios();
+        this.modal.dismissAll();
+        this.hasError = false;
+      }, (err: HttpErrorResponse) => {
+        this.hasError = true;
+        this.listaErroresServicio = err.error.errors.nombre_servicio;
+        this.listaErroresCategoriaId = err.error.errors.categoriaId;
+      });
     this.servicioFormEdit.reset();
   }
 
 
-  eliminarServicio(id: any){
+  eliminarServicio(id: any) {
     this.servicioService.deleteServicio(id)
-    .subscribe(res => {
-      this.alertService.success("Se elimino la categoria");
-      this.listarServicios();
-    }, (err: HttpErrorResponse) => {
-      
-    })
+      .subscribe(res => {
+        this.alertService.success("Se elimino la categoria");
+        this.listarServicios();
+      }, (err: HttpErrorResponse) => {
+
+      })
   }
 
 }

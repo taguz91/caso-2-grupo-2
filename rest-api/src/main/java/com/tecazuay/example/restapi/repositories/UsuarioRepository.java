@@ -40,4 +40,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 
 	@Query(value = "SELECT u FROM usuarios u WHERE u.cedula = :cedula")
 	Usuario findByCedula(String cedula);
+
+	@Query(value = "SELECT u FROM usuarios u WHERE u.correo = :correo")
+	Usuario findByEmail(String correo);
 }

@@ -114,17 +114,7 @@ export class AdminLayoutComponent implements OnInit {
       section: 'Reportes',
       options: [
         {
-          label: 'Graficas',
-          icon: 'leaderboard',
-          urlTo: '/admin/reportes/graficas',
-        },
-        {
-          label: 'PDF',
-          icon: 'picture_as_pdf',
-          urlTo: '/admin/reportes/pdf',
-        },
-        {
-          label: 'Excel',
+          label: 'Reportes',
           icon: 'table_chart',
           urlTo: '/admin/reportes/admin-report',
         },

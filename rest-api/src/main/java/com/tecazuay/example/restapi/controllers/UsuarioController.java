@@ -9,6 +9,7 @@ import com.tecazuay.example.restapi.definitions.PageResponse;
 import com.tecazuay.example.restapi.definitions.TicketCountChart;
 import com.tecazuay.example.restapi.definitions.UserList;
 import com.tecazuay.example.restapi.definitions.UsuarioToken;
+import com.tecazuay.example.restapi.models.ResponseModel;
 import com.tecazuay.example.restapi.models.Usuario;
 import com.tecazuay.example.restapi.repositories.UsuarioRepository;
 import com.tecazuay.example.restapi.services.AuthorizationService;
@@ -53,7 +54,7 @@ public class UsuarioController {
 	private PasswordEncoder passwordEncoder;
 
 	@PostMapping(value = "/{id}")
-	public ResponseEntity<Usuario> createUser(@Validated @RequestBody UsuarioParam usuario, @PathVariable Long id) {
+	public ResponseEntity<ResponseModel> createUser(@Validated @RequestBody UsuarioParam usuario, @PathVariable Long id) {
 		return ResponseEntity.status(HttpStatus.OK).body(this.usuarioService.save(usuario, id));
 	}
 
@@ -83,7 +84,7 @@ public class UsuarioController {
 	}
 
 	@PutMapping(value = "/")
-	public ResponseEntity<Usuario> updateUser(@Validated @RequestBody UsuarioEditParam usuario) {
+	public ResponseEntity<ResponseModel> updateUser(@Validated @RequestBody UsuarioEditParam usuario) {
 		return ResponseEntity.status(HttpStatus.OK).body(this.usuarioService.update(usuario));
 	}
 
