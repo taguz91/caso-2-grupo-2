@@ -6,6 +6,7 @@ import 'package:flutter_app/src/providers/parametro_provider.dart';
 import 'package:flutter_app/src/providers/ticket_provider.dart';
 import 'package:flutter_app/src/widgets/form_error_message.dart';
 import 'package:flutter_app/src/widgets/input_container_widget.dart';
+import 'package:flutter_app/src/widgets/load_button.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 
 class FormTicketPage extends StatefulWidget {
@@ -58,42 +59,27 @@ class _FormTicketPageState extends State<FormTicketPage> {
     }
   }
 
-  Container _saveButton(BuildContext context) {
-    return Container(
-      alignment: Alignment.topRight,
-      width: 175,
-      margin: EdgeInsets.symmetric(
-        vertical: 15,
-        horizontal: 12,
-      ),
-      child: ElevatedButton(
-        onPressed: () async {
-          setState(() => _formError = null);
-          FocusScope.of(context).unfocus();
-          bool valid = _formKey.currentState!.saveAndValidate();
-          if (valid) {
-            int ticketId = await _ticketProvider.registerTikcet({
-              'catalogoId': widget._catalogoServicio.catalogoId,
-              'usuarioId': 0,
-            }..addAll(_formKey.currentState!.value));
-            if (ticketId != 0) {
-              Navigator.of(context).pushReplacementNamed(USER_PAGE);
-            } else {
-              setState(() => _formError =
-                  'Error al ingresar el ticket, vuelve a intentarlo en unos minutos.');
-            }
+  LoadButton _saveButton(BuildContext context) {
+    return LoadButton(
+      onTap: () async {
+        await Future.delayed(Duration(seconds: 1));
+        setState(() => _formError = null);
+        FocusScope.of(context).unfocus();
+        bool valid = _formKey.currentState!.saveAndValidate();
+        if (valid) {
+          int ticketId = await _ticketProvider.registerTikcet({
+            'catalogoId': widget._catalogoServicio.catalogoId,
+            'usuarioId': 0,
+          }..addAll(_formKey.currentState!.value));
+          if (ticketId != 0) {
+            Navigator.of(context).pushReplacementNamed(USER_PAGE);
+          } else {
+            setState(() => _formError =
+                'Error al ingresar el ticket, vuelve a intentarlo en unos minutos.');
           }
-        },
-        child: Container(
-          padding: EdgeInsets.all(10),
-          child: Center(
-            child: Text(
-              'Guardar',
-              style: TextStyle(fontSize: 18),
-            ),
-          ),
-        ),
-      ),
+        }
+      },
+      label: 'Guardar',
     );
   }
 

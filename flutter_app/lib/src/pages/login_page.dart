@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/routes_generator.dart';
+import 'package:flutter_app/src/controllers/widgets/load_button_controller.dart';
 import 'package:flutter_app/src/models/definitios.dart';
 import 'package:flutter_app/src/providers/usuario_provider.dart';
 import 'package:flutter_app/src/utils/constantes.dart';
 import 'package:flutter_app/src/utils/global_settings.dart';
 import 'package:flutter_app/src/widgets/form_error_message.dart';
 import 'package:flutter_app/src/widgets/input_container_widget.dart';
+import 'package:flutter_app/src/widgets/load_button.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 
 class LoginPage extends StatefulWidget {
@@ -51,7 +53,7 @@ class _LoginPageState extends State<LoginPage> {
               children: [
                 _form(context),
                 FormErrorMessage(_loginError),
-                _saveButton(context)
+                _loginButton(context)
               ],
             ),
           )
@@ -60,50 +62,39 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Container _saveButton(BuildContext context) {
-    return Container(
-      alignment: Alignment.center,
-      margin: EdgeInsets.only(top: 15, bottom: 20, right: 12, left: 20),
-      child: ElevatedButton(
-        onPressed: () async {
-          FocusScope.of(context).unfocus();
-          bool valid = _formKey.currentState!.saveAndValidate();
-          if (valid) {
-            setState(() => _loginError = null);
-            final saveData = _formKey.currentState!.value;
-            LoginResponse res = await _usuarioProvider.login(saveData);
-            if (res.error != null) {
-              setState(() => _loginError = res.error!.message);
-            } else {
-              _globalSettings.user = res.user!;
-              final int userType = res.user!.type;
+  Widget _loginButton(BuildContext context) {
+    return LoadButton(
+      label: 'Ingresar',
+      onTap: () async {
+        await Future.delayed(Duration(seconds: 1));
+        FocusScope.of(context).unfocus();
+        bool valid = _formKey.currentState!.saveAndValidate();
+        if (valid) {
+          setState(() => _loginError = null);
+          final saveData = _formKey.currentState!.value;
+          LoginResponse res = await _usuarioProvider.login(saveData);
+          if (res.error != null) {
+            setState(() => _loginError = res.error!.message);
+          } else {
+            _globalSettings.user = res.user!;
+            final int userType = res.user!.type;
 
-              if (userType == ROL_COORDINADOR) {
-                Navigator.of(context).pushReplacementNamed(COORDINADOR_PAGE);
-              } else if (userType == ROL_SOPORTE_N1 ||
-                  userType == ROL_SOPORTE_N2) {
-                Navigator.of(context).pushReplacementNamed(SOPORTE_PAGE);
-              } else if (userType == ROL_USUARIO) {
-                Navigator.of(context).pushReplacementNamed(USER_PAGE);
-              } else {
-                setState(
-                  () => _loginError =
-                      'No puedes loguearte en la aplicación, utiliza nuestra plataforma web para acceder.',
-                );
-              }
+            if (userType == ROL_COORDINADOR) {
+              Navigator.of(context).pushReplacementNamed(COORDINADOR_PAGE);
+            } else if (userType == ROL_SOPORTE_N1 ||
+                userType == ROL_SOPORTE_N2) {
+              Navigator.of(context).pushReplacementNamed(SOPORTE_PAGE);
+            } else if (userType == ROL_USUARIO) {
+              Navigator.of(context).pushReplacementNamed(USER_PAGE);
+            } else {
+              setState(
+                () => _loginError =
+                    'No puedes loguearte en la aplicación, utiliza nuestra plataforma web para acceder.',
+              );
             }
           }
-        },
-        child: Container(
-          padding: EdgeInsets.all(10),
-          child: Center(
-            child: Text(
-              'Login',
-              style: TextStyle(fontSize: 18),
-            ),
-          ),
-        ),
-      ),
+        }
+      },
     );
   }
 
@@ -116,8 +107,8 @@ class _LoginPageState extends State<LoginPage> {
             label: 'Correo:',
             child: FormBuilderTextField(
               name: "correo",
-              // initialValue: "johnnygar98@hotmail.com",
-              initialValue: "coordinador@dev.tec",
+              initialValue: "johnnygar98@hotmail.com",
+              // initialValue: "coordinador@dev.tec",
               // initialValue: "soporten1@dev.tec",
               keyboardType: TextInputType.emailAddress,
               validator: FormBuilderValidators.compose([
