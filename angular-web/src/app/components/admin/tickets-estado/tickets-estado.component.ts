@@ -55,6 +55,7 @@ export class TicketsEstadoComponent implements OnInit {
       if (id) {
         this.estado = parseInt(id);
         this.loadTickets();
+        console.log(this.loadTickets())
       }
     });
   }
@@ -81,7 +82,7 @@ export class TicketsEstadoComponent implements OnInit {
   private mapResponse(data: PageResponse<TicketView[]>) {
     this.tickets = data.data;
     this.pageMetada = data.meta;
-
+    console.log(data.data)
     if (this.tickets.length > 0) {
       this.title = this.tickets[0].estado.nombre;
     } else {

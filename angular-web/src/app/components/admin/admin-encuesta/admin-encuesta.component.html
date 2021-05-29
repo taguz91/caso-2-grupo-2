@@ -24,11 +24,8 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let e of encuestasAll">
-          <td>{{e.encuesta_id}}</td>
-          <td>{{e.comentario}}</td>
-          <td>{{e.calificacion}}</td>
-          <td>{{e.ticket_id}}</td>
+        <tr *ngFor="let value of values">
+          <td *ngFor="let data of value">{{ data }}</td>
         </tr>
       </tbody>
     </table>
@@ -40,4 +37,5 @@
     </button>
   </div>
 </div>
+
 

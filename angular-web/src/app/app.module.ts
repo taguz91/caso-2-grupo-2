@@ -49,7 +49,7 @@ import { ReportTicketComponent } from './components/admin/admin-report/report-ti
 import { ReportCatalogoComponent } from './components/admin/admin-report/report-catalogo/report-catalogo.component';
 import { AdminSearchComponent } from './components/admin/admin-search/admin-search.component';
 import { FilterPipe } from './components/admin/admin-report/pipe/filter.pipe';
-import { AdminEncuestasComponent } from './components/admin/admin-encuestas/admin-encuestas.component';
+import { AdminEncuestaComponent } from './components/admin/admin-encuesta/admin-encuesta.component';
 import { ProfileComponent } from './components/profile/profile.component';
 
 @NgModule({
@@ -98,6 +98,7 @@ import { ProfileComponent } from './components/profile/profile.component';
     FilterPipe,
     ProfileComponent,
     ProfileComponent,
+    AdminEncuestaComponent,
   ],
   imports: [
     BrowserModule,
@@ -111,7 +112,7 @@ import { ProfileComponent } from './components/profile/profile.component';
       echarts: () => import('echarts'),
     }),
   ],
-  providers: [CriticidadService],
+  providers: [],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

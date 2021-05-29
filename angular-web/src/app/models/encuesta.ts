@@ -6,24 +6,24 @@ import { Usuario } from './usuario';
 import { Sla } from './catalogo';
 export class Encuesta {
   calificacion : number;
-  comentarios : string;
+  comentario : string;
   ticketid: number;
 
   constructor(
     calificacion : number,
-    comentarios : string,
+    comentario : string,
     ticketid: number){
 
       this.calificacion= calificacion;
-      this.comentarios= comentarios;
+      this.comentario= comentario;
       this.ticketid= ticketid;
 
   }
 }
 export interface EncuestaView {
   calificacion : number;
-  comentarios : string;
-  ticketid: TicketView[];
+  comentario : string;
+  ticketid: TicketEncuesta[];
 }
 export interface TicketEncuesta {
   createdAt: Date;
