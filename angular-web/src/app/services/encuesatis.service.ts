@@ -11,7 +11,6 @@ import { PageResponse } from '../models/parametros';
 })
 export class EncuesatisService {
 
-  url="http://localhost:3000/api/v1/"
   constructor(private http: HttpClient) {}
 
   registerEncuesta(Encuesta:any){

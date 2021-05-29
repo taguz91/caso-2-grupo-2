@@ -41,7 +41,7 @@ export class ReportTicketComponent implements OnInit {
   ngOnInit(): void {
     this.breadcrumb.addRutes([
       {
-        label: 'Encuesta',
+        label: 'Reporte Ticket',
         toUrl: 'admin/reportes/admin-report',
       },
     ]);
