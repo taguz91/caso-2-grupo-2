@@ -94,7 +94,7 @@ export class TicketsEstadoComponent implements OnInit {
         toUrl: `/admin/tickets/${this.estado}`,
       },
     ]);
-
+    console.log(this.estado);
     switch (this.estado) {
       case TICKET_ESTADO_ABIERTO:
         this.titles = this.nuevosTitle();

@@ -21,7 +21,7 @@ export class EncuesatisService {
 
   listEncuestas(page: number,
     size: number = DEFAULT_PAGE_SIZE):  Observable<PageResponse<EncuestaView[]>> {
-    return this.http.get<PageResponse<EncuestaView[]>>(`${this.url}encuesta/?page=${page}&size=${size}`,
+    return this.http.get<PageResponse<EncuestaView[]>>(`${URL_BASE_V1}encuesta/?page=${page}&size=${size}`,
         loadHeader()
       )
       .pipe(
