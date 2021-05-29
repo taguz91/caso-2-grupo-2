@@ -4,7 +4,7 @@ import 'package:flutter_app/src/pages/login_page.dart';
 import 'package:flutter_app/src/pages/soporte/dashboard_soporte_page.dart';
 import 'package:flutter_app/src/pages/user/dashboard_user_page.dart';
 
-const DEFAULT = '/';
+const DEFAULT = '/login';
 const USER_PAGE = '/user/';
 const COORDINADOR_PAGE = '/coordinador/';
 const SOPORTE_PAGE = '/soporte/';

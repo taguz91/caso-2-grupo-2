@@ -18,10 +18,10 @@ class FormTicketPage extends StatefulWidget {
 }
 
 class _FormTicketPageState extends State<FormTicketPage> {
-  final GlobalKey<FormBuilderState> _formKey = GlobalKey<FormBuilderState>();
+  final _formKey = GlobalKey<FormBuilderState>();
   final List<Parametro> nivelesImpacto = [];
-  final ParametroProvider _parametroProvider = new ParametroProvider();
-  final TicketProvider _ticketProvider = new TicketProvider();
+  final _parametroProvider = new ParametroProvider();
+  final _ticketProvider = new TicketProvider();
 
   String? _formError;
 

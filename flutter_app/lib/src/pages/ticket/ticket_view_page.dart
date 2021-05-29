@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_app/src/models/usuario.dart';
+import 'package:flutter_app/src/pages/form/form_rechazar_page.dart';
 import 'package:flutter_app/src/providers/ticket_provider.dart';
 import 'package:flutter_app/src/utils/constantes.dart';
 import 'package:flutter_app/src/utils/global_settings.dart';
@@ -39,11 +40,11 @@ class TicketViewPage extends StatelessWidget {
           return LoadingText(text: 'Buscando ticket...');
         },
       ),
-      floatingActionButton: getFloatingButtons(user),
+      floatingActionButton: getFloatingButtons(context, user),
     );
   }
 
-  Widget? getFloatingButtons(UserLogin user) {
+  Widget? getFloatingButtons(BuildContext context, UserLogin user) {
     print("USER TYPE: ${user.type.toString()}");
     switch (user.type) {
       case ROL_USUARIO:
@@ -53,7 +54,7 @@ class TicketViewPage extends StatelessWidget {
       case ROL_SOPORTE_N2:
         return _soporteN2();
       case ROL_COORDINADOR:
-        return _coordinador();
+        return _coordinador(context);
     }
   }
 
@@ -119,13 +120,17 @@ class TicketViewPage extends StatelessWidget {
     );
   }
 
-  FloatingButtonList _coordinador() {
+  FloatingButtonList _coordinador(BuildContext context) {
     return FloatingButtonList(
       children: [
         if (ticket.canReject)
           FloatingActionButton(
             heroTag: null,
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (_) => FormRechazarPage(ticket.ticketId),
+              ));
+            },
             backgroundColor: DANGER_COLOR,
             child: Icon(
               Icons.delete,

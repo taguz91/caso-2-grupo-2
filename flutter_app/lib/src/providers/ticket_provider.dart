@@ -41,6 +41,40 @@ class TicketProvider {
     );
   }
 
+  Future<TicketView?> rechazar(Map<String, dynamic> data) async {
+    return _mapTicketView(
+      '$URL_BASE_V1/ticket/rechazar',
+      data,
+    );
+  }
+
+  Future<TicketView?> cerrar(Map<String, dynamic> data) async {
+    return _mapTicketView(
+      '$URL_BASE_V1/ticket/cerrar',
+      data,
+    );
+  }
+
+  Future<TicketView?> asignar(Map<String, dynamic> data) async {
+    return _mapTicketView(
+      '$URL_BASE_V1/ticket/asignar',
+      data,
+    );
+  }
+
+  Future<TicketView?> _mapTicketView(
+    String urlParam,
+    Map<String, dynamic> data,
+  ) async {
+    final url = Uri.parse(urlParam);
+    final response = await _httpAuth.post(url, body: jsonEncode(data));
+
+    if (HttpStatus.ok == response.statusCode) {
+      Map<String, dynamic> dataResponse = json.decode(response.body);
+      return TicketView.fromJson(dataResponse);
+    }
+  }
+
   Future<PageResponse<List<TicketHome>>> _mapTicketHome(
     String urlParam,
   ) async {

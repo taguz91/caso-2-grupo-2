@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 
 import 'package:get/get.dart';
 
@@ -32,13 +33,16 @@ class _CatalogoServicioPageState extends State<CatalogoServicioPage> {
   void initState() {
     super.initState();
 
-    _catalogoServicioController.reset(widget.tipoServicio.parametrosId);
+    SchedulerBinding.instance?.addPostFrameCallback((timeStamp) {
+      _catalogoServicioController.reset(widget.tipoServicio.parametrosId);
 
-    _scrollController.addListener(() {
-      final triggerMore = _scrollController.position.maxScrollExtent * 0.9;
-      if (_scrollController.position.pixels > triggerMore) {
-        _catalogoServicioController.loadMore(widget.tipoServicio.parametrosId);
-      }
+      _scrollController.addListener(() {
+        final triggerMore = _scrollController.position.maxScrollExtent * 0.9;
+        if (_scrollController.position.pixels > triggerMore) {
+          _catalogoServicioController
+              .loadMore(widget.tipoServicio.parametrosId);
+        }
+      });
     });
   }
 
