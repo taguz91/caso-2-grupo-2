@@ -56,12 +56,13 @@ public class EncuestaController {
         AuthorizationService.onlyAdminOrDev(user);
         Pageable pageable = PageRequest.of(page, size);
         Page<EncuestaSatisfacion> encuesta = encuesta_repo.findAll(pageable);
-        List<EncuestaSatisfacion> encuestaSatisfacion= encuesta.getContent();
-        List<EncuestaUsuarioResponse> pageresponselist=new ArrayList<EncuestaUsuarioResponse>(); 
+        List<EncuestaSatisfacion> encuestaSatisfacion = encuesta.getContent();
+        List<EncuestaUsuarioResponse> pageresponselist = new ArrayList<EncuestaUsuarioResponse>();
         for (EncuestaSatisfacion es : encuestaSatisfacion) {
             pageresponselist.add(new EncuestaUsuarioResponse(es));
         }
-        Page<EncuestaUsuarioResponse> pageresponse = new PageImpl<EncuestaUsuarioResponse>(pageresponselist,pageable,encuesta.getTotalElements());
+        Page<EncuestaUsuarioResponse> pageresponse = new PageImpl<EncuestaUsuarioResponse>(pageresponselist, pageable,
+                encuesta.getTotalElements());
         return ResponseEntity.status(HttpStatus.OK).body(new PageResponse(pageresponse));
     }
 
@@ -73,7 +74,10 @@ public class EncuestaController {
     @PostMapping(value = "/")
     public ResponseEntity<EncuestaSatisfacion> PostEncuesta(@Valid @RequestBody EncuestaParams encu) {
         Ticket ticket = ticketRepository.findById(encu.getTicketid()).orElseThrow(ResourceNotFoundException::new);
-        EncuestaSatisfacion encuesta = new EncuestaSatisfacion();
+        EncuestaSatisfacion encuesta = encuesta_repo.existsByTicket(encu.getTicketid());
+        if (encuesta == null) {
+            encuesta = new EncuestaSatisfacion();
+        }
         encuesta.setTicket(ticket);
         encuesta.setCalificacion(encu.getCalificacion());
         encuesta.setComentario(encu.getComentarios());

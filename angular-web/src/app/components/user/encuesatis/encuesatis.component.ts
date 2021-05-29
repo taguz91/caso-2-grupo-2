@@ -46,7 +46,6 @@ export class EncuesatisComponent implements OnInit {
       }
     }
   }
-
   addEncuesta(): void {
     console.log(this.encuestaCreate);
     const Id = this.activeRoute.snapshot.paramMap.get('idTicket');
@@ -57,6 +56,7 @@ export class EncuesatisComponent implements OnInit {
     this.encuestaservice.registerEncuesta(this.encuestaCreate).subscribe(
       (res) => {
         console.log(res);
+        this._router.navigate(['/user/home']);
         this.limpiar();
 
       },
@@ -64,7 +64,6 @@ export class EncuesatisComponent implements OnInit {
         console.log(error);
       }
     );
-    this._router.navigate(['/user/home']);
   }
 
   limpiar(): void {

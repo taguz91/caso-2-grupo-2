@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Encuesta } from '../../../models/encuesta';
+import { Encuesta, EncuestaView } from '../../../models/encuesta';
 import { PageMetadata } from '../../../models/parametros';
 import { DEFAULT_PAGE_METADA } from '../../../utils/constantes';
 import { EncuesatisService } from '../../../services/encuesatis.service';
@@ -12,7 +12,7 @@ import { EncuesatisService } from '../../../services/encuesatis.service';
 export class AdminEncuestaComponent implements OnInit {
 
   actualPage: number = 0;
-  encuestasAl: Encuesta[] = [];
+  encuestasAl: EncuestaView[] = [];
   pageMetada: PageMetadata = DEFAULT_PAGE_METADA;
   values: any[] = [];
   constructor(public _encuestasService: EncuesatisService) { }
