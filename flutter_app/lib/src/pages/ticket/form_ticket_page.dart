@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/src/widgets/form/form_header_section.dart';
 
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:get/get.dart';
@@ -39,12 +40,14 @@ class _FormTicketPageState extends State<FormTicketPage> {
           right: 12,
           left: 12,
         ),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12),
-        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
+            FormHeaderSection(
+              3,
+              marginHorizontal: 8,
+            ),
+            SizedBox(height: 15),
             _form(context),
             FormErrorMessage(_formError),
             _saveButton(context),

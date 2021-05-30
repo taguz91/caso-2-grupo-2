@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/src/widgets/form/form_header_section.dart';
 
 import 'package:get/get.dart';
 
@@ -28,25 +29,30 @@ class TipoServicioPage extends StatelessWidget {
           horizontal: 15,
           vertical: 20,
         ),
-        decoration: BoxDecoration(
-          color: Colors.transparent,
-        ),
-        child: ListView.separated(
-          physics: BouncingScrollPhysics(),
-          shrinkWrap: true,
-          primary: false,
-          itemCount: tipoServicios.length,
-          separatorBuilder: (context, index) {
-            return SizedBox(height: 10);
-          },
-          itemBuilder: (BuildContext context, int index) {
-            return TapOption(
-              label: tipoServicios[index].nombre,
-              onTap: () {
-                onSelectTipo(tipoServicios[index]);
-              },
-            );
-          },
+        child: Column(
+          children: [
+            FormHeaderSection(1),
+            SizedBox(height: 15),
+            Expanded(
+              child: ListView.separated(
+                physics: BouncingScrollPhysics(),
+                shrinkWrap: true,
+                primary: false,
+                itemCount: tipoServicios.length,
+                separatorBuilder: (context, index) {
+                  return SizedBox(height: 10);
+                },
+                itemBuilder: (BuildContext context, int index) {
+                  return TapOption(
+                    label: tipoServicios[index].nombre,
+                    onTap: () {
+                      onSelectTipo(tipoServicios[index]);
+                    },
+                  );
+                },
+              ),
+            ),
+          ],
         ),
       );
     });
