@@ -2,8 +2,6 @@ package com.tecazuay.example.restapi.services.impl;
 
 import java.util.List;
 import java.util.Optional;
-
-import com.amazonaws.services.workdocs.model.User;
 import com.tecazuay.example.restapi.Types;
 import com.tecazuay.example.restapi.api.params.UsuarioEditParam;
 import com.tecazuay.example.restapi.api.params.UsuarioParam;
