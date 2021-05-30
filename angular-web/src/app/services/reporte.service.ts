@@ -26,6 +26,8 @@ export class ReporteService {
     const dia = new NgbCalendarGregorian().getToday().day;
     const mes = new NgbCalendarGregorian().getToday().month;
     const year = new NgbCalendarGregorian().getToday().year;
+
+    const fecha="dia mes"
     let html2canvasOptions = {
       allowTaint: true,
       removeContainer: true,
@@ -75,7 +77,7 @@ export class ReporteService {
         );
         heightLeft -= pageHeight;
       }
-      pdf.save('resume.pdf'); // Generated PDF
+      pdf.save('TIRTEC_Reporte.pdf'); // Generated PDF
 
       if (screen.width < 1024) {
         document
