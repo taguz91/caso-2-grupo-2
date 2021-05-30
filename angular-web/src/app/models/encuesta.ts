@@ -20,42 +20,18 @@ export class Encuesta {
 
   }
 }
-export interface EncuestaView {
+
+export class EncuestaView {
   calificacion : number;
-  comentarios : string;
-  ticketid: TicketView[];
-}
-export interface TicketEncuesta {
-  createdAt: Date;
-  updatedAt: Date;
-  createdBy: number;
-  updatedBy?: number;
-  ticket_id: number;
-  titulo: string;
-  descripcion: string;
-  solucion?: string;
-  fechaSolucion?: Date;
-  fechaAsignacion?: Date;
-  estado: ParametroModel;
-  impacto: ParametroModel;
-  listaHistorial: any[];
-  encuesta?: any;
-  adjuntos: Adjunto[];
-  responsable?: Usuario;
-  responsableSolucion?: Usuario;
-  catalogo: Catalogo;
-  mediosComunicacion: Medio[];
+  comentario : string;
   usuario: Usuario;
+
+  constructor(
+    calificacion : number,
+    comentarios : string,
+    usuario: Usuario){
+      this.calificacion= calificacion;
+      this.comentario= comentarios;
+      this.usuario= usuario;
+  }
 }
-
-interface Catalogo {
-  createdAt: Date;
-  updatedAt: Date;
-  catalogo_id: number;
-  descripcion: string;
-  tipoServicio: ParametroModel;
-  sla?: Sla;
-}
-
-
-

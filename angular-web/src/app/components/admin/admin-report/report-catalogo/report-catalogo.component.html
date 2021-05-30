@@ -1,33 +1,27 @@
+<div class="row">
+  <input type="text" class="forms-control col-md-3" placeholder="Buscar.."  [(ngModel)]="filterpost"
+  name="filterpost" />
+<a class="col-md-5"></a>
+  <button type="button" (click)="exportAsXLSX()" class="btn btn-outline-success col-md-2">
+    <span class="material-icons-outlined">
+      description
+    </span>
+    <br>
+    Guardar Registro .XLSX
+  </button>
+  <button type="button" (click)="GetReporte()" class="btn btn-outline-warning col-md-2">
+    <span class="material-icons-outlined">
+      picture_as_pdf
+      </span>
+      <br>
+    Guardar Captura .PDF
+  </button>
+
+
+
+</div>
+
 <div class="card shadow my-3 card_responsive">
-  <div class="card-header">
-    <div class="row">
-      <div class="text-end">
-        <a class="text-end">
-          <input type="text" class="forms-control col-md-3" placeholder="Buscar.."  [(ngModel)]="filterpost"
-          name="filterpost" />
-        </a>
-        <a class="text-end">
-          <button type="button" (click)="exportAsXLSX()" class="btn btn-outline-success">
-            <span class="material-icons-outlined">
-              description
-            </span>
-            <br>
-            Guardar Registro .XLSX
-          </button>
-          <button type="button" (click)="GetReporte()" class="btn btn-outline-warning">
-            <span class="material-icons-outlined">
-              picture_as_pdf
-              </span>
-              <br>
-            Guardar Captura .PDF
-          </button>
-        </a>
-      </div>
-    </div>
-    
-  </div>
-
-
   <div id="tabla" class="card-body">
 
     <table id=".tabla-materiales" class="table table-striped table-hover table-responsive" id="catalogo">
@@ -43,7 +37,7 @@
           <th>Tiempo Resolucion</th>
           <th>Tiempo Respuesta</th>
           <th>Tiempo Escalada</th>
-          
+
         </tr>
       </thead>
       <tbody>

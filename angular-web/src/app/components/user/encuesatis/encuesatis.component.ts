@@ -27,10 +27,7 @@ export class EncuesatisComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const Id = this.activeRoute.snapshot.paramMap.get('idTicket');
-    if (Id) {
-      this.ticketId = parseInt(Id);
-    }
+
 
     this.getAllCriti();
 
@@ -49,15 +46,19 @@ export class EncuesatisComponent implements OnInit {
       }
     }
   }
-
   addEncuesta(): void {
     console.log(this.encuestaCreate);
+    const Id = this.activeRoute.snapshot.paramMap.get('idTicket');
+    if (Id) {
+      this.ticketId = parseInt(Id);
+    }
     this.encuestaCreate.ticketid = this.ticketId;
     this.encuestaservice.registerEncuesta(this.encuestaCreate).subscribe(
       (res) => {
         console.log(res);
-        this.limpiar();
         this._router.navigate(['/user/home']);
+        this.limpiar();
+
       },
       (error) => {
         console.log(error);

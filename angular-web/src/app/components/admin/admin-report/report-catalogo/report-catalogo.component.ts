@@ -33,12 +33,12 @@ export class ReportCatalogoComponent implements OnInit,PipeTransform {
   ngOnInit(): void {
     this.breadcrumb.addRutes([
       {
-        label: 'Catalogo',
-        toUrl: '/admin/catalogo',
+        label: 'Catalogo Reporte',
+        toUrl: 'admin/reportes/admin-report',
       },
     ]);
     this.loadCatalogos();
-    
+
   }
   get page() {
     return this.actualPage + 1;
@@ -49,14 +49,14 @@ export class ReportCatalogoComponent implements OnInit,PipeTransform {
   }
   private loadCatalogos() {
     this.catalogoService.all(this.actualPage).subscribe((data) => {
-      this.catalogos = data.data; 
+      this.catalogos = data.data;
       this.pageMetada = data.meta;
       this.values=this.nuevosData();
     });
   }
 
   private nuevosData(): any[] {
-    
+
     const values:any[] = [['Tipo de servicio','Servicio','Catalogo','Criticidad','Impacto','Nivel Prioridad','Tiempo Resolucion','Tiempo Respuesta','Tiempo Escalada']];
     this.catalogosExcel.forEach((catalogo) => {
       values.push([
@@ -106,20 +106,20 @@ export class ReportCatalogoComponent implements OnInit,PipeTransform {
   resultPosts: any = [];
   transform(value: any, args: any): any {
     for(const post of value){
-      if((post.tipoServicio.nombre.toLowerCase().indexOf(args.toLowerCase()) > -1) 
-      || 
+      if((post.tipoServicio.nombre.toLowerCase().indexOf(args.toLowerCase()) > -1)
+      ||
       (post.descripcion.toLowerCase().indexOf(args.toLowerCase()) > -1)
-      || 
+      ||
       (post.servicio.nombre_servicio.toLowerCase().indexOf(args.toLowerCase()) > -1)
-      || 
+      ||
       (post.sla.criticidad.nombre.toLowerCase().indexOf(args.toLowerCase()) > -1)
-      || 
+      ||
       (post.sla.impacto.nombre.toLowerCase().indexOf(args.toLowerCase()) > -1)
-      || 
+      ||
       (post.sla.nivelPrioridad.nombre.toLowerCase().indexOf(args.toLowerCase()) > -1)
-      || 
+      ||
       (post.sla.tiempoResolucion.toLowerCase().indexOf(args.toLowerCase()) > -1)
-      || 
+      ||
       (post.sla.tiempoRespuesta.toLowerCase().indexOf(args.toLowerCase()) > -1)
       ||
       (post.sla.reglasEscalada.toLowerCase().indexOf(args.toLowerCase()) > -1)
@@ -127,7 +127,7 @@ export class ReportCatalogoComponent implements OnInit,PipeTransform {
          this.resultPosts.push(post);
       }
     };
-    
+
     return this.resultPosts;
   }
 }

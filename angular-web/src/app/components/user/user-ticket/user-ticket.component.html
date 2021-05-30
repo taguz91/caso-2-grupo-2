@@ -1,27 +1,33 @@
-<div class="container">
-
-
+<div class="container" id="ticket">
   <p *ngIf="!ticket">Loading ticket</p>
 
-  <div *ngIf="ticket" class="ticket_view" id="ticket">
-
+  <div *ngIf="ticket" class="ticket_view" >
     <p>Ticket tipo: {{ ticket.catalogo.tipoServicio.nombre }}</p>
 
-    <h1>{{ticket.catalogo.descripcion}}</h1>
+    <h1>{{ ticket.catalogo.descripcion }}</h1>
 
     <div class="estado-ticket row">
       <div class="col-12 col-md-6">
-        <p class="mb-0">{{ticket.estado.nombre}}</p>
-        <small>{{ticket.estado.descripcion}}</small>
+        <p class="mb-0">{{ ticket.estado.nombre }}</p>
+        <small>{{ ticket.estado.descripcion }}</small>
       </div>
 
       <div class="col-12 col-md-6">
-        <p class="mb-0 text-end">{{ticket.impacto.nombre}}</p>
+        <p class="mb-0 text-end">{{ ticket.impacto.nombre }}</p>
       </div>
+      <div class="text-end">
+      <button
+        type="button"
+        class="btn btn-outline-success"
+        (click)="downloadPDF()"
+      >
+        <span class="material-icons-outlined"> picture_as_pdf </span>
+        <br />Download PDF
+      </button>
+    </div>
     </div>
 
     <div class="row mb-2">
-
       <div class="col-10">
         <h2>{{ ticket.titulo }}</h2>
       </div>
@@ -35,10 +41,16 @@
       </div>
 
       <div class="col-12 mb-2">
-        <button class="btn btn-primary text-white" (click)="triggerModal(modalData)">Ver adjuntos</button>
+        <button
+          class="btn btn-primary text-white"
+          (click)="triggerModal(modalData)"
+        >
+          Ver adjuntos
+        </button>
       </div>
 
-      <div *ngIf="showUser && ticket.usuario" class="col-12 p-3 indicacion asignado">
+      <div *ngIf="showUser && ticket.usuario"
+        class="col-12 p-3 indicacion asignado">
         <p class="solucion_title">Usuario:</p>
         <p class="mb-0">{{ ticket.usuario.nombreCompleto }}</p>
         <p class="mb-0">Correo: {{ ticket.usuario.correo }}</p>
@@ -47,24 +59,32 @@
 
       <div *ngIf="ticket.responsable" class="col-12 p-3 indicacion asignado">
         <p class="solucion_title">Asignado:</p>
-        <p class="mb-0"> {{ ticket.responsable.nombreCompleto }} el {{ ticket.fechaAsignacion }} con un tiempo de
-          solución estimado de 10 horas TODO CAMBIAR. </p>
+        <p class="mb-0">
+          {{ ticket.responsable.nombreCompleto }} el
+          {{ ticket.fechaAsignacion }} con un tiempo de solución estimado de 10
+          horas TODO CAMBIAR.
+        </p>
       </div>
 
-      <div *ngIf="ticket.solucion" class="col-12 p-3 indicacion solucion_{{ ticket.estado.parametros_id }}">
-        <p class="solucion_title">{{ titleSolucion }} </p>
-        <p class="mb-0"> {{ ticket.solucion }} </p>
-        <p *ngIf="ticket.responsableSolucion" class="mb-0"> Por <b>{{ ticket.responsableSolucion.nombreCompleto }}</b>
-          el {{
-          ticket.fechaSolucion }}.</p>
+      <div
+        *ngIf="ticket.solucion"
+        class="col-12 p-3 indicacion solucion_{{ ticket.estado.parametros_id }}"
+      >
+        <p class="solucion_title">{{ titleSolucion }}</p>
+        <p class="mb-0">{{ ticket.solucion }}</p>
+        <p *ngIf="ticket.responsableSolucion" class="mb-0">
+          Por <b>{{ ticket.responsableSolucion.nombreCompleto }}</b> el
+          {{ ticket.fechaSolucion }}.
+        </p>
       </div>
-
     </div>
 
     <div class="info_registro">
-      <p>Registrado el: {{ticket.createdAt}}</p>
-      <p>Ultima actualiación: {{ticket.updatedAt}}</p>
-      <p *ngIf="ticket.fechaSolucion">Fecha solución: {{ ticket.fechaSolucion }}</p>
+      <p>Registrado el: {{ ticket.createdAt }}</p>
+      <p>Ultima actualiación: {{ ticket.updatedAt }}</p>
+      <p *ngIf="ticket.fechaSolucion">
+        Fecha solución: {{ ticket.fechaSolucion }}
+      </p>
     </div>
 
     <!-- HISTORIAL -->
@@ -78,8 +98,7 @@
     </div>
 
     <div class="historial_textos">
-
-      <div *ngFor="let historial of ticket.listaHistorial;" class="historial">
+      <div *ngFor="let historial of ticket.listaHistorial" class="historial">
         <div class="line-small"></div>
         <div class="circle-small"></div>
         <div class="texto">
@@ -87,60 +106,74 @@
           <small> {{ historial.createdAt }} </small>
         </div>
       </div>
-
     </div>
 
-    <button class="btn col col-lg-4 btn-danger btn-block ml-4 mt-4" (click)="downloadPDF()">Download PDF</button>
-
-    <app-floating-button [show]="isClosed" [url]="urlEncuesta" [icon]="'text_snippet'" [tooltip]="'Ingresar encuesta'">
+    <app-floating-button
+      [show]="isClosed"
+      [url]="urlEncuesta"
+      [icon]="'text_snippet'"
+      [tooltip]="'Ingresar encuesta'"
+    >
     </app-floating-button>
 
-    <app-floating-button [show]="isOpen" [url]="urlEdit" [icon]="'edit'" [tooltip]="'Editar ticket'">
+    <app-floating-button
+      [show]="isOpen"
+      [url]="urlEdit"
+      [icon]="'edit'"
+      [tooltip]="'Editar ticket'"
+    >
     </app-floating-button>
 
     <!-- Options for coordinador -->
 
-    <app-list-floating-button [buttons]="floatingButtons"></app-list-floating-button>
-
+    <app-list-floating-button
+      [buttons]="floatingButtons"
+    ></app-list-floating-button>
   </div>
-
 </div>
 
 <!-- Modal adjuntos -->
 
 <ng-template #modalData let-modal>
-
   <div class="modal-header">
     <h4 class="modal-title">Adjuntos</h4>
-    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-      (click)="modal.dismiss('Cross click')"></button>
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="modal"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    ></button>
   </div>
 
   <div class="modal-body">
-
     <div class="row">
-
       <div *ngIf="adjuntos.length === 0" class="col-12 my-3">
         <h2 class="text-center">No subio ningún archivo adjunto.</h2>
       </div>
 
-      <div *ngFor="let adjunto of adjuntos;" class="card_adjunto col-12 col-lg-5 mx-auto mb-3">
+      <div
+        *ngFor="let adjunto of adjuntos"
+        class="card_adjunto col-12 col-lg-5 mx-auto mb-3"
+      >
         <div class="border-bottom mb-3 card_text row">
           <div class="col-10">
             <p class="text-secondary">Subido el: {{ adjunto.createdAt }}</p>
           </div>
           <div class="col-2">
-            <button type="button" class="btn-close" aria-label="Close" (click)="deleteAdjunto(adjunto)"></button>
+            <button
+              type="button"
+              class="btn-close"
+              aria-label="Close"
+              (click)="deleteAdjunto(adjunto)"
+            ></button>
           </div>
         </div>
 
-        <img class="img-fluid" src="{{ adjunto.url }}" alt="Imagen adjunta">
+        <img class="img-fluid" src="{{ adjunto.url }}" alt="Imagen adjunta" />
       </div>
-
     </div>
-
   </div>
-
 </ng-template>
 
 <!-- Form asignacion -->
