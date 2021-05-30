@@ -4,8 +4,6 @@ import { Criticidad } from 'src/app/models/criticidad';
 import { Encuesta } from 'src/app/models/encuesta';
 import { CriticidadService } from 'src/app/services/criticidad.service';
 import { EncuesatisService } from 'src/app/services/encuesatis.service';
-import jsPDF from 'jspdf';
-import html2canvas from 'html2canvas';
 import { ReporteService } from 'src/app/services/reporte.service';
 @Component({
   selector: 'app-encuesatis',
@@ -17,7 +15,7 @@ export class EncuesatisComponent implements OnInit {
   public contador: number;
   public ticketId: number = 0;
   public encuestaCreate: Encuesta = new Encuesta(0, '', 0);
-  public critiAll : Criticidad[]=[];
+  public critiAll: Criticidad[] = [];
   constructor(
     public encuestaservice: EncuesatisService,
     private activeRoute: ActivatedRoute,
@@ -27,14 +25,10 @@ export class EncuesatisComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-
-
     this.getAllCriti();
-
   }
 
   califica(item): void {
-    console.log(item);
     this.contador = item;
     this.encuestaCreate.calificacion = this.contador;
     for (let i = 0; i < 5; i++) {
@@ -47,7 +41,6 @@ export class EncuesatisComponent implements OnInit {
     }
   }
   addEncuesta(): void {
-    console.log(this.encuestaCreate);
     const Id = this.activeRoute.snapshot.paramMap.get('idTicket');
     if (Id) {
       this.ticketId = parseInt(Id);
@@ -55,10 +48,8 @@ export class EncuesatisComponent implements OnInit {
     this.encuestaCreate.ticketid = this.ticketId;
     this.encuestaservice.registerEncuesta(this.encuestaCreate).subscribe(
       (res) => {
-        console.log(res);
         this._router.navigate(['/user/home']);
         this.limpiar();
-
       },
       (error) => {
         console.log(error);
@@ -67,23 +58,23 @@ export class EncuesatisComponent implements OnInit {
   }
 
   limpiar(): void {
-    this.encuestaCreate= new Encuesta(0,"",0);
-    this.contador=0;
+    this.encuestaCreate = new Encuesta(0, '', 0);
+    this.contador = 0;
     for (let i = 0; i < 5; i++) {
       let b = i + 1;
-        document.getElementById(b + 'estrella').style.color = 'black';
+      document.getElementById(b + 'estrella').style.color = 'black';
     }
   }
 
   getAllCriti(): void {
     this.criticidadService.getAllCriticidad().subscribe(
-      res => {
+      (res) => {
         this.critiAll = res;
       },
-      err => {
-        console.log(err)
+      (err) => {
+        console.log(err);
       }
-    )
+    );
   }
 
   downloadPDF() {

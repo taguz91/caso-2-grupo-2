@@ -26,26 +26,21 @@ export class ReportUsuarioComponent implements OnInit {
     private _reporte: ReporteService
   ) {}
 
-  ngAfterViewInit(rolId1: number): void {
-    console.log(rolId1);
+  ngAfterViewInit(rolId1: number=1): void {
     this.usuarioService.readAllUsersByRol(rolId1).subscribe((data) => {
       this.administradores = data;
       this.values = this.nuevosData();
-      console.log(data);
-      console.log(this.dtElement.dtInstance);
       if (this.isDtInitialized) {
         this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
           dtInstance.destroy();
           this.dtTrigger.next();
-          console.log(this.dtElement.dtInstance);
-          console.log(this.dtOptions);
         });
       } else {
-        console.log(this.dtElement.dtInstance);
-        console.log(this.dtOptions);
         this.isDtInitialized = true;
         this.dtTrigger.next();
       }
+    },(error)=>{
+      console.log('');
     });
   }
 

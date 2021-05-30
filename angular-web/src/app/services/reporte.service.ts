@@ -13,6 +13,8 @@ const _EXCEL_EXT = '.xlsx';
 @Injectable({
   providedIn: 'root',
 })
+
+//Reporte PDF VERSION 1.5
 export class ReporteService {
   img = new Image();
   constructor() {}
@@ -86,7 +88,7 @@ export class ReporteService {
       }
     });
   }
-
+//Reporte XLSX version.1
   exportToExcel(json: any, excelFileName: string): void {
     const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);
     const workbook: XLSX.WorkBook = {
@@ -108,6 +110,7 @@ export class ReporteService {
     );
   }
 
+  //Reporte PDF TEST
   reporteTabla(datas: string) {
     if (screen.width < 1024) {
       document
