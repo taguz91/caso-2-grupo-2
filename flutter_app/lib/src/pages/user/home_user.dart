@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:flutter_app/src/widgets/header_ticket_list.dart';
 
 import 'package:get/get.dart';
 
@@ -19,11 +21,13 @@ class _HomeUserState extends State<HomeUser> {
   @override
   void initState() {
     super.initState();
-    _scrollController.addListener(() {
-      final triggerMore = _scrollController.position.maxScrollExtent * 0.9;
-      if (_scrollController.position.pixels > triggerMore) {
-        _homeUserController.loadMore();
-      }
+    SchedulerBinding.instance?.addPostFrameCallback((timeStamp) {
+      _scrollController.addListener(() {
+        final triggerMore = _scrollController.position.maxScrollExtent * 0.9;
+        if (_scrollController.position.pixels > triggerMore) {
+          _homeUserController.loadMore();
+        }
+      });
     });
   }
 
@@ -39,40 +43,54 @@ class _HomeUserState extends State<HomeUser> {
       onRefresh: () async {
         _homeUserController.reset();
       },
-      child: Obx(() {
-        if (_homeUserController.tickets.length == 0) {
-          return LoadingText(text: 'Cargando tickets...');
-        }
-        return Container(
-          margin: EdgeInsets.symmetric(horizontal: 15),
-          decoration: BoxDecoration(
-            color: Colors.transparent,
-          ),
-          child: ListView.separated(
-            controller: _scrollController,
-            physics: BouncingScrollPhysics(),
-            shrinkWrap: true,
-            primary: false,
-            itemCount: _homeUserController.tickets.length + 1,
-            separatorBuilder: (context, index) {
-              return SizedBox(height: 4);
-            },
-            itemBuilder: (BuildContext context, int index) {
-              if (_homeUserController.tickets.length == index) {
-                return Obx(() {
-                  if (_homeUserController.isLast.value) {
-                    return InfoText('No encontramos más tickets.');
-                  }
-                  return InfoText('Cargando...');
-                });
-              }
-              return TicketPreview(
-                ticket: _homeUserController.tickets[index],
-              );
-            },
-          ),
-        );
-      }),
+      child: Container(
+        margin: EdgeInsets.symmetric(horizontal: 15),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _header(),
+            Expanded(
+              child: Obx(() {
+                if (_homeUserController.tickets.length == 0) {
+                  return LoadingText(text: 'Cargando tickets...');
+                }
+                return ListView.separated(
+                  controller: _scrollController,
+                  physics: BouncingScrollPhysics(),
+                  shrinkWrap: true,
+                  primary: false,
+                  itemCount: _homeUserController.tickets.length + 1,
+                  separatorBuilder: (context, index) {
+                    return SizedBox(height: 4);
+                  },
+                  itemBuilder: (BuildContext context, int index) {
+                    if (_homeUserController.tickets.length == index) {
+                      return Obx(() {
+                        if (_homeUserController.isLast.value) {
+                          return InfoText('No encontramos más tickets.');
+                        }
+                        return InfoText('Cargando...');
+                      });
+                    }
+                    return TicketPreview(
+                      ticket: _homeUserController.tickets[index],
+                    );
+                  },
+                );
+              }),
+            ),
+          ],
+        ),
+      ),
     );
+  }
+
+  Widget _header() {
+    return Obx(() {
+      return HeaderTicketList(
+        title: 'Tickets registrados',
+        subtitle: 'Un total de: ${_homeUserController.total.toString()}',
+      );
+    });
   }
 }

@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+
+import 'package:get/get.dart';
+
 import 'package:flutter_app/src/controllers/dasboard_soporte_controller.dart';
 import 'package:flutter_app/src/widgets/header_ticket_list.dart';
 import 'package:flutter_app/src/widgets/info_text.dart';
 import 'package:flutter_app/src/widgets/personal_app_bar.dart';
 import 'package:flutter_app/src/widgets/ticket_preview.dart';
-import 'package:get/get.dart';
 
 class DashboardSoportePage extends StatefulWidget {
   @override
@@ -18,11 +21,14 @@ class _DashboardSoportePageState extends State<DashboardSoportePage> {
   @override
   void initState() {
     super.initState();
-    _scrollController.addListener(() {
-      final triggerMore = _scrollController.position.maxScrollExtent * 0.9;
-      if (_scrollController.position.pixels > triggerMore) {
-        _dashBoardSoporteController.loadMore();
-      }
+    SchedulerBinding.instance?.addPostFrameCallback((timeStamp) {
+      _dashBoardSoporteController.reset();
+      _scrollController.addListener(() {
+        final triggerMore = _scrollController.position.maxScrollExtent * 0.9;
+        if (_scrollController.position.pixels > triggerMore) {
+          _dashBoardSoporteController.loadMore();
+        }
+      });
     });
   }
 

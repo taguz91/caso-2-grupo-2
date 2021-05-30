@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/routes_generator.dart';
+import 'package:flutter_app/src/controllers/user_home_controller.dart';
 import 'package:flutter_app/src/models/catalogo.dart';
 import 'package:flutter_app/src/models/parametros.dart';
 import 'package:flutter_app/src/providers/parametro_provider.dart';
@@ -8,6 +9,7 @@ import 'package:flutter_app/src/widgets/form_error_message.dart';
 import 'package:flutter_app/src/widgets/input_container_widget.dart';
 import 'package:flutter_app/src/widgets/load_button.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:get/get.dart';
 
 class FormTicketPage extends StatefulWidget {
   final CatalogoServicio _catalogoServicio;
@@ -18,10 +20,11 @@ class FormTicketPage extends StatefulWidget {
 }
 
 class _FormTicketPageState extends State<FormTicketPage> {
-  final GlobalKey<FormBuilderState> _formKey = GlobalKey<FormBuilderState>();
+  final _formKey = GlobalKey<FormBuilderState>();
+  final _userHomeController = Get.put(UserHomeController());
   final List<Parametro> nivelesImpacto = [];
-  final ParametroProvider _parametroProvider = new ParametroProvider();
-  final TicketProvider _ticketProvider = new TicketProvider();
+  final _parametroProvider = new ParametroProvider();
+  final _ticketProvider = new TicketProvider();
 
   String? _formError;
 
@@ -62,16 +65,17 @@ class _FormTicketPageState extends State<FormTicketPage> {
   LoadButton _saveButton(BuildContext context) {
     return LoadButton(
       onTap: () async {
-        await Future.delayed(Duration(seconds: 1));
         setState(() => _formError = null);
         FocusScope.of(context).unfocus();
         bool valid = _formKey.currentState!.saveAndValidate();
+        await Future.delayed(Duration(seconds: 1));
         if (valid) {
           int ticketId = await _ticketProvider.registerTikcet({
             'catalogoId': widget._catalogoServicio.catalogoId,
             'usuarioId': 0,
           }..addAll(_formKey.currentState!.value));
           if (ticketId != 0) {
+            _userHomeController.reset();
             Navigator.of(context).pushReplacementNamed(USER_PAGE);
           } else {
             setState(() => _formError =

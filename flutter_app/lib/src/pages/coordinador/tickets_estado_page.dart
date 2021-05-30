@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_app/src/widgets/header_ticket_list.dart';
 
 import 'package:get/get.dart';
@@ -22,19 +23,20 @@ class TicketsEstadoPage extends StatefulWidget {
 
 class _TicketsEstadoState extends State<TicketsEstadoPage> {
   final _ticketEstadoController = Get.put(TicketEstadoController());
-
   final _scrollController = ScrollController();
 
   @override
   void initState() {
     super.initState();
-    _ticketEstadoController.reset(widget.estado);
+    SchedulerBinding.instance?.addPostFrameCallback((timeStamp) {
+      _ticketEstadoController.reset(widget.estado);
 
-    _scrollController.addListener(() {
-      final triggerMore = _scrollController.position.maxScrollExtent * 0.9;
-      if (_scrollController.position.pixels > triggerMore) {
-        _ticketEstadoController.loadMore(widget.estado);
-      }
+      _scrollController.addListener(() {
+        final triggerMore = _scrollController.position.maxScrollExtent * 0.9;
+        if (_scrollController.position.pixels > triggerMore) {
+          _ticketEstadoController.loadMore(widget.estado);
+        }
+      });
     });
   }
 

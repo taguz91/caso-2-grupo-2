@@ -80,11 +80,12 @@
             </div>
 
             <span class="response" *ngIf="response_condicion == true">{{ response_msg }}</span>
+            
         </form>
     </div>
 
     <div class="modal-footer">
-        <button type="button" class="btn btn-outline-success">Guardar</button>
+        <button type="button" class="btn btn-outline-success" (click)="updateUser(update)">Guardar</button>
         <button type="button" class="btn btn-outline-danger" (click)="modal.close()">Cancelar</button>
     </div>
 </ng-template>

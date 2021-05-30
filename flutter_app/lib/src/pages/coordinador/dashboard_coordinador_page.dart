@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 
 import 'package:flutter_app/src/pages/coordinador/tickets_asignados_page.dart';
 import 'package:flutter_app/src/pages/coordinador/tickets_nuevos_page.dart';
@@ -12,6 +13,13 @@ class DashboardCoordinadorPage extends StatefulWidget {
 
 class _DashboardCoordinadorPageState extends State<DashboardCoordinadorPage> {
   int _index = 0;
+
+  @override
+  void initState() { 
+    super.initState();
+    SchedulerBinding.instance?.addPostFrameCallback((timeStamp) {
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +51,7 @@ class _DashboardCoordinadorPageState extends State<DashboardCoordinadorPage> {
       floatingActionButton: addNew
           ? FloatingActionButton(
               onPressed: () {
-                _onNav(1);
+                // _onNav(1);
               },
               child: Icon(
                 Icons.add,

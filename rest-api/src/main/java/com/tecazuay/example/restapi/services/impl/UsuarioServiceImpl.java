@@ -99,8 +99,11 @@ public class UsuarioServiceImpl implements UsuarioService {
 					user.setNombres(up.getNombres());
 					user.setCorreo(up.getCorreo());
 					user.setTelefono(up.getTelefono());
-					user.setPassword(passwordEncoder.encode(up.getPassword()));
-								
+
+					if (up.getPassword() != null && !up.getPassword().isEmpty() && !up.getPassword().isBlank()) {
+						user.setPassword(passwordEncoder.encode(up.getPassword()));
+					}
+
 					return new ResponseModel(true, this.usuarioRepository.save(user), "Usuario Actualizado");
 
 				} else { return new ResponseModel(false, null, "Usuario inexistente");	}

@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_app/src/models/usuario.dart';
+import 'package:flutter_app/src/pages/form/form_asignar_page.dart';
+import 'package:flutter_app/src/pages/form/form_cerrar_page.dart';
+import 'package:flutter_app/src/pages/form/form_encuesta_page.dart';
+import 'package:flutter_app/src/pages/form/form_rechazar_page.dart';
 import 'package:flutter_app/src/providers/ticket_provider.dart';
 import 'package:flutter_app/src/utils/constantes.dart';
 import 'package:flutter_app/src/utils/global_settings.dart';
@@ -39,63 +43,43 @@ class TicketViewPage extends StatelessWidget {
           return LoadingText(text: 'Buscando ticket...');
         },
       ),
-      floatingActionButton: getFloatingButtons(user),
+      floatingActionButton: getFloatingButtons(context, user),
     );
   }
 
-  Widget? getFloatingButtons(UserLogin user) {
+  Widget? getFloatingButtons(BuildContext context, UserLogin user) {
     print("USER TYPE: ${user.type.toString()}");
     switch (user.type) {
       case ROL_USUARIO:
-        return _user();
+        return _user(context);
       case ROL_SOPORTE_N1:
-        return _soporteN1();
+        return _soporteN1(context);
       case ROL_SOPORTE_N2:
-        return _soporteN2();
+        return _soporteN2(context);
       case ROL_COORDINADOR:
-        return _coordinador();
+        return _coordinador(context);
     }
   }
 
-  FloatingButtonList _soporteN1() {
+  FloatingButtonList _soporteN1(BuildContext context) {
     return FloatingButtonList(
       children: [
-        FloatingActionButton(
-          heroTag: null,
-          onPressed: () {},
-          child: Icon(
-            Icons.task,
-            color: Colors.white,
-          ),
-        ),
+        _navToFormCerrar(context),
         SizedBox(width: 15),
-        FloatingActionButton(
-          heroTag: null,
-          onPressed: () {},
-          child: Icon(
-            Icons.contacts,
-            color: Colors.white,
-          ),
-        ),
+        _navToFormAsignar(context),
       ],
     );
   }
 
-  FloatingButtonList _soporteN2() {
+  FloatingButtonList _soporteN2(BuildContext context) {
     return FloatingButtonList(
       children: [
-        FloatingActionButton(
-          onPressed: () {},
-          child: Icon(
-            Icons.task,
-            color: Colors.white,
-          ),
-        ),
+        _navToFormCerrar(context),
       ],
     );
   }
 
-  FloatingButtonList _user() {
+  FloatingButtonList _user(BuildContext context) {
     return FloatingButtonList(
       children: [
         if (!ticket.isClosed)
@@ -109,7 +93,11 @@ class TicketViewPage extends StatelessWidget {
         if (ticket.isSolucionado) SizedBox(width: 15),
         if (ticket.isSolucionado)
           FloatingActionButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (_) => FormEncuestaPage(ticket),
+              ));
+            },
             child: Icon(
               Icons.text_snippet,
               color: Colors.white,
@@ -119,13 +107,17 @@ class TicketViewPage extends StatelessWidget {
     );
   }
 
-  FloatingButtonList _coordinador() {
+  FloatingButtonList _coordinador(BuildContext context) {
     return FloatingButtonList(
       children: [
         if (ticket.canReject)
           FloatingActionButton(
             heroTag: null,
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (_) => FormRechazarPage(ticket.ticketId),
+              ));
+            },
             backgroundColor: DANGER_COLOR,
             child: Icon(
               Icons.delete,
@@ -133,15 +125,38 @@ class TicketViewPage extends StatelessWidget {
             ),
           ),
         if (ticket.canReject) SizedBox(width: 15),
-        FloatingActionButton(
-          heroTag: null,
-          onPressed: () {},
-          child: Icon(
-            Icons.contacts,
-            color: Colors.white,
-          ),
-        ),
+        _navToFormAsignar(context),
       ],
+    );
+  }
+
+  FloatingActionButton _navToFormAsignar(BuildContext context) {
+    return FloatingActionButton(
+      heroTag: null,
+      onPressed: () {
+        Navigator.of(context).push(MaterialPageRoute(
+          builder: (_) => FormAsignarPage(ticket),
+        ));
+      },
+      child: Icon(
+        Icons.contacts,
+        color: Colors.white,
+      ),
+    );
+  }
+
+  FloatingActionButton _navToFormCerrar(BuildContext context) {
+    return FloatingActionButton(
+      heroTag: null,
+      onPressed: () {
+        Navigator.of(context).push(MaterialPageRoute(
+          builder: (_) => FormCerrarPage(ticket),
+        ));
+      },
+      child: Icon(
+        Icons.task,
+        color: Colors.white,
+      ),
     );
   }
 }

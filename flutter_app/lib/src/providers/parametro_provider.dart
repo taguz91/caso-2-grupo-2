@@ -19,13 +19,15 @@ class ParametroProvider {
   ParametroProvider._internal();
 
   Future<List<Parametro>> listTipoServicios() {
-    final url = '$URL_BASE_V1/parametros/tipo-servicios';
-    return _callService(url);
+    return _callService('$URL_BASE_V1/parametros/tipo-servicios');
   }
 
   Future<List<Parametro>> listImpactos() {
-    final url = '$URL_BASE_V1/parametros/impacto';
-    return _callService(url);
+    return _callService('$URL_BASE_V1/parametros/impacto');
+  }
+
+  Future<List<Parametro>> listEstados() {
+    return _callService('$URL_BASE_V1/parametros/estados');
   }
 
   Future<List<Parametro>> _callService(String url) async {
