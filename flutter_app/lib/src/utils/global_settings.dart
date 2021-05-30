@@ -12,7 +12,16 @@ class GlobalSettings {
   GlobalSettings._internal();
 
   late SharedPreferences _preferences;
-  late UserLogin _user;
+  UserLogin _user = UserLogin(
+    personaId: 0,
+    type: ROL_DEVELOPER,
+    apellidos: 'Offline',
+    nombres: 'Offline',
+    correo: 'offline@dev.tec',
+    rol: 'Developer',
+    token: '',
+  );
+  bool isOnline = true;
 
   init() async {
     _preferences = await SharedPreferences.getInstance();

@@ -15,10 +15,14 @@ class PersonalAppBar extends StatelessWidget implements PreferredSizeWidget {
       elevation: 0,
       leading: IconButton(
         onPressed: () {
-          if (user.isCoordinador) {
-            Navigator.pushReplacementNamed(context, COORDINADOR_PAGE);
+          if (_globalSettings.isOnline) {
+            if (user.isCoordinador) {
+              Navigator.pushReplacementNamed(context, COORDINADOR_PAGE);
+            } else {
+              Navigator.pushReplacementNamed(context, SOPORTE_PAGE);
+            }
           } else {
-            Navigator.pushReplacementNamed(context, SOPORTE_PAGE);
+            Navigator.pushReplacementNamed(context, LOAD);
           }
         },
         icon: Icon(

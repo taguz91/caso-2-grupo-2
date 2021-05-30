@@ -34,6 +34,7 @@ class LoadPage extends StatelessWidget {
           if (snapshot.hasData) {
             final ConnectivityResult conection = snapshot.data!;
             if (conection == ConnectivityResult.none) {
+              _globalSettings.isOnline = false;
               return Column(
                 children: [
                   InfoText(
@@ -113,6 +114,7 @@ class LoadPage extends StatelessWidget {
       label: 'Vamos',
       onTap: () async {
         await Future.delayed(Duration(seconds: 2));
+        Navigator.of(context).pushReplacementNamed(HOME_OFFLINE);
       },
     );
   }

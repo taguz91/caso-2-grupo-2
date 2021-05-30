@@ -42,6 +42,8 @@ class UserLogin {
 
   get isUser => ROL_USUARIO == type;
 
+  get isPersonal => isCoordinador || isSoporte;
+
   get haveAccess => isSoporte || isCoordinador || isUser;
 
   String get redirectUrl {
