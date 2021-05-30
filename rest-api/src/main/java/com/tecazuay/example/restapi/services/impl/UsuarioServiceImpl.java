@@ -2,6 +2,8 @@ package com.tecazuay.example.restapi.services.impl;
 
 import java.util.List;
 import java.util.Optional;
+
+import com.amazonaws.services.workdocs.model.User;
 import com.tecazuay.example.restapi.Types;
 import com.tecazuay.example.restapi.api.params.UsuarioEditParam;
 import com.tecazuay.example.restapi.api.params.UsuarioParam;
@@ -100,10 +102,10 @@ public class UsuarioServiceImpl implements UsuarioService {
 					user.setCorreo(up.getCorreo());
 					user.setTelefono(up.getTelefono());
 
-					if (!up.getPassword().isEmpty() && !up.getPassword().isBlank() && up.getPassword().length() > 8) {
-						user.setPassword(up.getPassword());
+					if (up.getPassword() != null && !up.getPassword().isEmpty() && !up.getPassword().isBlank()) {
+						user.setPassword(passwordEncoder.encode(up.getPassword()));
 					}
-								
+
 					return new ResponseModel(true, this.usuarioRepository.save(user), "Usuario Actualizado");
 
 				} else { return new ResponseModel(false, null, "Usuario inexistente");	}
