@@ -164,7 +164,7 @@ export class AdminRegisterComponent implements OnInit {
     for (let n of nombres) {
       if (Boolean(n) && n.length > 0) {
 
-        var NAMES_REGEX = /^[a-zA-ZÀ-ÿ\u00f1\u00d1 ]{1,50}/;
+        var NAMES_REGEX = /^[a-zA-ZÀ-ÿ\u00f1\u00d1 ]{1,50}$/;
 
         if (!n.match(NAMES_REGEX)) {
           this.show_response('Formato del nombre o apellido incorrecto');
@@ -203,7 +203,7 @@ export class AdminRegisterComponent implements OnInit {
 
     if ((Boolean(telefono) && telefono.length > 0)) {
 
-      var TELEFONO_REGEX = /^[0-9]{10,15}/;
+      var TELEFONO_REGEX = /^[\d*]{10,15}$/;
 
       if (telefono.match(TELEFONO_REGEX) && telefono.length >= 10 && telefono.length <= 15) {
         return true;
