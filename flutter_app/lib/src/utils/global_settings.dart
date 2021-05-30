@@ -26,4 +26,8 @@ class GlobalSettings {
     _preferences.setString(TOKEN_NAME, user.token);
     this._user = user;
   }
+
+  void logout() {
+    _preferences.setString(TOKEN_NAME, '');
+  }
 }

@@ -1,4 +1,6 @@
+import 'package:flutter_app/routes_generator.dart';
 import 'package:flutter_app/src/models/rol.dart';
+import 'package:flutter_app/src/utils/constantes.dart';
 
 class UserLogin {
   late int personaId;
@@ -30,6 +32,29 @@ class UserLogin {
   }
 
   get nombreCompleto => '$nombres $apellidos';
+
+  get isSoporte => [
+        ROL_SOPORTE_N1,
+        ROL_SOPORTE_N2,
+      ].contains(type);
+
+  get isCoordinador => type == ROL_COORDINADOR;
+
+  get isUser => ROL_USUARIO == type;
+
+  get haveAccess => isSoporte || isCoordinador || isUser;
+
+  String get redirectUrl {
+    switch (type) {
+      case ROL_SOPORTE_N1:
+      case ROL_SOPORTE_N2:
+        return SOPORTE_PAGE;
+      case ROL_COORDINADOR:
+        return COORDINADOR_PAGE;
+      default:
+        return USER_PAGE;
+    }
+  }
 }
 
 class Usuario {

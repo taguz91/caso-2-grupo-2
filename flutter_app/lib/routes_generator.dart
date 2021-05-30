@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/src/pages/coordinador/dashboard_coordinador_page.dart';
+import 'package:flutter_app/src/pages/load_page.dart';
 import 'package:flutter_app/src/pages/login_page.dart';
 import 'package:flutter_app/src/pages/soporte/dashboard_soporte_page.dart';
 import 'package:flutter_app/src/pages/user/dashboard_user_page.dart';
@@ -15,6 +16,7 @@ class RouterGenerator {
     // final args = settings.arguments;
     switch (settings.name) {
       case LOAD:
+        return MaterialPageRoute(builder: (_) => LoadPage());
       case DEFAULT:
         return MaterialPageRoute(builder: (_) => LoginPage());
       case USER_PAGE:

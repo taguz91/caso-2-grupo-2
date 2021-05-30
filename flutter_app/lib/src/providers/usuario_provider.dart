@@ -6,7 +6,7 @@ import 'package:flutter_app/src/models/definitios.dart';
 import 'package:flutter_app/src/models/usuario.dart';
 import 'package:flutter_app/src/utils/constantes.dart';
 import 'package:flutter_app/src/utils/http_auth.dart';
-
+import 'package:http/http.dart';
 export 'package:flutter_app/src/models/usuario.dart';
 
 class UsuarioProvider {
@@ -22,7 +22,15 @@ class UsuarioProvider {
 
   Future<LoginResponse> login(Map<String, dynamic> data) async {
     final url = Uri.parse('$URL_BASE_V1/usuario/login');
-    final response = await _httpAuth.post(url, body: jsonEncode(data));
+    final response = await _httpAuth.post(url, body: jsonEncode(data)).timeout(
+      Duration(seconds: 5),
+      onTimeout: () {
+        return Response(
+          '{"message":"No pudimos establecer conexion, vuelve a intentarlo en unos segundos."}',
+          HttpStatus.internalServerError,
+        );
+      },
+    );
 
     LoginResponse login = new LoginResponse();
 
@@ -33,6 +41,33 @@ class UsuarioProvider {
       login.user = UserLogin.fromJson(dataResponse);
     } else {
       login.error = ErrorMessage.fromJson(dataResponse);
+    }
+    return login;
+  }
+
+  Future<LoginResponse> getUserData() async {
+    final url = Uri.parse('$URL_BASE_V1/usuario/loged');
+    final response = await _httpAuth.get(url).timeout(
+      Duration(seconds: 5),
+      onTimeout: () {
+        return Response(
+          '{"message": "No pudimos establecer conexion, vuelve a intentarlo en unos segundos."}',
+          HttpStatus.internalServerError,
+        );
+      },
+    );
+
+    LoginResponse login = new LoginResponse();
+
+    if (HttpStatus.ok == response.statusCode) {
+      Map<String, dynamic> dataResponse = json.decode(
+        utf8.decode(response.bodyBytes),
+      );
+      login.user = UserLogin.fromJson(dataResponse);
+    } else {
+      login.error = ErrorMessage(
+        message: 'Su sesión a expirado, vuelva a iniciar sesión.',
+      );
     }
     return login;
   }

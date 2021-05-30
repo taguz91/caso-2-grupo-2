@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/routes_generator.dart';
-import 'package:flutter_app/src/utils/constantes.dart';
 
+import 'package:flutter_app/routes_generator.dart';
 import 'package:flutter_app/src/utils/global_settings.dart';
 import 'package:flutter_app/src/models/usuario.dart';
 
@@ -16,7 +15,7 @@ class PersonalAppBar extends StatelessWidget implements PreferredSizeWidget {
       elevation: 0,
       leading: IconButton(
         onPressed: () {
-          if (user.type == ROL_COORDINADOR) {
+          if (user.isCoordinador) {
             Navigator.pushReplacementNamed(context, COORDINADOR_PAGE);
           } else {
             Navigator.pushReplacementNamed(context, SOPORTE_PAGE);
@@ -49,6 +48,7 @@ class PersonalAppBar extends StatelessWidget implements PreferredSizeWidget {
       actions: [
         IconButton(
           onPressed: () {
+            _globalSettings.logout();
             Navigator.of(context).pushReplacementNamed(DEFAULT);
           },
           icon: Icon(
