@@ -87,9 +87,11 @@ class _HomeUserState extends State<HomeUser> {
 
   Widget _header() {
     return Obx(() {
+      final total = _homeUserController.total.value;
+      final actual = _homeUserController.tickets.length;
       return HeaderTicketList(
         title: 'Tickets registrados',
-        subtitle: 'Un total de: ${_homeUserController.total.toString()}',
+        subtitle: 'Un total de: $actual/$total',
       );
     });
   }

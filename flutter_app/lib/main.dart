@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/src/utils/helpers.dart';
 
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -24,9 +25,10 @@ class MyApp extends StatelessWidget {
       title: 'Tirtec',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: createMaterialColor(PRIMARY_COLOR),
         primaryColor: PRIMARY_COLOR,
         accentColor: Color(0xFFB6CCAF),
+
         inputDecorationTheme: InputDecorationTheme(
           border: OutlineInputBorder(
             borderSide: BorderSide(color: PRIMARY_COLOR),

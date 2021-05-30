@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/src/widgets/user_app_bar.dart';
+
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 
+import 'package:flutter_app/src/widgets/user_app_bar.dart';
 import 'package:flutter_app/src/custom/starts_option.dart';
 import 'package:flutter_app/src/widgets/form/form_header.dart';
 import 'package:flutter_app/src/widgets/input_container_widget.dart';
@@ -9,7 +10,6 @@ import 'package:flutter_app/src/widgets/form_error_message.dart';
 import 'package:flutter_app/routes_generator.dart';
 import 'package:flutter_app/src/providers/ticket_provider.dart';
 import 'package:flutter_app/src/widgets/load_button.dart';
-import 'package:flutter_app/src/widgets/personal_app_bar.dart';
 
 class FormEncuestaPage extends StatefulWidget {
   final TicketHome ticket;

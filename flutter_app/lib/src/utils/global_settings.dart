@@ -12,7 +12,16 @@ class GlobalSettings {
   GlobalSettings._internal();
 
   late SharedPreferences _preferences;
-  late UserLogin _user;
+  UserLogin _user = UserLogin(
+    personaId: 0,
+    type: ROL_DEVELOPER,
+    apellidos: 'Offline',
+    nombres: 'Offline',
+    correo: 'offline@dev.tec',
+    rol: 'Developer',
+    token: '',
+  );
+  bool isOnline = true;
 
   init() async {
     _preferences = await SharedPreferences.getInstance();
@@ -25,5 +34,14 @@ class GlobalSettings {
   set user(UserLogin user) {
     _preferences.setString(TOKEN_NAME, user.token);
     this._user = user;
+  }
+
+  bool get existToken {
+    print('TOKEN: $token');
+    return token != '';
+  }
+
+  void logout() {
+    _preferences.setString(TOKEN_NAME, '');
   }
 }

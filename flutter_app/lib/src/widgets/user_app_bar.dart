@@ -21,7 +21,12 @@ class UserAppBar extends StatelessWidget implements PreferredSizeWidget {
       actions: [
         IconButton(
           onPressed: () {
-            Navigator.of(context).pushReplacementNamed(DEFAULT);
+            if (_globalSettings.isOnline) {
+              _globalSettings.logout();
+              Navigator.of(context).pushReplacementNamed(DEFAULT);
+            } else {
+              Navigator.of(context).pushReplacementNamed(LOAD);
+            }
           },
           icon: Icon(
             Icons.chevron_right,

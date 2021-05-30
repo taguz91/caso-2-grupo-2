@@ -1,11 +1,14 @@
+import 'dart:async';
+
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/routes_generator.dart';
+import 'package:flutter_app/src/widgets/loading_text.dart';
 
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 
-import 'package:flutter_app/routes_generator.dart';
 import 'package:flutter_app/src/models/definitios.dart';
 import 'package:flutter_app/src/providers/usuario_provider.dart';
-import 'package:flutter_app/src/utils/constantes.dart';
 import 'package:flutter_app/src/utils/global_settings.dart';
 import 'package:flutter_app/src/widgets/form_error_message.dart';
 import 'package:flutter_app/src/widgets/input_container_widget.dart';
@@ -18,13 +21,50 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final GlobalKey<FormBuilderState> _formKey = GlobalKey<FormBuilderState>();
-  final UsuarioProvider _usuarioProvider = new UsuarioProvider();
-  final GlobalSettings _globalSettings = new GlobalSettings();
+  final _usuarioProvider = new UsuarioProvider();
+  final _globalSettings = new GlobalSettings();
+  late StreamSubscription<ConnectivityResult> _connectivityResult;
+  bool _haveConection = true;
 
   String? _loginError;
 
   @override
+  void initState() {
+    super.initState();
+    _connectivityResult = Connectivity().onConnectivityChanged.listen(
+      (ConnectivityResult result) {
+        if (result == ConnectivityResult.none) {
+          setState(() => _haveConection = false);
+        } else {
+          setState(() => _haveConection = true);
+        }
+      },
+    );
+  }
+
+  @override
+  void dispose() {
+    _connectivityResult.cancel();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    if (!_haveConection) {
+      Future.delayed(Duration(milliseconds: 500)).then(
+        (_) => {Navigator.of(context).pushReplacementNamed(HOME_OFFLINE)},
+      );
+      return Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+        ),
+        body: LoadingText(
+          text: 'Se perdio la conexión, redireccionando a la versión offline.',
+        ),
+      );
+    }
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -77,16 +117,11 @@ class _LoginPageState extends State<LoginPage> {
           if (res.error != null) {
             setState(() => _loginError = res.error!.message);
           } else {
-            _globalSettings.user = res.user!;
-            final int userType = res.user!.type;
+            UserLogin user = res.user!;
+            _globalSettings.user = user;
 
-            if (userType == ROL_COORDINADOR) {
-              Navigator.of(context).pushReplacementNamed(COORDINADOR_PAGE);
-            } else if (userType == ROL_SOPORTE_N1 ||
-                userType == ROL_SOPORTE_N2) {
-              Navigator.of(context).pushReplacementNamed(SOPORTE_PAGE);
-            } else if (userType == ROL_USUARIO) {
-              Navigator.of(context).pushReplacementNamed(USER_PAGE);
+            if (user.haveAccess) {
+              Navigator.of(context).pushReplacementNamed(user.redirectUrl);
             } else {
               setState(
                 () => _loginError =
@@ -108,7 +143,7 @@ class _LoginPageState extends State<LoginPage> {
             label: 'Correo:',
             child: FormBuilderTextField(
               name: "correo",
-              initialValue: "johnnygar98@hotmail.com",
+              // initialValue: "johnnygar98@hotmail.com",
               // initialValue: "coordinador@dev.tec",
               // initialValue: "soporten1@dev.tec",
               keyboardType: TextInputType.emailAddress,
@@ -122,7 +157,7 @@ class _LoginPageState extends State<LoginPage> {
             label: "Contraseña:",
             child: FormBuilderTextField(
               name: "password",
-              initialValue: "12345678",
+              // initialValue: "12345678",
               keyboardType: TextInputType.visiblePassword,
               obscureText: true,
               validator: FormBuilderValidators.compose([

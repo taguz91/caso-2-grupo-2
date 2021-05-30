@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter_app/src/widgets/form/form_header_section.dart';
 
 import 'package:get/get.dart';
 
@@ -70,39 +71,45 @@ class _CatalogoServicioPageState extends State<CatalogoServicioPage> {
             horizontal: 15,
             vertical: 20,
           ),
-          decoration: BoxDecoration(
-            color: Colors.transparent,
-          ),
-          child: ListView.separated(
-            physics: BouncingScrollPhysics(),
-            controller: _scrollController,
-            shrinkWrap: true,
-            primary: false,
-            itemCount: _catalogoServicioController.servicios.length + 1,
-            separatorBuilder: (context, index) {
-              return SizedBox(height: 10);
-            },
-            itemBuilder: (BuildContext context, int index) {
-              if (_catalogoServicioController.servicios.length == index) {
-                return Obx(() {
-                  if (_catalogoServicioController.isLast.value) {
-                    return InfoText(
-                      'Terminamos de cargar el catalogo de ${widget.tipoServicio.nombre}.',
-                    );
-                  }
-                  return InfoText('Cargando...');
-                });
-              }
+          child: Column(
+            children: [
+              FormHeaderSection(2),
+              SizedBox(height: 15),
+              Expanded(
+                child: ListView.separated(
+                  physics: BouncingScrollPhysics(),
+                  controller: _scrollController,
+                  shrinkWrap: true,
+                  primary: false,
+                  itemCount: _catalogoServicioController.servicios.length + 1,
+                  separatorBuilder: (context, index) {
+                    return SizedBox(height: 10);
+                  },
+                  itemBuilder: (BuildContext context, int index) {
+                    if (_catalogoServicioController.servicios.length == index) {
+                      return Obx(() {
+                        if (_catalogoServicioController.isLast.value) {
+                          return InfoText(
+                            'Terminamos de cargar el catalogo de ${widget.tipoServicio.nombre}.',
+                          );
+                        }
+                        return InfoText('Cargando...');
+                      });
+                    }
 
-              return TapOption(
-                label: _catalogoServicioController.servicios[index].descripcion,
-                onTap: () {
-                  widget.onSelectCatalogo(
-                    _catalogoServicioController.servicios[index],
-                  );
-                },
-              );
-            },
+                    return TapOption(
+                      label: _catalogoServicioController
+                          .servicios[index].descripcion,
+                      onTap: () {
+                        widget.onSelectCatalogo(
+                          _catalogoServicioController.servicios[index],
+                        );
+                      },
+                    );
+                  },
+                ),
+              ),
+            ],
           ),
         );
       }),
