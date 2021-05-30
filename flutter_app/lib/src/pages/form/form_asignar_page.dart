@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/src/providers/usuario_provider.dart';
 import 'package:flutter_app/src/utils/constantes.dart';
+import 'package:flutter_app/src/utils/global_settings.dart';
 
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 
@@ -24,6 +25,7 @@ class FormAsignarPage extends StatefulWidget {
 class _FormAsignarPageState extends State<FormAsignarPage> {
   final _formAsignarKey = GlobalKey<FormBuilderState>();
   final List<ComboUsuario> _usuariosSoporte = [];
+  final _globalSettings = GlobalSettings();
 
   final _ticketProvider = TicketProvider();
   final _usuarioProvider = UsuarioProvider();
@@ -87,7 +89,12 @@ class _FormAsignarPageState extends State<FormAsignarPage> {
             'ticketId': widget.ticketHome.ticketId,
           }..addAll(_formAsignarKey.currentState!.value));
           if (newTicket != null) {
-            Navigator.of(context).pushReplacementNamed(COORDINADOR_PAGE);
+            final type = _globalSettings.user.type;
+            if (type == ROL_COORDINADOR) {
+              Navigator.of(context).pushReplacementNamed(COORDINADOR_PAGE);
+            } else {
+              Navigator.of(context).pushReplacementNamed(SOPORTE_PAGE);
+            }
           } else {
             setState(() => _formError =
                 'Error al asignar el ticket, vuelve a intentarlo en unos minutos.');
