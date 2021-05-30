@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
+
+import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:get/get.dart';
+
 import 'package:flutter_app/routes_generator.dart';
+import 'package:flutter_app/src/controllers/providers/parametro_provider_controller.dart';
 import 'package:flutter_app/src/controllers/user_home_controller.dart';
 import 'package:flutter_app/src/models/catalogo.dart';
-import 'package:flutter_app/src/models/parametros.dart';
-import 'package:flutter_app/src/providers/parametro_provider.dart';
 import 'package:flutter_app/src/providers/ticket_provider.dart';
 import 'package:flutter_app/src/widgets/form_error_message.dart';
 import 'package:flutter_app/src/widgets/input_container_widget.dart';
 import 'package:flutter_app/src/widgets/load_button.dart';
-import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:get/get.dart';
 
 class FormTicketPage extends StatefulWidget {
   final CatalogoServicio _catalogoServicio;
@@ -21,16 +22,15 @@ class FormTicketPage extends StatefulWidget {
 
 class _FormTicketPageState extends State<FormTicketPage> {
   final _formKey = GlobalKey<FormBuilderState>();
-  final _userHomeController = Get.put(UserHomeController());
-  final List<Parametro> nivelesImpacto = [];
-  final _parametroProvider = new ParametroProvider();
-  final _ticketProvider = new TicketProvider();
 
+  final _userHomeController = Get.put(UserHomeController());
+  final _parametroProviderController = Get.put(ParametroProviderController());
+
+  final _ticketProvider = new TicketProvider();
   String? _formError;
 
   @override
   Widget build(BuildContext context) {
-    _loadImpactos();
     return SingleChildScrollView(
       physics: BouncingScrollPhysics(),
       child: Container(
@@ -54,14 +54,6 @@ class _FormTicketPageState extends State<FormTicketPage> {
     );
   }
 
-  _loadImpactos() {
-    if (nivelesImpacto.isEmpty) {
-      _parametroProvider.listImpactos().then((value) {
-        setState(() => nivelesImpacto.addAll(value));
-      });
-    }
-  }
-
   LoadButton _saveButton(BuildContext context) {
     return LoadButton(
       onTap: () async {
@@ -78,8 +70,10 @@ class _FormTicketPageState extends State<FormTicketPage> {
             _userHomeController.reset();
             Navigator.of(context).pushReplacementNamed(USER_PAGE);
           } else {
-            setState(() => _formError =
-                'Error al ingresar el ticket, vuelve a intentarlo en unos minutos.');
+            setState(
+              () => _formError =
+                  'Error al ingresar el ticket, vuelve a intentarlo en unos minutos.',
+            );
           }
         }
       },
@@ -118,25 +112,29 @@ class _FormTicketPageState extends State<FormTicketPage> {
           ),
           InputContainerWidget(
             label: 'Impacto:',
-            child: FormBuilderDropdown(
-              name: "impactoId",
-              validator: FormBuilderValidators.compose([
-                FormBuilderValidators.required(context),
-              ]),
-              hint: Text(
-                nivelesImpacto.isEmpty
-                    ? 'Cargando impactos...'
-                    : 'Selecionar impacto',
-              ),
-              items: nivelesImpacto
-                  .map(
-                    (e) => DropdownMenuItem(
-                      value: e.parametrosId,
-                      child: Text(e.nombre),
-                    ),
-                  )
-                  .toList(),
-            ),
+            child: Obx(() {
+              final nivelesImpacto = _parametroProviderController.impactos;
+
+              return FormBuilderDropdown(
+                name: "impactoId",
+                validator: FormBuilderValidators.compose([
+                  FormBuilderValidators.required(context),
+                ]),
+                hint: Text(
+                  nivelesImpacto.isEmpty
+                      ? 'Cargando impactos...'
+                      : 'Selecionar impacto',
+                ),
+                items: nivelesImpacto
+                    .map(
+                      (e) => DropdownMenuItem(
+                        value: e.parametrosId,
+                        child: Text(e.nombre),
+                      ),
+                    )
+                    .toList(),
+              );
+            }),
           ),
         ],
       ),

@@ -1,8 +1,8 @@
+import 'package:flutter/material.dart';
 import 'dart:async';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
 
-import 'package:flutter/material.dart';
 import 'package:flutter_app/routes_generator.dart';
 import 'package:flutter_app/src/models/definitios.dart';
 import 'package:flutter_app/src/providers/usuario_provider.dart';
