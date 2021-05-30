@@ -26,7 +26,9 @@ class UsuarioProvider {
 
     LoginResponse login = new LoginResponse();
 
-    Map<String, dynamic> dataResponse = json.decode(response.body);
+    Map<String, dynamic> dataResponse = json.decode(
+      utf8.decode(response.bodyBytes),
+    );
     if (HttpStatus.accepted == response.statusCode) {
       login.user = UserLogin.fromJson(dataResponse);
     } else {

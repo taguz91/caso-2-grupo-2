@@ -17,9 +17,9 @@ class PersonalAppBar extends StatelessWidget implements PreferredSizeWidget {
       leading: IconButton(
         onPressed: () {
           if (user.type == ROL_COORDINADOR) {
-            Navigator.pushNamed(context, COORDINADOR_PAGE);
+            Navigator.pushReplacementNamed(context, COORDINADOR_PAGE);
           } else {
-            Navigator.pushNamed(context, SOPORTE_PAGE);
+            Navigator.pushReplacementNamed(context, SOPORTE_PAGE);
           }
         },
         icon: Icon(
