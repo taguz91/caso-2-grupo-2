@@ -113,7 +113,9 @@ class TicketProvider {
     final response = await _httpAuth.post(url, body: jsonEncode(data));
 
     if (HttpStatus.created == response.statusCode) {
-      Map<String, dynamic> dataResponse = json.decode(response.body);
+      Map<String, dynamic> dataResponse = json.decode(
+        utf8.decode(response.bodyBytes),
+      );
       return dataResponse['ticket_id'] ?? 0;
     }
 
@@ -124,5 +126,21 @@ class TicketProvider {
     final url = Uri.parse('$URL_BASE_V1/encuesta/');
     final response = await _httpAuth.post(url, body: jsonEncode(data));
     return HttpStatus.created == response.statusCode;
+  }
+
+  Future<List<TicketCount>> getTicketsCount() async {
+    final url = Uri.parse('$URL_BASE_V1/usuario/chart/actual');
+    final response = await _httpAuth.get(url);
+    List<TicketCount> list = [];
+
+    if (HttpStatus.ok == response.statusCode) {
+      List<dynamic> dataResponse = json.decode(
+        utf8.decode(response.bodyBytes),
+      );
+      dataResponse.forEach((json) {
+        list.add(TicketCount.fromJson(json));
+      });
+    }
+    return list;
   }
 }

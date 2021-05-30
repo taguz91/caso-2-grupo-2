@@ -126,3 +126,18 @@ class TicketView {
     }
   }
 }
+
+class TicketCount {
+  late String nombre;
+  late int total;
+
+  TicketCount({
+    required this.nombre,
+    required this.total,
+  });
+
+  TicketCount.fromJson(Map<String, dynamic> json) {
+    nombre = json['nombre'];
+    total = json['total'];
+  }
+}
