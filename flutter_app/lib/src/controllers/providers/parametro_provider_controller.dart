@@ -8,10 +8,14 @@ class ParametroProviderController extends GetxController {
   var impactos = <Parametro>[].obs;
   var loadingImpactos = false.obs;
 
+  var tiposServicios = <Parametro>[].obs;
+  var loadingServicios = false.obs;
+
   @override
   void onInit() {
     super.onInit();
     loadImpactos();
+    loadTiposServicios();
   }
 
   void loadImpactos() async {
@@ -19,5 +23,12 @@ class ParametroProviderController extends GetxController {
     final list = await _parametroProvider.listImpactos();
     impactos.addAll(list);
     loadingImpactos(false);
+  }
+
+  void loadTiposServicios() async {
+    loadingServicios(true);
+    final list = await _parametroProvider.listTipoServicios();
+    tiposServicios.addAll(list);
+    loadingServicios(false);
   }
 }

@@ -36,6 +36,11 @@ class GlobalSettings {
     this._user = user;
   }
 
+  bool get existToken {
+    print('TOKEN: $token');
+    return token != '';
+  }
+
   void logout() {
     _preferences.setString(TOKEN_NAME, '');
   }

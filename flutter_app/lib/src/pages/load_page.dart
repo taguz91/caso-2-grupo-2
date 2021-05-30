@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:connectivity_plus/connectivity_plus.dart';
 
 import 'package:flutter/material.dart';
@@ -9,9 +11,31 @@ import 'package:flutter_app/src/widgets/info_text.dart';
 import 'package:flutter_app/src/widgets/load_button.dart';
 import 'package:flutter_app/src/widgets/loading_text.dart';
 
-class LoadPage extends StatelessWidget {
+class LoadPage extends StatefulWidget {
+  @override
+  _LoadPageState createState() => _LoadPageState();
+}
+
+class _LoadPageState extends State<LoadPage> {
   final _usuarioProvider = UsuarioProvider();
   final _globalSettings = new GlobalSettings();
+  late StreamSubscription<ConnectivityResult> _connectivityResult;
+
+  @override
+  void initState() {
+    super.initState();
+    _connectivityResult = Connectivity().onConnectivityChanged.listen(
+      (ConnectivityResult result) {
+        setState(() {});
+      },
+    );
+  }
+
+  @override
+  void dispose() {
+    _connectivityResult.cancel();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,9 +73,19 @@ class LoadPage extends StatelessWidget {
                 ],
               );
             }
-            return _initUser(context);
-          } else if (snapshot.hasError) {
-            return LoadingText(text: 'Error en la conexón: ${snapshot.error}');
+
+            if (_globalSettings.existToken) {
+              return _initUser(context);
+            }
+
+            Future.delayed(Duration(milliseconds: 150)).then(
+              (_) => {Navigator.of(context).pushReplacementNamed(DEFAULT)},
+            );
+            return Center(
+              child: InfoText(
+                'Directo al login...',
+              ),
+            );
           }
 
           return LoadingText(text: 'Comprobando conexión...');

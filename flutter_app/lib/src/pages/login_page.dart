@@ -1,4 +1,9 @@
+import 'dart:async';
+
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/routes_generator.dart';
+import 'package:flutter_app/src/widgets/loading_text.dart';
 
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 
@@ -18,11 +23,48 @@ class _LoginPageState extends State<LoginPage> {
   final GlobalKey<FormBuilderState> _formKey = GlobalKey<FormBuilderState>();
   final _usuarioProvider = new UsuarioProvider();
   final _globalSettings = new GlobalSettings();
+  late StreamSubscription<ConnectivityResult> _connectivityResult;
+  bool _haveConection = true;
 
   String? _loginError;
 
   @override
+  void initState() {
+    super.initState();
+    _connectivityResult = Connectivity().onConnectivityChanged.listen(
+      (ConnectivityResult result) {
+        if (result == ConnectivityResult.none) {
+          setState(() => _haveConection = false);
+        } else {
+          setState(() => _haveConection = true);
+        }
+      },
+    );
+  }
+
+  @override
+  void dispose() {
+    _connectivityResult.cancel();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    if (!_haveConection) {
+      Future.delayed(Duration(milliseconds: 500)).then(
+        (_) => {Navigator.of(context).pushReplacementNamed(HOME_OFFLINE)},
+      );
+      return Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+        ),
+        body: LoadingText(
+          text: 'Se perdio la conexión, redireccionando a la versión offline.',
+        ),
+      );
+    }
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
