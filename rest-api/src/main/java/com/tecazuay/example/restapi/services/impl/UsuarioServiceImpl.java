@@ -99,7 +99,10 @@ public class UsuarioServiceImpl implements UsuarioService {
 					user.setNombres(up.getNombres());
 					user.setCorreo(up.getCorreo());
 					user.setTelefono(up.getTelefono());
-					user.setPassword(passwordEncoder.encode(up.getPassword()));
+
+					if (!up.getPassword().isEmpty() && !up.getPassword().isBlank() && up.getPassword().length() > 8) {
+						user.setPassword(up.getPassword());
+					}
 								
 					return new ResponseModel(true, this.usuarioRepository.save(user), "Usuario Actualizado");
 

@@ -41,6 +41,7 @@ export class ProfileComponent implements OnInit {
     this.userService.readUserById(this.user.personaId).subscribe(data => {
       if (data != null) {
         this.usuario = data;
+        console.log(this.usuario)
       }
     });
   }

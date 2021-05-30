@@ -25,7 +25,6 @@ public class UsuarioEditParam {
 	@Email
 	private String correo;
 
-	@NotEmpty
 	@Pattern(regexp = "[^.]{8,30}")
 	private String password;
 
