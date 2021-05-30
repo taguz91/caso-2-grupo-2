@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/src/models/usuario.dart';
 import 'package:flutter_app/src/pages/form/form_asignar_page.dart';
 import 'package:flutter_app/src/pages/form/form_cerrar_page.dart';
+import 'package:flutter_app/src/pages/form/form_encuesta_page.dart';
 import 'package:flutter_app/src/pages/form/form_rechazar_page.dart';
 import 'package:flutter_app/src/providers/ticket_provider.dart';
 import 'package:flutter_app/src/utils/constantes.dart';
@@ -50,7 +51,7 @@ class TicketViewPage extends StatelessWidget {
     print("USER TYPE: ${user.type.toString()}");
     switch (user.type) {
       case ROL_USUARIO:
-        return _user();
+        return _user(context);
       case ROL_SOPORTE_N1:
         return _soporteN1(context);
       case ROL_SOPORTE_N2:
@@ -78,7 +79,7 @@ class TicketViewPage extends StatelessWidget {
     );
   }
 
-  FloatingButtonList _user() {
+  FloatingButtonList _user(BuildContext context) {
     return FloatingButtonList(
       children: [
         if (!ticket.isClosed)
@@ -92,7 +93,11 @@ class TicketViewPage extends StatelessWidget {
         if (ticket.isSolucionado) SizedBox(width: 15),
         if (ticket.isSolucionado)
           FloatingActionButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (_) => FormEncuestaPage(ticket),
+              ));
+            },
             child: Icon(
               Icons.text_snippet,
               color: Colors.white,

@@ -19,6 +19,7 @@ class TicketInformation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
+      physics: BouncingScrollPhysics(),
       child: Container(
         margin: EdgeInsets.symmetric(vertical: 20, horizontal: 25),
         child: Column(

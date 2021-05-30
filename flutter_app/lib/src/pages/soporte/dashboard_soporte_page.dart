@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+
+import 'package:get/get.dart';
+
 import 'package:flutter_app/src/controllers/dasboard_soporte_controller.dart';
 import 'package:flutter_app/src/widgets/header_ticket_list.dart';
 import 'package:flutter_app/src/widgets/info_text.dart';
 import 'package:flutter_app/src/widgets/personal_app_bar.dart';
 import 'package:flutter_app/src/widgets/ticket_preview.dart';
-import 'package:get/get.dart';
 
 class DashboardSoportePage extends StatefulWidget {
   @override

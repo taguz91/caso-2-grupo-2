@@ -107,9 +107,9 @@ class _LoginPageState extends State<LoginPage> {
             label: 'Correo:',
             child: FormBuilderTextField(
               name: "correo",
-              // initialValue: "johnnygar98@hotmail.com",
+              initialValue: "johnnygar98@hotmail.com",
               // initialValue: "coordinador@dev.tec",
-              initialValue: "soporten1@dev.tec",
+              // initialValue: "soporten1@dev.tec",
               keyboardType: TextInputType.emailAddress,
               validator: FormBuilderValidators.compose([
                 FormBuilderValidators.required(context),

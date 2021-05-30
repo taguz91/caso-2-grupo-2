@@ -119,4 +119,10 @@ class TicketProvider {
 
     return 0;
   }
+
+  Future<bool> addEncuesta(Map<String, dynamic> data) async {
+    final url = Uri.parse('$URL_BASE_V1/encuesta/');
+    final response = await _httpAuth.post(url, body: jsonEncode(data));
+    return HttpStatus.created == response.statusCode;
+  }
 }
