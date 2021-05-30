@@ -13,6 +13,8 @@ const _EXCEL_EXT = '.xlsx';
 @Injectable({
   providedIn: 'root',
 })
+
+//Reporte PDF VERSION 1.5
 export class ReporteService {
   img = new Image();
   constructor() {}
@@ -26,6 +28,8 @@ export class ReporteService {
     const dia = new NgbCalendarGregorian().getToday().day;
     const mes = new NgbCalendarGregorian().getToday().month;
     const year = new NgbCalendarGregorian().getToday().year;
+
+    const fecha="dia mes"
     let html2canvasOptions = {
       allowTaint: true,
       removeContainer: true,
@@ -75,7 +79,7 @@ export class ReporteService {
         );
         heightLeft -= pageHeight;
       }
-      pdf.save('resume.pdf'); // Generated PDF
+      pdf.save('TIRTEC_Reporte.pdf'); // Generated PDF
 
       if (screen.width < 1024) {
         document
@@ -84,7 +88,7 @@ export class ReporteService {
       }
     });
   }
-
+//Reporte XLSX version.1
   exportToExcel(json: any, excelFileName: string): void {
     const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);
     const workbook: XLSX.WorkBook = {
@@ -106,6 +110,7 @@ export class ReporteService {
     );
   }
 
+  //Reporte PDF TEST
   reporteTabla(datas: string) {
     if (screen.width < 1024) {
       document

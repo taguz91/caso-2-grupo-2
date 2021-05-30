@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { TicketView, TicketViewExcel } from 'src/app/models/ticket';
-import { PageMetadata, PageResponse } from '../../../../models/parametros';
+import { TicketView} from 'src/app/models/ticket';
+import { PageMetadata} from '../../../../models/parametros';
 import {DEFAULT_PAGE_METADA, DEFAULT_PAGE_SIZE} from '../../../../utils/constantes';
 import { BreadcrumbService } from '../../../../services/breadcrumb.service';
 import { ReporteService } from '../../../../services/reporte.service';
 import { TicketService } from 'src/app/services/ticket.service';
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-report-ticket',
