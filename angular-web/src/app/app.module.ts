@@ -51,6 +51,7 @@ import { AdminSearchComponent } from './components/admin/admin-search/admin-sear
 import { FilterPipe } from './components/admin/admin-report/pipe/filter.pipe';
 import { AdminEncuestaComponent } from './components/admin/admin-encuesta/admin-encuesta.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { OverleyComponent } from './components/common/overley/overley.component';
 
 @NgModule({
   declarations: [
@@ -99,6 +100,7 @@ import { ProfileComponent } from './components/profile/profile.component';
     ProfileComponent,
     ProfileComponent,
     AdminEncuestaComponent,
+    OverleyComponent,
   ],
   imports: [
     BrowserModule,

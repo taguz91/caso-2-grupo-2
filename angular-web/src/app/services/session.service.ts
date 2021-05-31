@@ -103,6 +103,9 @@ export class SessionService {
   }
 
   private isRol(rol: number): boolean {
-    return this.user.type === rol;
+    if (this.user) {
+      return this.user.type === rol;
+    }
+    return false;
   }
 }

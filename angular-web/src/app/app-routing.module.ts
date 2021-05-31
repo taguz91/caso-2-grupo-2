@@ -27,8 +27,13 @@ import { FilterPersonalService } from './services/auth/filter-personal.service';
 import { FilterUsuarioService } from './services/auth/filter-usuario.service';
 import { AdminReportComponent } from './components/admin/admin-report/admin-report.component';
 import { AdminEncuestaComponent } from './components/admin/admin-encuesta/admin-encuesta.component';
+import { OverleyComponent } from './components/common/overley/overley.component';
 
 const routes: Routes = [
+  {
+    path: 'load',
+    component: OverleyComponent,
+  },
   // Public rutes goes here
   {
     path: '',

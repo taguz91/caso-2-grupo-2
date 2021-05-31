@@ -14,21 +14,14 @@ export class FilterUsuarioService implements CanActivate {
   constructor(private router: Router, private sessionService: SessionService) {}
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    const user = this.sessionService.user;
-    if (user) {
-      return this.validate();
-    }
-    this.sessionService.getUser().subscribe(() => {
-      this.validate();
-    });
-    return true;
+    return this.validate();
   }
 
   private validate(): boolean {
     if (this.sessionService.isFinalUser()) {
       return true;
     } else {
-      this.router.navigate(['/']);
+      this.router.navigate(['/load']);
       return false;
     }
   }

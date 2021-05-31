@@ -9,12 +9,41 @@ import 'package:flutter_app/routes_generator.dart';
 import 'package:flutter_app/src/utils/global_settings.dart';
 import 'package:flutter_app/src/utils/theme_data.dart';
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  final localSettings = new GlobalSettings();
-  await localSettings.init();
-  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
-      .then((_) => runApp(MyApp()));
+void main() => runApp(Splash());
+
+class Splash extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MediaQuery(
+      data: MediaQueryData(),
+      child: FutureBuilder(
+        future: _futureGroup(),
+        builder: (context, AsyncSnapshot snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return MaterialApp(
+              title: 'Tirtec',
+              debugShowCheckedModeBanner: false,
+              home: Scaffold(
+                body: Container(
+                  color: PRIMARY_COLOR,
+                ),
+              ),
+            );
+          } else {
+            // Loading is done, return the app:
+            return MyApp();
+          }
+        },
+      ),
+    );
+  }
+
+  Future<bool> _futureGroup() async {
+    final localSettings = new GlobalSettings();
+    await localSettings.init();
+    await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+    return true;
+  }
 }
 
 class MyApp extends StatelessWidget {

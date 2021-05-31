@@ -140,7 +140,7 @@ export class UserRegistroTicketComponent implements OnInit {
         // Esperamos un segundo para que nos devuelva el historial completo
         setTimeout(() => {
           this.onSaved(this.redirectUrl());
-        }, 1000);
+        }, 2500);
       }
     });
   }
