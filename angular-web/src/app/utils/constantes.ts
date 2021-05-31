@@ -52,7 +52,6 @@ export function loadHeader() {
 
 export function handleError<T>(result?: T, alertService?: AlertService) {
   return (error: any): Observable<T> => {
-    console.error(error);
     if (error.error) {
       if (alertService && error.error.message) {
         alertService.error(error.error.message);
