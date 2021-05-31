@@ -31,7 +31,7 @@ class DashboardSoporteController extends GetxController {
     isLoading(true);
     try {
       final pageResponse = await _ticketProvider.listSoporte(page);
-      isLast(pageResponse.meta.pages == page + 1);
+      isLast(pageResponse.meta.isLastPage(page));
       tickets.addAll(pageResponse.data);
       total(pageResponse.meta.items);
     } finally {

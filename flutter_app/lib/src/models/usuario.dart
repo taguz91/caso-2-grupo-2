@@ -31,6 +31,18 @@ class UserLogin {
     type = json['type'];
   }
 
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['personaId'] = this.personaId;
+    data['correo'] = this.correo;
+    data['nombres'] = this.nombres;
+    data['apellidos'] = this.apellidos;
+    data['token'] = this.token;
+    data['rol'] = this.rol;
+    data['type'] = this.type;
+    return data;
+  }
+
   get nombreCompleto => '$nombres $apellidos';
 
   get isSoporte => [

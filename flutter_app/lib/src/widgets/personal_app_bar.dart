@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/routes_generator.dart';
 import 'package:flutter_app/src/utils/global_settings.dart';
 import 'package:flutter_app/src/models/usuario.dart';
+import 'package:flutter_app/src/widgets/logout_button.dart';
+import 'package:flutter_app/src/widgets/user/user_accounts.dart';
 
 class PersonalAppBar extends StatelessWidget implements PreferredSizeWidget {
   final GlobalSettings _globalSettings = GlobalSettings();
@@ -52,14 +54,19 @@ class PersonalAppBar extends StatelessWidget implements PreferredSizeWidget {
       actions: [
         IconButton(
           onPressed: () {
-            _globalSettings.logout();
-            Navigator.of(context).pushReplacementNamed(DEFAULT);
+            showModalBottomSheet(
+              context: context,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(20)),
+              ),
+              builder: (BuildContext context) {
+                return UserAccounts();
+              },
+            );
           },
-          icon: Icon(
-            Icons.chevron_right,
-            color: Colors.red,
-          ),
+          icon: Icon(Icons.account_circle),
         ),
+        LogoutButton(),
       ],
       bottom: PreferredSize(
         child: Container(

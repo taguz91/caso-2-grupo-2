@@ -112,7 +112,7 @@ class _LoadPageState extends State<LoadPage> {
             );
           } else {
             UserLogin user = res.user!;
-            _globalSettings.user = user;
+            _globalSettings.setUser(user);
 
             if (user.haveAccess) {
               Future.delayed(Duration(milliseconds: 500)).then(

@@ -31,8 +31,8 @@ class GlobalSettings {
 
   UserLogin get user => this._user;
 
-  set user(UserLogin user) {
-    _preferences.setString(TOKEN_NAME, user.token);
+  setUser(UserLogin user) async {
+    await _preferences.setString(TOKEN_NAME, user.token);
     this._user = user;
   }
 
