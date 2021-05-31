@@ -202,7 +202,6 @@ export class AdminRegisterComponent implements OnInit {
       if (correo.match(EMAIL_REGEX) && correo.length > 5) {
 
         return true;
-
       } else {
         this.show_response('Formato del correo incorrecto');
         return false
