@@ -1,7 +1,7 @@
 <div id="administradores" class="card shadow mb-5">
     <div class="card-header">
-        <h3 class="text-center">Coordinadores</h3>
-        <h3 class="text-end"> <button type="button" (click)="GetReporte()" class="btn btn-outline-success">
+        <h3 class="text-center">{{ rol_name }}</h3>
+        <h3 class="text-end"> <button type="button" (click)="GetReporte()" class="btn btn-outline-info">
       Generar reporte
     </button> </h3>
     </div>
@@ -29,7 +29,7 @@
                     <td>{{ a.rol.nombre }}</td>
                     <td>
                         <button type="button" (click)="update(a)" class="btn btn-outline-warning">Editar</button>
-                        <button type="button" (click)="delete(a.personaId)" class="btn btn-outline-danger">Eliminar</button>
+                        <button type="button" (click)="delete(a)" class="btn btn-outline-danger">Eliminar</button>
                     </td>
                 </tr>
             </tbody>

@@ -5,6 +5,7 @@ import { Subject } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
 import { LocalService } from '../../../services/local.service';
 import { ReporteService } from 'src/app/services/reporte.service';
+import { AlertService } from '../../../services/alert.service';
 
 @Component({
   selector: 'app-admin-list',
@@ -17,13 +18,15 @@ export class AdminListComponent implements OnDestroy, OnInit {
   administradores: Usuario[] = []
   dtTrigger: Subject<any> = new Subject<any>();
   rolId: number = 0; //Lista todos las ususarios con este ID
+  rol_name: string;
 
   constructor(
     private usuarioService: UsuarioService,
     private router: Router,
     private localService:LocalService,
     private activatedRoute: ActivatedRoute,
-    private _reporte: ReporteService) { }
+    private _reporte: ReporteService,
+    private alertService: AlertService) { }
 
   ngOnInit(): void {
 
@@ -37,6 +40,7 @@ export class AdminListComponent implements OnDestroy, OnInit {
       }
     };
     this.loadAllUsers();
+    this.loadRolName();
   }
 
   loadAllUsers() {
@@ -73,11 +77,21 @@ export class AdminListComponent implements OnDestroy, OnInit {
       this.usuarioService.deleteUserById(usuario.personaId).subscribe(data => {
 
         if (data != null) {
-          alert(`${usuario.nombres} ${usuario.apellidos} fue eliminado`);
+          this.alertService.success(`${usuario.nombres} ${usuario.apellidos} fue eliminado exitosamente`);
           this.loadAllUsers();
         }
       });
     }
+  }
+
+  loadRolName() {
+    if (this.rolId == 1) { this.rol_name = 'Desarrollador'; }
+    else if (this.rolId == 2) { this.rol_name = 'Administrador'; }
+    else if (this.rolId == 3) { this.rol_name = 'Usuario'; }
+    else if (this.rolId == 4) { this.rol_name = 'Coordinador'; }
+    else if (this.rolId == 5) { this.rol_name = 'Soporte N1'; }
+    else if (this.rolId == 6) { this.rol_name = 'Soporte N2'; }
+    else { this.rol_name = 'Otro Rol'; }
   }
 
   GetReporte(){

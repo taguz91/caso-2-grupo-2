@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { Usuario } from 'src/app/models/usuario';
 import { LocalService } from 'src/app/services/local.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { Rol } from '../../../models/rol';
 import { RolService } from '../../../services/rol.service';
+import { AlertService } from '../../../services/alert.service';
 
 @Component({
   selector: 'app-admin-register',
@@ -18,13 +18,15 @@ export class AdminRegisterComponent implements OnInit {
   confirmar_pass: string;
   response_condicion: boolean;
   response_msg: string;
-  roles: Rol[] = []
-  rolId: number;
+  roles: Rol[] = [] // Roles cargador de la base de datos
+  rolId: number; //Rol del usuario
+  rol_name: string;
 
   constructor (
       private localService:LocalService,
       private usuarioService:UsuarioService,
-      private rolService: RolService ) {
+      private rolService: RolService,
+      private alertService: AlertService ) {
 
     this.localService.load_js('registro-usuario.component.js');
 
@@ -50,6 +52,7 @@ export class AdminRegisterComponent implements OnInit {
         this.roles = data;
       }
     });
+    this.loadRolName();
   }
 
   guardar() {
@@ -80,6 +83,7 @@ export class AdminRegisterComponent implements OnInit {
         this.usuario = new Usuario();
         this.confirmar_pass = null;
         this.response_condicion = false;
+        this.alertService.success(`${data.data.nombres} ${data.data.apellidos} registrado exitosamente`);
 
       } else {
         this.show_response(data.msg);
@@ -93,7 +97,7 @@ export class AdminRegisterComponent implements OnInit {
       if (data.status) {
 
         this.updateRol(this.usuario.personaId, this.usuario.rol.rolId);
-        alert(`Usuario ${data.data.nombres} ${data.data.apellidos} actualizado`);
+        this.alertService.success(`${data.data.nombres} ${data.data.apellidos} actualizado exitosamente`);
 
       } else {
         this.show_response(data.msg);
@@ -117,6 +121,16 @@ export class AdminRegisterComponent implements OnInit {
         return r;
       }
     }
+  }
+
+  loadRolName() {
+    if (this.rolId == 1) { this.rol_name = 'Desarrollador'; }
+    else if (this.rolId == 2) { this.rol_name = 'Administrador'; }
+    else if (this.rolId == 3) { this.rol_name = 'Usuario'; }
+    else if (this.rolId == 4) { this.rol_name = 'Coordinador'; }
+    else if (this.rolId == 5) { this.rol_name = 'Soporte N1'; }
+    else if (this.rolId == 6) { this.rol_name = 'Soporte N2'; }
+    else { this.rol_name = 'Otro Rol'; }
   }
 
   //Validaciones

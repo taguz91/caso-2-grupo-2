@@ -38,8 +38,6 @@ export class RegisterComponent implements OnInit {
 
           this.usuario = new Usuario();
           this.confirmar_pass = null;
-          sessionStorage.setItem(JWT_NAME, data.data.token);
-          localStorage.setItem(JWT_NAME, data.data.token);
           this.router.navigate(['/'])
           alert("¡Registrado con éxito! Ahora inicie seción con el correo y la contraseña");
 
