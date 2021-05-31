@@ -28,7 +28,7 @@ class CatalogoServicioController extends GetxController {
         tipoServicio: tipoServicio,
         page: 0,
       );
-      isLast(pageResponse.meta.pages == page + 1);
+      isLast(pageResponse.meta.isLastPage(page));
       servicios.addAll(pageResponse.data);
       total(pageResponse.meta.items);
     } finally {

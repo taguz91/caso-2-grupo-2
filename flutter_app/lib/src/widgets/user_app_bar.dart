@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/routes_generator.dart';
+
 import 'package:flutter_app/src/models/usuario.dart';
 import 'package:flutter_app/src/utils/global_settings.dart';
+import 'package:flutter_app/src/widgets/logout_button.dart';
 
 class UserAppBar extends StatelessWidget implements PreferredSizeWidget {
   final GlobalSettings _globalSettings = new GlobalSettings();
@@ -19,20 +20,7 @@ class UserAppBar extends StatelessWidget implements PreferredSizeWidget {
         ),
       ),
       actions: [
-        IconButton(
-          onPressed: () {
-            if (_globalSettings.isOnline) {
-              _globalSettings.logout();
-              Navigator.of(context).pushReplacementNamed(DEFAULT);
-            } else {
-              Navigator.of(context).pushReplacementNamed(LOAD);
-            }
-          },
-          icon: Icon(
-            Icons.chevron_right,
-            color: Colors.red,
-          ),
-        ),
+        LogoutButton(),
       ],
       bottom: PreferredSize(
         child: Container(

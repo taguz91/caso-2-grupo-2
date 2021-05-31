@@ -1,12 +1,12 @@
 import 'dart:async';
+import 'package:flutter/material.dart';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_app/routes_generator.dart';
-import 'package:flutter_app/src/widgets/loading_text.dart';
-
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 
+import 'package:flutter_app/routes_generator.dart';
+import 'package:flutter_app/src/data/user_repository.dart';
+import 'package:flutter_app/src/widgets/loading_text.dart';
 import 'package:flutter_app/src/models/definitios.dart';
 import 'package:flutter_app/src/providers/usuario_provider.dart';
 import 'package:flutter_app/src/utils/global_settings.dart';
@@ -21,11 +21,13 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final GlobalKey<FormBuilderState> _formKey = GlobalKey<FormBuilderState>();
+
   final _usuarioProvider = new UsuarioProvider();
   final _globalSettings = new GlobalSettings();
+  final _userRepository = UserRepository();
+
   late StreamSubscription<ConnectivityResult> _connectivityResult;
   bool _haveConection = true;
-
   String? _loginError;
 
   @override
@@ -118,9 +120,11 @@ class _LoginPageState extends State<LoginPage> {
             setState(() => _loginError = res.error!.message);
           } else {
             UserLogin user = res.user!;
-            _globalSettings.user = user;
 
             if (user.haveAccess) {
+              await _globalSettings.setUser(user);
+              // Guardamos el usuario en la base local
+              await _userRepository.saveOrUpdate(user);
               Navigator.of(context).pushReplacementNamed(user.redirectUrl);
             } else {
               setState(

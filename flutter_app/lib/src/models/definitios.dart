@@ -44,4 +44,8 @@ class PageMetadata {
     pages = json['pages'];
     perPage = json['perPage'];
   }
+
+  bool isLastPage(int page) {
+    return pages == page + 1 || pages == 0;
+  }
 }

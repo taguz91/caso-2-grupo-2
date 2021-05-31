@@ -82,6 +82,7 @@ class TicketViewPage extends StatelessWidget {
   FloatingButtonList _user(BuildContext context) {
     return FloatingButtonList(
       children: [
+        // TODO: Make editar
         if (!ticket.isClosed)
           FloatingActionButton(
             onPressed: () {},

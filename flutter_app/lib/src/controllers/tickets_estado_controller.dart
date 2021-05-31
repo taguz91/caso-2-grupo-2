@@ -29,7 +29,7 @@ class TicketEstadoController extends GetxController {
         page: page,
         estado: estado,
       );
-      isLast(pageResponse.meta.pages == page + 1);
+      isLast(pageResponse.meta.isLastPage(page));
       tickets.addAll(pageResponse.data);
       total(pageResponse.meta.items);
     } finally {
