@@ -17,7 +17,7 @@ public class RolServiceImpl implements RolService {
 
 	@Override
 	public List<Rol> findAll() {
-		return this.rolRepository.findAll();
+		return this.rolRepository.listAvaliable();
 	}
 
 	@Override

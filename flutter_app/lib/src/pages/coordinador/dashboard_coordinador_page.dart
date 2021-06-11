@@ -48,17 +48,18 @@ class _DashboardCoordinadorPageState extends State<DashboardCoordinadorPage> {
         currentIndex: _index,
         onTap: _onNav,
       ),
-      floatingActionButton: addNew
-          ? FloatingActionButton(
-              onPressed: () {
-                // _onNav(1);
-              },
-              child: Icon(
-                Icons.add,
-                color: Colors.white,
-              ),
-            )
-          : null,
+      // TODO: Make add from coordinador page
+      // floatingActionButton: addNew
+      //     ? FloatingActionButton(
+      //         onPressed: () {
+      //           // _onNav(1);
+      //         },
+      //         child: Icon(
+      //           Icons.add,
+      //           color: Colors.white,
+      //         ),
+      //       )
+      //     : null,
     );
   }
 

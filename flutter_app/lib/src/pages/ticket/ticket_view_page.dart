@@ -83,14 +83,14 @@ class TicketViewPage extends StatelessWidget {
     return FloatingButtonList(
       children: [
         // TODO: Make editar
-        if (!ticket.isClosed)
-          FloatingActionButton(
-            onPressed: () {},
-            child: Icon(
-              Icons.edit,
-              color: Colors.white,
-            ),
-          ),
+        // if (!ticket.isClosed)
+        //   FloatingActionButton(
+        //     onPressed: () {},
+        //     child: Icon(
+        //       Icons.edit,
+        //       color: Colors.white,
+        //     ),
+        //   ),
         if (ticket.isSolucionado) SizedBox(width: 15),
         if (ticket.isSolucionado)
           FloatingActionButton(
